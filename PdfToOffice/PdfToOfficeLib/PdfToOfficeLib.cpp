@@ -11,16 +11,18 @@ using namespace SolidFramework::Platform;
 
 bool PdfToOfficeLib::InitializeSolidFramework(const std::wstring& frameworkPath)
 {
+	// Open License File
 	std::ifstream licenseFile("../../../SolidFrameworkLicense/license.txt", std::ios::binary);
 	if (!licenseFile.is_open()) {
 		std::wcout << L"License file is not exist." << std::endl;
+		return false;
 	}
 
+	// Read License
 	std::array<char, 256> buffer;
 	std::vector<std::wstring> license;
 	license.resize(4);
 	for (int i = 0; i < 4; i++) {
-		//buffer.clear();
 		licenseFile.getline(&buffer[0], 255);
 		std::string temp = &buffer[0];
 		license[i].assign(temp.begin(), temp.end());

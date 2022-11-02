@@ -12,6 +12,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PdfToOfficeApp", "PdfToOffi
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PdfToOfficeLib", "PdfToOfficeLib\PdfToOfficeLib.vcxproj", "{6B57FC57-F57B-4E30-AF44-662FFD7D3BFE}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1. UI", "1. UI", "{EF2FD3A1-7970-4541-B4BD-E77FE4C12F47}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2. CLI", "2. CLI", "{FCE60C47-9295-40D2-BDD9-6DB30C94D347}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3. Engine", "3. Engine", "{5E9F971A-1B90-4379-9BBB-81817D5A2206}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PdfToOfficeUnitTest", "PdfToOfficeUnitTest\PdfToOfficeUnitTest.csproj", "{467B598C-AB3E-452C-A02B-13DAB4556CB7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -30,9 +38,19 @@ Global
 		{6B57FC57-F57B-4E30-AF44-662FFD7D3BFE}.Debug|x86.Build.0 = Debug|Win32
 		{6B57FC57-F57B-4E30-AF44-662FFD7D3BFE}.Release|x86.ActiveCfg = Release|Win32
 		{6B57FC57-F57B-4E30-AF44-662FFD7D3BFE}.Release|x86.Build.0 = Release|Win32
+		{467B598C-AB3E-452C-A02B-13DAB4556CB7}.Debug|x86.ActiveCfg = Debug|x86
+		{467B598C-AB3E-452C-A02B-13DAB4556CB7}.Debug|x86.Build.0 = Debug|x86
+		{467B598C-AB3E-452C-A02B-13DAB4556CB7}.Release|x86.ActiveCfg = Release|x86
+		{467B598C-AB3E-452C-A02B-13DAB4556CB7}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{2DB91959-A51F-4409-BD06-16E4187F48D6} = {FCE60C47-9295-40D2-BDD9-6DB30C94D347}
+		{D4F7AD7B-170F-4673-B3C8-09DF565B0778} = {EF2FD3A1-7970-4541-B4BD-E77FE4C12F47}
+		{6B57FC57-F57B-4E30-AF44-662FFD7D3BFE} = {5E9F971A-1B90-4379-9BBB-81817D5A2206}
+		{467B598C-AB3E-452C-A02B-13DAB4556CB7} = {EF2FD3A1-7970-4541-B4BD-E77FE4C12F47}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CE87E93C-609B-4D05-B0A7-BC90A2C364FA}

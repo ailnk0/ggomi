@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PdfToOfficeApp
 {
-    class PdfToOffice
+    public class PdfToOffice
     {
         public int RunSample()
         {
