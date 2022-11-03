@@ -8,12 +8,12 @@ namespace PdfToOfficeUnitTest
     public class PdfToOfficeUnitTest
     {
         [TestMethod]
-        public void TestRunSample()
+        public void TestMethod1()
         {
             PdfToOffice pdfToOffice = new PdfToOffice();
             int result = pdfToOffice.RunSample();
+
             Assert.AreEqual(0, result);
         }
     }
 }
-

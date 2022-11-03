@@ -5,7 +5,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{467B598C-AB3E-452C-A02B-13DAB4556CB7}</ProjectGuid>
+    <ProjectGuid>{44702C79-24F3-440C-9078-D5F86BAD844F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>PdfToOfficeUnitTest</RootNamespace>
