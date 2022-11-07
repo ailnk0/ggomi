@@ -16,6 +16,10 @@
         </ResourceDictionary>
     </Window.Resources>
 
+    <Window.DataContext>
+        <Binding Source="{StaticResource doclistbox-data}"/>
+    </Window.DataContext>
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="100"/>

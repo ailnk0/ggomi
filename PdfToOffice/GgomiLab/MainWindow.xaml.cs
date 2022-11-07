@@ -23,7 +23,7 @@ namespace GgomiLab
         {
             base.OnInitialized(e);
 
-            DocListData = FindResource("doclistbox-data") as IList<Doc>;
+            DocListData = DataContext as IList<Doc>;
 
             AddCommandHandlers(ApplicationCommands.Open, OnOpen, CanOpen);
             AddCommandHandlers(Convert, OnConvert, CanConvert);
@@ -49,18 +49,17 @@ namespace GgomiLab
             e.CanExecute = true;
         }
 
-        private void OnConvert(object sender, RoutedEventArgs e)
+        private void OnConvert(object sender, ExecutedRoutedEventArgs e)
         {
             var appModule = new PdfToOfficeAppModule.PdfToOfficeAppModule();
 
             int code = appModule.RunSample();
-            if (code != 0)
-            {
-                MessageBox.Show(string.Format("Conversion Failed.\n[{0}] {1}", code, Utils.GetErrorMessage(code)));
-                return;
-            }
 
-            MessageBox.Show("Conversion Success");
+            bool? showMessage = e.Parameter as bool?;
+            if (showMessage != false)
+            {
+                MessageBox.Show(string.Format("[{0}] {1}", code, Utils.GetErrorMessage(code)));
+            }
         }
 
         private void CanConvert(object sender, CanExecuteRoutedEventArgs e)
@@ -74,7 +73,7 @@ namespace GgomiLab
             e.CanExecute = true;
         }
 
-        private void AddCommandHandlers(RoutedCommand command, ExecutedRoutedEventHandler execute, CanExecuteRoutedEventHandler canExecute)
+        public void AddCommandHandlers(RoutedCommand command, ExecutedRoutedEventHandler execute, CanExecuteRoutedEventHandler canExecute)
         {
             CommandBindings.Add(
                 new CommandBinding(command,
