@@ -5,8 +5,105 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PdfToOfficeApp"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="PDF 파일 형식 변환기" Height="450" Width="800">
     <Grid>
-        <Label Name="pdftooffice_result"></Label>
+        <!--<Label Name="pdftooffice_result"></Label>-->
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="80"/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="25"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Label Content="파일 목록"/>
+                </Grid>
+                <Grid Grid.Row="1">
+                    <DataGrid x:Name="IDC_DataGrid_Files" Margin="3,3" ItemsSource="{Binding Path= FileInformations}" SelectedItem="{Binding SeletedFileInfo, Mode=TwoWay}" SelectionUnit="FullRow" AutoGenerateColumns="False" CanUserAddRows="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="파일 이름" Binding="{Binding StrFileName}"/>
+                            <DataGridTextColumn Header="쪽수" Binding="{Binding NFilePage}"/>
+                            <DataGridTextColumn Header="위치" Binding="{Binding StrFilePath}"/>
+                            <DataGridTextColumn Header="크기" Binding="{Binding StrFileSize}"/>
+                            <DataGridTextColumn Header="변환 범위" Binding="{Binding StrFileRange}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="80"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="30"/>
+                        <ColumnDefinition Width="30"/>
+                        <ColumnDefinition Width="30"/>
+                        <ColumnDefinition Width="30"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <Label Content="변환 형식" Margin="3,3"/>
+                    </Grid>
+                    <Grid Grid.Column="1">
+                        <ComboBox Name="IDC_ComboBox_FileFormat" Margin="3,3" DisplayMemberPath="Name" ItemsSource="{Binding Formats}" SelectedItem="{Binding SelectedFormat, Mode=TwoWay}"/>
+                    </Grid>
+                    <Grid Grid.Column="2">
+                        <Button x:Name="IDC_Button_AddFile" Content="+" Margin="3,3" Command="{Binding AddFileCommand}"/>
+                    </Grid>
+                    <Grid Grid.Column="3">
+                        <Button x:Name="IDC_Button_RemoveFile" Content="-" Margin="3,3" Command="{Binding RemoveFileCommand}"/>
+                    </Grid>
+                    <Grid Grid.Column="4">
+                        <Button x:Name="IDC_Button_UpFile" Content="↑" Margin="3,3" Command="{Binding UpFileCommand}"/>
+                    </Grid>
+                    <Grid Grid.Column="5">
+                        <Button x:Name="IDC_Button_DownFile" Content="↓" Margin="3,3" Command="{Binding DownFileCommand}"/>
+                    </Grid>
+                </Grid>
+                <Grid Grid.Row="3">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="80"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="30"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <Label Content="저장 경로" Margin="3,3"/>
+                    </Grid>
+                    <Grid Grid.Column="1">
+                        <TextBox x:Name="IDC_TextBox_SavePath" Text="{Binding StrSavePath, UpdateSourceTrigger=PropertyChanged}" Margin="3,3"/>
+                    </Grid>
+                    <Grid Grid.Column="2">
+                        <Button x:Name="IDC_Button_OpenFolder" Margin="3,3" Command="{Binding OpenFolderCommand}"/>
+                    </Grid>
+                </Grid>
+                      
+            </Grid>
+            <Grid Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="100"/>
+                </Grid.ColumnDefinitions>
+            </Grid>
+        </Grid>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <Button x:Name="IDC_Button_Ok" Content="변환하기" Margin="3,3" Command="{Binding OkCommand}"/>
+            </Grid>
+            <Grid Grid.Row="1">
+                <Button x:Name="IDC_Button_Cancel" Content="취소" Margin="3,3" Command="{Binding CancelCommand}"/>
+            </Grid>
+        </Grid>
     </Grid>
 </Window>
