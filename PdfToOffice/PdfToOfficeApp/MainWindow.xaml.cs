@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Microsoft.Win32;
 
 namespace PdfToOfficeApp
 {
@@ -23,20 +24,12 @@ namespace PdfToOfficeApp
         public MainWindow()
         {
             InitializeComponent();
-
-            int resultCode = RunSample();
-            if (resultCode == 0) {
-                pdftooffice_result.Content = "Conversion is done.";
-            }
-            else {
-                pdftooffice_result.Content = "Conversion is failed.";
-            }
+            MainViewModel vm = new MainViewModel();
+            this.DataContext = vm;
+            if (vm.CloseAction == null)
+                vm.CloseAction = new Action(() => this.Close());
         }
 
-        public int RunSample()
-        {
-            PdfToOffice pdfToOffice = new PdfToOffice();
-            return pdfToOffice.RunSample();
-        }
+        
     }
 }
