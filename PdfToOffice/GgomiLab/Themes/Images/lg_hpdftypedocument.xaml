@@ -1,6 +1,6 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   
-    <DrawingGroup x:Key="DrawingLayer">
+    <DrawingGroup x:Key="icon-hpdf">
       <DrawingGroup.ClipGeometry>
         <RectangleGeometry Rect="0,0,32,32" />
       </DrawingGroup.ClipGeometry>

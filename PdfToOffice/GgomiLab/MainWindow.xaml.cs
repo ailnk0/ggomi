@@ -1,5 +1,5 @@
 ﻿using Microsoft.Win32;
-using System.Collections.Generic;
+using System;
 using System.Windows;
 using System.Windows.Input;
 
@@ -13,29 +13,39 @@ namespace GgomiLab
         public MainWindow()
         {
             InitializeComponent();
-
-            AddCommandBindings(ApplicationCommands.Open, OpenCommandHandler);
         }
 
-        private void OpenCommandHandler(object sender, RoutedEventArgs e)
+        protected override void OnInitialized(EventArgs e)
+        {
+            base.OnInitialized(e);
+
+            AddCommandHandlers(ApplicationCommands.Open, OnOpen, CanOpen);
+        }
+
+        private void OnOpen(object sender, RoutedEventArgs e)
         {
             var dialog = new OpenFileDialog();
+            dialog.Multiselect = true;
             bool? result = dialog.ShowDialog();
-            if (result == true)
+            if (result != true)
             {
-                string fileName = dialog.FileName;
-                ICollection<Doc> itemsSource = (ICollection<Doc>)IDC_DocList.ItemsSource;
-                if (itemsSource != null)
-                {
-                    itemsSource.Add(new Doc(fileName));
-                }
+                return;
             }
+
+            DocListBox.AddDoc.Execute(dialog.FileNames, IDC_DocList);
         }
 
-        private void AddCommandBindings(ICommand command, ExecutedRoutedEventHandler handler)
+        private void CanOpen(object sender, CanExecuteRoutedEventArgs e)
         {
-            var commandBinding = new CommandBinding(command, handler);
-            CommandBindings.Add(commandBinding);
+            e.CanExecute = true;
+        }
+
+        private void AddCommandHandlers(RoutedCommand command, ExecutedRoutedEventHandler execute, CanExecuteRoutedEventHandler canExecute)
+        {
+            CommandBindings.Add(
+                new CommandBinding(command,
+                    new ExecutedRoutedEventHandler(execute),
+                    new CanExecuteRoutedEventHandler(canExecute)));
         }
     }
 }

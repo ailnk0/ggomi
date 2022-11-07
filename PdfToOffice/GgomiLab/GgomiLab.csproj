@@ -81,11 +81,16 @@
     </Compile>
     <Compile Include="Doc.cs" />
     <Compile Include="DocList.cs" />
+    <Compile Include="DocListBox.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Resource\lg_hpdftypedocument.xaml">
+    <Page Include="Themes\Images\lg_hpdftypedocument.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Generic.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
