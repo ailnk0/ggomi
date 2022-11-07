@@ -1,6 +1,8 @@
 ﻿using Microsoft.Win32;
 using System;
+using System.Collections.Generic;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace GgomiLab
@@ -10,6 +12,8 @@ namespace GgomiLab
     /// </summary>
     public partial class MainWindow : Window
     {
+        private IList<Doc> DocListData;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -19,8 +23,13 @@ namespace GgomiLab
         {
             base.OnInitialized(e);
 
+            DocListData = FindResource("doclistbox-data") as IList<Doc>;
+
             AddCommandHandlers(ApplicationCommands.Open, OnOpen, CanOpen);
+            AddCommandHandlers(Convert, OnConvert, CanConvert);
         }
+
+        public static RoutedCommand Convert = new RoutedCommand("Convert", typeof(Button));
 
         private void OnOpen(object sender, RoutedEventArgs e)
         {
@@ -37,6 +46,31 @@ namespace GgomiLab
 
         private void CanOpen(object sender, CanExecuteRoutedEventArgs e)
         {
+            e.CanExecute = true;
+        }
+
+        private void OnConvert(object sender, RoutedEventArgs e)
+        {
+            var appModule = new PdfToOfficeAppModule.PdfToOfficeAppModule();
+
+            int code = appModule.RunSample();
+            if (code != 0)
+            {
+                MessageBox.Show(string.Format("Conversion Failed.\n[{0}] {1}", code, Utils.GetErrorMessage(code)));
+                return;
+            }
+
+            MessageBox.Show("Conversion Success");
+        }
+
+        private void CanConvert(object sender, CanExecuteRoutedEventArgs e)
+        {
+            if (DocListData == null || DocListData.Count == 0)
+            {
+                e.CanExecute = false;
+                return;
+            }
+
             e.CanExecute = true;
         }
 

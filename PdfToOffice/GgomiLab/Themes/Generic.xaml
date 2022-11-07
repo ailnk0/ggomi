@@ -3,7 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="clr-namespace:GgomiLab">
 
-    <!-- Style : Add Doc Btn -->
+    <!-- Style : btn-adddoc -->
     <Style TargetType="Button" x:Key="btn-adddoc">
         <Setter Property="Width" Value="45" />
         <Setter Property="Height" Value="45" />
@@ -11,7 +11,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
                     <Grid>
-                        <Ellipse x:Name="AddDocBg"  Fill="Violet"/>
+                        <Ellipse x:Name="BtnBg"  Fill="Violet"/>
                         <Path Data="M0.5,0 L0.5,1 M0,0.5 L1,0.5"
                                   Margin="10"
                                   StrokeThickness="5"
@@ -20,7 +20,11 @@
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True" >
-                            <Setter TargetName="AddDocBg" Property="Opacity" Value="0.7"/>
+                            <Setter TargetName="BtnBg" Property="Opacity" Value="0.7"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False" >
+                            <Setter TargetName="BtnBg" Property="Opacity" Value="0.7"/>
+                            <Setter TargetName="BtnBg" Property="Fill" Value="Gray"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -28,10 +32,40 @@
         </Setter>
     </Style>
 
-    <!-- ModelView -->
+    <!-- Style : btn-convert -->
+    <Style TargetType="Button" x:Key="btn-convert">
+        <Setter Property="Width" Value="45" />
+        <Setter Property="Height" Value="45" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid>
+                        <Ellipse x:Name="BtnBg" Fill="IndianRed"/>
+                        <Path Data="M 15 15 L 30 20 15 25 z"
+                              Margin="15, 15, 15, 15"
+                              StrokeThickness="5"
+                              Stretch="Fill"
+                              Fill="White"
+                              Stroke="White" />
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True" >
+                            <Setter TargetName="BtnBg" Property="Opacity" Value="0.7"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False" >
+                            <Setter TargetName="BtnBg" Property="Opacity" Value="0.7"/>
+                            <Setter TargetName="BtnBg" Property="Fill" Value="Gray"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- ModelView : doclistbox-data -->
     <local:DocList x:Key="doclistbox-data"/>
 
-    <!-- DocList Item Template -->
+    <!-- doclistbox-item -->
     <DataTemplate x:Key="doclistbox-item">
         <Grid Width="100" Height="100" ToolTip="{Binding Path=FilePath}">
             <Grid.RowDefinitions>
@@ -50,8 +84,8 @@
             <TextBlock Grid.Row="1" Text="{Binding Path=FileName}" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Top"/>
         </Grid>
     </DataTemplate>
-    
-    <!-- Style : DocList -->
+
+    <!-- Style : local:DocListBox -->
     <Style TargetType="{x:Type local:DocListBox}">
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
         <Setter Property="BorderThickness" Value="0"/>
@@ -66,5 +100,5 @@
             </Setter.Value>
         </Setter>
     </Style>
-    
+
 </ResourceDictionary>

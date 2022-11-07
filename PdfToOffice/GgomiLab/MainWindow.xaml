@@ -20,6 +20,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="100"/>
             <ColumnDefinition />
+            <ColumnDefinition Width="100"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition />
@@ -35,6 +36,12 @@
         <local:DocListBox x:Name="IDC_DocList" 
                           Grid.Column="1" 
                           ItemsSource="{Binding Source={StaticResource doclistbox-data}}"/>
+
+        <!-- Conversion Btn -->
+        <Button x:Name="IDC_ConvertButton" 
+                Grid.Column="2" 
+                Style="{StaticResource btn-convert}" 
+                Command="{x:Static local:MainWindow.Convert}"/>
 
     </Grid>
 </Window>
