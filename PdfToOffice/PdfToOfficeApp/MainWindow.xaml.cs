@@ -1,9 +1,9 @@
+using Microsoft.Win32;
 using System;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using Microsoft.Win32;
 using static PdfToOfficeApp.MainModel;
 
 namespace PdfToOfficeApp
@@ -59,12 +59,11 @@ namespace PdfToOfficeApp
                 int resultCode = vm.RunSample(path);
                 if (resultCode != 0)
                 {
-                    MessageBox.Show("Conversion is failed.");
-                    return;
+                    MessageBox.Show(Utils.GetString("IDS_Msg_Failed"));
                 }
             }
 
-            MessageBox.Show("Conversion is done.");
+            MessageBox.Show(Utils.GetString("IDS_Msg_Success"));
         }
 
         private void CanConvert(object sender, CanExecuteRoutedEventArgs e)

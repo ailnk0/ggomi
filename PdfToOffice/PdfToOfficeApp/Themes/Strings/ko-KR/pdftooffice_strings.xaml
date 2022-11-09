@@ -1,0 +1,10 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:System="clr-namespace:System;assembly=mscorlib">
+
+    <System:String x:Key="IDS_Msg_InvalidLicense">라이선스가 유효하지 않습니다. 앱을 최신 버전으로 업데이트하세요.</System:String>
+    <System:String x:Key="IDS_Msg_Unknown">알 수 없는 오류가 발생했습니다. 앱을 최신 버전으로 업데이트한 뒤 다시 시도하세요. 문제가 반복될 경우 서비스 센터로 문의해주세요.</System:String>
+    <System:String x:Key="IDS_Msg_Failed">변환 실패했습니다.</System:String>
+    <System:String x:Key="IDS_Msg_Success">변환 성공했습니다.</System:String>
+    
+</ResourceDictionary>
