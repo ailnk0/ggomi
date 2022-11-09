@@ -136,3 +136,8 @@ int PdfToOfficeLib::RunSamples(const std::wstring &path)
 
     return 0;
 }
+
+int PdfToOfficeLib::RunSamples()
+{
+    return RunSamples(L"../sample/HOffice2022_Brochure_KR.pdf");
+}

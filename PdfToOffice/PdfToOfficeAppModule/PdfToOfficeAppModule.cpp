@@ -8,6 +8,7 @@
 
 namespace PdfToOfficeAppModule
 {
+
 int PdfToOfficeAppModule::RunSample(System::String ^ path)
 {
     try
@@ -26,4 +27,24 @@ int PdfToOfficeAppModule::RunSample(System::String ^ path)
         return -1;
     }
 }
+
+int PdfToOfficeAppModule::RunSample()
+{
+    try
+    {
+        PdfToOfficeLib lib;
+        return lib.RunSamples();
+    }
+    catch (const std::exception &)
+    {
+        // "Unhandled std::exception: " + ex.what()
+        return -1;
+    }
+    catch (...)
+    {
+        // "Unhandled Exception!"
+        return -1;
+    }
+}
+
 } // namespace PdfToOfficeAppModule
