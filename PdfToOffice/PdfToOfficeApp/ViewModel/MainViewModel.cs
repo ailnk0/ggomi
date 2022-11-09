@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
+using System.Windows;
 using static PdfToOfficeApp.MainModel;
 
 namespace PdfToOfficeApp
@@ -10,7 +9,7 @@ namespace PdfToOfficeApp
     {
         public MainViewModel()
         {
-            Init();
+
         }
 
         // 변환 형식 콤보박스 아이템
@@ -36,11 +35,11 @@ namespace PdfToOfficeApp
             set { _selectedFormat = value; }
         }
 
-        private void Init()
-        {
-            SelectedFormat = Formats.FirstOrDefault();
-            fileInformations = new ObservableCollection<FileInformation>();
-        }
+        //private void Init()
+        //{
+        //    SelectedFormat = Formats.FirstOrDefault();
+        //    fileInformations = new ObservableCollection<FileInformation>();
+        //}
 
         // 변환 파일 저장 경로
         private string _StrSavePath;
@@ -55,33 +54,34 @@ namespace PdfToOfficeApp
             }
         }
 
-        private ObservableCollection<FileInformation> fileInformations;
+        //private ObservableCollection<FileInformation> fileInformations;
 
-        public ObservableCollection<FileInformation> FileInformations
-        {
-            get { return fileInformations; }
-            set
-            {
-                fileInformations = value;
-                OnPropertyChanged("FileInformations");
-            }
-        }
+        //public ObservableCollection<FileInformation> FileInformations
+        //{
+        //    get { return fileInformations; }
+        //    set
+        //    {
+        //        fileInformations = value;
+        //        OnPropertyChanged("FileInformations");
+        //    }
+        //}
 
-        private FileInformation seletedFileInfo;
+        //private FileInformation seletedFileInfo;
 
-        public FileInformation SeletedFileInfo
-        {
-            get { return seletedFileInfo; }
-            set
-            {
-                seletedFileInfo = value;
-                OnPropertyChanged("SeletedFileInfo");
-            }
-        }
+        //public FileInformation SeletedFileInfo
+        //{
+        //    get { return seletedFileInfo; }
+        //    set
+        //    {
+        //        seletedFileInfo = value;
+        //        OnPropertyChanged("SeletedFileInfo");
+        //    }
+        //}
 
         public int RunSample(string path)
         {
             PdfToOffice pdfToOffice = new PdfToOffice();
+
             return pdfToOffice.RunSample(path);
         }
 

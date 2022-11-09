@@ -6,104 +6,56 @@
         xmlns:local="clr-namespace:PdfToOfficeApp"
         mc:Ignorable="d"
         Title="PDF 파일 형식 변환기" Height="450" Width="800">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Themes/Generic.xaml"/>
+                <ResourceDictionary Source="Themes/Images/lg_hpdftypedocument.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
     <Grid>
-        <!--<Label Name="pdftooffice_result"></Label>-->
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="80"/>
-        </Grid.ColumnDefinitions>
-        <Grid Grid.Column="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="120"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" x:Name="IDC_Grid_SecondaryButtons" Visibility="Collapsed">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="30"/>
+                <ColumnDefinition Width="30"/>
+                <ColumnDefinition Width="30"/>
             </Grid.ColumnDefinitions>
-            <Grid Grid.Column="0">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="25"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="30"/>
-                    <RowDefinition Height="30"/>
-                </Grid.RowDefinitions>
-                <Grid Grid.Row="0">
-                    <Label Content="파일 목록"/>
-                </Grid>
-                <Grid Grid.Row="1">
-                    <DataGrid x:Name="IDC_DataGrid_Files" Margin="3,3" ItemsSource="{Binding Path= FileInformations}" SelectedItem="{Binding SeletedFileInfo, Mode=TwoWay}" SelectionUnit="FullRow" AutoGenerateColumns="False" CanUserAddRows="False">
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Header="파일 이름" Binding="{Binding StrFileName}"/>
-                            <DataGridTextColumn Header="쪽수" Binding="{Binding NFilePage}"/>
-                            <DataGridTextColumn Header="위치" Binding="{Binding StrFilePath}"/>
-                            <DataGridTextColumn Header="크기" Binding="{Binding StrFileSize}"/>
-                            <DataGridTextColumn Header="변환 범위" Binding="{Binding StrFileRange}"/>
-                        </DataGrid.Columns>
-                    </DataGrid>
-                </Grid>
-                <Grid Grid.Row="2">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="80"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="30"/>
-                        <ColumnDefinition Width="30"/>
-                        <ColumnDefinition Width="30"/>
-                        <ColumnDefinition Width="30"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid Grid.Column="0">
-                        <Label Content="변환 형식" Margin="3,3"/>
-                    </Grid>
-                    <Grid Grid.Column="1">
-                        <ComboBox Name="IDC_ComboBox_FileFormat" Margin="3,3" DisplayMemberPath="Name" ItemsSource="{Binding Formats}" SelectedItem="{Binding SelectedFormat, Mode=TwoWay}"/>
-                    </Grid>
-                    <Grid Grid.Column="2">
-                        <Button x:Name="IDC_Button_AddFile" Content="+" Margin="3,3" Command="{x:Static local:MainWindow.AddFileCommand}"/>
-                    </Grid>
-                    <Grid Grid.Column="3">
-                        <Button x:Name="IDC_Button_RemoveFile" Content="-" Margin="3,3" Command="{x:Static local:MainWindow.RemoveFileCommand}"/>
-                    </Grid>
-                    <Grid Grid.Column="4">
-                        <Button x:Name="IDC_Button_UpFile" Content="↑" Margin="3,3" Command="{x:Static local:MainWindow.UpFileCommand}"/>
-                    </Grid>
-                    <Grid Grid.Column="5">
-                        <Button x:Name="IDC_Button_DownFile" Content="↓" Margin="3,3" Command="{x:Static local:MainWindow.DownFileCommand}"/>
-                    </Grid>
-                </Grid>
-                <Grid Grid.Row="3">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="80"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="30"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid Grid.Column="0">
-                        <Label Content="저장 경로" Margin="3,3"/>
-                    </Grid>
-                    <Grid Grid.Column="1">
-                        <TextBox x:Name="IDC_TextBox_SavePath" Text="{Binding StrSavePath, UpdateSourceTrigger=PropertyChanged}" Margin="3,3"/>
-                    </Grid>
-                    <Grid Grid.Column="2">
-                        <Button x:Name="IDC_Button_OpenFolder" Margin="3,3" Command="{x:Static local:MainWindow.OpenFolderCommand}"/>
-                    </Grid>
-                </Grid>
-                      
-            </Grid>
-            <Grid Grid.Column="1">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="100"/>
-                    <ColumnDefinition Width="100"/>
-                    <ColumnDefinition Width="100"/>
-                </Grid.ColumnDefinitions>
-            </Grid>
+            <Button x:Name="IDC_Button_SecondaryAdd" Grid.Column="1" Width="30" Height="30"/>
+            <Button x:Name="IDC_Button_SecondaryRemove" Grid.Column="2" Width="30" Height="30"/>
+            <Button x:Name="IDC_Button_SecondarySetting" Grid.Column="3" Width="30" Height="30"/>
         </Grid>
-        <Grid Grid.Column="1">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="30"/>
-                <RowDefinition Height="30"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-            <Grid Grid.Row="0">
-                <Button x:Name="IDC_Button_Ok" Content="변환하기" Margin="3,3" Command="{x:Static local:MainWindow.ConvertCommand}"/>
-            </Grid>
-            <Grid Grid.Row="1">
-                <Button x:Name="IDC_Button_Cancel" Content="취소" Margin="3,3" Command="{x:Static local:MainWindow.CancelCommand}"/>
-            </Grid>
+
+        <local:DocListBox x:Name="IDC_DocList" Grid.Row="1" Grid.RowSpan="4" ItemsSource="{Binding Source={StaticResource doclistbox-data}}"/>
+        <Button x:Name="IDC_Button_PrimaryAdd" Grid.Row="1" Grid.RowSpan="4" VerticalAlignment="Center" HorizontalAlignment="Center" Width="70" Height="70" 
+                Style="{StaticResource btn-adddoc}" 
+                Command="ApplicationCommands.Open"/>
+        
+        <Grid Grid.Row="2">
+            <local:SelectFormat x:Name="IDC_SelectFormat" Visibility="Collapsed"/>
+        </Grid>
+        <Grid Grid.Row="3">
+            <Button x:Name="IDC_Button_PrimaryConvert" VerticalAlignment="Center" HorizontalAlignment="Center" Width="70" Height="70" 
+                    Style="{StaticResource btn-convert}" 
+                    Command="{x:Static local:MainWindow.ConvertCommand}"
+                    Visibility="Collapsed"/>
+
+            <Button x:Name="IDC_Button_PrimaryPause" VerticalAlignment="Center" HorizontalAlignment="Center" Width="70" Height="70" 
+                    Command="{x:Static local:MainWindow.ConvertCommand}" Content="중지"
+                    Visibility="Collapsed"/>
+
+            <Button x:Name="IDC_Button_PrimaryReset" VerticalAlignment="Center" HorizontalAlignment="Center" Width="70" Height="70" 
+                    Command="{x:Static local:MainWindow.ConvertCommand}" Content="재시작"
+                    Visibility="Collapsed"/>
         </Grid>
     </Grid>
 </Window>

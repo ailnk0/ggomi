@@ -1,0 +1,28 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  
+    <DrawingGroup x:Key="DrawingLayer">
+      <DrawingGroup.ClipGeometry>
+        <RectangleGeometry Rect="0,0,16,16" />
+      </DrawingGroup.ClipGeometry>
+      <DrawingGroup>
+        <GeometryDrawing Brush="#00000000">
+          <GeometryDrawing.Geometry>
+            <RectangleGeometry RadiusX="0" RadiusY="0" Rect="0,0,16,16" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="{DynamicResource Blue_100}">
+          <GeometryDrawing.Geometry>
+            <RectangleGeometry RadiusX="0" RadiusY="0" Rect="1,7,14,1.2" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <DrawingGroup Transform="0,-1,1,0,-0.4,15.6">
+          <GeometryDrawing Brush="{DynamicResource Blue_100}">
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M0.6,7.4L0.6,7.4 14.6,7.4 14.6,8.6 0.6,8.6z" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+        </DrawingGroup>
+      </DrawingGroup>
+    </DrawingGroup>
+  
+</ResourceDictionary>
