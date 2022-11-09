@@ -54,16 +54,16 @@
                         <ComboBox Name="IDC_ComboBox_FileFormat" Margin="3,3" DisplayMemberPath="Name" ItemsSource="{Binding Formats}" SelectedItem="{Binding SelectedFormat, Mode=TwoWay}"/>
                     </Grid>
                     <Grid Grid.Column="2">
-                        <Button x:Name="IDC_Button_AddFile" Content="+" Margin="3,3" Command="{Binding AddFileCommand}"/>
+                        <Button x:Name="IDC_Button_AddFile" Content="+" Margin="3,3" Command="{x:Static local:MainWindow.AddFileCommand}"/>
                     </Grid>
                     <Grid Grid.Column="3">
-                        <Button x:Name="IDC_Button_RemoveFile" Content="-" Margin="3,3" Command="{Binding RemoveFileCommand}"/>
+                        <Button x:Name="IDC_Button_RemoveFile" Content="-" Margin="3,3" Command="{x:Static local:MainWindow.RemoveFileCommand}"/>
                     </Grid>
                     <Grid Grid.Column="4">
-                        <Button x:Name="IDC_Button_UpFile" Content="↑" Margin="3,3" Command="{Binding UpFileCommand}"/>
+                        <Button x:Name="IDC_Button_UpFile" Content="↑" Margin="3,3" Command="{x:Static local:MainWindow.UpFileCommand}"/>
                     </Grid>
                     <Grid Grid.Column="5">
-                        <Button x:Name="IDC_Button_DownFile" Content="↓" Margin="3,3" Command="{Binding DownFileCommand}"/>
+                        <Button x:Name="IDC_Button_DownFile" Content="↓" Margin="3,3" Command="{x:Static local:MainWindow.DownFileCommand}"/>
                     </Grid>
                 </Grid>
                 <Grid Grid.Row="3">
@@ -79,7 +79,7 @@
                         <TextBox x:Name="IDC_TextBox_SavePath" Text="{Binding StrSavePath, UpdateSourceTrigger=PropertyChanged}" Margin="3,3"/>
                     </Grid>
                     <Grid Grid.Column="2">
-                        <Button x:Name="IDC_Button_OpenFolder" Margin="3,3" Command="{Binding OpenFolderCommand}"/>
+                        <Button x:Name="IDC_Button_OpenFolder" Margin="3,3" Command="{x:Static local:MainWindow.OpenFolderCommand}"/>
                     </Grid>
                 </Grid>
                       
@@ -99,10 +99,10 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Grid Grid.Row="0">
-                <Button x:Name="IDC_Button_Ok" Content="변환하기" Margin="3,3" Command="{Binding OkCommand}"/>
+                <Button x:Name="IDC_Button_Ok" Content="변환하기" Margin="3,3" Command="{x:Static local:MainWindow.ConvertCommand}"/>
             </Grid>
             <Grid Grid.Row="1">
-                <Button x:Name="IDC_Button_Cancel" Content="취소" Margin="3,3" Command="{Binding CancelCommand}"/>
+                <Button x:Name="IDC_Button_Cancel" Content="취소" Margin="3,3" Command="{x:Static local:MainWindow.CancelCommand}"/>
             </Grid>
         </Grid>
     </Grid>
