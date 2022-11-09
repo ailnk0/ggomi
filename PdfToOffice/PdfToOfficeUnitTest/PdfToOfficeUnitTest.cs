@@ -18,16 +18,6 @@ namespace PdfToOfficeUnitTest
             Assert.AreEqual(0, result);
         }
 
-        // 파일 추가
-        [TestMethod]
-        public void TestAddFile()
-        {
-            MainWindow mw = new MainWindow();
-
-            MainWindow.AddFileCommand.Execute(mw.vm.FileInformations, mw);
-            Assert.AreEqual(2, mw.vm.FileInformations.Count);
-        }
-
         // 파일 삭제
         [TestMethod]
         public void TestRemoveFile()
