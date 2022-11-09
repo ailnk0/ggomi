@@ -2,13 +2,11 @@
 {
     public class PdfToOffice
     {
-        public int RunSample()
+        public int RunSample(string path)
         {
             var module = new PdfToOfficeAppModule.PdfToOfficeAppModule();
 
-            module.RunSample(); module.RunSample(); module.RunSample(); module.RunSample(); module.RunSample();
-
-            return module.RunSample();
+            return module.RunSample(path);
         }
     }
 }
