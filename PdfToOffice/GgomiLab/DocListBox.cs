@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 
 namespace GgomiLab
 {
@@ -11,46 +11,20 @@ namespace GgomiLab
         protected override void OnInitialized(EventArgs e)
         {
             base.OnInitialized(e);
-
-            AddCommandHandlers(AddDoc, OnAddDoc, CanAddDoc);
         }
 
-        protected override void OnPreviewDrop(DragEventArgs e)
+        protected override void OnItemsChanged(NotifyCollectionChangedEventArgs e)
         {
-            e.Handled = true;
-            var fileNames = e.Data.GetData(DataFormats.FileDrop, true) as string[];
-            AddDoc.Execute(fileNames, this);
-        }
-
-        public static RoutedCommand AddDoc = new RoutedCommand("AddDoc", typeof(DocListBox));
-
-        private void OnAddDoc(object sender, ExecutedRoutedEventArgs e)
-        {
-            var fileNames = e.Parameter as string[];
-            if (fileNames == null)
+            var mainWindow = Application.Current.MainWindow as MainWindow;
+            var itemsSource = ItemsSource as IList<Doc>;
+            if (itemsSource.Count > 0)
             {
-                return;
+                mainWindow.Status = AppStatus.Ready;
             }
-
-            var itemsSource = ItemsSource as ICollection<Doc>;
-            foreach (var file in fileNames)
+            else
             {
-                itemsSource.Add(new Doc(file));
+                mainWindow.Status = AppStatus.Init;
             }
-        }
-
-        private void CanAddDoc(object sender, CanExecuteRoutedEventArgs e)
-        {
-            e.CanExecute = true;
-        }
-
-        private void AddCommandHandlers(RoutedCommand command, ExecutedRoutedEventHandler execute, CanExecuteRoutedEventHandler canExecute)
-        {
-            CommandBindings.Add(
-                new CommandBinding(command,
-                    new ExecutedRoutedEventHandler(execute),
-                    new CanExecuteRoutedEventHandler(canExecute)));
         }
     }
 }
-

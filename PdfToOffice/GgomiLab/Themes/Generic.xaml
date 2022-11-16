@@ -2,6 +2,10 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:GgomiLab">
 
+  <ResourceDictionary.MergedDictionaries>
+    <ResourceDictionary Source="Images/lg_hpdftypedocument.xaml" />
+  </ResourceDictionary.MergedDictionaries>
+
   <!-- Colors -->
   <SolidColorBrush x:Key="Blue_100"
                    Color="#2367ff"
@@ -24,6 +28,89 @@
   <SolidColorBrush x:Key="Gray_20"
                    Color="#cccccc"
                    Opacity="1" />
+
+  <!-- ModelView : doclistbox-data -->
+  <local:DocList x:Key="doclistbox-data" />
+
+  <!-- Binding MainWindow.Status -->
+  <Binding x:Key="app-status"
+           RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType={x:Type local:MainWindow}}"
+           Path="Status" />
+
+  <!-- Style : div-adddoc -->
+  <Style TargetType="Border"
+         x:Key="div-adddoc">
+    <Setter Property="Width"
+            Value="100" />
+    <Setter Property="Padding"
+            Value="10" />
+    <Style.Triggers>
+      <DataTrigger Binding="{StaticResource app-status}"
+                   Value="{x:Static local:AppStatus.Init}">
+        <DataTrigger.Setters>
+          <Setter Property="Visibility"
+                  Value="Visible" />
+          <Setter Property="Grid.ColumnSpan"
+                  Value="3" />
+        </DataTrigger.Setters>
+      </DataTrigger>
+      <DataTrigger Binding="{StaticResource app-status}"
+                   Value="{x:Static local:AppStatus.Ready}">
+        <DataTrigger.Setters>
+          <Setter Property="Visibility"
+                  Value="Visible" />
+          <Setter Property="Grid.ColumnSpan"
+                  Value="1" />
+        </DataTrigger.Setters>
+      </DataTrigger>
+    </Style.Triggers>
+  </Style>
+
+  <!-- Style : div-doclistbox -->
+  <Style TargetType="Border"
+         x:Key="div-doclistbox">
+    <Setter Property="Padding"
+            Value="10" />
+    <Style.Triggers>
+      <DataTrigger Binding="{StaticResource app-status}"
+                   Value="{x:Static local:AppStatus.Init}">
+        <DataTrigger.Setters>
+          <Setter Property="Visibility"
+                  Value="Collapsed" />
+        </DataTrigger.Setters>
+      </DataTrigger>
+      <DataTrigger Binding="{StaticResource app-status}"
+                   Value="{x:Static local:AppStatus.Ready}">
+        <DataTrigger.Setters>
+          <Setter Property="Visibility"
+                  Value="Visible" />
+        </DataTrigger.Setters>
+      </DataTrigger>
+    </Style.Triggers>
+  </Style>
+
+  <!-- Style : div-convert -->
+  <Style TargetType="Border"
+         x:Key="div-convert">
+    <Setter Property="Padding"
+            Value="10" />
+    <Style.Triggers>
+      <DataTrigger Binding="{StaticResource app-status}"
+                   Value="{x:Static local:AppStatus.Init}">
+        <DataTrigger.Setters>
+          <Setter Property="Visibility"
+                  Value="Collapsed" />
+        </DataTrigger.Setters>
+      </DataTrigger>
+      <DataTrigger Binding="{StaticResource app-status}"
+                   Value="{x:Static local:AppStatus.Ready}">
+        <DataTrigger.Setters>
+          <Setter Property="Visibility"
+                  Value="Visible" />
+        </DataTrigger.Setters>
+      </DataTrigger>
+    </Style.Triggers>
+  </Style>
 
   <!-- Style : btn-adddoc -->
   <Style TargetType="Button"
@@ -51,19 +138,20 @@
                       Property="Opacity"
                       Value="0.7" />
             </Trigger>
-            <Trigger Property="IsEnabled"
-                     Value="False">
-              <Setter TargetName="BtnBg"
-                      Property="Opacity"
-                      Value="0.7" />
-              <Setter TargetName="BtnBg"
-                      Property="Fill"
-                      Value="Gray" />
-            </Trigger>
           </ControlTemplate.Triggers>
         </ControlTemplate>
       </Setter.Value>
     </Setter>
+
+    <Style.Triggers>
+      <Trigger Property="IsMouseOver"
+               Value="True">
+        <Setter Property="Width"
+                Value="46" />
+        <Setter Property="Height"
+                Value="46" />
+      </Trigger>
+    </Style.Triggers>
   </Style>
 
   <!-- Style : btn-convert -->
@@ -93,23 +181,11 @@
                       Property="Opacity"
                       Value="0.7" />
             </Trigger>
-            <Trigger Property="IsEnabled"
-                     Value="False">
-              <Setter TargetName="BtnBg"
-                      Property="Opacity"
-                      Value="0.7" />
-              <Setter TargetName="BtnBg"
-                      Property="Fill"
-                      Value="Gray" />
-            </Trigger>
           </ControlTemplate.Triggers>
         </ControlTemplate>
       </Setter.Value>
     </Setter>
   </Style>
-
-  <!-- ModelView : doclistbox-data -->
-  <local:DocList x:Key="doclistbox-data" />
 
   <!-- doclistbox-item -->
   <DataTemplate x:Key="doclistbox-item">
@@ -144,8 +220,6 @@
             Value="Disabled" />
     <Setter Property="BorderThickness"
             Value="0" />
-    <Setter Property="AllowDrop"
-            Value="True" />
     <Setter Property="ItemTemplate"
             Value="{StaticResource doclistbox-item}" />
     <Setter Property="ItemsPanel">

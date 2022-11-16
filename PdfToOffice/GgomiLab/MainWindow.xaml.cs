@@ -12,6 +12,15 @@ namespace GgomiLab
     /// </summary>
     public partial class MainWindow : Window
     {
+        public static readonly DependencyProperty StatusProperty =
+            DependencyProperty.Register("Status", typeof(AppStatus), typeof(MainWindow), new PropertyMetadata(AppStatus.Init));
+
+        public AppStatus Status
+        {
+            get => (AppStatus)GetValue(StatusProperty);
+            set => SetValue(StatusProperty, value);
+        }
+
         private IList<Doc> DocListData;
 
         public MainWindow()
@@ -23,10 +32,40 @@ namespace GgomiLab
         {
             base.OnInitialized(e);
 
-            DocListData = DataContext as IList<Doc>;
+            DocListData = Resources["doclistbox-data"] as IList<Doc>;
 
             AddCommandHandlers(ApplicationCommands.Open, OnOpen, CanOpen);
             AddCommandHandlers(Convert, OnConvert, CanConvert);
+            AddCommandHandlers(AddDoc, OnAddDoc, CanAddDoc);
+        }
+
+        protected override void OnPreviewDrop(DragEventArgs e)
+        {
+            e.Handled = true;
+            var fileNames = e.Data.GetData(DataFormats.FileDrop, true) as string[];
+            AddDoc.Execute(fileNames, this);
+        }
+
+        public static RoutedCommand AddDoc = new RoutedCommand("AddDoc", typeof(DocListBox));
+
+        private void OnAddDoc(object sender, ExecutedRoutedEventArgs e)
+        {
+            var fileNames = e.Parameter as string[];
+            if (fileNames == null)
+            {
+                return;
+            }
+
+            var itemsSource = DocListData as ICollection<Doc>;
+            foreach (var file in fileNames)
+            {
+                itemsSource.Add(new Doc(file));
+            }
+        }
+
+        private void CanAddDoc(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
         }
 
         public static RoutedCommand Convert = new RoutedCommand("Convert", typeof(Button));
@@ -41,7 +80,7 @@ namespace GgomiLab
                 return;
             }
 
-            DocListBox.AddDoc.Execute(dialog.FileNames, IDC_DocList);
+            AddDoc.Execute(dialog.FileNames, IDC_DocList);
         }
 
         private void CanOpen(object sender, CanExecuteRoutedEventArgs e)
@@ -64,7 +103,7 @@ namespace GgomiLab
 
         private void CanConvert(object sender, CanExecuteRoutedEventArgs e)
         {
-            if (DocListData == null || DocListData.Count == 0)
+            if (Status == AppStatus.Init)
             {
                 e.CanExecute = false;
                 return;
