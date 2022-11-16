@@ -1,0 +1,179 @@
+﻿<Window x:Class="GgomiLab.Themes.ImageViewer"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GgomiLab.Themes"
+        mc:Ignorable="d"
+        Title="ImageViewer"
+        Height="450"
+        Width="800">
+
+  <Window.Resources>
+    <ResourceDictionary>
+      <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="Generic.xaml" />
+        <ResourceDictionary Source="Images/dlg_data_validate_check.xaml" />
+        <ResourceDictionary Source="Images/dlg_data_validate_info.xaml" />
+        <ResourceDictionary Source="Images/dlg_data_validate_question.xaml" />
+        <ResourceDictionary Source="Images/dlg_data_validate_stop.xaml" />
+        <ResourceDictionary Source="Images/dlg_data_validate_warning.xaml" />
+        <ResourceDictionary Source="Images/lg_hpdftypedocument.xaml" />
+        <ResourceDictionary Source="Images/lg_pdftodocxdlg.xaml" />
+        <ResourceDictionary Source="Images/lg_pdftohwpdlg.xaml" />
+        <ResourceDictionary Source="Images/lg_pdftoimagedlg.xaml" />
+        <ResourceDictionary Source="Images/lg_pdftopptxdlg.xaml" />
+        <ResourceDictionary Source="Images/lg_pdftoxlsxdlg.xaml" />
+        <ResourceDictionary Source="Images/sm_add.xaml" />
+        <ResourceDictionary Source="Images/sm_arrow_left.xaml" />
+        <ResourceDictionary Source="Images/sm_arrow_right.xaml" />
+        <ResourceDictionary Source="Images/sm_cancel.xaml" />
+        <ResourceDictionary Source="Images/sm_check.xaml" />
+        <ResourceDictionary Source="Images/sm_config.xaml" />
+        <ResourceDictionary Source="Images/sm_dropdown.xaml" />
+        <ResourceDictionary Source="Images/sm_fail.xaml" />
+        <ResourceDictionary Source="Images/sm_offset_down.xaml" />
+        <ResourceDictionary Source="Images/sm_offset_up.xaml" />
+        <ResourceDictionary Source="Images/sm_r_add.xaml" />
+        <ResourceDictionary Source="Images/sm_r_check.xaml" />
+        <ResourceDictionary Source="Images/sm_r_run.xaml" />
+        <ResourceDictionary Source="Images/sm_r_stop.xaml" />
+        <ResourceDictionary Source="Images/sm_sub.xaml" />
+      </ResourceDictionary.MergedDictionaries>
+    </ResourceDictionary>
+  </Window.Resources>
+
+  <WrapPanel>
+    <Image Width="30">
+      <Image.Source>
+        <DrawingImage Drawing="{DynamicResource dlg_data_validate_check}"></DrawingImage>
+      </Image.Source>
+    </Image>
+    <Image Width="30">
+      <Image.Source>
+        <DrawingImage Drawing="{DynamicResource dlg_data_validate_info}"></DrawingImage>
+      </Image.Source>
+    </Image>
+    <Image Width="30">
+      <Image.Source>
+        <DrawingImage Drawing="{DynamicResource dlg_data_validate_question}"></DrawingImage>
+      </Image.Source>
+    </Image>
+    <Image Width="30">
+      <Image.Source>
+        <DrawingImage Drawing="{DynamicResource dlg_data_validate_stop}"></DrawingImage>
+      </Image.Source>
+    </Image>
+    <Image Width="30">
+      <Image.Source>
+        <DrawingImage Drawing="{DynamicResource dlg_data_validate_warning}"></DrawingImage>
+      </Image.Source>
+    </Image>
+    <Image Width="30">
+      <Image.Source>
+        <DrawingImage Drawing="{DynamicResource icon-hpdf}"></DrawingImage>
+      </Image.Source>
+    </Image>
+    <Image Width="30">
+      <Image.Source>
+        <DrawingImage Drawing="{DynamicResource lg_pdftodocxdlg}"></DrawingImage>
+      </Image.Source>
+    </Image>
+    <Image Width="30">
+      <Image.Source>
+        <DrawingImage Drawing="{DynamicResource lg_pdftohwpdlg}"></DrawingImage>
+      </Image.Source>
+    </Image>
+    <Image Width="30">
+      <Image.Source>
+        <DrawingImage Drawing="{DynamicResource lg_pdftoimagedlg}"></DrawingImage>
+      </Image.Source>
+    </Image>
+    <Image Width="30">
+      <Image.Source>
+        <DrawingImage Drawing="{DynamicResource lg_pdftopptxdlg}"></DrawingImage>
+      </Image.Source>
+    </Image>
+    <Image Width="30">
+      <Image.Source>
+        <DrawingImage Drawing="{DynamicResource lg_pdftoxlsxdlg}"></DrawingImage>
+      </Image.Source>
+    </Image>
+    <Image Width="30">
+      <Image.Source>
+        <DrawingImage Drawing="{DynamicResource sm_add}"></DrawingImage>
+      </Image.Source>
+    </Image>
+    <Image Width="30">
+      <Image.Source>
+        <DrawingImage Drawing="{DynamicResource sm_sub}"></DrawingImage>
+      </Image.Source>
+    </Image>
+    <Image Width="30">
+      <Image.Source>
+        <DrawingImage Drawing="{DynamicResource sm_config}"></DrawingImage>
+      </Image.Source>
+    </Image>
+    <Image Width="30">
+      <Image.Source>
+        <DrawingImage Drawing="{DynamicResource sm_arrow_left}"></DrawingImage>
+      </Image.Source>
+    </Image>
+    <Image Width="30">
+      <Image.Source>
+        <DrawingImage Drawing="{DynamicResource sm_arrow_right}"></DrawingImage>
+      </Image.Source>
+    </Image>
+    <Image Width="30">
+      <Image.Source>
+        <DrawingImage Drawing="{DynamicResource sm_cancel}"></DrawingImage>
+      </Image.Source>
+    </Image>
+    <Image Width="30">
+      <Image.Source>
+        <DrawingImage Drawing="{DynamicResource sm_check}"></DrawingImage>
+      </Image.Source>
+    </Image>
+    <Image Width="30">
+      <Image.Source>
+        <DrawingImage Drawing="{DynamicResource sm_dropdown}"></DrawingImage>
+      </Image.Source>
+    </Image>
+    <Image Width="30">
+      <Image.Source>
+        <DrawingImage Drawing="{DynamicResource sm_fail}"></DrawingImage>
+      </Image.Source>
+    </Image>
+    <Image Width="30">
+      <Image.Source>
+        <DrawingImage Drawing="{DynamicResource sm_offset_down}"></DrawingImage>
+      </Image.Source>
+    </Image>
+    <Image Width="30">
+      <Image.Source>
+        <DrawingImage Drawing="{DynamicResource sm_offset_up}"></DrawingImage>
+      </Image.Source>
+    </Image>
+    <Image Width="30">
+      <Image.Source>
+        <DrawingImage Drawing="{DynamicResource sm_r_add}"></DrawingImage>
+      </Image.Source>
+    </Image>
+    <Image Width="30">
+      <Image.Source>
+        <DrawingImage Drawing="{DynamicResource sm_r_check}"></DrawingImage>
+      </Image.Source>
+    </Image>
+    <Image Width="30">
+      <Image.Source>
+        <DrawingImage Drawing="{DynamicResource sm_r_run}"></DrawingImage>
+      </Image.Source>
+    </Image>
+    <Image Width="30">
+      <Image.Source>
+        <DrawingImage Drawing="{DynamicResource sm_r_stop}"></DrawingImage>
+      </Image.Source>
+    </Image>
+
+  </WrapPanel>
+</Window>
