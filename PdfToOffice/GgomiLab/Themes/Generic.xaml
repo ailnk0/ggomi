@@ -1,9 +1,35 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:GgomiLab">
+                    xmlns:local="clr-namespace:GgomiLab"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
 
   <ResourceDictionary.MergedDictionaries>
+    <ResourceDictionary Source="Images/dlg_data_validate_check.xaml" />
+    <ResourceDictionary Source="Images/dlg_data_validate_info.xaml" />
+    <ResourceDictionary Source="Images/dlg_data_validate_question.xaml" />
+    <ResourceDictionary Source="Images/dlg_data_validate_stop.xaml" />
+    <ResourceDictionary Source="Images/dlg_data_validate_warning.xaml" />
     <ResourceDictionary Source="Images/lg_hpdftypedocument.xaml" />
+    <ResourceDictionary Source="Images/lg_pdftodocxdlg.xaml" />
+    <ResourceDictionary Source="Images/lg_pdftohwpdlg.xaml" />
+    <ResourceDictionary Source="Images/lg_pdftoimagedlg.xaml" />
+    <ResourceDictionary Source="Images/lg_pdftopptxdlg.xaml" />
+    <ResourceDictionary Source="Images/lg_pdftoxlsxdlg.xaml" />
+    <ResourceDictionary Source="Images/sm_add.xaml" />
+    <ResourceDictionary Source="Images/sm_arrow_left.xaml" />
+    <ResourceDictionary Source="Images/sm_arrow_right.xaml" />
+    <ResourceDictionary Source="Images/sm_cancel.xaml" />
+    <ResourceDictionary Source="Images/sm_check.xaml" />
+    <ResourceDictionary Source="Images/sm_config.xaml" />
+    <ResourceDictionary Source="Images/sm_dropdown.xaml" />
+    <ResourceDictionary Source="Images/sm_fail.xaml" />
+    <ResourceDictionary Source="Images/sm_offset_down.xaml" />
+    <ResourceDictionary Source="Images/sm_offset_up.xaml" />
+    <ResourceDictionary Source="Images/sm_r_add.xaml" />
+    <ResourceDictionary Source="Images/sm_r_check.xaml" />
+    <ResourceDictionary Source="Images/sm_r_run.xaml" />
+    <ResourceDictionary Source="Images/sm_r_stop.xaml" />
+    <ResourceDictionary Source="Images/sm_sub.xaml" />
   </ResourceDictionary.MergedDictionaries>
 
   <!-- Colors -->
@@ -29,6 +55,19 @@
                    Color="#cccccc"
                    Opacity="1" />
 
+  <Duration x:Key="ani-short">0:0:0.25</Duration>
+  <Duration x:Key="ani-long">0:0:0.5</Duration>
+
+  <system:Double x:Key="sz-btn-pri">40</system:Double>
+  <system:Double x:Key="sz-btn-pri-mouseover">44</system:Double>
+  <system:Double x:Key="opcity-btn-pri">1</system:Double>
+  <system:Double x:Key="opcity-btn-pri-mouseover">0.8</system:Double>
+
+  <system:Double x:Key="sz-btn-sec">30</system:Double>
+  <system:Double x:Key="sz-btn-sec-mouseover">33</system:Double>
+  <system:Double x:Key="opcity-btn-sec">1</system:Double>
+  <system:Double x:Key="opcity-btn-sec-mouseover">0.8</system:Double>
+
   <!-- ModelView : doclistbox-data -->
   <local:DocList x:Key="doclistbox-data" />
 
@@ -53,6 +92,15 @@
           <Setter Property="Grid.ColumnSpan"
                   Value="3" />
         </DataTrigger.Setters>
+        <DataTrigger.EnterActions>
+          <BeginStoryboard>
+            <Storyboard>
+              <DoubleAnimation Storyboard.TargetProperty="Width"
+                               To="400"
+                               Duration="{StaticResource ani-short}" />
+            </Storyboard>
+          </BeginStoryboard>
+        </DataTrigger.EnterActions>
       </DataTrigger>
       <DataTrigger Binding="{StaticResource app-status}"
                    Value="{x:Static local:AppStatus.Ready}">
@@ -62,6 +110,15 @@
           <Setter Property="Grid.ColumnSpan"
                   Value="1" />
         </DataTrigger.Setters>
+        <DataTrigger.EnterActions>
+          <BeginStoryboard>
+            <Storyboard>
+              <DoubleAnimation Storyboard.TargetProperty="Width"
+                               To="100"
+                               Duration="{StaticResource ani-short}" />
+            </Storyboard>
+          </BeginStoryboard>
+        </DataTrigger.EnterActions>
       </DataTrigger>
     </Style.Triggers>
   </Style>
@@ -92,6 +149,8 @@
   <!-- Style : div-convert -->
   <Style TargetType="Border"
          x:Key="div-convert">
+    <Setter Property="Width"
+            Value="100" />
     <Setter Property="Padding"
             Value="10" />
     <Style.Triggers>
@@ -101,6 +160,15 @@
           <Setter Property="Visibility"
                   Value="Collapsed" />
         </DataTrigger.Setters>
+        <DataTrigger.EnterActions>
+          <BeginStoryboard>
+            <Storyboard>
+              <DoubleAnimation Storyboard.TargetProperty="Width"
+                               To="0"
+                               Duration="{StaticResource ani-short}" />
+            </Storyboard>
+          </BeginStoryboard>
+        </DataTrigger.EnterActions>
       </DataTrigger>
       <DataTrigger Binding="{StaticResource app-status}"
                    Value="{x:Static local:AppStatus.Ready}">
@@ -108,6 +176,15 @@
           <Setter Property="Visibility"
                   Value="Visible" />
         </DataTrigger.Setters>
+        <DataTrigger.EnterActions>
+          <BeginStoryboard>
+            <Storyboard>
+              <DoubleAnimation Storyboard.TargetProperty="Width"
+                               To="100"
+                               Duration="{StaticResource ani-short}" />
+            </Storyboard>
+          </BeginStoryboard>
+        </DataTrigger.EnterActions>
       </DataTrigger>
     </Style.Triggers>
   </Style>
@@ -123,33 +200,48 @@
       <Setter.Value>
         <ControlTemplate TargetType="Button">
           <Grid>
-            <Ellipse x:Name="BtnBg"
-                     Fill="Violet" />
-            <Path Data="M0.5,0 L0.5,1 M0,0.5 L1,0.5"
-                  Margin="10"
-                  StrokeThickness="5"
-                  Stretch="Fill"
-                  Stroke="White" />
+            <Image>
+              <Image.Source>
+                <DrawingImage Drawing="{DynamicResource sm_r_add}"></DrawingImage>
+              </Image.Source>
+            </Image>
           </Grid>
-          <ControlTemplate.Triggers>
-            <Trigger Property="IsMouseOver"
-                     Value="True">
-              <Setter TargetName="BtnBg"
-                      Property="Opacity"
-                      Value="0.7" />
-            </Trigger>
-          </ControlTemplate.Triggers>
         </ControlTemplate>
       </Setter.Value>
     </Setter>
-
     <Style.Triggers>
       <Trigger Property="IsMouseOver"
                Value="True">
-        <Setter Property="Width"
-                Value="46" />
-        <Setter Property="Height"
-                Value="46" />
+        <Trigger.EnterActions>
+          <BeginStoryboard>
+            <Storyboard>
+              <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                               To="{StaticResource opcity-btn-pri-mouseover}"
+                               Duration="{StaticResource ani-short}" />
+              <DoubleAnimation Storyboard.TargetProperty="Width"
+                               To="{StaticResource sz-btn-pri-mouseover}"
+                               Duration="{StaticResource ani-short}" />
+              <DoubleAnimation Storyboard.TargetProperty="Height"
+                               To="{StaticResource sz-btn-pri-mouseover}"
+                               Duration="{StaticResource ani-short}" />
+            </Storyboard>
+          </BeginStoryboard>
+        </Trigger.EnterActions>
+        <Trigger.ExitActions>
+          <BeginStoryboard>
+            <Storyboard>
+              <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                               To="{StaticResource opcity-btn-pri}"
+                               Duration="{StaticResource ani-short}" />
+              <DoubleAnimation Storyboard.TargetProperty="Width"
+                               To="{StaticResource sz-btn-pri}"
+                               Duration="{StaticResource ani-short}" />
+              <DoubleAnimation Storyboard.TargetProperty="Height"
+                               To="{StaticResource sz-btn-pri}"
+                               Duration="{StaticResource ani-short}" />
+            </Storyboard>
+          </BeginStoryboard>
+        </Trigger.ExitActions>
       </Trigger>
     </Style.Triggers>
   </Style>
@@ -165,26 +257,50 @@
       <Setter.Value>
         <ControlTemplate TargetType="Button">
           <Grid>
-            <Ellipse x:Name="BtnBg"
-                     Fill="IndianRed" />
-            <Path Data="M 15 15 L 30 20 15 25 z"
-                  Margin="15, 15, 15, 15"
-                  StrokeThickness="5"
-                  Stretch="Fill"
-                  Fill="White"
-                  Stroke="White" />
+            <Image>
+              <Image.Source>
+                <DrawingImage Drawing="{DynamicResource sm_r_run}"></DrawingImage>
+              </Image.Source>
+            </Image>
           </Grid>
-          <ControlTemplate.Triggers>
-            <Trigger Property="IsMouseOver"
-                     Value="True">
-              <Setter TargetName="BtnBg"
-                      Property="Opacity"
-                      Value="0.7" />
-            </Trigger>
-          </ControlTemplate.Triggers>
         </ControlTemplate>
       </Setter.Value>
     </Setter>
+    <Style.Triggers>
+      <Trigger Property="IsMouseOver"
+               Value="True">
+        <Trigger.EnterActions>
+          <BeginStoryboard>
+            <Storyboard>
+              <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                               To="{StaticResource opcity-btn-pri-mouseover}"
+                               Duration="{StaticResource ani-short}" />
+              <DoubleAnimation Storyboard.TargetProperty="Width"
+                               To="{StaticResource sz-btn-pri-mouseover}"
+                               Duration="{StaticResource ani-short}" />
+              <DoubleAnimation Storyboard.TargetProperty="Height"
+                               To="{StaticResource sz-btn-pri-mouseover}"
+                               Duration="{StaticResource ani-short}" />
+            </Storyboard>
+          </BeginStoryboard>
+        </Trigger.EnterActions>
+        <Trigger.ExitActions>
+          <BeginStoryboard>
+            <Storyboard>
+              <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                               To="{StaticResource opcity-btn-pri}"
+                               Duration="{StaticResource ani-short}" />
+              <DoubleAnimation Storyboard.TargetProperty="Width"
+                               To="{StaticResource sz-btn-pri}"
+                               Duration="{StaticResource ani-short}" />
+              <DoubleAnimation Storyboard.TargetProperty="Height"
+                               To="{StaticResource sz-btn-pri}"
+                               Duration="{StaticResource ani-short}" />
+            </Storyboard>
+          </BeginStoryboard>
+        </Trigger.ExitActions>
+      </Trigger>
+    </Style.Triggers>
   </Style>
 
   <!-- doclistbox-item -->
