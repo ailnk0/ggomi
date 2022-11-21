@@ -8,7 +8,6 @@
         Title="PDF 파일 형식 변환기"
         Height="450"
         Width="800">
-
   <Window.Resources>
     <ResourceDictionary>
       <ResourceDictionary.MergedDictionaries>
@@ -42,7 +41,6 @@
       </ResourceDictionary.MergedDictionaries>
     </ResourceDictionary>
   </Window.Resources>
-
   <Grid>
     <Grid.RowDefinitions>
       <RowDefinition Height="30" />
@@ -60,38 +58,38 @@
       </Grid.ColumnDefinitions>
       <Button x:Name="IDC_Button_SecondaryAdd"
               Grid.Column="1"
-              Width="30"
-              Height="30"
+              Width="{StaticResource sz-btn-sec}"
+              Height="{StaticResource sz-btn-sec}"
               Background="Transparent"
               BorderThickness="0"
               Command="ApplicationCommands.Open">
         <Image Width="30">
           <Image.Source>
-            <DrawingImage Drawing="{DynamicResource sm_add}"></DrawingImage>
+            <DrawingImage Drawing="{DynamicResource sm_add}" />
           </Image.Source>
         </Image>
       </Button>
       <Button x:Name="IDC_Button_SecondaryRemove"
               Grid.Column="2"
-              Width="30"
-              Height="30"
+              Width="{StaticResource sz-btn-sec}"
+              Height="{StaticResource sz-btn-sec}"
               Background="Transparent"
               BorderThickness="0">
         <Image Width="30">
           <Image.Source>
-            <DrawingImage Drawing="{DynamicResource sm_sub}"></DrawingImage>
+            <DrawingImage Drawing="{DynamicResource sm_sub}" />
           </Image.Source>
         </Image>
       </Button>
       <Button x:Name="IDC_Button_SecondarySetting"
               Grid.Column="3"
-              Width="30"
-              Height="30"
+              Width="{StaticResource sz-btn-sec}"
+              Height="{StaticResource sz-btn-sec}"
               Background="Transparent"
               BorderThickness="0">
         <Image Width="30">
           <Image.Source>
-            <DrawingImage Drawing="{DynamicResource sm_config}"></DrawingImage>
+            <DrawingImage Drawing="{DynamicResource sm_config}" />
           </Image.Source>
         </Image>
       </Button>
@@ -110,33 +108,17 @@
       <Button x:Name="IDC_Button_PrimaryConvert"
               VerticalAlignment="Center"
               HorizontalAlignment="Center"
-              Width="70"
-              Height="70"
+              Width="{StaticResource sz-btn-pri}"
+              Height="{StaticResource sz-btn-pri}"
               Background="Transparent"
               BorderThickness="0"
               Command="{x:Static local:MainWindow.ConvertCommand}">
-        <Image Width="70">
+        <Image>
           <Image.Source>
-            <DrawingImage Drawing="{DynamicResource sm_r_run}"></DrawingImage>
-          </Image.Source>
+            <DrawingImage Drawing="{DynamicResource sm_r_run}" />
+            </Image.Source>
         </Image>
       </Button>
-      <Button x:Name="IDC_Button_PrimaryPause"
-              VerticalAlignment="Center"
-              HorizontalAlignment="Center"
-              Width="70"
-              Height="70"
-              Command="{x:Static local:MainWindow.ConvertCommand}"
-              Content="중지"
-              Visibility="Collapsed" />
-      <Button x:Name="IDC_Button_PrimaryReset"
-              VerticalAlignment="Center"
-              HorizontalAlignment="Center"
-              Width="70"
-              Height="70"
-              Command="{x:Static local:MainWindow.ConvertCommand}"
-              Content="재시작"
-              Visibility="Collapsed" />
     </Grid>
   </Grid>
 </Window>

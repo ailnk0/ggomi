@@ -7,121 +7,118 @@
              mc:Ignorable="d"
              d:DesignHeight="120"
              d:DesignWidth="800">
-    <UserControl.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Themes/Generic.xaml" />
-                <ResourceDictionary Source="Themes/Images/lg_hpdftypedocument.xaml" />
-                <ResourceDictionary Source="Themes/Images/lg_pdftodocxdlg.xaml" />
-                <ResourceDictionary Source="Themes/Images/lg_pdftohwpdlg.xaml" />
-                <ResourceDictionary Source="Themes/Images/lg_pdftoimagedlg.xaml" />
-                <ResourceDictionary Source="Themes/Images/lg_pdftopptxdlg.xaml" />
-                <ResourceDictionary Source="Themes/Images/lg_pdftoxlsxdlg.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </UserControl.Resources>
-    <Grid>
-        <StackPanel>
-            <Grid Height="120">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="80" />
-                    <ColumnDefinition Width="80" />
-                    <ColumnDefinition Width="80" />
-                    <ColumnDefinition Width="80" />
-                    <ColumnDefinition Width="80" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="60" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-                <Image
-               Grid.Row="0"
+  <UserControl.Resources>
+    <ResourceDictionary>
+      <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="Themes/Generic.xaml" />
+        <ResourceDictionary Source="Themes/Images/lg_hpdftypedocument.xaml" />
+        <ResourceDictionary Source="Themes/Images/lg_pdftodocxdlg.xaml" />
+        <ResourceDictionary Source="Themes/Images/lg_pdftohwpdlg.xaml" />
+        <ResourceDictionary Source="Themes/Images/lg_pdftoimagedlg.xaml" />
+        <ResourceDictionary Source="Themes/Images/lg_pdftopptxdlg.xaml" />
+        <ResourceDictionary Source="Themes/Images/lg_pdftoxlsxdlg.xaml" />
+      </ResourceDictionary.MergedDictionaries>
+    </ResourceDictionary>
+  </UserControl.Resources>
+  <Grid>
+    <StackPanel>
+      <Grid Height="120">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="*" />
+          <ColumnDefinition Width="80" />
+          <ColumnDefinition Width="80" />
+          <ColumnDefinition Width="80" />
+          <ColumnDefinition Width="80" />
+          <ColumnDefinition Width="80" />
+          <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="60" />
+          <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Image Grid.Row="0"
                Grid.Column="1"
-               VerticalAlignment="Top" Height="50" Margin="15,0,15,0">
-                    <Image.Source>
-                        <DrawingImage Drawing="{DynamicResource lg_pdftohwpdlg}"></DrawingImage>
-                    </Image.Source>
-                </Image>
-                <RadioButton x:Name="IDC_RadioButton_HWP"
+               Height="{StaticResource sz-btn-Format}">
+          <Image.Source>
+            <DrawingImage Drawing="{DynamicResource lg_pdftohwpdlg}" />
+          </Image.Source>
+        </Image>
+        <RadioButton x:Name="IDC_RadioButton_HWP"
                      Checked="RadioButton_Checked"
                      HorizontalAlignment="Center"
                      Grid.Row="1"
-                     Grid.Column="1" Width="16">
-                </RadioButton>
-                <Image
-               Grid.Row="0"
+                     Grid.Column="1"
+                     IsChecked="True">
+        </RadioButton>
+        <Image Grid.Row="0"
                Grid.Column="2"
-               VerticalAlignment="Top" Height="50" Margin="15,0,15,0">
-                    <Image.Source>
-                        <DrawingImage Drawing="{DynamicResource lg_pdftoxlsxdlg}"></DrawingImage>
-                    </Image.Source>
-                </Image>
-                <RadioButton x:Name="IDC_RadioButton_XLSX"
+               Height="{StaticResource sz-btn-Format}">
+          <Image.Source>
+            <DrawingImage Drawing="{DynamicResource lg_pdftoxlsxdlg}" />
+          </Image.Source>
+        </Image>
+        <RadioButton x:Name="IDC_RadioButton_XLSX"
                      Checked="RadioButton_Checked"
                      HorizontalAlignment="Center"
                      Grid.Row="1"
-                     Grid.Column="2" Width="16">
-                </RadioButton>
-                <Image
-               Grid.Row="0"
+                     Grid.Column="2">
+        </RadioButton>
+        <Image Grid.Row="0"
                Grid.Column="3"
-               VerticalAlignment="Top" Height="50" Margin="15,0,15,0">
-                    <Image.Source>
-                        <DrawingImage Drawing="{DynamicResource lg_pdftopptxdlg}"></DrawingImage>
-                    </Image.Source>
-                </Image>
-                <RadioButton x:Name="IDC_RadioButton_PPTX"
+               VerticalAlignment="Top"
+               Height="{StaticResource sz-btn-Format}">
+          <Image.Source>
+            <DrawingImage Drawing="{DynamicResource lg_pdftopptxdlg}" />
+          </Image.Source>
+        </Image>
+        <RadioButton x:Name="IDC_RadioButton_PPTX"
                      Checked="RadioButton_Checked"
                      HorizontalAlignment="Center"
                      Grid.Row="1"
-                     Grid.Column="3" Width="16">
-                </RadioButton>
-                <Image
-               Grid.Row="0"
+                     Grid.Column="3">
+        </RadioButton>
+        <Image Grid.Row="0"
                Grid.Column="4"
-               VerticalAlignment="Top" Height="50" Margin="15,0,15,0">
-                    <Image.Source>
-                        <DrawingImage Drawing="{DynamicResource lg_pdftodocxdlg}"></DrawingImage>
-                    </Image.Source>
-                </Image>
-                <RadioButton x:Name="IDC_RadioButton_DOCX"
+               VerticalAlignment="Top"
+               Height="{StaticResource sz-btn-Format}">
+          <Image.Source>
+            <DrawingImage Drawing="{DynamicResource lg_pdftodocxdlg}" />
+          </Image.Source>
+        </Image>
+        <RadioButton x:Name="IDC_RadioButton_DOCX"
                      Checked="RadioButton_Checked"
                      HorizontalAlignment="Center"
                      Grid.Row="1"
-                     Grid.Column="4" Width="16">
-                </RadioButton>
-                <Image Width="50"
-                       Grid.Row="0"
+                     Grid.Column="4">
+        </RadioButton>
+        <Image Grid.Row="0"
                Grid.Column="5"
-               VerticalAlignment="Top" Height="50" Margin="15,0,15,0">
-                    <Image.Source>
-                        <DrawingImage Drawing="{DynamicResource lg_pdftoimagedlg}"/>
-                    </Image.Source>
-                </Image>
-                <RadioButton x:Name="IDC_RadioButton_Image"
+               VerticalAlignment="Top"
+               Height="{StaticResource sz-btn-Format}">
+          <Image.Source>
+            <DrawingImage Drawing="{DynamicResource lg_pdftoimagedlg}" />
+          </Image.Source>
+        </Image>
+        <RadioButton x:Name="IDC_RadioButton_Image"
                      Checked="RadioButton_Checked"
                      HorizontalAlignment="Center"
                      Grid.Row="1"
-                     Grid.Column="5" Width="16">
-                </RadioButton>
-                <StackPanel
-                    Grid.RowSpan="2"
+                     Grid.Column="5">
+        </RadioButton>
+        <StackPanel Grid.RowSpan="2"
                     Grid.Column="6"
                     Margin="0,20,0,0">
-                    <Expander
-                    FocusVisualStyle="{x:Null}" Height="100">
-                        <StackPanel >
-                            <RadioButton Content="JPG" />
-                            <RadioButton Content="PNG" />
-                            <RadioButton Content="BMP" />
-                            <RadioButton Content="GIF" />
-                        </StackPanel>
-                    </Expander>
-                </StackPanel>
-                
-            </Grid>
+          <Expander FocusVisualStyle="{x:Null}"
+                    Height="100">
+            <StackPanel>
+              <RadioButton Content="JPG" />
+              <RadioButton Content="PNG" />
+              <RadioButton Content="BMP" />
+              <RadioButton Content="GIF" />
+            </StackPanel>
+          </Expander>
         </StackPanel>
-    </Grid>
+      </Grid>
+    </StackPanel>
+  </Grid>
 </UserControl>

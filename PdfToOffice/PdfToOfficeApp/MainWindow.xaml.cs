@@ -12,10 +12,8 @@ namespace PdfToOfficeApp
     /// </summary>
     public partial class MainWindow : Window
     {
-        private static MainWindow instance;
         public MainViewModel vm;
-        //private IList<Doc> DocListData;
-        private DocList DocListData;
+        public DocList DocListData;
 
         public static readonly DependencyProperty StatusProperty =
            DependencyProperty.Register("Status", typeof(AppStatus), typeof(MainWindow), new PropertyMetadata(AppStatus.Init));
@@ -29,7 +27,6 @@ namespace PdfToOfficeApp
         public MainWindow()
         {
             InitializeComponent();
-            instance = this;
 
             vm = new MainViewModel();
             this.DataContext = vm;
@@ -37,17 +34,10 @@ namespace PdfToOfficeApp
                 vm.CloseAction = new Action(() => this.Close());
         }
 
-        public static MainWindow GetInstance()
-        {
-            return instance;
-        }
-
         protected override void OnInitialized(EventArgs e)
         {
             base.OnInitialized(e);
 
-            //DocListData = Resources["doclistbox-data"] as IList<Doc>;
-            //DocListData = Resources["doclistbox-data"] as DocList;
             DocListData = IDC_DocList.ItemsSource as DocList;
 
             AddCommandHandlers(ApplicationCommands.Open, OnOpen, CanOpen);
@@ -99,17 +89,19 @@ namespace PdfToOfficeApp
 
         private void OnConvert(object sender, ExecutedRoutedEventArgs e)
         {
+            bool? showMessage = e.Parameter as bool?;
             foreach (Doc doc in DocListData)
             {
                 string path = doc.FilePath;
                 int resultCode = vm.RunSample(path);
                 if (resultCode != 0)
                 {
-                    MessageBox.Show(Utils.GetString("IDS_Msg_Failed"));
+                    if (showMessage != false)
+                        MessageBox.Show(Utils.GetString("IDS_Msg_Failed"));
                 }
             }
-
-            MessageBox.Show("Conversion is done.");
+            if (showMessage != false)
+                MessageBox.Show("Conversion is done.");
         }
 
         private void CanConvert(object sender, CanExecuteRoutedEventArgs e)

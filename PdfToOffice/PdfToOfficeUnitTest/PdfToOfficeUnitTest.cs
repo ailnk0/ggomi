@@ -1,5 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PdfToOfficeApp;
+using System.Collections.Generic;
+using System.IO;
 
 namespace PdfToOfficeUnitTest
 {
@@ -43,30 +45,29 @@ namespace PdfToOfficeUnitTest
         [TestMethod]
         public void TestConvertCommand()
         {
-            //MainWindow mw = new MainWindow();
-            //Assert.AreEqual(false, MainWindow.ConvertCommand.CanExecute(null, mw));
+            MainWindow mw = new MainWindow();
+            Assert.AreEqual(false, MainWindow.ConvertCommand.CanExecute(null, mw));
+            for (int i = 0; i < 3; i++)
+            {
+                Doc doc = new Doc();
 
-            //for (int i = 0; i < 3; i++)
-            //{
-            //    Doc doc = new Doc();
+                doc.FileName = "HOffice2022_Brochure_KR.pdf";
+                doc.FilePath = "../sample/HOffice2022_Brochure_KR.pdf";
+                mw.DocListData.Add(doc);
+            }
+            mw.Status = AppStatus.Ready;
+            Assert.AreEqual(true, MainWindow.ConvertCommand.CanExecute(null, mw));
 
-            //    doc.FileName = "HOffice2022_Brochure_KR.pdf";
-            //    doc.FilePath = "../sample";
+            MainWindow.ConvertCommand.Execute(false, mw);
 
-            //    mw.vm.FileInformations.Add(fileInformation);
-            //}
-            //Assert.AreEqual(true, MainWindow.ConvertCommand.CanExecute(null, mw));
+            string convertedDocPath = "../sample/HOffice2022_Brochure_KR.docx";
+            bool isConvertSuccess = File.Exists(convertedDocPath);
+            if (isConvertSuccess)
+            {
+                File.Delete(convertedDocPath);
+            }
 
-            //MainWindow.ConvertCommand.Execute(false, mw);
-
-            //string convertedDocPath = "../sample/HOffice2022_Brochure_KR.docx";
-            //bool isConvertSuccess = File.Exists(convertedDocPath);
-            //if (isConvertSuccess)
-            //{
-            //    File.Delete(convertedDocPath);
-            //}
-
-            //Assert.AreEqual(true, isConvertSuccess);
+            Assert.AreEqual(true, isConvertSuccess);
         }
     }
 }

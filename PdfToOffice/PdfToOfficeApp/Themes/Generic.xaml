@@ -58,8 +58,8 @@
   <Duration x:Key="ani-short">0:0:0.25</Duration>
   <Duration x:Key="ani-long">0:0:0.5</Duration>
 
-  <system:Double x:Key="sz-btn-pri">40</system:Double>
-  <system:Double x:Key="sz-btn-pri-mouseover">44</system:Double>
+  <system:Double x:Key="sz-btn-pri">70</system:Double>
+  <system:Double x:Key="sz-btn-pri-mouseover">74</system:Double>
   <system:Double x:Key="opcity-btn-pri">1</system:Double>
   <system:Double x:Key="opcity-btn-pri-mouseover">0.8</system:Double>
 
@@ -67,6 +67,9 @@
   <system:Double x:Key="sz-btn-sec-mouseover">33</system:Double>
   <system:Double x:Key="opcity-btn-sec">1</system:Double>
   <system:Double x:Key="opcity-btn-sec-mouseover">0.8</system:Double>
+
+  <system:Double x:Key="sz-btn-Format">50</system:Double>
+  <system:Double x:Key="sz-btn-Format-mouseover">54</system:Double>
 
   <!-- ModelView : doclistbox-data -->
   <local:DocList x:Key="doclistbox-data" />

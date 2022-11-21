@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace PdfToOfficeApp
 {
@@ -16,6 +17,9 @@ namespace PdfToOfficeApp
 
         protected override void OnItemsChanged(NotifyCollectionChangedEventArgs e)
         {
+            if (Application.Current == null)
+                return;
+
             var mainWindow = Application.Current.MainWindow as MainWindow;
             var itemsSource = ItemsSource as IList<Doc>;
             if (itemsSource.Count > 0)
@@ -29,4 +33,3 @@ namespace PdfToOfficeApp
         }
     }
 }
-
