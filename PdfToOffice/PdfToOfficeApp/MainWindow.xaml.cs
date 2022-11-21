@@ -27,7 +27,7 @@ namespace PdfToOfficeApp
         public MainWindow()
         {
             InitializeComponent();
-
+            //테스트
             vm = new MainViewModel();
             this.DataContext = vm;
             if (vm.CloseAction == null)
