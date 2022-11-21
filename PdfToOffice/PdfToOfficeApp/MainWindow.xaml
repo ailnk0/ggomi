@@ -5,57 +5,138 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PdfToOfficeApp"
         mc:Ignorable="d"
-        Title="PDF 파일 형식 변환기" Height="450" Width="800">
+        Title="PDF 파일 형식 변환기"
+        Height="450"
+        Width="800">
 
-    <Window.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Themes/Generic.xaml"/>
-                <ResourceDictionary Source="Themes/Images/lg_hpdftypedocument.xaml"/>
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </Window.Resources>
+  <Window.Resources>
+    <ResourceDictionary>
+      <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="Themes/Generic.xaml" />
+        <ResourceDictionary Source="Themes/Images/lg_hpdftypedocument.xaml" />
+        <ResourceDictionary Source="Themes/Images/lg_pdftodocxdlg.xaml" />
+        <ResourceDictionary Source="Themes/Images/lg_pdftohwpdlg.xaml" />
+        <ResourceDictionary Source="Themes/Images/lg_pdftoimagedlg.xaml" />
+        <ResourceDictionary Source="Themes/Images/lg_pdftopptxdlg.xaml" />
+        <ResourceDictionary Source="Themes/Images/lg_pdftoxlsxdlg.xaml" />
+        <ResourceDictionary Source="Themes/Images/dlg_data_validate_check.xaml" />
+        <ResourceDictionary Source="Themes/Images/dlg_data_validate_info.xaml" />
+        <ResourceDictionary Source="Themes/Images/dlg_data_validate_question.xaml" />
+        <ResourceDictionary Source="Themes/Images/dlg_data_validate_stop.xaml" />
+        <ResourceDictionary Source="Themes/Images/dlg_data_validate_warning.xaml" />
+        <ResourceDictionary Source="Themes/Images/sm_add.xaml" />
+        <ResourceDictionary Source="Themes/Images/sm_arrow_left.xaml" />
+        <ResourceDictionary Source="Themes/Images/sm_arrow_right.xaml" />
+        <ResourceDictionary Source="Themes/Images/sm_cancel.xaml" />
+        <ResourceDictionary Source="Themes/Images/sm_check.xaml" />
+        <ResourceDictionary Source="Themes/Images/sm_config.xaml" />
+        <ResourceDictionary Source="Themes/Images/sm_dropdown.xaml" />
+        <ResourceDictionary Source="Themes/Images/sm_fail.xaml" />
+        <ResourceDictionary Source="Themes/Images/sm_offset_down.xaml" />
+        <ResourceDictionary Source="Themes/Images/sm_offset_up.xaml" />
+        <ResourceDictionary Source="Themes/Images/sm_r_add.xaml" />
+        <ResourceDictionary Source="Themes/Images/sm_r_check.xaml" />
+        <ResourceDictionary Source="Themes/Images/sm_r_run.xaml" />
+        <ResourceDictionary Source="Themes/Images/sm_r_stop.xaml" />
+        <ResourceDictionary Source="Themes/Images/sm_sub.xaml" />
+      </ResourceDictionary.MergedDictionaries>
+    </ResourceDictionary>
+  </Window.Resources>
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="30"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="100"/>
-            <RowDefinition Height="120"/>
-        </Grid.RowDefinitions>
-        <Grid Grid.Row="0" x:Name="IDC_Grid_SecondaryButtons" Visibility="Collapsed">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="30"/>
-                <ColumnDefinition Width="30"/>
-                <ColumnDefinition Width="30"/>
-            </Grid.ColumnDefinitions>
-            <Button x:Name="IDC_Button_SecondaryAdd" Grid.Column="1" Width="30" Height="30"/>
-            <Button x:Name="IDC_Button_SecondaryRemove" Grid.Column="2" Width="30" Height="30"/>
-            <Button x:Name="IDC_Button_SecondarySetting" Grid.Column="3" Width="30" Height="30"/>
-        </Grid>
-
-        <local:DocListBox x:Name="IDC_DocList" Grid.Row="1" Grid.RowSpan="4" ItemsSource="{Binding Source={StaticResource doclistbox-data}}"/>
-        <Button x:Name="IDC_Button_PrimaryAdd" Grid.Row="1" Grid.RowSpan="4" VerticalAlignment="Center" HorizontalAlignment="Center" Width="70" Height="70" 
-                Style="{StaticResource btn-adddoc}" 
-                Command="ApplicationCommands.Open"/>
-        
-        <Grid Grid.Row="2">
-            <local:SelectFormat x:Name="IDC_SelectFormat" Visibility="Collapsed"/>
-        </Grid>
-        <Grid Grid.Row="3">
-            <Button x:Name="IDC_Button_PrimaryConvert" VerticalAlignment="Center" HorizontalAlignment="Center" Width="70" Height="70" 
-                    Style="{StaticResource btn-convert}" 
-                    Command="{x:Static local:MainWindow.ConvertCommand}"
-                    Visibility="Collapsed"/>
-
-            <Button x:Name="IDC_Button_PrimaryPause" VerticalAlignment="Center" HorizontalAlignment="Center" Width="70" Height="70" 
-                    Command="{x:Static local:MainWindow.ConvertCommand}" Content="중지"
-                    Visibility="Collapsed"/>
-
-            <Button x:Name="IDC_Button_PrimaryReset" VerticalAlignment="Center" HorizontalAlignment="Center" Width="70" Height="70" 
-                    Command="{x:Static local:MainWindow.ConvertCommand}" Content="재시작"
-                    Visibility="Collapsed"/>
-        </Grid>
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="30" />
+      <RowDefinition Height="*" />
+      <RowDefinition Height="120" />
+      <RowDefinition Height="80" />
+    </Grid.RowDefinitions>
+    <Grid Grid.Row="0"
+          x:Name="IDC_Grid_SecondaryButtons">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="*" />
+        <ColumnDefinition Width="40" />
+        <ColumnDefinition Width="40" />
+        <ColumnDefinition Width="40" />
+      </Grid.ColumnDefinitions>
+      <Button x:Name="IDC_Button_SecondaryAdd"
+              Grid.Column="1"
+              Width="30"
+              Height="30"
+              Background="Transparent"
+              BorderThickness="0"
+              Command="ApplicationCommands.Open">
+        <Image Width="30">
+          <Image.Source>
+            <DrawingImage Drawing="{DynamicResource sm_add}"></DrawingImage>
+          </Image.Source>
+        </Image>
+      </Button>
+      <Button x:Name="IDC_Button_SecondaryRemove"
+              Grid.Column="2"
+              Width="30"
+              Height="30"
+              Background="Transparent"
+              BorderThickness="0">
+        <Image Width="30">
+          <Image.Source>
+            <DrawingImage Drawing="{DynamicResource sm_sub}"></DrawingImage>
+          </Image.Source>
+        </Image>
+      </Button>
+      <Button x:Name="IDC_Button_SecondarySetting"
+              Grid.Column="3"
+              Width="30"
+              Height="30"
+              Background="Transparent"
+              BorderThickness="0">
+        <Image Width="30">
+          <Image.Source>
+            <DrawingImage Drawing="{DynamicResource sm_config}"></DrawingImage>
+          </Image.Source>
+        </Image>
+      </Button>
     </Grid>
+    <local:DocListBox x:Name="IDC_DocList"
+                      Grid.Row="1"
+                      ItemsSource="{Binding Source={StaticResource doclistbox-data}}" />
+    <Grid Grid.Row="2">
+      <Border  BorderBrush="Gainsboro"
+               BorderThickness="0,1,0,0"
+               Padding="0,15,0,0">
+        <local:SelectFormat x:Name="IDC_SelectFormat" />
+      </Border>
+    </Grid>
+    <Grid Grid.Row="3">
+      <Button x:Name="IDC_Button_PrimaryConvert"
+              VerticalAlignment="Center"
+              HorizontalAlignment="Center"
+              Width="70"
+              Height="70"
+              Background="Transparent"
+              BorderThickness="0"
+              Command="{x:Static local:MainWindow.ConvertCommand}">
+        <Image Width="70">
+          <Image.Source>
+            <DrawingImage Drawing="{DynamicResource sm_r_run}"></DrawingImage>
+          </Image.Source>
+        </Image>
+      </Button>
+      <Button x:Name="IDC_Button_PrimaryPause"
+              VerticalAlignment="Center"
+              HorizontalAlignment="Center"
+              Width="70"
+              Height="70"
+              Command="{x:Static local:MainWindow.ConvertCommand}"
+              Content="중지"
+              Visibility="Collapsed" />
+      <Button x:Name="IDC_Button_PrimaryReset"
+              VerticalAlignment="Center"
+              HorizontalAlignment="Center"
+              Width="70"
+              Height="70"
+              Command="{x:Static local:MainWindow.ConvertCommand}"
+              Content="재시작"
+              Visibility="Collapsed" />
+    </Grid>
+  </Grid>
 </Window>

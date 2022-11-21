@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Windows;
 using static PdfToOfficeApp.MainModel;
 
 namespace PdfToOfficeApp

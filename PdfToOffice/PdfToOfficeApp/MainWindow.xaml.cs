@@ -14,7 +14,18 @@ namespace PdfToOfficeApp
     {
         private static MainWindow instance;
         public MainViewModel vm;
-        private ICollection<Doc> DocList_ItemsSource;
+        //private IList<Doc> DocListData;
+        private DocList DocListData;
+
+        public static readonly DependencyProperty StatusProperty =
+           DependencyProperty.Register("Status", typeof(AppStatus), typeof(MainWindow), new PropertyMetadata(AppStatus.Init));
+
+        public AppStatus Status
+        {
+            get => (AppStatus)GetValue(StatusProperty);
+            set => SetValue(StatusProperty, value);
+        }
+
         public MainWindow()
         {
             InitializeComponent();
@@ -24,8 +35,6 @@ namespace PdfToOfficeApp
             this.DataContext = vm;
             if (vm.CloseAction == null)
                 vm.CloseAction = new Action(() => this.Close());
-
-            DocList_ItemsSource = IDC_DocList.ItemsSource as ICollection<Doc>;
         }
 
         public static MainWindow GetInstance()
@@ -37,12 +46,23 @@ namespace PdfToOfficeApp
         {
             base.OnInitialized(e);
 
+            //DocListData = Resources["doclistbox-data"] as IList<Doc>;
+            //DocListData = Resources["doclistbox-data"] as DocList;
+            DocListData = IDC_DocList.ItemsSource as DocList;
+
             AddCommandHandlers(ApplicationCommands.Open, OnOpen, CanOpen);
             AddCommandHandlers(AddFileCommand, OnAddFile, CanAddFile);
             AddCommandHandlers(RemoveFileCommand, OnRemoveFile, CanRemoveFile);
             AddCommandHandlers(OpenFolderCommand, OnOpenFolder, CanOpenFolder);
             AddCommandHandlers(ConvertCommand, OnConvert, CanConvert);
             AddCommandHandlers(CancelCommand, OnCancel, CanCancel);
+        }
+
+        protected override void OnPreviewDrop(DragEventArgs e)
+        {
+            e.Handled = true;
+            var fileNames = e.Data.GetData(DataFormats.FileDrop, true) as string[];
+            AddFileCommand.Execute(fileNames, this);
         }
 
         #region RoutedCommand
@@ -59,15 +79,17 @@ namespace PdfToOfficeApp
 
         private void OnOpen(object sender, RoutedEventArgs e)
         {
-            var dialog = new OpenFileDialog();
-            dialog.Multiselect = true;
+            var dialog = new OpenFileDialog
+            {
+                Multiselect = true
+            };
             bool? result = dialog.ShowDialog();
             if (result != true)
             {
                 return;
             }
 
-            DocListBox.AddDoc.Execute(dialog.FileNames, IDC_DocList);
+            AddFileCommand.Execute(dialog.FileNames, IDC_DocList);
         }
 
         private void CanOpen(object sender, CanExecuteRoutedEventArgs e)
@@ -77,11 +99,7 @@ namespace PdfToOfficeApp
 
         private void OnConvert(object sender, ExecutedRoutedEventArgs e)
         {
-            IDC_SelectFormat.Visibility = Visibility.Collapsed;
-            IDC_Button_PrimaryConvert.Visibility = Visibility.Collapsed;
-            IDC_Button_PrimaryPause.Visibility = Visibility.Visible;
-
-            foreach (Doc doc in DocList_ItemsSource)
+            foreach (Doc doc in DocListData)
             {
                 string path = doc.FilePath;
                 int resultCode = vm.RunSample(path);
@@ -91,29 +109,18 @@ namespace PdfToOfficeApp
                 }
             }
 
-            IDC_Button_PrimaryPause.Visibility = Visibility.Collapsed;
-            IDC_Button_PrimaryReset.Visibility = Visibility.Visible;
             MessageBox.Show("Conversion is done.");
         }
 
         private void CanConvert(object sender, CanExecuteRoutedEventArgs e)
         {
-            // 목록에 파일 있는지 확인
-            if (DocList_ItemsSource.Count == 0)
+            if (Status == AppStatus.Init)
             {
                 e.CanExecute = false;
-                IDC_Button_PrimaryAdd.Visibility = Visibility.Visible;
-                IDC_SelectFormat.Visibility = Visibility.Collapsed;
-                IDC_Grid_SecondaryButtons.Visibility = Visibility.Collapsed;
                 return;
             }
             else
             {
-                IDC_Button_PrimaryConvert.Visibility = Visibility.Visible;
-                IDC_SelectFormat.Visibility = Visibility.Visible;
-                IDC_Grid_SecondaryButtons.Visibility = Visibility.Visible;
-                IDC_Button_PrimaryAdd.Visibility = Visibility.Collapsed;
-
                 if (SelectFormat.bRadioSelected)
                 {
                     e.CanExecute = true;
@@ -124,7 +131,17 @@ namespace PdfToOfficeApp
         // 파일 추가
         private void OnAddFile(object sender, ExecutedRoutedEventArgs e)
         {
+            var fileNames = e.Parameter as string[];
+            if (fileNames == null)
+            {
+                return;
+            }
 
+            var itemsSource = DocListData as ICollection<Doc>;
+            foreach (var file in fileNames)
+            {
+                itemsSource.Add(new Doc(file));
+            }
         }
 
         private void CanAddFile(object sender, CanExecuteRoutedEventArgs e)
