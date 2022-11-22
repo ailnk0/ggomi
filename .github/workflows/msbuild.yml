@@ -1,0 +1,89 @@
+name: MSBuild
+
+on:
+  push:
+    # Sequence of patterns matched against refs/tags
+    tags:
+      - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
+
+env:
+  # Path to the solution file relative to the root of the project.
+  SOLUTION_FILE_PATH: ./PdfToOffice/PdfToOffice.sln
+
+  # Configuration type to build.
+  # You can convert this to a build matrix if you need coverage of multiple configuration types.
+  # https://docs.github.com/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix
+  BUILD_CONFIGURATION: Release
+
+  BUILD_OUTPUT_PATH: >-
+    "./PdfToOffice/Bin/HncPdfSdk",
+    "./PdfToOffice/Bin/PdfToOfficeApp.exe",
+    "./PdfToOffice/Bin/PdfToOfficeAppModule.dll"
+    
+  RELEASE_ASSET_NAME: >-
+    Bin.zip
+
+  RELEASE_PATH: >-
+    ./Bin.zip
+
+  RELEASE_NOTICE: |
+    Automated Release by GitHub Action CI
+
+permissions:
+  contents: write
+
+jobs:
+
+  build:
+
+    runs-on: windows-latest
+      
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Add MSBuild to PATH
+      uses: microsoft/setup-msbuild@v1.0.2
+
+    - name: Restore NuGet packages
+      working-directory: ${{env.GITHUB_WORKSPACE}}
+      run: nuget restore ${{env.SOLUTION_FILE_PATH}}
+
+    - name: Build
+      working-directory: ${{env.GITHUB_WORKSPACE}}
+      # Add additional options to the MSBuild command line here (like platform or verbosity level).
+      # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
+      run: msbuild /m /p:Configuration=${{env.BUILD_CONFIGURATION}} ${{env.SOLUTION_FILE_PATH}}
+
+    # Execute all unit tests in the solution
+    #- name: Execute unit tests
+    #  uses: microsoft/vstest-action@v1.0.0
+    #  with:
+    #    testAssembly: PdfToOfficeUnitTest.dll
+    #    searchFolder: .\Bin\
+    #    runInParallel: true
+
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@latest
+      env:
+        GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+      with:
+        tag_name: ${{github.ref}}
+        release_name: Release ${{github.ref}}
+        body: ${{env.RELEASE_NOTICE}}
+        draft: false
+        prerelease: true
+
+    - name: Zip Build Output
+      run: Compress-Archive -Force -LiteralPath ${{env.BUILD_OUTPUT_PATH}} -DestinationPath ${{env.RELEASE_PATH}}
+
+    - name: Upload Release Asset
+      id: upload-release-asset
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+      with:
+        upload_url: ${{steps.create_release.outputs.upload_url}}
+        asset_path: ${{env.RELEASE_PATH}}
+        asset_name: ${{env.RELEASE_ASSET_NAME}}
+        asset_content_type: application/zip
