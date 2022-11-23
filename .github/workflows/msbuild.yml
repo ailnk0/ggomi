@@ -21,10 +21,10 @@ env:
     "./Bin/PdfToOfficeAppModule.dll"
     
   RELEASE_ASSET_NAME: >-
-    Bin_${{github.ref}}.zip
+    Bin.zip
 
   RELEASE_PATH: >-
-    ./Bin_${{github.ref}}.zip
+    ./Bin.zip
 
   RELEASE_NOTICE: |
     Automated Release by GitHub Action CI
