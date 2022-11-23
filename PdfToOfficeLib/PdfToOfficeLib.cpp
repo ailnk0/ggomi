@@ -10,56 +10,30 @@
 #include <iostream>
 
 using namespace SolidFramework::Platform;
+using namespace SolidFramework::Converters::Plumbing;
 
-int PdfToOfficeLib::InitializeSolidFramework(const std::wstring &frameworkPath)
+namespace HpdfToOffice
 {
-    wchar_t result[MAX_PATH];
-    GetModuleFileName(nullptr, result, MAX_PATH);
-    std::wstring curPath = result;
 
-    auto offset = curPath.find_last_of('\\');
-    curPath = curPath.substr(0, offset + 1);
+ErrorStatus PdfToOfficeLib::InitializeSolidFramework()
+{
+    SolidFramework::SupportPlatformIndependentPaths(true);
 
-    std::wstring licensePath = curPath;
-    licensePath.append(L"../../SolidFrameworkLicense/license.txt");
-
-    // Open License File
-    std::ifstream licenseFile(licensePath, std::ios::binary);
-    if (!licenseFile.is_open())
+    if (!SolidFramework::Initialize(Util::Path::GetSdkPath()))
     {
-        std::wcout << L"License file is not exist." << std::endl;
-        return 1;
+        return ErrorStatus::InternalError;
     }
 
-    // Read License
-    std::array<char, 256> buffer;
-    std::vector<std::wstring> license;
-    license.resize(4);
-    for (int i = 0; i < 4; i++)
-    {
-        licenseFile.getline(&buffer[0], 255);
-        std::string temp = &buffer[0];
-        license[i].assign(temp.begin(), temp.end());
-    }
-
-    // Initialize SolidFramework
-    if (!SolidFramework::Initialize(curPath + frameworkPath))
-    {
-        std::wcout << L"Couldn't initialize SolidFramework from path " << frameworkPath << std::endl;
-        return 2;
-    }
-
-    // Import the license
     try
     {
-        SolidFramework::License::Import(license[0], license[1], license[2], license[3]);
+        SolidFramework::License::Import(Util::Path::GetSdkLicPath());
     }
-    catch (SolidFramework::InvalidLicenseException &ex)
+    catch (SolidFramework::InvalidLicenseException /*&ex*/)
     {
-        std::wcout << L"Couldn't import license due to exception: " << ex.what() << std::endl;
-        return 3;
+        return ErrorStatus::InvalidLicense;
     }
-    return 0;
+
+    return ErrorStatus::Success;
 }
 
 void PdfToOfficeLib::DoProgress(SolidFramework::ProgressEventArgsPtr pProgressEventArgs)
@@ -78,15 +52,12 @@ void PdfToOfficeLib::DoProgress(SolidFramework::ProgressEventArgsPtr pProgressEv
     std::wcout << strDebug << std::endl;
 }
 
-bool PdfToOfficeLib::DoWordConversion(const std::wstring &fullPath, const std::wstring &password)
+ErrorStatus PdfToOfficeLib::DoWordConversion(const String &path, const String &password)
 {
-    std::wstring filePath = fullPath;
-    std::wstring outPath = fullPath;
+    std::wstring filePath = path;
+    std::wstring outPath = Util::Path::GetDirName(path);
 
-    size_t found = outPath.find_last_of(L"/\\");
-    outPath = outPath.substr(0, found);
-
-    bool bContinue = true;
+    ErrorStatus status = ErrorStatus::Success;
     try
     {
         auto pWordConverter = std::make_shared<SolidFramework::Converters::PdfToWordConverter>();
@@ -101,54 +72,14 @@ bool PdfToOfficeLib::DoWordConversion(const std::wstring &fullPath, const std::w
 
         pWordConverter->Convert();
 
-        SolidFramework::Converters::Plumbing::ConversionStatus status = pWordConverter->GetResults()[0]->GetStatus();
-
-        if (status != SolidFramework::Converters::Plumbing::ConversionStatus::Success)
-        {
-            std::wstring strError = L"ConversionStatus" + std::to_wstring((int)status);
-            MessageBox(NULL, strError.c_str(), L"Exception", MB_ICONERROR | MB_TOPMOST);
-            bContinue = false;
-        }
+        status = static_cast<ErrorStatus>(pWordConverter->GetResults()[0]->GetStatus());
     }
-    catch (const std::exception &e)
+    catch (const std::exception & /*e*/)
     {
-        std::string strE(e.what());
-        std::wstring strError(strE.begin(), strE.end());
-        MessageBox(NULL, strError.c_str(), L"Exception", MB_ICONERROR | MB_TOPMOST);
-        bContinue = false;
+        status = ErrorStatus::Unknown;
     }
 
-    return bContinue;
+    return status;
 }
 
-int PdfToOfficeLib::RunSamples(const std::wstring &path)
-{
-    // Allow SolidFramework to treat '\' and '/' as the platform-specific
-    // directory separator
-    SolidFramework::SupportPlatformIndependentPaths(true);
-
-    // Set the path to the SolidFramework DLLs (varies depending on the platform)
-    const std::wstring frameworkPath = L"HncPdfSdk\\";
-
-    // Initialize SolidFramework and import the license
-    int res = InitializeSolidFramework(frameworkPath);
-    if (res != 0)
-    {
-        std::wcout << L"SolidFramework initialization failed." << std::endl;
-        return res;
-    }
-
-    // Now you can start to use Solid Framework
-    std::wcout << L"SolidFramework is initialized and ready to be used." << std::endl;
-
-    DoWordConversion(path, L"");
-
-    std::wcout << L"RunSamples is done." << std::endl;
-
-    return 0;
-}
-
-int PdfToOfficeLib::RunSamples()
-{
-    return RunSamples(L"../sample/HOffice2022_Brochure_KR.pdf");
-}
+} // namespace HpdfToOffice

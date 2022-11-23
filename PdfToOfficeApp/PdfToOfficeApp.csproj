@@ -84,13 +84,14 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="AppStatus.cs" />
+    <Compile Include="Define.cs" />
     <Compile Include="Doc.cs" />
     <Compile Include="DocList.cs" />
     <Compile Include="DocListBox.cs" />
     <Compile Include="SelectFormat.xaml.cs">
       <DependentUpon>SelectFormat.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Utils.cs" />
+    <Compile Include="Util.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

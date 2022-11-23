@@ -9,41 +9,43 @@
 namespace PdfToOfficeAppModule
 {
 
-int PdfToOfficeAppModule::RunSample(System::String ^ path)
+PdfToOfficeAppModule::PdfToOfficeAppModule()
+{
+    lib = new HpdfToOffice::PdfToOfficeLib();
+}
+
+PdfToOfficeAppModule::~PdfToOfficeAppModule()
+{
+    if (lib)
+    {
+        delete lib;
+        lib = nullptr;
+	}
+}
+
+ErrorStatus PdfToOfficeAppModule::InitializeSolidFramework()
 {
     try
     {
-        PdfToOfficeLib lib;
-        return lib.RunSamples(msclr::interop::marshal_as<std::wstring>(path));
-    }
-    catch (const std::exception &)
-    {
-        // "Unhandled std::exception: " + ex.what()
-        return -1;
+        return static_cast<ErrorStatus>(lib->InitializeSolidFramework());
     }
     catch (...)
     {
-        // "Unhandled Exception!"
-        return -1;
+        return static_cast<ErrorStatus>(HpdfToOffice::ErrorStatus::Unknown);
     }
 }
 
-int PdfToOfficeAppModule::RunSample()
+ErrorStatus PdfToOfficeAppModule::DoWordConversion(System::String ^ path, System::String ^ password)
 {
     try
     {
-        PdfToOfficeLib lib;
-        return lib.RunSamples();
-    }
-    catch (const std::exception &)
-    {
-        // "Unhandled std::exception: " + ex.what()
-        return -1;
+        return static_cast<ErrorStatus>(
+            lib->DoWordConversion(msclr::interop::marshal_as<HpdfToOffice::String>(path),
+                                                      msclr::interop::marshal_as<HpdfToOffice::String>(password)));
     }
     catch (...)
     {
-        // "Unhandled Exception!"
-        return -1;
+        return static_cast<ErrorStatus>(HpdfToOffice::ErrorStatus::Unknown);
     }
 }
 

@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PdfToOfficeApp;
+using PdfToOfficeAppModule;
 using System.IO;
 
 namespace PdfToOfficeUnitTest
@@ -12,9 +13,9 @@ namespace PdfToOfficeUnitTest
         {
             PdfToOffice pdfToOffice = new PdfToOffice();
             string path = "";
-            int result = pdfToOffice.RunSample(path);
+            ErrorStatus result = pdfToOffice.DoWordConversion(path, "");
 
-            Assert.AreEqual(0, result);
+            Assert.AreEqual(ErrorStatus.Success, result);
         }
 
         // 파일 삭제

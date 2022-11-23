@@ -1,4 +1,5 @@
 using Microsoft.Win32;
+using PdfToOfficeAppModule;
 using System;
 using System.Collections.Generic;
 using System.Windows;
@@ -124,18 +125,25 @@ namespace PdfToOfficeApp
         private void OnConvert(object sender, ExecutedRoutedEventArgs e)
         {
             bool? showMessage = e.Parameter as bool?;
+
+            int failCount = 0;
             foreach (Doc doc in DocListData)
             {
                 string path = doc.FilePath;
-                int resultCode = vm.RunSample(path);
-                if (resultCode != 0)
+                ErrorStatus status = vm.DoWordConversion(path, "");
+                if (status != ErrorStatus.Success)
                 {
+                    failCount++;
                     if (showMessage != false)
-                        MessageBox.Show(Utils.GetString("IDS_Msg_Failed") + " " + resultCode.ToString());
+                        MessageBox.Show(Util.String.GetMsg(status));
                 }
             }
-            if (showMessage != false)
-                MessageBox.Show("Conversion is done.");
+
+            if (failCount == 0)
+            {
+                if (showMessage != false)
+                    MessageBox.Show(Util.String.GetMsg(ErrorStatus.Success));
+            }
         }
 
         private void CanConvert(object sender, CanExecuteRoutedEventArgs e)

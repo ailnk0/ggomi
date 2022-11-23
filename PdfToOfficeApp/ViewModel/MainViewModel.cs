@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PdfToOfficeAppModule;
+using System;
 using static PdfToOfficeApp.MainModel;
 
 namespace PdfToOfficeApp
@@ -31,11 +32,10 @@ namespace PdfToOfficeApp
             }
         }
 
-        public int RunSample(string path)
+        public ErrorStatus DoWordConversion(string path, string pwd)
         {
             PdfToOffice pdfToOffice = new PdfToOffice();
-
-            return pdfToOffice.RunSample(path);
+            return pdfToOffice.DoWordConversion(path, pwd);
         }
 
         public Action CloseAction { get; set; }

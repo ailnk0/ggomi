@@ -66,6 +66,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\PdfToOfficeAppModule\PdfToOfficeAppModule.vcxproj">
+      <Project>{2db91959-a51f-4409-bd06-16e4187f48d6}</Project>
+      <Name>PdfToOfficeAppModule</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PdfToOfficeApp\PdfToOfficeApp.csproj">
       <Project>{d4f7ad7b-170f-4673-b3c8-09df565b0778}</Project>
       <Name>PdfToOfficeApp</Name>

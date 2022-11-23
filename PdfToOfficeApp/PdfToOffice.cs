@@ -1,12 +1,20 @@
-﻿namespace PdfToOfficeApp
+﻿using PdfToOfficeAppModule;
+
+namespace PdfToOfficeApp
 {
     public class PdfToOffice
     {
-        public int RunSample(string path)
+        public ErrorStatus DoWordConversion(string path, string pwd)
         {
             var module = new PdfToOfficeAppModule.PdfToOfficeAppModule();
 
-            return module.RunSample(path);
+            ErrorStatus status = module.InitializeSolidFramework();
+            if (status != ErrorStatus.Success)
+            {
+                return status;
+            }
+
+            return module.DoWordConversion(path, pwd);
         }
     }
 }
