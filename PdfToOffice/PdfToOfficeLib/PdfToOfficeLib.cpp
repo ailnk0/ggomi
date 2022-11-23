@@ -11,14 +11,24 @@
 
 using namespace SolidFramework::Platform;
 
-bool PdfToOfficeLib::InitializeSolidFramework(const std::wstring &frameworkPath)
+int PdfToOfficeLib::InitializeSolidFramework(const std::wstring &frameworkPath)
 {
+    wchar_t result[MAX_PATH];
+    GetModuleFileName(nullptr, result, MAX_PATH);
+    std::wstring curPath = result;
+
+    auto offset = curPath.find_last_of('\\');
+    curPath = curPath.substr(0, offset + 1);
+
+    std::wstring licensePath = curPath;
+    licensePath.append(L"../../../SolidFrameworkLicense/license.txt");
+
     // Open License File
-    std::ifstream licenseFile("../../../SolidFrameworkLicense/license.txt", std::ios::binary);
+    std::ifstream licenseFile(licensePath, std::ios::binary);
     if (!licenseFile.is_open())
     {
         std::wcout << L"License file is not exist." << std::endl;
-        return false;
+        return 1;
     }
 
     // Read License
@@ -33,10 +43,10 @@ bool PdfToOfficeLib::InitializeSolidFramework(const std::wstring &frameworkPath)
     }
 
     // Initialize SolidFramework
-    if (!SolidFramework::Initialize(frameworkPath))
+    if (!SolidFramework::Initialize(curPath + frameworkPath))
     {
         std::wcout << L"Couldn't initialize SolidFramework from path " << frameworkPath << std::endl;
-        return false;
+        return 2;
     }
 
     // Import the license
@@ -47,9 +57,9 @@ bool PdfToOfficeLib::InitializeSolidFramework(const std::wstring &frameworkPath)
     catch (SolidFramework::InvalidLicenseException &ex)
     {
         std::wcout << L"Couldn't import license due to exception: " << ex.what() << std::endl;
-        return false;
+        return 3;
     }
-    return true;
+    return 0;
 }
 
 void PdfToOfficeLib::DoProgress(SolidFramework::ProgressEventArgsPtr pProgressEventArgs)
@@ -121,10 +131,11 @@ int PdfToOfficeLib::RunSamples(const std::wstring &path)
     const std::wstring frameworkPath = L"HncPdfSdk\\";
 
     // Initialize SolidFramework and import the license
-    if (!InitializeSolidFramework(frameworkPath))
+    int res = InitializeSolidFramework(frameworkPath);
+    if (res != 0)
     {
         std::wcout << L"SolidFramework initialization failed." << std::endl;
-        return -1;
+        return res;
     }
 
     // Now you can start to use Solid Framework

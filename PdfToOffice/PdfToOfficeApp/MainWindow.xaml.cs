@@ -27,15 +27,16 @@ namespace PdfToOfficeApp
         public MainWindow()
         {
             InitializeComponent();
-            vm = new MainViewModel();
-            this.DataContext = vm;
-            if (vm.CloseAction == null)
-                vm.CloseAction = new Action(() => this.Close());
         }
 
         protected override void OnInitialized(EventArgs e)
         {
             base.OnInitialized(e);
+
+            vm = new MainViewModel();
+            this.DataContext = vm;
+            if (vm.CloseAction == null)
+                vm.CloseAction = new Action(() => this.Close());
 
             DocListData = IDC_DocList.ItemsSource as DocList;
 
@@ -45,6 +46,12 @@ namespace PdfToOfficeApp
             AddCommandHandlers(OpenFolderCommand, OnOpenFolder, CanOpenFolder);
             AddCommandHandlers(ConvertCommand, OnConvert, CanConvert);
             AddCommandHandlers(CancelCommand, OnCancel, CanCancel);
+
+            string[] arrArg = Environment.GetCommandLineArgs();
+            if (arrArg.Length >= 3)
+            {
+                WindowContextExecute(arrArg[1], arrArg[2]);
+            }
         }
 
         protected override void OnPreviewDrop(DragEventArgs e)
@@ -52,6 +59,34 @@ namespace PdfToOfficeApp
             e.Handled = true;
             var fileNames = e.Data.GetData(DataFormats.FileDrop, true) as string[];
             AddFileCommand.Execute(fileNames, this);
+        }
+
+        private void WindowContextExecute(string filePath, string fileFormat)
+        {
+            string strFilePath = filePath;
+            string strFileFormat = fileFormat;
+
+            if (strFileFormat == "HWP")
+                IDC_SelectFormat.IDC_RadioButton_HWP.IsChecked = true;
+            else if (strFileFormat == "XSLX")
+                IDC_SelectFormat.IDC_RadioButton_XLSX.IsChecked = true;
+            else if (strFileFormat == "PPTX")
+                IDC_SelectFormat.IDC_RadioButton_PPTX.IsChecked = true;
+            else if (strFileFormat == "DOCX")
+                IDC_SelectFormat.IDC_RadioButton_DOCX.IsChecked = true;
+            else if (strFileFormat == "IMAGE")
+                IDC_SelectFormat.IDC_RadioButton_Image.IsChecked = true;
+
+            if (strFilePath == null)
+            {
+                return;
+            }
+
+            Status = AppStatus.Ready;
+
+            string[] fileNames = { strFilePath };
+            AddFileCommand.Execute(fileNames, this);
+            ConvertCommand.Execute(DocListData, IDC_Button_PrimaryConvert);
         }
 
         #region RoutedCommand
@@ -96,7 +131,7 @@ namespace PdfToOfficeApp
                 if (resultCode != 0)
                 {
                     if (showMessage != false)
-                        MessageBox.Show(Utils.GetString("IDS_Msg_Failed"));
+                        MessageBox.Show(Utils.GetString("IDS_Msg_Failed") + " " + resultCode.ToString());
                 }
             }
             if (showMessage != false)

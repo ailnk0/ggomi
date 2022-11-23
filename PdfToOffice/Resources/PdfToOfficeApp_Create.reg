@@ -1,0 +1,16 @@
+Windows Registry Editor Version 5.00
+
+[HKEY_CLASSES_ROOT\*\shell\PDF Converter]
+"Subcommands"=""
+
+[HKEY_CLASSES_ROOT\*\shell\PDF Converter\shell\DOCX]
+"MUIVerb"="DOCX"
+
+[HKEY_CLASSES_ROOT\*\shell\PDF Converter\shell\DOCX\command]
+@ = "C:\\Workspace\\ggomi\\PdfToOffice\\BinDebug\\PdfToOfficeApp.exe \"%1\" \"DOCX\""
+
+[HKEY_CLASSES_ROOT\*\shell\PDF Converter\shell\PPTX]
+"MUIVerb"="PPTX"
+
+[HKEY_CLASSES_ROOT\*\shell\PDF Converter\shell\PPTX\command]
+@ = "C:\\Workspace\\ggomi\\PdfToOffice\\BinDebug\\PdfToOfficeApp.exe \"%1\" \"PPTX\""

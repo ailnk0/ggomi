@@ -1,6 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PdfToOfficeApp;
-using System.Collections.Generic;
 using System.IO;
 
 namespace PdfToOfficeUnitTest
