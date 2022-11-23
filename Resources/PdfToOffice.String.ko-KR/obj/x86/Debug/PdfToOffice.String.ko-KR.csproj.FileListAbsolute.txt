@@ -1,0 +1,13 @@
+C:\Workspace\ggomi\PdfToOffice\Resources\PdfToOffice.String.ko-KR\bin\x86\Debug\PdfToOffice.String.ko-KR.dll
+C:\Workspace\ggomi\PdfToOffice\Resources\PdfToOffice.String.ko-KR\bin\x86\Debug\PdfToOffice.String.ko-KR.pdb
+C:\Workspace\ggomi\PdfToOffice\Resources\PdfToOffice.String.ko-KR\obj\x86\Debug\PdfToOffice.String.ko-KR.csproj.AssemblyReference.cache
+C:\Workspace\ggomi\PdfToOffice\Resources\PdfToOffice.String.ko-KR\obj\x86\Debug\ko-KR\pdftooffice_strings.baml
+C:\Workspace\ggomi\PdfToOffice\Resources\PdfToOffice.String.ko-KR\obj\x86\Debug\PdfToOffice.String.ko-KR_MarkupCompile.cache
+C:\Workspace\ggomi\PdfToOffice\Resources\PdfToOffice.String.ko-KR\obj\x86\Debug\PdfToOffice.String.ko-KR.g.resources
+C:\Workspace\ggomi\PdfToOffice\Resources\PdfToOffice.String.ko-KR\obj\x86\Debug\PdfToOffice.String.ko_KR.Properties.Resources.resources
+C:\Workspace\ggomi\PdfToOffice\Resources\PdfToOffice.String.ko-KR\obj\x86\Debug\PdfToOffice.String.ko-KR.csproj.GenerateResource.cache
+C:\Workspace\ggomi\PdfToOffice\Resources\PdfToOffice.String.ko-KR\obj\x86\Debug\PdfToOffice.String.ko-KR.csproj.CoreCompileInputs.cache
+C:\Workspace\ggomi\PdfToOffice\Resources\PdfToOffice.String.ko-KR\obj\x86\Debug\PdfToOffice.String.ko-KR.dll
+C:\Workspace\ggomi\PdfToOffice\Resources\PdfToOffice.String.ko-KR\obj\x86\Debug\PdfToOffice.String.ko-KR.pdb
+C:\Workspace\ggomi\PdfToOffice\BinDebug\PdfToOffice.String.ko-KR.dll
+C:\Workspace\ggomi\PdfToOffice\BinDebug\PdfToOffice.String.ko-KR.pdb

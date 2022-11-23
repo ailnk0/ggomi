@@ -21,7 +21,7 @@ int PdfToOfficeLib::InitializeSolidFramework(const std::wstring &frameworkPath)
     curPath = curPath.substr(0, offset + 1);
 
     std::wstring licensePath = curPath;
-    licensePath.append(L"../../../SolidFrameworkLicense/license.txt");
+    licensePath.append(L"../../SolidFrameworkLicense/license.txt");
 
     // Open License File
     std::ifstream licenseFile(licensePath, std::ios::binary);
