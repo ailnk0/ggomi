@@ -8,7 +8,7 @@ class PdfToOfficeLib
     PdfToOfficeLib() = default;
 
   public:
-    virtual bool InitializeSolidFramework(const std::wstring &frameworkPath);
+    virtual int InitializeSolidFramework(const std::wstring &frameworkPath);
     virtual bool DoWordConversion(const std::wstring &fullPath, const std::wstring &password);
     virtual int RunSamples(const std::wstring &path);
     virtual int RunSamples();
