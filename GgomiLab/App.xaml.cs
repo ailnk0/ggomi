@@ -7,5 +7,11 @@ namespace GgomiLab
     /// </summary>
     public partial class App : Application
     {
+        public DocList DocListModel = new DocList();
+
+        App()
+        {
+            DocListModel.Add(new Doc("hi.pdf"));
+        }
     }
 }

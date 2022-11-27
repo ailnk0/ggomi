@@ -140,7 +140,7 @@
   <ItemGroup>
     <ClInclude Include="DefineProxy.h" />
     <ClInclude Include="pch.h" />
-    <ClInclude Include="PdfToOfficeAppModule.h" />
+    <ClInclude Include="PdfToOfficeProxy.h" />
     <ClInclude Include="Resource.h" />
   </ItemGroup>
   <ItemGroup>
@@ -151,7 +151,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="PdfToOfficeAppModule.cpp" />
+    <ClCompile Include="PdfToOfficeProxy.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="app.rc" />

@@ -19,7 +19,19 @@ ErrorStatus PdfToOfficeLib::InitializeSolidFramework()
 {
     SolidFramework::SupportPlatformIndependentPaths(true);
 
-    if (!SolidFramework::Initialize(Util::Path::GetSdkPath()))
+    try
+    {
+        String sdkDir = Util::Path::GetSdkDir();
+        if (sdkDir.empty())
+        {
+            return ErrorStatus::InternalError;
+        }
+        if (!SolidFramework::Initialize(sdkDir))
+        {
+            return ErrorStatus::InternalError;
+        }
+    }
+    catch (...)
     {
         return ErrorStatus::InternalError;
     }
@@ -28,7 +40,7 @@ ErrorStatus PdfToOfficeLib::InitializeSolidFramework()
     {
         SolidFramework::License::Import(Util::Path::GetSdkLicPath());
     }
-    catch (SolidFramework::InvalidLicenseException /*&ex*/)
+    catch (SolidFramework::InvalidLicenseException)
     {
         return ErrorStatus::InvalidLicense;
     }

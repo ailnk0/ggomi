@@ -68,12 +68,10 @@
   <system:Double x:Key="opcity-btn-sec">1</system:Double>
   <system:Double x:Key="opcity-btn-sec-mouseover">0.8</system:Double>
 
-  <!-- ModelView : doclistbox-data -->
-  <local:DocList x:Key="doclistbox-data" />
-
-  <!-- Binding MainWindow.Status -->
+  <local:MainViewModel x:Key="main-vm" />
+  
   <Binding x:Key="app-status"
-           RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType={x:Type local:MainWindow}}"
+           Source="{StaticResource main-vm}"
            Path="Status" />
 
   <!-- Style : div-adddoc -->

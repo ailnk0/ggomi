@@ -71,7 +71,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="AppStatus.cs" />
+    <Compile Include="Misc\AppStatus.cs" />
+    <Compile Include="Misc\CommandUtil.cs" />
     <Compile Include="Themes\ImageViewer.xaml.cs">
       <DependentUpon>ImageViewer.xaml</DependentUpon>
     </Compile>
@@ -84,9 +85,10 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Doc.cs" />
-    <Compile Include="DocList.cs" />
-    <Compile Include="DocListBox.cs" />
+    <Compile Include="ViewModel\Doc.cs" />
+    <Compile Include="ViewModel\DocList.cs" />
+    <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="View\DocListBox.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

@@ -19,9 +19,9 @@
   </Window.Resources>
 
   <Window.DataContext>
-    <Binding RelativeSource="{RelativeSource Self}" />
+    <Binding Source="{StaticResource main-vm}" />
   </Window.DataContext>
-
+  
   <Grid>
     <Grid.ColumnDefinitions>
       <ColumnDefinition Width="auto" />
@@ -43,7 +43,8 @@
             Style="{StaticResource div-doclistbox}"
             Grid.Column="1">
       <local:DocListBox x:Name="IDC_DocList"
-                        ItemsSource="{Binding Source={StaticResource doclistbox-data}}" />
+                        DataContext="{Binding Source={StaticResource main-vm}}"
+                        ItemsSource="{Binding Path=Docs}" />
     </Border>
 
     <!-- Conversion Btn -->

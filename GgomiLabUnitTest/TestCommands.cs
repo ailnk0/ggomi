@@ -1,8 +1,6 @@
-﻿using GgomiLab;
+﻿using System.IO;
+using GgomiLab;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.IO;
 
 namespace GgomiLabUnitTest
 {
@@ -12,37 +10,37 @@ namespace GgomiLabUnitTest
         [TestMethod]
         public void TestAddDoc()
         {
-            DocListBox docListBox = new DocListBox();
-            docListBox.BeginInit();
-            docListBox.ItemsSource = new ObservableCollection<Doc>();
-            docListBox.EndInit();
+            MainWindow window = new MainWindow();
+            window.GetModel().ShowMsg = false;
+            DocListBox docListBox = window.FindName("IDC_DocList") as DocListBox;
+
+            Assert.AreEqual(true, DocListBox.AddDoc.CanExecute(null, docListBox));
 
             string[] fileNames = { "a.pdf", "b.pdf", "c.pdf" };
             DocListBox.AddDoc.Execute(fileNames, docListBox);
 
-            var items = docListBox.ItemsSource as IList<Doc>;
-            Assert.AreEqual(fileNames.Length, items.Count);
+            Assert.AreEqual(fileNames.Length, window.GetModel().Docs.Count);
             for (int i = 0; i < fileNames.Length; i++)
             {
-                Assert.AreEqual(fileNames[i], items[i].FilePath);
+                Assert.AreEqual(fileNames[i], window.GetModel().Docs[i].FilePath);
             }
         }
 
         [TestMethod]
         public void TestConvert()
         {
-            MainWindow mw = new MainWindow();
+            MainWindow window = new MainWindow();
+            window.GetModel().ShowMsg = false;
+            DocListBox docListBox = window.FindName("IDC_DocList") as DocListBox;
 
-            Assert.AreEqual(false, MainWindow.Convert.CanExecute(null, mw));
+            Assert.AreEqual(false, MainWindow.Convert.CanExecute(null, window));
 
-            var DocListData = mw.DataContext as IList<Doc>;
-            DocListData.Add(new Doc("a.pdf"));
-            DocListData.Add(new Doc("b.pdf"));
-            DocListData.Add(new Doc("c.pdf"));
+            string[] fileNames = { "../sample/HOffice2022_Brochure_KR.pdf" };
+            DocListBox.AddDoc.Execute(fileNames, docListBox);
 
-            Assert.AreEqual(true, MainWindow.Convert.CanExecute(null, mw));
+            Assert.AreEqual(true, MainWindow.Convert.CanExecute(null, window));
 
-            MainWindow.Convert.Execute(false, mw);
+            MainWindow.Convert.Execute(null, window);
 
             string convertedDocPath = "../sample/HOffice2022_Brochure_KR.docx";
             bool isConvertSuccess = File.Exists(convertedDocPath);

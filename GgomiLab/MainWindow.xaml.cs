@@ -1,9 +1,9 @@
-﻿using Microsoft.Win32;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using Microsoft.Win32;
+using PdfToOfficeAppModule;
 
 namespace GgomiLab
 {
@@ -12,16 +12,10 @@ namespace GgomiLab
     /// </summary>
     public partial class MainWindow : Window
     {
-        public static readonly DependencyProperty StatusProperty =
-            DependencyProperty.Register("Status", typeof(AppStatus), typeof(MainWindow), new PropertyMetadata(AppStatus.Init));
+        public static RoutedCommand Convert = new RoutedCommand("Convert", typeof(Button));
+        public static RoutedCommand ShowMsg = new RoutedCommand("ShowMsg", typeof(MainWindow));
 
-        public AppStatus Status
-        {
-            get => (AppStatus)GetValue(StatusProperty);
-            set => SetValue(StatusProperty, value);
-        }
-
-        private IList<Doc> DocListData;
+        private PdfToOfficeProxy pdfToOffice;
 
         public MainWindow()
         {
@@ -32,43 +26,48 @@ namespace GgomiLab
         {
             base.OnInitialized(e);
 
-            DocListData = Resources["doclistbox-data"] as IList<Doc>;
+            AddCommandHandlers();
 
-            AddCommandHandlers(ApplicationCommands.Open, OnOpen, CanOpen);
-            AddCommandHandlers(Convert, OnConvert, CanConvert);
-            AddCommandHandlers(AddDoc, OnAddDoc, CanAddDoc);
+            pdfToOffice = new PdfToOfficeProxy();
+
+            ErrorStatus status = pdfToOffice.InitializeSolidFramework();
+            if (GetModel().ShowMsg)
+            {
+                if (status != ErrorStatus.Success)
+                {
+                    MessageBox.Show(Utils.GetErrorMessage(-100));
+                }
+            }
+        }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            if (pdfToOffice != null)
+            {
+                pdfToOffice.Dispose();
+                pdfToOffice = null;
+            }
+
+            base.OnClosed(e);
+        }
+
+        protected void AddCommandHandlers()
+        {
+            CommandUtil.AddCommandHandler(this, ApplicationCommands.Open, OnOpen, CanOpen);
+            CommandUtil.AddCommandHandler(this, Convert, OnConvert, CanConvert);
+        }
+
+        public MainViewModel GetModel()
+        {
+            return DataContext as MainViewModel;
         }
 
         protected override void OnPreviewDrop(DragEventArgs e)
         {
             e.Handled = true;
             var fileNames = e.Data.GetData(DataFormats.FileDrop, true) as string[];
-            AddDoc.Execute(fileNames, this);
+            DocListBox.AddDoc.Execute(fileNames, IDC_DocList);
         }
-
-        public static RoutedCommand AddDoc = new RoutedCommand("AddDoc", typeof(DocListBox));
-
-        private void OnAddDoc(object sender, ExecutedRoutedEventArgs e)
-        {
-            var fileNames = e.Parameter as string[];
-            if (fileNames == null)
-            {
-                return;
-            }
-
-            var itemsSource = DocListData as ICollection<Doc>;
-            foreach (var file in fileNames)
-            {
-                itemsSource.Add(new Doc(file));
-            }
-        }
-
-        private void CanAddDoc(object sender, CanExecuteRoutedEventArgs e)
-        {
-            e.CanExecute = true;
-        }
-
-        public static RoutedCommand Convert = new RoutedCommand("Convert", typeof(Button));
 
         private void OnOpen(object sender, RoutedEventArgs e)
         {
@@ -80,7 +79,7 @@ namespace GgomiLab
                 return;
             }
 
-            AddDoc.Execute(dialog.FileNames, IDC_DocList);
+            DocListBox.AddDoc.Execute(dialog.FileNames, IDC_DocList);
         }
 
         private void CanOpen(object sender, CanExecuteRoutedEventArgs e)
@@ -90,34 +89,44 @@ namespace GgomiLab
 
         private void OnConvert(object sender, ExecutedRoutedEventArgs e)
         {
-            var appModule = new PdfToOfficeAppModule.PdfToOfficeAppModule();
-
-            int code = appModule.RunSample();
-
-            bool? showMessage = e.Parameter as bool?;
-            if (showMessage != false)
+            int errCnt = 0;
+            foreach (var doc in GetModel().Docs)
             {
-                MessageBox.Show(string.Format("[{0}] {1}", code, Utils.GetErrorMessage(code)));
+                ErrorStatus status = pdfToOffice.DoWordConversion(doc.FilePath, "");
+                if (status != ErrorStatus.Success)
+                {
+                    errCnt++;
+                }
+            }
+
+            if (GetModel().ShowMsg)
+            {
+                if (errCnt == 0)
+                {
+                    MessageBox.Show(Utils.GetErrorMessage(0));
+                }
+                else
+                {
+                    MessageBox.Show(Utils.GetErrorMessage(-100));
+                }
             }
         }
 
         private void CanConvert(object sender, CanExecuteRoutedEventArgs e)
         {
-            if (Status == AppStatus.Init)
+            if (GetModel().Status == AppStatus.Init)
+            {
+                e.CanExecute = false;
+                return;
+            }
+
+            if (GetModel().Docs.Count == 0)
             {
                 e.CanExecute = false;
                 return;
             }
 
             e.CanExecute = true;
-        }
-
-        public void AddCommandHandlers(RoutedCommand command, ExecutedRoutedEventHandler execute, CanExecuteRoutedEventHandler canExecute)
-        {
-            CommandBindings.Add(
-                new CommandBinding(command,
-                    new ExecutedRoutedEventHandler(execute),
-                    new CanExecuteRoutedEventHandler(canExecute)));
         }
     }
 }

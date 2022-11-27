@@ -70,6 +70,10 @@
       <Project>{2a194581-4dd6-4098-8c0e-ff017687430a}</Project>
       <Name>GgomiLab</Name>
     </ProjectReference>
+    <ProjectReference Include="..\PdfToOfficeAppModule\PdfToOfficeAppModule.vcxproj">
+      <Project>{2db91959-a51f-4409-bd06-16e4187f48d6}</Project>
+      <Name>PdfToOfficeAppModule</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

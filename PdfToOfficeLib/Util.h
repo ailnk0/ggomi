@@ -14,11 +14,13 @@ class Path
     static const String SDK_LIC_PATH;
 
   public:
+    static bool Exist(const String &path);
     static String GetCurExePath();
-    static String GetCurDir();
+    static String GetCurExeDir();
     static String GetDirName(const String &path);
     static String GetFileName(const String &path);
     static String GetSdkPath();
+    static String GetSdkDir();
     static String GetSdkLicPath();
 };
 
