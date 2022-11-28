@@ -1,7 +1,7 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System.IO;
+using System.Linq;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PdfToOfficeApp;
-using PdfToOfficeAppModule;
-using System.IO;
 
 namespace PdfToOfficeUnitTest
 {
@@ -9,56 +9,39 @@ namespace PdfToOfficeUnitTest
     public class PdfToOfficeUnitTest
     {
         [TestMethod]
-        public void TestMethod1()
+        public void TestAddFileCommand()
         {
-            PdfToOffice pdfToOffice = new PdfToOffice();
-            string path = "";
-            ErrorStatus result = pdfToOffice.DoWordConversion(path, "");
+            MainWindow window = new MainWindow();
+            window.GetModel().ShowMsg = false;
 
-            Assert.AreEqual(ErrorStatus.Success, result);
-        }
+            Assert.AreEqual(true, MainWindow.AddFileCommand.CanExecute(null, window));
 
-        // 파일 삭제
-        [TestMethod]
-        public void TestRemoveFile()
-        {
-            //MainWindow mw = new MainWindow();
-            //Assert.AreEqual(false, MainWindow.RemoveFileCommand.CanExecute(null, mw));
-            //for (int i = 0; i < 3; i++)
-            //{
-            //    FileInformation fileInformation = new FileInformation();
+            string[] strFileNames = { "test1.pdf", "test2.pdf" };
+            MainWindow.AddFileCommand.Execute(strFileNames, window);
 
-            //    fileInformation.StrFileName = "HOffice2022_Brochure_KR.pdf";
-            //    fileInformation.StrFilePath = "../sample";
-            //    fileInformation.StrFileSize = i.ToString() + " Bytes";
+            for (int i = 0; i < strFileNames.Length; i++)
+            {
+                var a = window.GetModel().Docs.Any(e => (e.FilePath == strFileNames[i]));
 
-            //    mw.vm.FileInformations.Add(fileInformation);
-            //}
-            //mw.vm.SeletedFileInfo = mw.vm.FileInformations[1];
-            //Assert.AreEqual(true, MainWindow.RemoveFileCommand.CanExecute(null, mw));
-
-            //MainWindow.RemoveFileCommand.Execute(mw.vm.SeletedFileInfo, mw);
-            //Assert.AreEqual(2, mw.vm.FileInformations.Count);
+                Assert.AreEqual(true, a);
+            }
         }
 
         // 파일 변환
         [TestMethod]
         public void TestConvertCommand()
         {
-            MainWindow mw = new MainWindow();
-            Assert.AreEqual(false, MainWindow.ConvertCommand.CanExecute(null, mw));
-            for (int i = 0; i < 3; i++)
-            {
-                Doc doc = new Doc();
+            MainWindow window = new MainWindow();
+            window.GetModel().ShowMsg = false;
+            Assert.AreEqual(false, MainWindow.ConvertCommand.CanExecute(null, window));
 
-                doc.FileName = "HOffice2022_Brochure_KR.pdf";
-                doc.FilePath = "../sample/HOffice2022_Brochure_KR.pdf";
-                mw.DocListData.Add(doc);
-            }
-            mw.Status = AppStatus.Ready;
-            Assert.AreEqual(true, MainWindow.ConvertCommand.CanExecute(null, mw));
+            string[] FileNames = { "../sample/HOffice2022_Brochure_KR.pdf" };
+            MainWindow.AddFileCommand.Execute(FileNames, window);
 
-            MainWindow.ConvertCommand.Execute(false, mw);
+            window.GetModel().Status = AppStatus.Ready;
+            Assert.AreEqual(true, MainWindow.ConvertCommand.CanExecute(null, window));
+
+            MainWindow.ConvertCommand.Execute(false, window);
 
             string convertedDocPath = "../sample/HOffice2022_Brochure_KR.docx";
             bool isConvertSuccess = File.Exists(convertedDocPath);

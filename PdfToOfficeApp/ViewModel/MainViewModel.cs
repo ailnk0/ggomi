@@ -1,22 +1,63 @@
-﻿using PdfToOfficeAppModule;
-using System;
-using static PdfToOfficeApp.MainModel;
+﻿using System;
+using PdfToOfficeApp.Misc;
 
 namespace PdfToOfficeApp
 {
-    public class MainViewModel : Notifier
+    public class MainViewModel : Notifier, IDisposable
     {
         public MainViewModel()
         {
-
+            _Docs = new DocList();
+            _Docs.CollectionChanged += _Docs_CollectionChanged;
         }
 
-        private Format _selectedFormat;
-
-        public Format SelectedFormat
+        public void Dispose()
         {
-            get { return _selectedFormat; }
-            set { _selectedFormat = value; }
+            if (_Docs != null)
+            {
+                _Docs.CollectionChanged -= _Docs_CollectionChanged;
+                _Docs = null;
+            }
+        }
+
+        private void _Docs_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            OnPropertyChanged("Docs");
+        }
+
+        private DocList _Docs;
+        public DocList Docs
+        {
+            get { return _Docs; }
+            set
+            {
+                _Docs = value;
+                OnPropertyChanged("Docs");
+            }
+        }
+
+        private AppStatus _status = AppStatus.Init;
+
+        public AppStatus Status
+        {
+            get { return _status; }
+            set
+            {
+                _status = value;
+                OnPropertyChanged("Status");
+            }
+        }
+
+        // 변환 형식
+        private string _FormatName;
+        public string FormatName
+        {
+            get { return _FormatName; }
+            set
+            {
+                _FormatName = value;
+                OnPropertyChanged("FormatName");
+            }
         }
 
         // 변환 파일 저장 경로
@@ -32,12 +73,15 @@ namespace PdfToOfficeApp
             }
         }
 
-        public ErrorStatus DoWordConversion(string path, string pwd)
+        private bool _ShowMsg = true;
+        public bool ShowMsg
         {
-            PdfToOffice pdfToOffice = new PdfToOffice();
-            return pdfToOffice.DoWordConversion(path, pwd);
+            get { return _ShowMsg; }
+            set
+            {
+                _ShowMsg = value;
+                OnPropertyChanged("ShowMsg");
+            }
         }
-
-        public Action CloseAction { get; set; }
     }
 }

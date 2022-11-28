@@ -3,20 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:PdfToOfficeApp"
              mc:Ignorable="d"
              d:DesignHeight="120"
              d:DesignWidth="800">
   <UserControl.Resources>
     <ResourceDictionary>
       <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="Themes/Generic.xaml" />
-        <ResourceDictionary Source="Themes/Images/lg_hpdftypedocument.xaml" />
-        <ResourceDictionary Source="Themes/Images/lg_pdftodocxdlg.xaml" />
-        <ResourceDictionary Source="Themes/Images/lg_pdftohwpdlg.xaml" />
-        <ResourceDictionary Source="Themes/Images/lg_pdftoimagedlg.xaml" />
-        <ResourceDictionary Source="Themes/Images/lg_pdftopptxdlg.xaml" />
-        <ResourceDictionary Source="Themes/Images/lg_pdftoxlsxdlg.xaml" />
+        <ResourceDictionary Source="../Themes/Generic.xaml" />
       </ResourceDictionary.MergedDictionaries>
     </ResourceDictionary>
   </UserControl.Resources>

@@ -8,39 +8,19 @@
         Title="PDF 파일 형식 변환기"
         Height="450"
         Width="800">
+  
   <Window.Resources>
     <ResourceDictionary>
       <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="Themes/Generic.xaml" />
-        <ResourceDictionary Source="Themes/Images/lg_hpdftypedocument.xaml" />
-        <ResourceDictionary Source="Themes/Images/lg_pdftodocxdlg.xaml" />
-        <ResourceDictionary Source="Themes/Images/lg_pdftohwpdlg.xaml" />
-        <ResourceDictionary Source="Themes/Images/lg_pdftoimagedlg.xaml" />
-        <ResourceDictionary Source="Themes/Images/lg_pdftopptxdlg.xaml" />
-        <ResourceDictionary Source="Themes/Images/lg_pdftoxlsxdlg.xaml" />
-        <ResourceDictionary Source="Themes/Images/dlg_data_validate_check.xaml" />
-        <ResourceDictionary Source="Themes/Images/dlg_data_validate_info.xaml" />
-        <ResourceDictionary Source="Themes/Images/dlg_data_validate_question.xaml" />
-        <ResourceDictionary Source="Themes/Images/dlg_data_validate_stop.xaml" />
-        <ResourceDictionary Source="Themes/Images/dlg_data_validate_warning.xaml" />
-        <ResourceDictionary Source="Themes/Images/sm_add.xaml" />
-        <ResourceDictionary Source="Themes/Images/sm_arrow_left.xaml" />
-        <ResourceDictionary Source="Themes/Images/sm_arrow_right.xaml" />
-        <ResourceDictionary Source="Themes/Images/sm_cancel.xaml" />
-        <ResourceDictionary Source="Themes/Images/sm_check.xaml" />
-        <ResourceDictionary Source="Themes/Images/sm_config.xaml" />
-        <ResourceDictionary Source="Themes/Images/sm_dropdown.xaml" />
-        <ResourceDictionary Source="Themes/Images/sm_fail.xaml" />
-        <ResourceDictionary Source="Themes/Images/sm_offset_down.xaml" />
-        <ResourceDictionary Source="Themes/Images/sm_offset_up.xaml" />
-        <ResourceDictionary Source="Themes/Images/sm_r_add.xaml" />
-        <ResourceDictionary Source="Themes/Images/sm_r_check.xaml" />
-        <ResourceDictionary Source="Themes/Images/sm_r_run.xaml" />
-        <ResourceDictionary Source="Themes/Images/sm_r_stop.xaml" />
-        <ResourceDictionary Source="Themes/Images/sm_sub.xaml" />
       </ResourceDictionary.MergedDictionaries>
     </ResourceDictionary>
   </Window.Resources>
+
+  <Window.DataContext>
+    <Binding Source="{StaticResource main-vm}" />
+  </Window.DataContext>
+  
   <Grid>
     <Grid.RowDefinitions>
       <RowDefinition Height="30" />
@@ -65,7 +45,7 @@
               Command="ApplicationCommands.Open">
         <Image Width="30">
           <Image.Source>
-            <DrawingImage Drawing="{DynamicResource sm_add}" />
+            <DrawingImage Drawing="{StaticResource sm_add}" />
           </Image.Source>
         </Image>
       </Button>
@@ -77,7 +57,7 @@
               BorderThickness="0">
         <Image Width="30">
           <Image.Source>
-            <DrawingImage Drawing="{DynamicResource sm_sub}" />
+            <DrawingImage Drawing="{StaticResource sm_sub}" />
           </Image.Source>
         </Image>
       </Button>
@@ -89,19 +69,21 @@
               BorderThickness="0">
         <Image Width="30">
           <Image.Source>
-            <DrawingImage Drawing="{DynamicResource sm_config}" />
+            <DrawingImage Drawing="{StaticResource sm_config}" />
           </Image.Source>
         </Image>
       </Button>
     </Grid>
-    <local:DocListBox x:Name="IDC_DocList"
+    <local:DocListBox x:Name="IDC_DocListBox"
                       Grid.Row="1"
-                      ItemsSource="{Binding Source={StaticResource doclistbox-data}}" />
+                      DataContext="{Binding Source={StaticResource main-vm}}"
+                      ItemsSource="{Binding Path=Docs}" />
     <Grid Grid.Row="2">
       <Border  BorderBrush="Gainsboro"
                BorderThickness="0,1,0,0"
                Padding="0,15,0,0">
-        <local:SelectFormat x:Name="IDC_SelectFormat" />
+        <local:SelectFormat x:Name="IDC_SelectFormat"
+                            DataContext="{Binding Source={StaticResource main-vm}}"/>
       </Border>
     </Grid>
     <Grid Grid.Row="3">
@@ -115,7 +97,7 @@
               Command="{x:Static local:MainWindow.ConvertCommand}">
         <Image>
           <Image.Source>
-            <DrawingImage Drawing="{DynamicResource sm_r_run}" />
+            <DrawingImage Drawing="{StaticResource sm_r_run}" />
             </Image.Source>
         </Image>
       </Button>
