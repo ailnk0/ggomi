@@ -17,7 +17,6 @@ namespace PdfToOfficeApp
         private void RadioButton_Checked(object sender, RoutedEventArgs e)
         {
             var rButton = sender as RadioButton;
-            var buttonContent = (string)rButton?.Content;
 
             if (rButton.IsChecked == true)
                 bRadioSelected = true;

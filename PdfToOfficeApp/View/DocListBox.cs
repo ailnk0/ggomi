@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.Windows;
 using System.Windows.Controls;
 
 namespace PdfToOfficeApp
@@ -16,19 +15,23 @@ namespace PdfToOfficeApp
 
         protected override void OnItemsChanged(NotifyCollectionChangedEventArgs e)
         {
-            if (Application.Current == null)
+            IList<Doc> itemsSource = ItemsSource as IList<Doc>;
+            if (itemsSource == null)
                 return;
 
-            var mainWindow = Application.Current.MainWindow as MainWindow;
-            var itemsSource = ItemsSource as IList<Doc>;
             if (itemsSource.Count > 0)
             {
-                mainWindow.Status = AppStatus.Ready;
+                GetModel().Status = AppStatus.Ready;
             }
             else
             {
-                mainWindow.Status = AppStatus.Init;
+                GetModel().Status = AppStatus.Init;
             }
+        }
+
+        public MainViewModel GetModel()
+        {
+            return DataContext as MainViewModel;
         }
     }
 }

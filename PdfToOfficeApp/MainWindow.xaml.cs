@@ -1,53 +1,56 @@
-using Microsoft.Win32;
-using PdfToOfficeAppModule;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using Microsoft.Win32;
+using PdfToOfficeAppModule;
 
 namespace PdfToOfficeApp
 {
     /// <summary>
     /// MainWindow.xaml에 대한 상호 작용 논리
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, IDisposable
     {
-        public MainViewModel vm;
-        public DocList DocListData;
-
-        public static readonly DependencyProperty StatusProperty =
-           DependencyProperty.Register("Status", typeof(AppStatus), typeof(MainWindow), new PropertyMetadata(AppStatus.Init));
-
-        public AppStatus Status
-        {
-            get => (AppStatus)GetValue(StatusProperty);
-            set => SetValue(StatusProperty, value);
-        }
+        private PdfToOfficeProxy pdfToOffice;
 
         public MainWindow()
         {
             InitializeComponent();
         }
 
+        public void Dispose()
+        {
+            if (pdfToOffice != null)
+            {
+                pdfToOffice.Dispose();
+                pdfToOffice = null;
+            }
+
+            ContentRendered -= MainWindow_ContentRendered;
+        }
+
         protected override void OnInitialized(EventArgs e)
         {
             base.OnInitialized(e);
+            AddCommandHandlers();
 
-            vm = new MainViewModel();
-            this.DataContext = vm;
-            if (vm.CloseAction == null)
-                vm.CloseAction = new Action(() => this.Close());
+            ContentRendered += MainWindow_ContentRendered;
 
-            DocListData = IDC_DocList.ItemsSource as DocList;
+            pdfToOffice = new PdfToOfficeProxy();
+            pdfToOffice.InitializeSolidFramework(); // TODO : 초기화 실패 시 예외처리 해야 함(ErrorStatus)
+        }
 
-            AddCommandHandlers(ApplicationCommands.Open, OnOpen, CanOpen);
-            AddCommandHandlers(AddFileCommand, OnAddFile, CanAddFile);
-            AddCommandHandlers(RemoveFileCommand, OnRemoveFile, CanRemoveFile);
-            AddCommandHandlers(OpenFolderCommand, OnOpenFolder, CanOpenFolder);
-            AddCommandHandlers(ConvertCommand, OnConvert, CanConvert);
-            AddCommandHandlers(CancelCommand, OnCancel, CanCancel);
+        private void AddCommandHandlers()
+        {
+            Util.Commands.Add(this, ApplicationCommands.Open, OnOpen, CanOpen);
+            Util.Commands.Add(this, AddFileCommand, OnAddFile, CanAddFile);
+            Util.Commands.Add(this, RemoveFileCommand, OnRemoveFile, CanRemoveFile);
+            Util.Commands.Add(this, ConvertCommand, OnConvert, CanConvert);
+        }
 
+        private void MainWindow_ContentRendered(object sender, EventArgs e)
+        {
             string[] arrArg = Environment.GetCommandLineArgs();
             if (arrArg.Length >= 3)
             {
@@ -83,11 +86,16 @@ namespace PdfToOfficeApp
                 return;
             }
 
-            Status = AppStatus.Ready;
+            GetModel().Status = AppStatus.Ready;
 
             string[] fileNames = { strFilePath };
             AddFileCommand.Execute(fileNames, this);
-            ConvertCommand.Execute(DocListData, IDC_Button_PrimaryConvert);
+            ConvertCommand.Execute(GetModel().Docs, IDC_Button_PrimaryConvert);
+        }
+
+        public MainViewModel GetModel()
+        {
+            return DataContext as MainViewModel;
         }
 
         #region RoutedCommand
@@ -97,10 +105,6 @@ namespace PdfToOfficeApp
         public static RoutedCommand AddFileCommand = new RoutedCommand("AddFileCommand", typeof(Button));
         // 파일 제거 커맨드
         public static RoutedCommand RemoveFileCommand = new RoutedCommand("RemoveFileCommand", typeof(Button));
-        // 저장 경로 설정 커맨드
-        public static RoutedCommand OpenFolderCommand = new RoutedCommand("OpenFolderCommand", typeof(Button));
-        // 취소 커맨드
-        public static RoutedCommand CancelCommand = new RoutedCommand("CancelCommand", typeof(Button));
 
         private void OnOpen(object sender, RoutedEventArgs e)
         {
@@ -114,7 +118,7 @@ namespace PdfToOfficeApp
                 return;
             }
 
-            AddFileCommand.Execute(dialog.FileNames, IDC_DocList);
+            AddFileCommand.Execute(dialog.FileNames, IDC_DocListBox);
         }
 
         private void CanOpen(object sender, CanExecuteRoutedEventArgs e)
@@ -124,57 +128,51 @@ namespace PdfToOfficeApp
 
         private void OnConvert(object sender, ExecutedRoutedEventArgs e)
         {
-            bool? showMessage = e.Parameter as bool?;
-
             int failCount = 0;
-            foreach (Doc doc in DocListData)
+            foreach (Doc doc in GetModel().Docs)
             {
                 string path = doc.FilePath;
-                ErrorStatus status = vm.DoWordConversion(path, "");
+                ErrorStatus status = pdfToOffice.DoWordConversion(path, "");
                 if (status != ErrorStatus.Success)
                 {
                     failCount++;
-                    if (showMessage != false)
+                    if (GetModel().ShowMsg)
                         MessageBox.Show(Util.String.GetMsg(status));
                 }
             }
 
             if (failCount == 0)
             {
-                if (showMessage != false)
+                if (GetModel().ShowMsg)
                     MessageBox.Show(Util.String.GetMsg(ErrorStatus.Success));
             }
         }
 
         private void CanConvert(object sender, CanExecuteRoutedEventArgs e)
         {
-            if (Status == AppStatus.Init)
+            if (GetModel().Status == AppStatus.Init)
             {
                 e.CanExecute = false;
                 return;
             }
             else
             {
-                if (SelectFormat.bRadioSelected)
-                {
-                    e.CanExecute = true;
-                }
+                e.CanExecute = true;
             }
         }
 
         // 파일 추가
         private void OnAddFile(object sender, ExecutedRoutedEventArgs e)
         {
-            var fileNames = e.Parameter as string[];
+            string[] fileNames = e.Parameter as string[];
             if (fileNames == null)
             {
                 return;
             }
 
-            var itemsSource = DocListData as ICollection<Doc>;
             foreach (var file in fileNames)
             {
-                itemsSource.Add(new Doc(file));
+                GetModel().Docs.Add(new Doc(file));
             }
         }
 
@@ -192,40 +190,6 @@ namespace PdfToOfficeApp
         private void CanRemoveFile(object sender, CanExecuteRoutedEventArgs e)
         {
 
-        }
-
-        // 폴더 지정
-        private void OnOpenFolder(object sender, ExecutedRoutedEventArgs e)
-        {
-            System.Windows.Forms.FolderBrowserDialog folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
-            if (folderBrowserDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                vm.StrSavePath = folderBrowserDialog.SelectedPath;
-            }
-        }
-
-        private void CanOpenFolder(object sender, CanExecuteRoutedEventArgs e)
-        {
-            e.CanExecute = true;
-        }
-
-        // 취소
-        private void OnCancel(object sender, ExecutedRoutedEventArgs e)
-        {
-            vm.CloseAction();
-        }
-
-        private void CanCancel(object sender, CanExecuteRoutedEventArgs e)
-        {
-            e.CanExecute = true;
-        }
-
-        private void AddCommandHandlers(RoutedCommand command, ExecutedRoutedEventHandler execute, CanExecuteRoutedEventHandler canExecute)
-        {
-            CommandBindings.Add(
-                new CommandBinding(command,
-                    new ExecutedRoutedEventHandler(execute),
-                    new CanExecuteRoutedEventHandler(canExecute)));
         }
         #endregion
     }

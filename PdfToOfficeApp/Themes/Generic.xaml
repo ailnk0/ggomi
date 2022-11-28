@@ -71,12 +71,11 @@
   <system:Double x:Key="sz-btn-Format">50</system:Double>
   <system:Double x:Key="sz-btn-Format-mouseover">54</system:Double>
 
-  <!-- ModelView : doclistbox-data -->
-  <local:DocList x:Key="doclistbox-data" />
-
+  <local:MainViewModel x:Key="main-vm" />
+  
   <!-- Binding MainWindow.Status -->
   <Binding x:Key="app-status"
-           RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType={x:Type local:MainWindow}}"
+           Source="{StaticResource main-vm}"
            Path="Status" />
 
   <!-- Style : div-adddoc -->

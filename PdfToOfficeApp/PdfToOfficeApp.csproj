@@ -83,21 +83,21 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="AppStatus.cs" />
-    <Compile Include="Define.cs" />
-    <Compile Include="Doc.cs" />
-    <Compile Include="DocList.cs" />
-    <Compile Include="DocListBox.cs" />
-    <Compile Include="SelectFormat.xaml.cs">
+    <Compile Include="Misc\AppStatus.cs" />
+    <Compile Include="Misc\Notifier.cs" />
+    <Compile Include="ViewModel\Doc.cs" />
+    <Compile Include="ViewModel\DocList.cs" />
+    <Compile Include="View\DocListBox.cs" />
+    <Compile Include="View\SelectFormat.xaml.cs">
       <DependentUpon>SelectFormat.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Util.cs" />
+    <Compile Include="Misc\Util.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="SelectFormat.xaml">
+    <Page Include="View\SelectFormat.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -215,8 +215,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Model\MainModel.cs" />
-    <Compile Include="PdfToOffice.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
