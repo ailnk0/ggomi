@@ -98,14 +98,17 @@ namespace PdfToOfficeApp
                 if (status != ErrorStatus.Success)
                 {
                     failCount++;
-                    if (GetModel().ShowMsg)
+                    Dispatcher.BeginInvoke(new Action(delegate
+                    {
+                        if (GetModel().ShowMsg)
                         MessageBox.Show(Util.String.GetMsg(status));
+                    }));
                 }
             }
 
             if (failCount == 0)
             {
-                Dispatcher.Invoke(new Action(delegate
+                Dispatcher.BeginInvoke(new Action(delegate
                 {
                     if (GetModel().ShowMsg)
                         MessageBox.Show(Util.String.GetMsg(ErrorStatus.Success));
