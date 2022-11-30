@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -13,6 +14,7 @@ namespace PdfToOfficeApp
     public partial class MainWindow : Window, IDisposable
     {
         private PdfToOfficeProxy pdfToOffice;
+        private BackgroundWorker worker = new BackgroundWorker();
 
         public MainWindow()
         {
@@ -38,7 +40,77 @@ namespace PdfToOfficeApp
             ContentRendered += MainWindow_ContentRendered;
 
             pdfToOffice = new PdfToOfficeProxy();
-            pdfToOffice.InitializeSolidFramework(); // TODO : 초기화 실패 시 예외처리 해야 함(ErrorStatus)
+            ErrorStatus result = pdfToOffice.InitializeSolidFramework();
+            if (result != ErrorStatus.Success)
+            {
+                if (GetModel().ShowMsg)
+                {
+                    string strErr = string.Format("초기화를 실패하였습니다.\nError Code : {0}", result.ToString());
+                    MessageBox.Show(strErr);
+                    return;
+                }
+            }
+
+            worker.DoWork += Worker_DoWork;
+            worker.RunWorkerCompleted += Worker_RunWorkerCompleted;
+            worker.ProgressChanged += Worker_ProgressChanged;
+            worker.WorkerReportsProgress = true;
+            worker.WorkerSupportsCancellation = true;
+        }
+
+        private void Worker_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+
+        }
+
+        // 작업 완료
+        private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            string strResult = "완료되었습니다.";
+            if (e.Error != null)
+            {
+                strResult = e.Error.Message;
+            }
+            else if (e.Cancelled)
+            {
+                strResult = "취소되었습니다.";
+            }
+
+            if (GetModel().ShowMsg)
+            {
+                MessageBox.Show(strResult);
+            }
+        }
+
+        private void Worker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            int failCount = 0;
+            foreach (Doc doc in (DocList)e.Argument)
+            {
+                if (worker.CancellationPending)
+                {
+                    e.Cancel = true;
+                    return;
+                }
+
+                string path = doc.FilePath;
+                ErrorStatus status = pdfToOffice.DoWordConversion(path, "");
+                if (status != ErrorStatus.Success)
+                {
+                    failCount++;
+                    if (GetModel().ShowMsg)
+                        MessageBox.Show(Util.String.GetMsg(status));
+                }
+            }
+
+            if (failCount == 0)
+            {
+                Dispatcher.Invoke(new Action(delegate
+                {
+                    if (GetModel().ShowMsg)
+                        MessageBox.Show(Util.String.GetMsg(ErrorStatus.Success));
+                }));
+            }
         }
 
         private void AddCommandHandlers()
@@ -128,24 +200,8 @@ namespace PdfToOfficeApp
 
         private void OnConvert(object sender, ExecutedRoutedEventArgs e)
         {
-            int failCount = 0;
-            foreach (Doc doc in GetModel().Docs)
-            {
-                string path = doc.FilePath;
-                ErrorStatus status = pdfToOffice.DoWordConversion(path, "");
-                if (status != ErrorStatus.Success)
-                {
-                    failCount++;
-                    if (GetModel().ShowMsg)
-                        MessageBox.Show(Util.String.GetMsg(status));
-                }
-            }
-
-            if (failCount == 0)
-            {
-                if (GetModel().ShowMsg)
-                    MessageBox.Show(Util.String.GetMsg(ErrorStatus.Success));
-            }
+            DocList docList = GetModel().Docs;
+            worker.RunWorkerAsync(docList);
         }
 
         private void CanConvert(object sender, CanExecuteRoutedEventArgs e)
