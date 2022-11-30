@@ -66,7 +66,7 @@ namespace PdfToOfficeApp
         // 작업 완료
         private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            string strResult = "완료되었습니다.";
+            string strResult;
             if (e.Error != null)
             {
                 strResult = e.Error.Message;
@@ -74,6 +74,14 @@ namespace PdfToOfficeApp
             else if (e.Cancelled)
             {
                 strResult = "취소되었습니다.";
+            }
+            else if ((int)e.Result > 0)
+            {
+                strResult = (int)e.Result + "개 변환을 실패하였습니다.";
+            }
+            else
+            {
+                strResult = Util.String.GetMsg(ErrorStatus.Success);
             }
 
             if (GetModel().ShowMsg)
@@ -85,6 +93,7 @@ namespace PdfToOfficeApp
         private void Worker_DoWork(object sender, DoWorkEventArgs e)
         {
             int failCount = 0;
+
             foreach (Doc doc in (DocList)e.Argument)
             {
                 if (worker.CancellationPending)
@@ -101,19 +110,12 @@ namespace PdfToOfficeApp
                     Dispatcher.BeginInvoke(new Action(delegate
                     {
                         if (GetModel().ShowMsg)
-                        MessageBox.Show(Util.String.GetMsg(status));
+                            MessageBox.Show(Util.String.GetMsg(status));
                     }));
                 }
             }
 
-            if (failCount == 0)
-            {
-                Dispatcher.BeginInvoke(new Action(delegate
-                {
-                    if (GetModel().ShowMsg)
-                        MessageBox.Show(Util.String.GetMsg(ErrorStatus.Success));
-                }));
-            }
+            e.Result = failCount;
         }
 
         private void AddCommandHandlers()
