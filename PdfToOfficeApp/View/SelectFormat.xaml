@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              mc:Ignorable="d"
-             d:DesignHeight="120"
+             d:DesignHeight="90"
              d:DesignWidth="800">
   <UserControl.Resources>
     <ResourceDictionary>
@@ -25,82 +25,64 @@
           <ColumnDefinition Width="80" />
           <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-          <RowDefinition Height="60" />
-          <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <Image Grid.Row="0"
-               Grid.Column="1"
-               Height="{StaticResource sz-btn-Format}">
-          <Image.Source>
-            <DrawingImage Drawing="{DynamicResource lg_pdftohwpdlg}" />
-          </Image.Source>
-        </Image>
         <RadioButton x:Name="IDC_RadioButton_HWP"
                      Checked="RadioButton_Checked"
                      HorizontalAlignment="Center"
-                     Grid.Row="1"
                      Grid.Column="1"
                      IsChecked="True">
+          <Image Height="{StaticResource sz-btn-Format}">
+            <Image.Source>
+              <DrawingImage Drawing="{DynamicResource lg_pdftohwpdlg}" />
+            </Image.Source>
+          </Image>
         </RadioButton>
-        <Image Grid.Row="0"
-               Grid.Column="2"
-               Height="{StaticResource sz-btn-Format}">
-          <Image.Source>
-            <DrawingImage Drawing="{DynamicResource lg_pdftoxlsxdlg}" />
-          </Image.Source>
-        </Image>
         <RadioButton x:Name="IDC_RadioButton_XLSX"
                      Checked="RadioButton_Checked"
                      HorizontalAlignment="Center"
-                     Grid.Row="1"
                      Grid.Column="2">
+          <Image Height="{StaticResource sz-btn-Format}">
+            <Image.Source>
+              <DrawingImage Drawing="{DynamicResource lg_pdftoxlsxdlg}" />
+            </Image.Source>
+          </Image>
         </RadioButton>
-        <Image Grid.Row="0"
-               Grid.Column="3"
-               VerticalAlignment="Top"
-               Height="{StaticResource sz-btn-Format}">
-          <Image.Source>
-            <DrawingImage Drawing="{DynamicResource lg_pdftopptxdlg}" />
-          </Image.Source>
-        </Image>
         <RadioButton x:Name="IDC_RadioButton_PPTX"
                      Checked="RadioButton_Checked"
                      HorizontalAlignment="Center"
-                     Grid.Row="1"
                      Grid.Column="3">
+          <Image VerticalAlignment="Top"
+                 Height="{StaticResource sz-btn-Format}">
+            <Image.Source>
+              <DrawingImage Drawing="{DynamicResource lg_pdftopptxdlg}" />
+            </Image.Source>
+          </Image>
         </RadioButton>
-        <Image Grid.Row="0"
-               Grid.Column="4"
-               VerticalAlignment="Top"
-               Height="{StaticResource sz-btn-Format}">
-          <Image.Source>
-            <DrawingImage Drawing="{DynamicResource lg_pdftodocxdlg}" />
-          </Image.Source>
-        </Image>
         <RadioButton x:Name="IDC_RadioButton_DOCX"
                      Checked="RadioButton_Checked"
                      HorizontalAlignment="Center"
                      Grid.Row="1"
                      Grid.Column="4">
+          <Image VerticalAlignment="Top"
+                 Height="{StaticResource sz-btn-Format}">
+            <Image.Source>
+              <DrawingImage Drawing="{DynamicResource lg_pdftodocxdlg}" />
+            </Image.Source>
+          </Image>
         </RadioButton>
-        <Image Grid.Row="0"
-               Grid.Column="5"
-               VerticalAlignment="Top"
-               Height="{StaticResource sz-btn-Format}">
-          <Image.Source>
-            <DrawingImage Drawing="{DynamicResource lg_pdftoimagedlg}" />
-          </Image.Source>
-        </Image>
         <RadioButton x:Name="IDC_RadioButton_Image"
                      Checked="RadioButton_Checked"
                      HorizontalAlignment="Center"
                      Grid.Row="1"
                      Grid.Column="5">
+          <Image Grid.Column="5"
+                 VerticalAlignment="Top"
+                 Height="{StaticResource sz-btn-Format}">
+            <Image.Source>
+              <DrawingImage Drawing="{DynamicResource lg_pdftoimagedlg}" />
+            </Image.Source>
+          </Image>
         </RadioButton>
-        <StackPanel Grid.RowSpan="2"
-                    Grid.Column="6"
-                    Margin="0,20,0,0">
+        <StackPanel Grid.Column="6">
           <Expander FocusVisualStyle="{x:Null}"
                     Height="100">
             <StackPanel>
