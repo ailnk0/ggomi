@@ -29,6 +29,12 @@ namespace PdfToOfficeApp
                 pdfToOffice = null;
             }
 
+            if(worker != null)
+            {
+                worker.Dispose();
+                worker = null;
+            }
+
             ContentRendered -= MainWindow_ContentRendered;
         }
 
@@ -73,11 +79,11 @@ namespace PdfToOfficeApp
             }
             else if (e.Cancelled)
             {
-                strResult = "취소되었습니다.";
+                strResult = Util.String.GetMsg(ErrorStatus.Canceled);
             }
             else if ((int)e.Result > 0)
             {
-                strResult = (int)e.Result + "개 변환을 실패하였습니다.";
+                strResult = (int)e.Result + "개 파일 " + Util.String.GetMsg(ErrorStatus.Fail);
             }
             else
             {
@@ -107,11 +113,7 @@ namespace PdfToOfficeApp
                 if (status != ErrorStatus.Success)
                 {
                     failCount++;
-                    Dispatcher.BeginInvoke(new Action(delegate
-                    {
-                        if (GetModel().ShowMsg)
-                            MessageBox.Show(Util.String.GetMsg(status));
-                    }));
+                    // TODO : 변환 실패 항목은 추후 아이콘으로 표시
                 }
             }
 
@@ -225,8 +227,7 @@ namespace PdfToOfficeApp
         // 파일 추가
         private void OnAddFile(object sender, ExecutedRoutedEventArgs e)
         {
-            string[] fileNames = e.Parameter as string[];
-            if (fileNames == null)
+            if (!(e.Parameter is string[] fileNames))
             {
                 return;
             }
