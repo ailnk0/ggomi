@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Globalization;
+using System.Windows.Data;
 using PdfToOfficeApp.Misc;
 
 namespace PdfToOfficeApp
@@ -81,6 +83,17 @@ namespace PdfToOfficeApp
             {
                 _ShowMsg = value;
                 OnPropertyChanged("ShowMsg");
+            }
+        }
+
+        private int _PV = 0;
+        public int PV
+        {
+            get { return _PV; }
+            set
+            {
+                _PV = value;
+                OnPropertyChanged("PV");
             }
         }
     }

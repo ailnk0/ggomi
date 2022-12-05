@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Windows.Controls;
 
 namespace PdfToOfficeApp
 {
@@ -7,6 +8,9 @@ namespace PdfToOfficeApp
     {
         private string _filePath;
         private string _fileName;
+        private ProgressBar progressBarItem;
+        private int _progressValue;
+        public System.Windows.Visibility visibility { get; set; }
 
         public Doc()
         {
@@ -15,7 +19,9 @@ namespace PdfToOfficeApp
         public Doc(string filePath)
         {
             _filePath = filePath;
-
+            progressBarItem = new ProgressBar();
+            _progressValue = 0;
+            visibility = System.Windows.Visibility.Visible;
             try
             {
                 _fileName = System.IO.Path.GetFileName(_filePath);
@@ -43,6 +49,26 @@ namespace PdfToOfficeApp
             {
                 _fileName = value;
                 OnPropertyChanged("FileName");
+            }
+        }
+
+        public ProgressBar ProgressBarItem
+        {
+            get { return progressBarItem; }
+            set
+            {
+                progressBarItem = value;
+                OnPropertyChanged("ProgressBarItem");
+            }
+        }
+
+        public int ProgressValue
+        {
+            get { return _progressValue; }
+            set
+            {
+                _progressValue = value;
+                OnPropertyChanged("ProgressValue");
             }
         }
 

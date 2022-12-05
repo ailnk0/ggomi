@@ -25,7 +25,7 @@
     <Grid.RowDefinitions>
       <RowDefinition Height="30" />
       <RowDefinition Height="*" />
-      <RowDefinition Height="90" />
+      <RowDefinition Height="100" />
       <RowDefinition Height="80" />
     </Grid.RowDefinitions>
     <Grid Grid.Row="0"
@@ -76,14 +76,15 @@
     </Grid>
     <local:DocListBox x:Name="IDC_DocListBox"
                       Grid.Row="1"
+                      AllowDrop="true"
                       DataContext="{Binding Source={StaticResource main-vm}}"
                       ItemsSource="{Binding Path=Docs}" />
     <Grid Grid.Row="2">
       <Border  BorderBrush="Gainsboro"
                BorderThickness="0,1,0,0"
-               Padding="0,15,0,0">
+               Padding="0,10,0,0">
         <local:SelectFormat x:Name="IDC_SelectFormat"
-                            DataContext="{Binding Source={StaticResource main-vm}}"/>
+                            DataContext="{Binding Source={StaticResource main-vm}}" />
       </Border>
     </Grid>
     <Grid Grid.Row="3">
@@ -97,10 +98,13 @@
               Command="{x:Static local:MainWindow.ConvertCommand}">
         <Image>
           <Image.Source>
-            <DrawingImage Drawing="{StaticResource sm_r_run}" />
+                        <DrawingImage Drawing="{StaticResource sm_r_run}" />
             </Image.Source>
         </Image>
       </Button>
+      <ProgressBar x:Name="Progress_Test"
+                   Maximum="100"
+                   Margin="500,20,20,20" />
     </Grid>
   </Grid>
 </Window>

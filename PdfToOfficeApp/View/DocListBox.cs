@@ -10,7 +10,6 @@ namespace PdfToOfficeApp
         protected override void OnInitialized(EventArgs e)
         {
             base.OnInitialized(e);
-            this.AllowDrop = true;
         }
 
         protected override void OnItemsChanged(NotifyCollectionChangedEventArgs e)

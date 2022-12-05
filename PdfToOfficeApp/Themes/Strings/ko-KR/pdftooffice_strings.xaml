@@ -4,7 +4,7 @@
 
     <System:String x:Key="IDS_Msg_Success">변환 성공했습니다.</System:String>
     <System:String x:Key="IDS_Msg_Canceled">취소했습니다.</System:String>
-    <System:String x:Key="IDS_Msg_Fail">변환 실패했습니다.</System:String>
+    <System:String x:Key="IDS_Msg_Fail">{0}개 파일 변환 실패했습니다.</System:String>
     <System:String x:Key="IDS_Msg_InvalidLicense">라이선스가 유효하지 않습니다. 앱을 최신 버전으로 업데이트하거나 재설치 하세요.</System:String>
     <System:String x:Key="IDS_Msg_InternalError">앱 설치가 유효하지 않습니다. 앱을 최신 버전으로 업데이트하거나 재설치 하세요.</System:String>
     <System:String x:Key="IDS_Msg_IOError">파일을 찾을 수 없습니다.</System:String>

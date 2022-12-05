@@ -36,6 +36,9 @@
     <ClInclude Include="Define.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="IProgressSite.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PdfToOfficeLib.cpp">

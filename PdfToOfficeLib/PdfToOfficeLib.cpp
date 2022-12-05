@@ -15,6 +15,8 @@ using namespace SolidFramework::Converters::Plumbing;
 namespace HpdfToOffice
 {
 
+IProgressSite* PdfToOfficeLib::m_ProgressSite = nullptr;
+
 ErrorStatus PdfToOfficeLib::InitializeSolidFramework()
 {
     SolidFramework::SupportPlatformIndependentPaths(true);
@@ -55,6 +57,24 @@ void PdfToOfficeLib::DoProgress(SolidFramework::ProgressEventArgsPtr pProgressEv
     SolidFramework::Interop::SolidErrorCodes statusCode = pProgressEventArgs->GetStatusCode();
     std::wstring statusDesc = pProgressEventArgs->GetStatusDescription();
 
+    double totalProgress = 0;
+    if (statusDesc.find(L"PDFOCRInfoText") == 0)
+    {
+        totalProgress = progress / 4;
+    }
+    else if (statusDesc.find(L"PDFLoadingInfoText") == 0)
+    {
+        totalProgress = 25 + (progress / 4);
+    }
+    else if (statusDesc.find(L"PDFConvertingInfoText") == 0)
+    {
+        totalProgress = 50 + (progress / 4);
+    }
+    else if (statusDesc.find(L"WritingFileMessage") == 0)
+    {
+        totalProgress = 75 + (progress / 4);
+    }
+
     std::wstring strDebug;
     strDebug.append(statusDesc.c_str());
     strDebug.append(L" : ");
@@ -62,6 +82,15 @@ void PdfToOfficeLib::DoProgress(SolidFramework::ProgressEventArgsPtr pProgressEv
     strDebug.append(L"%");
 
     std::wcout << strDebug << std::endl;
+
+    if (m_ProgressSite) {
+        m_ProgressSite->SetPercent(totalProgress);
+    }
+}
+
+void PdfToOfficeLib::SetSite(IProgressSite* progressSite)
+{
+    m_ProgressSite = progressSite;
 }
 
 ErrorStatus PdfToOfficeLib::DoWordConversion(const String &path, const String &password)
@@ -93,5 +122,4 @@ ErrorStatus PdfToOfficeLib::DoWordConversion(const String &path, const String &p
 
     return status;
 }
-
 } // namespace HpdfToOffice
