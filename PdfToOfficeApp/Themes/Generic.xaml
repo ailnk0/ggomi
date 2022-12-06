@@ -71,6 +71,8 @@
   <system:Double x:Key="sz-btn-Format">50</system:Double>
   <system:Double x:Key="sz-btn-Format-mouseover">54</system:Double>
 
+  <system:Double x:Key="opcity-btn-disable">0.4</system:Double>
+
   <local:MainViewModel x:Key="main-vm" />
 
   <!-- Binding MainWindow.Status -->
@@ -191,20 +193,20 @@
     </Style.Triggers>
   </Style>
 
-  <!-- Style : btn-adddoc -->
+  <!-- Style : btn-sm-tmp -->
   <Style TargetType="Button"
-         x:Key="btn-adddoc">
+         x:Key="btn-sm-tmp">
     <Setter Property="Width"
-            Value="45" />
+            Value="{StaticResource sz-btn-sec}" />
     <Setter Property="Height"
-            Value="45" />
+            Value="{StaticResource sz-btn-sec}" />
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="Button">
           <Grid>
             <Image>
               <Image.Source>
-                <DrawingImage Drawing="{DynamicResource sm_r_add}"></DrawingImage>
+                <DrawingImage Drawing="{DynamicResource sm_add}"></DrawingImage>
               </Image.Source>
             </Image>
           </Grid>
@@ -212,6 +214,13 @@
       </Setter.Value>
     </Setter>
     <Style.Triggers>
+      <Trigger Property="IsEnabled"
+               Value="False">
+        <Trigger.Setters>
+          <Setter Property="Opacity"
+                  Value="{StaticResource opcity-btn-disable}" />
+        </Trigger.Setters>
+      </Trigger>
       <Trigger Property="IsMouseOver"
                Value="True">
         <Trigger.EnterActions>
@@ -219,12 +228,6 @@
             <Storyboard>
               <DoubleAnimation Storyboard.TargetProperty="Opacity"
                                To="{StaticResource opcity-btn-pri-mouseover}"
-                               Duration="{StaticResource ani-short}" />
-              <DoubleAnimation Storyboard.TargetProperty="Width"
-                               To="{StaticResource sz-btn-pri-mouseover}"
-                               Duration="{StaticResource ani-short}" />
-              <DoubleAnimation Storyboard.TargetProperty="Height"
-                               To="{StaticResource sz-btn-pri-mouseover}"
                                Duration="{StaticResource ani-short}" />
             </Storyboard>
           </BeginStoryboard>
@@ -235,12 +238,6 @@
               <DoubleAnimation Storyboard.TargetProperty="Opacity"
                                To="{StaticResource opcity-btn-pri}"
                                Duration="{StaticResource ani-short}" />
-              <DoubleAnimation Storyboard.TargetProperty="Width"
-                               To="{StaticResource sz-btn-pri}"
-                               Duration="{StaticResource ani-short}" />
-              <DoubleAnimation Storyboard.TargetProperty="Height"
-                               To="{StaticResource sz-btn-pri}"
-                               Duration="{StaticResource ani-short}" />
             </Storyboard>
           </BeginStoryboard>
         </Trigger.ExitActions>
@@ -248,13 +245,70 @@
     </Style.Triggers>
   </Style>
 
+  <!-- Style : btn-adddoc -->
+  <Style TargetType="Button"
+         x:Key="btn-adddoc"
+         BasedOn="{StaticResource btn-sm-tmp}">
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="Button">
+          <Grid>
+            <Image>
+              <Image.Source>
+                <DrawingImage Drawing="{DynamicResource sm_add}"></DrawingImage>
+              </Image.Source>
+            </Image>
+          </Grid>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+
+  <!-- Style : btn-rmdoc -->
+  <Style TargetType="Button"
+         x:Key="btn-rmdoc"
+         BasedOn="{StaticResource btn-sm-tmp}">
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="Button">
+          <Grid>
+            <Image>
+              <Image.Source>
+                <DrawingImage Drawing="{DynamicResource sm_sub}"></DrawingImage>
+              </Image.Source>
+            </Image>
+          </Grid>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+
+  <!-- Style : btn-config -->
+  <Style TargetType="Button"
+         x:Key="btn-config"
+         BasedOn="{StaticResource btn-sm-tmp}">
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="Button">
+          <Grid>
+            <Image>
+              <Image.Source>
+                <DrawingImage Drawing="{DynamicResource sm_config}"></DrawingImage>
+              </Image.Source>
+            </Image>
+          </Grid>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+
   <!-- Style : btn-convert -->
   <Style TargetType="Button"
          x:Key="btn-convert">
     <Setter Property="Width"
-            Value="45" />
+            Value="{StaticResource sz-btn-pri}" />
     <Setter Property="Height"
-            Value="45" />
+            Value="{StaticResource sz-btn-pri}" />
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="Button">
@@ -269,6 +323,13 @@
       </Setter.Value>
     </Setter>
     <Style.Triggers>
+      <Trigger Property="IsEnabled"
+               Value="False">
+        <Trigger.Setters>
+          <Setter Property="Opacity"
+                  Value="{StaticResource opcity-btn-disable}" />
+        </Trigger.Setters>
+      </Trigger>
       <Trigger Property="IsMouseOver"
                Value="True">
         <Trigger.EnterActions>

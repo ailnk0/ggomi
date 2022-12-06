@@ -8,7 +8,7 @@
         Title="PDF 파일 형식 변환기"
         Height="450"
         Width="800">
-  
+
   <Window.Resources>
     <ResourceDictionary>
       <ResourceDictionary.MergedDictionaries>
@@ -20,15 +20,16 @@
   <Window.DataContext>
     <Binding Source="{StaticResource main-vm}" />
   </Window.DataContext>
-  
-  <Grid>
+
+  <Grid Margin="10">
     <Grid.RowDefinitions>
-      <RowDefinition Height="30" />
+      <RowDefinition Height="40" />
       <RowDefinition Height="*" />
       <RowDefinition Height="100" />
       <RowDefinition Height="80" />
     </Grid.RowDefinitions>
     <Grid Grid.Row="0"
+          Margin="5"
           x:Name="IDC_Grid_SecondaryButtons">
       <Grid.ColumnDefinitions>
         <ColumnDefinition Width="*" />
@@ -38,40 +39,16 @@
       </Grid.ColumnDefinitions>
       <Button x:Name="IDC_Button_SecondaryAdd"
               Grid.Column="1"
-              Width="{StaticResource sz-btn-sec}"
-              Height="{StaticResource sz-btn-sec}"
-              Background="Transparent"
-              BorderThickness="0"
+              Style="{StaticResource btn-adddoc}"
               Command="ApplicationCommands.Open">
-        <Image Width="30">
-          <Image.Source>
-            <DrawingImage Drawing="{StaticResource sm_add}" />
-          </Image.Source>
-        </Image>
       </Button>
       <Button x:Name="IDC_Button_SecondaryRemove"
               Grid.Column="2"
-              Width="{StaticResource sz-btn-sec}"
-              Height="{StaticResource sz-btn-sec}"
-              Background="Transparent"
-              BorderThickness="0">
-        <Image Width="30">
-          <Image.Source>
-            <DrawingImage Drawing="{StaticResource sm_sub}" />
-          </Image.Source>
-        </Image>
+              Style="{StaticResource btn-rmdoc}">
       </Button>
       <Button x:Name="IDC_Button_SecondarySetting"
               Grid.Column="3"
-              Width="{StaticResource sz-btn-sec}"
-              Height="{StaticResource sz-btn-sec}"
-              Background="Transparent"
-              BorderThickness="0">
-        <Image Width="30">
-          <Image.Source>
-            <DrawingImage Drawing="{StaticResource sm_config}" />
-          </Image.Source>
-        </Image>
+              Style="{StaticResource btn-config}">
       </Button>
     </Grid>
     <local:DocListBox x:Name="IDC_DocListBox"
@@ -80,27 +57,17 @@
                       DataContext="{Binding Source={StaticResource main-vm}}"
                       ItemsSource="{Binding Path=Docs}" />
     <Grid Grid.Row="2">
-      <Border  BorderBrush="Gainsboro"
-               BorderThickness="0,1,0,0"
-               Padding="0,10,0,0">
+      <Border BorderBrush="Gainsboro"
+              BorderThickness="0,1,0,0"
+              Padding="0,10,0,0">
         <local:SelectFormat x:Name="IDC_SelectFormat"
                             DataContext="{Binding Source={StaticResource main-vm}}" />
       </Border>
     </Grid>
     <Grid Grid.Row="3">
       <Button x:Name="IDC_Button_PrimaryConvert"
-              VerticalAlignment="Center"
-              HorizontalAlignment="Center"
-              Width="{StaticResource sz-btn-pri}"
-              Height="{StaticResource sz-btn-pri}"
-              Background="White"
-              BorderThickness="0"
+              Style="{StaticResource btn-convert}"
               Command="{x:Static local:MainWindow.ConvertCommand}">
-        <Image>
-          <Image.Source>
-            <DrawingImage Drawing="{StaticResource sm_r_run}" />
-          </Image.Source>
-        </Image>
       </Button>
     </Grid>
   </Grid>
