@@ -93,18 +93,15 @@
               HorizontalAlignment="Center"
               Width="{StaticResource sz-btn-pri}"
               Height="{StaticResource sz-btn-pri}"
-              Background="Transparent"
+              Background="White"
               BorderThickness="0"
               Command="{x:Static local:MainWindow.ConvertCommand}">
         <Image>
           <Image.Source>
-                        <DrawingImage Drawing="{StaticResource sm_r_run}" />
-            </Image.Source>
+            <DrawingImage Drawing="{StaticResource sm_r_run}" />
+          </Image.Source>
         </Image>
       </Button>
-      <ProgressBar x:Name="Progress_Test"
-                   Maximum="100"
-                   Margin="500,20,20,20" />
     </Grid>
   </Grid>
 </Window>

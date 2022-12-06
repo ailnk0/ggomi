@@ -8,9 +8,7 @@ namespace PdfToOfficeApp
     {
         private string _filePath;
         private string _fileName;
-        private ProgressBar progressBarItem;
-        private int _progressValue;
-        public System.Windows.Visibility visibility { get; set; }
+        private int _progressValue = 0;
 
         public Doc()
         {
@@ -18,18 +16,7 @@ namespace PdfToOfficeApp
 
         public Doc(string filePath)
         {
-            _filePath = filePath;
-            progressBarItem = new ProgressBar();
-            _progressValue = 0;
-            visibility = System.Windows.Visibility.Visible;
-            try
-            {
-                _fileName = System.IO.Path.GetFileName(_filePath);
-            }
-            catch (Exception)
-            {
-                _fileName = filePath;
-            }
+            FilePath = filePath;
         }
 
         public string FilePath
@@ -38,6 +25,14 @@ namespace PdfToOfficeApp
             set
             {
                 _filePath = value;
+                try
+                {
+                    FileName = System.IO.Path.GetFileName(_filePath);
+                }
+                catch (Exception)
+                {
+                    FileName = _filePath;
+                }
                 OnPropertyChanged("FilePath");
             }
         }
@@ -52,16 +47,6 @@ namespace PdfToOfficeApp
             }
         }
 
-        public ProgressBar ProgressBarItem
-        {
-            get { return progressBarItem; }
-            set
-            {
-                progressBarItem = value;
-                OnPropertyChanged("ProgressBarItem");
-            }
-        }
-
         public int ProgressValue
         {
             get { return _progressValue; }
@@ -72,9 +57,9 @@ namespace PdfToOfficeApp
             }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        public override string ToString() => FileName;
 
-        public override string ToString() => _fileName;
+        public event PropertyChangedEventHandler PropertyChanged;
 
         protected void OnPropertyChanged(string info)
         {

@@ -11,28 +11,16 @@ namespace PdfToOfficeApp
 {
     class ProgressSiteCli : IProgressSiteCli
     {
-        public int Percent
-        {
-            get;
-            set;
-        }
+        readonly Doc doc = null;
 
-        MainViewModel mv;
-
-        public ProgressSiteCli(MainViewModel _mv)
+        public ProgressSiteCli(Doc _doc)
         {
-            mv = _mv;
+            doc = _doc;
         }
 
         public void SetPercent(int percent)
         {
-            mv.PV = percent;
-
-            //pb.Dispatcher.BeginInvoke(
-            //    DispatcherPriority.Normal,
-            //    (Action)(() => { pb.Value = (double)percent; }));
-
-            //   Percent = percent; // C# 레이어에 percent 셋팅 완료. 
+            doc.ProgressValue = percent;
         }
     }
 
@@ -129,6 +117,9 @@ namespace PdfToOfficeApp
                     e.Cancel = true;
                     return;
                 }
+
+                progressSiteCli = new ProgressSiteCli(doc);
+                pdfToOffice.SetProgressSiteCli(progressSiteCli);
 
                 string path = doc.FilePath;
                 ErrorStatus status = pdfToOffice.DoWordConversion(path, "");
@@ -231,7 +222,7 @@ namespace PdfToOfficeApp
 
         private void OnConvert(object sender, ExecutedRoutedEventArgs e)
         {
-            pdfToOffice = new PdfToOfficeProxy(progressSiteCli);
+            pdfToOffice = new PdfToOfficeProxy();
 
             ErrorStatus result = pdfToOffice.InitializeSolidFramework();
             if (result != ErrorStatus.Success)
@@ -273,8 +264,6 @@ namespace PdfToOfficeApp
             foreach (var file in fileNames)
             {
                 Doc doc = new Doc(file);
-                progressSiteCli = new ProgressSiteCli(GetModel());   // TODO : 각 파일마다 프로그래스바 생성하고 연결해주기
-                doc.ProgressValue = progressSiteCli.Percent;
                 GetModel().Docs.Add(doc);
             }
         }
