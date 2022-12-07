@@ -46,6 +46,8 @@ namespace PdfToOfficeApp
                         return GetString("IDS_Msg_IOError");
                     case ErrorStatus.IOFileLocked:
                         return GetString("IDS_Msg_IOFileLocked");
+                    case ErrorStatus.Fail:
+                        return GetString("IDS_Msg_Fail");
                     default:
                         return GetString("IDS_Msg_Unknown");
                 }

@@ -15,7 +15,7 @@
   </UserControl.Resources>
   <Grid>
     <StackPanel>
-      <Grid Height="120">
+      <Grid Height="90">
         <Grid.ColumnDefinitions>
           <ColumnDefinition Width="*" />
           <ColumnDefinition Width="80" />
@@ -60,7 +60,6 @@
         <RadioButton x:Name="IDC_RadioButton_DOCX"
                      Checked="RadioButton_Checked"
                      HorizontalAlignment="Center"
-                     Grid.Row="1"
                      Grid.Column="4">
           <Image VerticalAlignment="Top"
                  Height="{StaticResource sz-btn-Format}">
@@ -72,7 +71,6 @@
         <RadioButton x:Name="IDC_RadioButton_Image"
                      Checked="RadioButton_Checked"
                      HorizontalAlignment="Center"
-                     Grid.Row="1"
                      Grid.Column="5">
           <Image Grid.Column="5"
                  VerticalAlignment="Top"
@@ -84,7 +82,7 @@
         </RadioButton>
         <StackPanel Grid.Column="6">
           <Expander FocusVisualStyle="{x:Null}"
-                    Height="100">
+                    Height="90">
             <StackPanel>
               <RadioButton Content="JPG" />
               <RadioButton Content="PNG" />

@@ -3,11 +3,27 @@ using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Threading;
 using Microsoft.Win32;
 using PdfToOfficeAppModule;
 
 namespace PdfToOfficeApp
 {
+    class ProgressSiteCli : IProgressSiteCli
+    {
+        readonly Doc doc = null;
+
+        public ProgressSiteCli(Doc _doc)
+        {
+            doc = _doc;
+        }
+
+        public void SetPercent(int percent)
+        {
+            doc.ProgressValue = percent;
+        }
+    }
+
     /// <summary>
     /// MainWindow.xaml에 대한 상호 작용 논리
     /// </summary>
@@ -15,6 +31,7 @@ namespace PdfToOfficeApp
     {
         private PdfToOfficeProxy pdfToOffice;
         private BackgroundWorker worker = new BackgroundWorker();
+        private ProgressSiteCli progressSiteCli { get; set; }
 
         public MainWindow()
         {
@@ -29,7 +46,7 @@ namespace PdfToOfficeApp
                 pdfToOffice = null;
             }
 
-            if(worker != null)
+            if (worker != null)
             {
                 worker.Dispose();
                 worker = null;
@@ -44,18 +61,6 @@ namespace PdfToOfficeApp
             AddCommandHandlers();
 
             ContentRendered += MainWindow_ContentRendered;
-
-            pdfToOffice = new PdfToOfficeProxy();
-            ErrorStatus result = pdfToOffice.InitializeSolidFramework();
-            if (result != ErrorStatus.Success)
-            {
-                if (GetModel().ShowMsg)
-                {
-                    string strErr = string.Format("초기화를 실패하였습니다.\nError Code : {0}", result.ToString());
-                    MessageBox.Show(strErr);
-                    return;
-                }
-            }
 
             worker.DoWork += Worker_DoWork;
             worker.RunWorkerCompleted += Worker_RunWorkerCompleted;
@@ -75,7 +80,7 @@ namespace PdfToOfficeApp
             string strResult;
             if (e.Error != null)
             {
-                strResult = e.Error.Message;
+                strResult = Util.String.GetMsg(ErrorStatus.Unknown);
             }
             else if (e.Cancelled)
             {
@@ -83,23 +88,28 @@ namespace PdfToOfficeApp
             }
             else if ((int)e.Result > 0)
             {
-                strResult = (int)e.Result + "개 파일 " + Util.String.GetMsg(ErrorStatus.Fail);
+                strResult = string.Format(Util.String.GetMsg(ErrorStatus.Fail), (int)e.Result);
             }
             else
             {
                 strResult = Util.String.GetMsg(ErrorStatus.Success);
             }
 
+            GetModel().Status = AppStatus.Completed;
+
             if (GetModel().ShowMsg)
             {
                 MessageBox.Show(strResult);
             }
+
+            // TODO : 변환 작업 완료되면 변환 버튼을 돌아가기 버튼으로 바꾸기
         }
 
         private void Worker_DoWork(object sender, DoWorkEventArgs e)
         {
             int failCount = 0;
-
+            int index = -1;
+            // TODO : 변환 작업 중일 때는 변환 버튼을 정지 버튼으로 바꾸기
             foreach (Doc doc in (DocList)e.Argument)
             {
                 if (worker.CancellationPending)
@@ -108,12 +118,22 @@ namespace PdfToOfficeApp
                     return;
                 }
 
+                progressSiteCli = new ProgressSiteCli(doc);
+                pdfToOffice.SetProgressSiteCli(progressSiteCli);
+
                 string path = doc.FilePath;
+
+                doc.ConversionStatus = "Running";
                 ErrorStatus status = pdfToOffice.DoWordConversion(path, "");
-                if (status != ErrorStatus.Success)
+
+                if (status == ErrorStatus.Success)
                 {
+                    doc.ConversionStatus = "Completed";
+                }
+                else
+                {
+                    doc.ConversionStatus = "Fail";
                     failCount++;
-                    // TODO : 변환 실패 항목은 추후 아이콘으로 표시
                 }
             }
 
@@ -149,6 +169,7 @@ namespace PdfToOfficeApp
             string strFilePath = filePath;
             string strFileFormat = fileFormat;
 
+            // TODO : Binding으로 바꾸기
             if (strFileFormat == "HWP")
                 IDC_SelectFormat.IDC_RadioButton_HWP.IsChecked = true;
             else if (strFileFormat == "XSLX")
@@ -207,21 +228,33 @@ namespace PdfToOfficeApp
 
         private void OnConvert(object sender, ExecutedRoutedEventArgs e)
         {
-            DocList docList = GetModel().Docs;
-            worker.RunWorkerAsync(docList);
+            pdfToOffice = new PdfToOfficeProxy();
+
+            ErrorStatus result = pdfToOffice.InitializeSolidFramework();
+            if (result != ErrorStatus.Success)
+            {
+                if (GetModel().ShowMsg)
+                {
+                    string strErr = string.Format("Error Code : {0}", result.ToString());
+                    MessageBox.Show(strErr);
+                    return;
+                }
+            }
+
+            GetModel().Status = AppStatus.Running;
+            // TODO : 변환 진행 창으로 변경 (SelectFormat 없애고 DocList 확장)
+            worker.RunWorkerAsync(GetModel().Docs);
         }
 
         private void CanConvert(object sender, CanExecuteRoutedEventArgs e)
         {
-            if (GetModel().Status == AppStatus.Init)
-            {
-                e.CanExecute = false;
-                return;
-            }
-            else
+            if (GetModel().Status == AppStatus.Ready)
             {
                 e.CanExecute = true;
+                return;
             }
+
+            e.CanExecute = false;
         }
 
         // 파일 추가
@@ -234,7 +267,9 @@ namespace PdfToOfficeApp
 
             foreach (var file in fileNames)
             {
-                GetModel().Docs.Add(new Doc(file));
+                Doc doc = new Doc(file);
+                doc.Index = GetModel().Docs.Count;
+                GetModel().Docs.Add(doc);
             }
         }
 

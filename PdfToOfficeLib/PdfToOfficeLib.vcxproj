@@ -156,6 +156,7 @@
   <ItemGroup>
     <ClInclude Include="Define.h" />
     <ClInclude Include="framework.h" />
+    <ClInclude Include="IProgressSite.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="PdfToOfficeLib.h" />
     <ClInclude Include="SolidFramework.h" />
