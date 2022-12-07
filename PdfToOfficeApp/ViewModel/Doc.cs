@@ -10,7 +10,7 @@ namespace PdfToOfficeApp
         private string _filePath;
         private string _fileName;
         private string _fileFormat;
-        private string _conversionStatus = "Ready";
+        private FileConversionStatus _conversionStatus = FileConversionStatus.Ready;
         private int _progressValue = 0;
 
         public Doc()
@@ -40,7 +40,6 @@ namespace PdfToOfficeApp
                 OnPropertyChanged("Index");
             }
         }
-
 
         public string FilePath
         {
@@ -80,7 +79,7 @@ namespace PdfToOfficeApp
             }
         }
 
-        public string ConversionStatus
+        public FileConversionStatus ConversionStatus
         {
             get { return _conversionStatus; }
             set
