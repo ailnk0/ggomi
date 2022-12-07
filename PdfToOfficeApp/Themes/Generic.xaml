@@ -400,7 +400,7 @@
                     Value="Visible" />
             <Style.Triggers>
               <DataTrigger Binding="{Binding Path=ConversionStatus}"
-                           Value="Completed">
+                           Value="{x:Static local:FileConversionStatus.Completed}">
                 <DataTrigger.Setters>
                   <Setter Property="Opacity"
                           Value="{StaticResource opcity-btn-disable}" />
@@ -451,7 +451,7 @@
           <Style TargetType="Image">
             <Style.Triggers>
               <DataTrigger Binding="{Binding Path=ConversionStatus}"
-                           Value="Completed">
+                           Value="{x:Static local:FileConversionStatus.Completed}">
                 <DataTrigger.Setters>
                   <Setter Property="Source"
                           Value="{StaticResource drawing_validate_check}" />
