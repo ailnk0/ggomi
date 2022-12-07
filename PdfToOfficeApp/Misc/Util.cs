@@ -34,23 +34,74 @@ namespace PdfToOfficeApp
 
             public static string GetMsg(ErrorStatus status)
             {
+                string msg;
+
                 switch (status)
                 {
-                    case ErrorStatus.Success:
-                        return GetString("IDS_Msg_Success");
-                    case ErrorStatus.InvalidLicense:
-                        return GetString("IDS_Msg_InvalidLicense");
-                    case ErrorStatus.InternalError:
-                        return GetString("IDS_Msg_InternalError");
-                    case ErrorStatus.IOError:
-                        return GetString("IDS_Msg_IOError");
-                    case ErrorStatus.IOFileLocked:
-                        return GetString("IDS_Msg_IOFileLocked");
+                    case ErrorStatus.Canceled:
+                        msg = GetString("IDS_ConvertUserCancelMessage");
+                        break;
+
                     case ErrorStatus.Fail:
-                        return GetString("IDS_Msg_Fail");
+                    case ErrorStatus.OCRCanceled:
+                    case ErrorStatus.CanceledExists:
+                    case ErrorStatus.InvalidLicense:
+                        msg = GetString("IDS_HNC_PDFSDK_MSG_CONVERSION_FAIL");
+                        break;
+
+                    case ErrorStatus.FileHasCopyProtection:
+                    case ErrorStatus.UnsupportedEncryptionHandler:
+                    case ErrorStatus.MissingCertificate:
+                    case ErrorStatus.WrongPassword:
+                    case ErrorStatus.NoUserNoOwner:
+                    case ErrorStatus.NoUserOwner:
+                    case ErrorStatus.UserNoOwner:
+                    case ErrorStatus.UserOwner:
+                        msg = GetString("IDS_HNC_PDFSDK_MSG_PASSWORD_PROTECT");
+                        break;
+
+                    case ErrorStatus.PdfAError:
+                    case ErrorStatus.PdfAFatalError:
+                        msg = GetString("IDS_HNC_PDFSDK_MSG_UNSUPPORT_FORMAT");
+                        break;
+
+                    case ErrorStatus.BadData:
+                        msg = GetString("IDS_HNC_PDFSDK_MSG_BAD_FILE");
+                        break;
+
+                    case ErrorStatus.InternalError:
+                    case ErrorStatus.UnavailableAction:
+                    case ErrorStatus.InvalidPagesRange:
+                    case ErrorStatus.NoBppConversion:
+                    case ErrorStatus.NoGrayscale:
+                    case ErrorStatus.PSDUnsupportedMode:
+                    case ErrorStatus.Unknown:
+                        msg = GetString("IDS_HNC_PDFSDK_MSG_CONVERSION_ERROR");
+                        break;
+
+                    case ErrorStatus.NoTablesToExtract:
+                        msg = GetString("IDS_HNC_PDFSDK_MSG_NO_TABLES_TO_EXTRACT");
+                        break;
+
+                    case ErrorStatus.NoImagesToExtract:
+                        msg = GetString("IDS_HNC_PDFSDK_MSG_NO_IMAGES_TO_EXTRACT");
+                        break;
+
+                    case ErrorStatus.IOError:
+                        msg = GetString("IDS_HNC_PDFSDK_MSG_FILE_IO_ERROR");
+                        break;
+
+                    case ErrorStatus.IOFileLocked:
+                    case ErrorStatus.AlreadyLoaded:
+                        msg = GetString("IDS_HNC_PDFSDK_MSG_FILE_LOCKED");
+                        break;
+
                     default:
-                        return GetString("IDS_Msg_Unknown");
+                        msg = GetString("IDS_HNC_PDFSDK_MSG_CONVERSION_ERROR");
+                        break;
                 }
+
+                return msg;
             }
         }
     }
