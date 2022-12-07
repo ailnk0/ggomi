@@ -32,6 +32,12 @@
     <ResourceDictionary Source="Images/sm_sub.xaml" />
   </ResourceDictionary.MergedDictionaries>
 
+  <DrawingImage x:Key="drawing_validate_check"
+                Drawing="{DynamicResource dlg_data_validate_check}">
+  </DrawingImage>
+  <DrawingImage x:Key="drawing_validate_warning"
+                Drawing="{DynamicResource dlg_data_validate_warning}">
+  </DrawingImage>
   <!-- Colors -->
   <SolidColorBrush x:Key="Blue_100"
                    Color="#2367ff"
@@ -383,11 +389,80 @@
           <DrawingImage Drawing="{DynamicResource icon-hpdf}">
           </DrawingImage>
         </Image.Source>
+        <Image.Style>
+          <Style TargetType="Image">
+            <Setter Property="Visibility"
+                    Value="Visible" />
+            <Style.Triggers>
+              <DataTrigger Binding="{Binding Path=ConversionStatus}"
+                           Value="Completed">
+                <DataTrigger.Setters>
+                  <Setter Property="Opacity"
+                          Value="{StaticResource opcity-btn-disable}" />
+                </DataTrigger.Setters>
+              </DataTrigger>
+            </Style.Triggers>
+          </Style>
+        </Image.Style>
       </Image>
       <ProgressBar Margin="0,20,0,0"
                    Height="10"
                    Width="30"
-                   Value="{Binding Path=ProgressValue}" />
+                   Value="{Binding Path=ProgressValue}">
+        <ProgressBar.Style>
+          <Style TargetType="ProgressBar">
+            <Setter Property="Visibility"
+                    Value="Visible" />
+            <Style.Triggers>
+              <DataTrigger Binding="{Binding Path=ConversionStatus}"
+                           Value="Ready">
+                <DataTrigger.Setters>
+                  <Setter Property="Visibility"
+                          Value="Hidden" />
+                </DataTrigger.Setters>
+              </DataTrigger>
+              <DataTrigger Binding="{Binding Path=ConversionStatus}"
+                           Value="Running">
+                <DataTrigger.Setters>
+                  <Setter Property="Visibility"
+                          Value="Visible" />
+                </DataTrigger.Setters>
+              </DataTrigger>
+              <DataTrigger Binding="{Binding Path=ConversionStatus}"
+                           Value="Completed">
+                <DataTrigger.Setters>
+                  <Setter Property="Visibility"
+                          Value="Hidden" />
+                </DataTrigger.Setters>
+              </DataTrigger>
+            </Style.Triggers>
+          </Style>
+        </ProgressBar.Style>
+      </ProgressBar>
+      <Image Margin="0,20,0,0"
+             Height="20"
+             Width="20">
+        <Image.Style>
+          <Style TargetType="Image">
+            <Style.Triggers>
+              <DataTrigger Binding="{Binding Path=ConversionStatus}"
+                           Value="Completed">
+                <DataTrigger.Setters>
+                  <Setter Property="Source"
+                          Value="{StaticResource drawing_validate_check}" />
+                </DataTrigger.Setters>
+              </DataTrigger>
+              <DataTrigger Binding="{Binding Path=ConversionStatus}"
+                           Value="Fail">
+                <DataTrigger.Setters>
+                  <Setter Property="Source"
+                          Value="{StaticResource drawing_validate_warning}" />
+                </DataTrigger.Setters>
+              </DataTrigger>
+            </Style.Triggers>
+          </Style>
+        </Image.Style>
+      </Image>
       <TextBlock Grid.Row="1"
                  Text="{Binding Path=FileName}"
                  TextWrapping="Wrap"

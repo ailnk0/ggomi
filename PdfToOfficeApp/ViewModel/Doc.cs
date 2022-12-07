@@ -6,8 +6,11 @@ namespace PdfToOfficeApp
 {
     public class Doc : INotifyPropertyChanged
     {
+        private int _index;
         private string _filePath;
         private string _fileName;
+        private string _fileFormat;
+        private string _conversionStatus = "Ready";
         private int _progressValue = 0;
 
         public Doc()
@@ -16,8 +19,28 @@ namespace PdfToOfficeApp
 
         public Doc(string filePath)
         {
-            FilePath = filePath;
+            _filePath = filePath;
+            _progressValue = 0;
+            try
+            {
+                _fileName = System.IO.Path.GetFileName(_filePath);
+            }
+            catch (Exception)
+            {
+                _fileName = filePath;
+            }
         }
+
+        public int Index
+        {
+            get { return _index; }
+            set
+            {
+                _index = value;
+                OnPropertyChanged("Index");
+            }
+        }
+
 
         public string FilePath
         {
@@ -44,6 +67,26 @@ namespace PdfToOfficeApp
             {
                 _fileName = value;
                 OnPropertyChanged("FileName");
+            }
+        }
+
+        public string FileFormat
+        {
+            get { return _fileFormat; }
+            set
+            {
+                _fileFormat = value;
+                OnPropertyChanged("FileFormat");
+            }
+        }
+
+        public string ConversionStatus
+        {
+            get { return _conversionStatus; }
+            set
+            {
+                _conversionStatus = value;
+                OnPropertyChanged("ConversionStatus");
             }
         }
 

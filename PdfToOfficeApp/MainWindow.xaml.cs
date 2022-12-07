@@ -46,7 +46,7 @@ namespace PdfToOfficeApp
                 pdfToOffice = null;
             }
 
-            if(worker != null)
+            if (worker != null)
             {
                 worker.Dispose();
                 worker = null;
@@ -62,7 +62,6 @@ namespace PdfToOfficeApp
 
             ContentRendered += MainWindow_ContentRendered;
 
-            
             worker.DoWork += Worker_DoWork;
             worker.RunWorkerCompleted += Worker_RunWorkerCompleted;
             worker.ProgressChanged += Worker_ProgressChanged;
@@ -109,6 +108,7 @@ namespace PdfToOfficeApp
         private void Worker_DoWork(object sender, DoWorkEventArgs e)
         {
             int failCount = 0;
+            int index = -1;
             // TODO : 변환 작업 중일 때는 변환 버튼을 정지 버튼으로 바꾸기
             foreach (Doc doc in (DocList)e.Argument)
             {
@@ -122,12 +122,18 @@ namespace PdfToOfficeApp
                 pdfToOffice.SetProgressSiteCli(progressSiteCli);
 
                 string path = doc.FilePath;
+
+                doc.ConversionStatus = "Running";
                 ErrorStatus status = pdfToOffice.DoWordConversion(path, "");
 
-                if (status != ErrorStatus.Success)
+                if (status == ErrorStatus.Success)
                 {
+                    doc.ConversionStatus = "Completed";
+                }
+                else
+                {
+                    doc.ConversionStatus = "Fail";
                     failCount++;
-                    // TODO : 변환 실패 항목은 추후 아이콘으로 표시
                 }
             }
 
@@ -235,11 +241,9 @@ namespace PdfToOfficeApp
                 }
             }
 
-            DocList docList = GetModel().Docs;
-
             GetModel().Status = AppStatus.Running;
             // TODO : 변환 진행 창으로 변경 (SelectFormat 없애고 DocList 확장)
-            worker.RunWorkerAsync(docList);
+            worker.RunWorkerAsync(GetModel().Docs);
         }
 
         private void CanConvert(object sender, CanExecuteRoutedEventArgs e)
@@ -264,6 +268,7 @@ namespace PdfToOfficeApp
             foreach (var file in fileNames)
             {
                 Doc doc = new Doc(file);
+                doc.Index = GetModel().Docs.Count;
                 GetModel().Docs.Add(doc);
             }
         }
