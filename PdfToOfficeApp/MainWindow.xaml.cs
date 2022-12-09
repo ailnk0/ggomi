@@ -3,27 +3,11 @@ using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Threading;
 using Microsoft.Win32;
 using PdfToOfficeAppModule;
 
 namespace PdfToOfficeApp
 {
-    class ProgressSiteCli : IProgressSiteCli
-    {
-        readonly Doc doc = null;
-
-        public ProgressSiteCli(Doc _doc)
-        {
-            doc = _doc;
-        }
-
-        public void SetPercent(int percent)
-        {
-            doc.ProgressValue = percent;
-        }
-    }
-
     /// <summary>
     /// MainWindow.xaml에 대한 상호 작용 논리
     /// </summary>
@@ -108,7 +92,6 @@ namespace PdfToOfficeApp
         private void Worker_DoWork(object sender, DoWorkEventArgs e)
         {
             int failCount = 0;
-            int index = -1;
             // TODO : 변환 작업 중일 때는 변환 버튼을 정지 버튼으로 바꾸기
             foreach (Doc doc in (DocList)e.Argument)
             {
@@ -123,16 +106,16 @@ namespace PdfToOfficeApp
 
                 string path = doc.FilePath;
 
-                doc.ConversionStatus = "Running";
+                doc.ConversionStatus = FileConversionStatus.Running;
                 ErrorStatus status = pdfToOffice.DoWordConversion(path, "");
 
                 if (status == ErrorStatus.Success)
                 {
-                    doc.ConversionStatus = "Completed";
+                    doc.ConversionStatus = FileConversionStatus.Completed;
                 }
                 else
                 {
-                    doc.ConversionStatus = "Fail";
+                    doc.ConversionStatus = FileConversionStatus.Fail;
                     failCount++;
                 }
             }

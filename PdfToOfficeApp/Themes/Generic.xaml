@@ -38,6 +38,7 @@
   <DrawingImage x:Key="drawing_validate_warning"
                 Drawing="{DynamicResource dlg_data_validate_warning}">
   </DrawingImage>
+ 
   <!-- Colors -->
   <SolidColorBrush x:Key="Blue_100"
                    Color="#2367ff"
@@ -60,7 +61,9 @@
   <SolidColorBrush x:Key="Gray_20"
                    Color="#cccccc"
                    Opacity="1" />
-
+  <SolidColorBrush x:Key="Gray_Light"
+                   Color="LightGray"
+                   Opacity="0.5" />
   <Duration x:Key="ani-short">0:0:0.25</Duration>
   <Duration x:Key="ani-long">0:0:0.5</Duration>
 
@@ -74,11 +77,13 @@
   <system:Double x:Key="opcity-btn-sec">1</system:Double>
   <system:Double x:Key="opcity-btn-sec-mouseover">0.8</system:Double>
 
-  <system:Double x:Key="sz-btn-Format">50</system:Double>
-  <system:Double x:Key="sz-btn-Format-mouseover">54</system:Double>
+  <system:Double x:Key="sz-btn-format">50</system:Double>
+  <system:Double x:Key="sz-btn-format-mouseover">54</system:Double>
 
   <system:Double x:Key="opcity-btn-disable">0.4</system:Double>
 
+  <system:Double x:Key="sz-btn-radiobtn">50</system:Double>
+  
   <local:MainViewModel x:Key="main-vm" />
 
   <!-- Binding MainWindow.Status -->
@@ -395,7 +400,7 @@
                     Value="Visible" />
             <Style.Triggers>
               <DataTrigger Binding="{Binding Path=ConversionStatus}"
-                           Value="Completed">
+                           Value="{x:Static local:FileConversionStatus.Completed}">
                 <DataTrigger.Setters>
                   <Setter Property="Opacity"
                           Value="{StaticResource opcity-btn-disable}" />
@@ -422,14 +427,14 @@
                 </DataTrigger.Setters>
               </DataTrigger>
               <DataTrigger Binding="{Binding Path=ConversionStatus}"
-                           Value="Running">
+                           Value="{x:Static local:FileConversionStatus.Running}">
                 <DataTrigger.Setters>
                   <Setter Property="Visibility"
                           Value="Visible" />
                 </DataTrigger.Setters>
               </DataTrigger>
               <DataTrigger Binding="{Binding Path=ConversionStatus}"
-                           Value="Completed">
+                           Value="{x:Static local:FileConversionStatus.Completed}">
                 <DataTrigger.Setters>
                   <Setter Property="Visibility"
                           Value="Hidden" />
@@ -446,14 +451,14 @@
           <Style TargetType="Image">
             <Style.Triggers>
               <DataTrigger Binding="{Binding Path=ConversionStatus}"
-                           Value="Completed">
+                           Value="{x:Static local:FileConversionStatus.Completed}">
                 <DataTrigger.Setters>
                   <Setter Property="Source"
                           Value="{StaticResource drawing_validate_check}" />
                 </DataTrigger.Setters>
               </DataTrigger>
               <DataTrigger Binding="{Binding Path=ConversionStatus}"
-                           Value="Fail">
+                           Value="{x:Static local:FileConversionStatus.Fail}">
                 <DataTrigger.Setters>
                   <Setter Property="Source"
                           Value="{StaticResource drawing_validate_warning}" />
