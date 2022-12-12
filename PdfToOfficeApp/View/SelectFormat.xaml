@@ -26,22 +26,10 @@
           <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Border HorizontalAlignment="Center"
-                 VerticalAlignment="Top"
-                 Height="{StaticResource sz-btn-radiobtn}"
-                 Grid.Column="1">
-          <Border.Style>
-            <Style TargetType="Border">
-              <Style.Triggers>
-                <Trigger Property="IsMouseOver"
-                         Value="True">
-                  <Trigger.Setters>
-                    <Setter Property="Background"
-                            Value="{StaticResource Gray_Light}" />
-                  </Trigger.Setters>
-                </Trigger>
-              </Style.Triggers>
-            </Style>
-          </Border.Style>
+                VerticalAlignment="Top"
+                Height="{StaticResource sz-btn-radiobtn}"
+                Grid.Column="1"
+                Style="{StaticResource border-radiobutton}">
           <RadioButton x:Name="IDC_RadioButton_HWP"
                        GroupName="RadioFormatGroup"
                        Checked="RadioButton_Checked"
@@ -56,20 +44,8 @@
         <Border  HorizontalAlignment="Center"
                  VerticalAlignment="Top"
                  Height="{StaticResource sz-btn-radiobtn}"
-                 Grid.Column="2">
-          <Border.Style>
-            <Style TargetType="Border">
-              <Style.Triggers>
-                <Trigger Property="IsMouseOver"
-                         Value="True">
-                  <Trigger.Setters>
-                    <Setter Property="Background"
-                            Value="{StaticResource Gray_Light}" />
-                  </Trigger.Setters>
-                </Trigger>
-              </Style.Triggers>
-            </Style>
-          </Border.Style>
+                 Grid.Column="2"
+                 Style="{StaticResource border-radiobutton}">
           <RadioButton x:Name="IDC_RadioButton_XLSX"
                        GroupName="RadioFormatGroup"
                        Checked="RadioButton_Checked">
@@ -83,20 +59,8 @@
         <Border  HorizontalAlignment="Center"
                  VerticalAlignment="Top"
                  Height="{StaticResource sz-btn-radiobtn}"
-                 Grid.Column="3">
-          <Border.Style>
-            <Style TargetType="Border">
-              <Style.Triggers>
-                <Trigger Property="IsMouseOver"
-                         Value="True">
-                  <Trigger.Setters>
-                    <Setter Property="Background"
-                            Value="{StaticResource Gray_Light}" />
-                  </Trigger.Setters>
-                </Trigger>
-              </Style.Triggers>
-            </Style>
-          </Border.Style>
+                 Grid.Column="3"
+                 Style="{StaticResource border-radiobutton}">
           <RadioButton x:Name="IDC_RadioButton_PPTX"
                        GroupName="RadioFormatGroup"
                        Checked="RadioButton_Checked">
@@ -111,20 +75,8 @@
         <Border HorizontalAlignment="Center"
                 VerticalAlignment="Top"
                 Height="{StaticResource sz-btn-radiobtn}"
-                Grid.Column="4">
-          <Border.Style>
-            <Style TargetType="Border">
-              <Style.Triggers>
-                <Trigger Property="IsMouseOver"
-                         Value="True">
-                  <Trigger.Setters>
-                    <Setter Property="Background"
-                            Value="{StaticResource Gray_Light}" />
-                  </Trigger.Setters>
-                </Trigger>
-              </Style.Triggers>
-            </Style>
-          </Border.Style>
+                Grid.Column="4"
+                Style="{StaticResource border-radiobutton}">
           <RadioButton x:Name="IDC_RadioButton_DOCX"
                        GroupName="RadioFormatGroup"
                        Checked="RadioButton_Checked">
@@ -139,20 +91,8 @@
         <Border  HorizontalAlignment="Center"
                  VerticalAlignment="Top"
                  Height="{StaticResource sz-btn-radiobtn}"
-                 Grid.Column="5">
-          <Border.Style>
-            <Style TargetType="Border">
-              <Style.Triggers>
-                <Trigger Property="IsMouseOver"
-                         Value="True">
-                  <Trigger.Setters>
-                    <Setter Property="Background"
-                            Value="{StaticResource Gray_Light}" />
-                  </Trigger.Setters>
-                </Trigger>
-              </Style.Triggers>
-            </Style>
-          </Border.Style>
+                 Grid.Column="5"
+                 Style="{StaticResource border-radiobutton}">
           <RadioButton x:Name="IDC_RadioButton_Image"
                        GroupName="RadioFormatGroup"
                        Checked="RadioButton_Checked">

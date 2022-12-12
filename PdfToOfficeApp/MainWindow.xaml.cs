@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
@@ -16,7 +17,7 @@ namespace PdfToOfficeApp
         private PdfToOfficeProxy pdfToOffice;
         private BackgroundWorker worker = new BackgroundWorker();
         private ProgressSiteCli progressSiteCli { get; set; }
-
+        private List<Doc> listFail;
         public MainWindow()
         {
             InitializeComponent();
@@ -42,6 +43,7 @@ namespace PdfToOfficeApp
         protected override void OnInitialized(EventArgs e)
         {
             base.OnInitialized(e);
+            listFail = new List<Doc>();
             AddCommandHandlers();
 
             ContentRendered += MainWindow_ContentRendered;
@@ -62,6 +64,7 @@ namespace PdfToOfficeApp
         private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             string strResult;
+            List<Doc> listResult = (List<Doc>)e.Result;
             if (e.Error != null)
             {
                 strResult = Util.String.GetMsg(ErrorStatus.Unknown);
@@ -70,9 +73,14 @@ namespace PdfToOfficeApp
             {
                 strResult = Util.String.GetMsg(ErrorStatus.Canceled);
             }
-            else if ((int)e.Result > 0)
+            else if (listResult.Count > 0)
             {
-                strResult = string.Format(Util.String.GetMsg(ErrorStatus.Fail), (int)e.Result);
+                // TODO : 변환 실패 이유 보여주는 방식 다듬기
+                strResult = "";
+                for (int i = 0; i < listResult.Count; i++)
+                {
+                    strResult += string.Format("{0} : " + Util.String.GetMsg(listResult[i].FileErrorStatus) + "\n", listResult[i].FileName);
+                }
             }
             else
             {
@@ -91,7 +99,7 @@ namespace PdfToOfficeApp
 
         private void Worker_DoWork(object sender, DoWorkEventArgs e)
         {
-            int failCount = 0;
+            listFail.Clear();
             // TODO : 변환 작업 중일 때는 변환 버튼을 정지 버튼으로 바꾸기
             foreach (Doc doc in (DocList)e.Argument)
             {
@@ -116,11 +124,12 @@ namespace PdfToOfficeApp
                 else
                 {
                     doc.ConversionStatus = FileConversionStatus.Fail;
-                    failCount++;
+                    doc.FileErrorStatus = status;
+                    listFail.Add(doc);
                 }
             }
 
-            e.Result = failCount;
+            e.Result = listFail;
         }
 
         private void AddCommandHandlers()
