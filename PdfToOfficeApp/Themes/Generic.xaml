@@ -413,6 +413,13 @@
                   Value="{StaticResource opcity-btn-disable}" />
         </DataTrigger.Setters>
       </DataTrigger>
+      <DataTrigger Binding="{Binding Path=ConversionStatus}"
+                   Value="{x:Static local:FileConversionStatus.Running}">
+        <DataTrigger.Setters>
+          <Setter Property="Opacity"
+                  Value="{StaticResource opcity-btn-disable}" />
+        </DataTrigger.Setters>
+      </DataTrigger>
     </Style.Triggers>
   </Style>
 
