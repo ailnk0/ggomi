@@ -1,6 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Windows.Controls;
+using PdfToOfficeAppModule;
 
 namespace PdfToOfficeApp
 {
@@ -12,6 +12,7 @@ namespace PdfToOfficeApp
         private string _fileFormat;
         private FileConversionStatus _conversionStatus = FileConversionStatus.Ready;
         private int _progressValue = 0;
+        private ErrorStatus _fileErrorStatus = ErrorStatus.Unknown;
 
         public Doc()
         {
@@ -96,6 +97,16 @@ namespace PdfToOfficeApp
             {
                 _progressValue = value;
                 OnPropertyChanged("ProgressValue");
+            }
+        }
+
+        public ErrorStatus FileErrorStatus
+        {
+            get { return _fileErrorStatus; }
+            set
+            {
+                _fileErrorStatus = value;
+                OnPropertyChanged("FileErrorStatus");
             }
         }
 

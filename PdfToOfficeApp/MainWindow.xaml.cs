@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
@@ -16,7 +17,6 @@ namespace PdfToOfficeApp
         private PdfToOfficeProxy pdfToOffice;
         private BackgroundWorker worker = new BackgroundWorker();
         private ProgressSiteCli progressSiteCli { get; set; }
-
         public MainWindow()
         {
             InitializeComponent();
@@ -70,13 +70,18 @@ namespace PdfToOfficeApp
             {
                 strResult = Util.String.GetMsg(ErrorStatus.Canceled);
             }
-            else if ((int)e.Result > 0)
-            {
-                strResult = string.Format(Util.String.GetMsg(ErrorStatus.Fail), (int)e.Result);
-            }
             else
             {
-                strResult = Util.String.GetMsg(ErrorStatus.Success);
+                strResult = "";
+                foreach (var doc in GetModel().Docs)
+                {
+                    if (doc.FileErrorStatus != ErrorStatus.Success)
+                    {
+                        strResult += string.Format("{0} : " + Util.String.GetMsg(doc.FileErrorStatus) + "\n", doc.FileName);
+                    }
+                }
+                if(strResult == "")
+                    strResult = Util.String.GetMsg(ErrorStatus.Success);
             }
 
             GetModel().Status = AppStatus.Completed;
@@ -91,7 +96,6 @@ namespace PdfToOfficeApp
 
         private void Worker_DoWork(object sender, DoWorkEventArgs e)
         {
-            int failCount = 0;
             // TODO : 변환 작업 중일 때는 변환 버튼을 정지 버튼으로 바꾸기
             foreach (Doc doc in (DocList)e.Argument)
             {
@@ -107,7 +111,9 @@ namespace PdfToOfficeApp
                 string path = doc.FilePath;
 
                 doc.ConversionStatus = FileConversionStatus.Running;
+
                 ErrorStatus status = pdfToOffice.DoWordConversion(path, "");
+                doc.FileErrorStatus = status;
 
                 if (status == ErrorStatus.Success)
                 {
@@ -116,11 +122,8 @@ namespace PdfToOfficeApp
                 else
                 {
                     doc.ConversionStatus = FileConversionStatus.Fail;
-                    failCount++;
                 }
             }
-
-            e.Result = failCount;
         }
 
         private void AddCommandHandlers()

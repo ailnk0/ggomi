@@ -32,13 +32,15 @@
     <ResourceDictionary Source="Images/sm_sub.xaml" />
   </ResourceDictionary.MergedDictionaries>
 
+  <local:ProgressToAngleConverter x:Key="ProgressConverter" />
+
   <DrawingImage x:Key="drawing_validate_check"
                 Drawing="{DynamicResource dlg_data_validate_check}">
   </DrawingImage>
   <DrawingImage x:Key="drawing_validate_warning"
                 Drawing="{DynamicResource dlg_data_validate_warning}">
   </DrawingImage>
- 
+
   <!-- Colors -->
   <SolidColorBrush x:Key="Blue_100"
                    Color="#2367ff"
@@ -83,7 +85,7 @@
   <system:Double x:Key="opcity-btn-disable">0.4</system:Double>
 
   <system:Double x:Key="sz-btn-radiobtn">50</system:Double>
-  
+
   <local:MainViewModel x:Key="main-vm" />
 
   <!-- Binding MainWindow.Status -->
@@ -377,6 +379,144 @@
     </Style.Triggers>
   </Style>
 
+  <!-- Style : border-radiobutton -->
+  <Style TargetType="Border"
+         x:Key="border-radiobutton">
+    <Style.Triggers>
+      <Trigger Property="IsMouseOver"
+               Value="True">
+        <Trigger.Setters>
+          <Setter Property="Background"
+                  Value="{StaticResource Gray_Light}" />
+        </Trigger.Setters>
+      </Trigger>
+    </Style.Triggers>
+  </Style>
+
+  <!-- Style : image-conv-completed -->
+  <Style TargetType="Image"
+         x:Key="image-conv-completed">
+    <Setter Property="Visibility"
+            Value="Visible" />
+    <Style.Triggers>
+      <DataTrigger Binding="{Binding Path=ConversionStatus}"
+                   Value="{x:Static local:FileConversionStatus.Completed}">
+        <DataTrigger.Setters>
+          <Setter Property="Opacity"
+                  Value="{StaticResource opcity-btn-disable}" />
+        </DataTrigger.Setters>
+      </DataTrigger>
+      <DataTrigger Binding="{Binding Path=ConversionStatus}"
+                   Value="{x:Static local:FileConversionStatus.Fail}">
+        <DataTrigger.Setters>
+          <Setter Property="Opacity"
+                  Value="{StaticResource opcity-btn-disable}" />
+        </DataTrigger.Setters>
+      </DataTrigger>
+      <DataTrigger Binding="{Binding Path=ConversionStatus}"
+                   Value="{x:Static local:FileConversionStatus.Running}">
+        <DataTrigger.Setters>
+          <Setter Property="Opacity"
+                  Value="{StaticResource opcity-btn-disable}" />
+        </DataTrigger.Setters>
+      </DataTrigger>
+    </Style.Triggers>
+  </Style>
+
+  <!-- Style : image-conv-result -->
+  <Style TargetType="Image"
+         x:Key="image-conv-result">
+    <Style.Triggers>
+      <DataTrigger Binding="{Binding Path=ConversionStatus}"
+                   Value="{x:Static local:FileConversionStatus.Completed}">
+        <DataTrigger.Setters>
+          <Setter Property="Source"
+                  Value="{StaticResource drawing_validate_check}" />
+        </DataTrigger.Setters>
+      </DataTrigger>
+      <DataTrigger Binding="{Binding Path=ConversionStatus}"
+                   Value="{x:Static local:FileConversionStatus.Fail}">
+        <DataTrigger.Setters>
+          <Setter Property="Source"
+                  Value="{StaticResource drawing_validate_warning}" />
+        </DataTrigger.Setters>
+      </DataTrigger>
+    </Style.Triggers>
+  </Style>
+
+  <!-- Style : progressbar-circular -->
+  <Style TargetType="ProgressBar"
+         x:Key="progressbar-circular">
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="{x:Type ProgressBar}">
+          <Grid>
+            <Ellipse Height="15"
+                     Width="15"
+                     Fill="DarkGray" />
+            <local:Arc StrokeThickness="5"
+                       Stroke="{DynamicResource Green_100}">
+              <local:Arc.StartAngle>
+                <MultiBinding Converter="{StaticResource ProgressConverter}">
+                  <Binding Path="Minimum"
+                           RelativeSource="{RelativeSource TemplatedParent}" />
+                  <Binding Path="."
+                           RelativeSource="{RelativeSource TemplatedParent}" />
+                </MultiBinding>
+              </local:Arc.StartAngle>
+              <local:Arc.EndAngle>
+                <MultiBinding Converter="{StaticResource ProgressConverter}">
+                  <Binding Path="Value"
+                           RelativeSource="{RelativeSource TemplatedParent}" />
+                  <Binding Path="."
+                           RelativeSource="{RelativeSource TemplatedParent}" />
+                </MultiBinding>
+              </local:Arc.EndAngle>
+            </local:Arc>
+            <TextBlock Text="{Binding Value, RelativeSource={RelativeSource TemplatedParent}, StringFormat=\{0:0\}}"
+                       Foreground="White"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center"
+                       FontSize="10"
+                       FontWeight="Bold" />
+          </Grid>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+    <Setter Property="Visibility"
+            Value="Visible" />
+    <Style.Triggers>
+      <DataTrigger Binding="{Binding Path=ConversionStatus}"
+                   Value="{x:Static local:FileConversionStatus.Ready}">
+        <DataTrigger.Setters>
+          <Setter Property="Visibility"
+                  Value="Hidden" />
+        </DataTrigger.Setters>
+      </DataTrigger>
+      <DataTrigger Binding="{Binding Path=ConversionStatus}"
+                   Value="{x:Static local:FileConversionStatus.Running}">
+        <DataTrigger.Setters>
+          <Setter Property="Visibility"
+                  Value="Visible" />
+        </DataTrigger.Setters>
+      </DataTrigger>
+      <DataTrigger Binding="{Binding Path=ConversionStatus}"
+                   Value="{x:Static local:FileConversionStatus.Completed}">
+        <DataTrigger.Setters>
+          <Setter Property="Visibility"
+                  Value="Hidden" />
+        </DataTrigger.Setters>
+      </DataTrigger>
+      <DataTrigger Binding="{Binding Path=ConversionStatus}"
+                   Value="{x:Static local:FileConversionStatus.Fail}">
+        <DataTrigger.Setters>
+          <Setter Property="Visibility"
+                  Value="Hidden" />
+        </DataTrigger.Setters>
+      </DataTrigger>
+    </Style.Triggers>
+  </Style>
+
   <!-- doclistbox-item -->
   <DataTemplate x:Key="doclistbox-item">
     <Grid Width="100"
@@ -389,84 +529,23 @@
       <Image Grid.Row="0"
              Width="50"
              Height="50"
-             VerticalAlignment="Bottom">
+             VerticalAlignment="Bottom"
+             Style="{StaticResource image-conv-completed}">
         <Image.Source>
           <DrawingImage Drawing="{DynamicResource icon-hpdf}">
           </DrawingImage>
         </Image.Source>
-        <Image.Style>
-          <Style TargetType="Image">
-            <Setter Property="Visibility"
-                    Value="Visible" />
-            <Style.Triggers>
-              <DataTrigger Binding="{Binding Path=ConversionStatus}"
-                           Value="{x:Static local:FileConversionStatus.Completed}">
-                <DataTrigger.Setters>
-                  <Setter Property="Opacity"
-                          Value="{StaticResource opcity-btn-disable}" />
-                </DataTrigger.Setters>
-              </DataTrigger>
-            </Style.Triggers>
-          </Style>
-        </Image.Style>
       </Image>
-      <ProgressBar Margin="0,20,0,0"
-                   Height="10"
-                   Width="30"
-                   Value="{Binding Path=ProgressValue}">
-        <ProgressBar.Style>
-          <Style TargetType="ProgressBar">
-            <Setter Property="Visibility"
-                    Value="Visible" />
-            <Style.Triggers>
-              <DataTrigger Binding="{Binding Path=ConversionStatus}"
-                           Value="Ready">
-                <DataTrigger.Setters>
-                  <Setter Property="Visibility"
-                          Value="Hidden" />
-                </DataTrigger.Setters>
-              </DataTrigger>
-              <DataTrigger Binding="{Binding Path=ConversionStatus}"
-                           Value="{x:Static local:FileConversionStatus.Running}">
-                <DataTrigger.Setters>
-                  <Setter Property="Visibility"
-                          Value="Visible" />
-                </DataTrigger.Setters>
-              </DataTrigger>
-              <DataTrigger Binding="{Binding Path=ConversionStatus}"
-                           Value="{x:Static local:FileConversionStatus.Completed}">
-                <DataTrigger.Setters>
-                  <Setter Property="Visibility"
-                          Value="Hidden" />
-                </DataTrigger.Setters>
-              </DataTrigger>
-            </Style.Triggers>
-          </Style>
-        </ProgressBar.Style>
+      <ProgressBar Width="25"
+                   Height="25"
+                   Margin="0,20,0,0"
+                   Value="{Binding Path=ProgressValue}"
+                   Style="{StaticResource progressbar-circular}">
       </ProgressBar>
       <Image Margin="0,20,0,0"
-             Height="20"
-             Width="20">
-        <Image.Style>
-          <Style TargetType="Image">
-            <Style.Triggers>
-              <DataTrigger Binding="{Binding Path=ConversionStatus}"
-                           Value="{x:Static local:FileConversionStatus.Completed}">
-                <DataTrigger.Setters>
-                  <Setter Property="Source"
-                          Value="{StaticResource drawing_validate_check}" />
-                </DataTrigger.Setters>
-              </DataTrigger>
-              <DataTrigger Binding="{Binding Path=ConversionStatus}"
-                           Value="{x:Static local:FileConversionStatus.Fail}">
-                <DataTrigger.Setters>
-                  <Setter Property="Source"
-                          Value="{StaticResource drawing_validate_warning}" />
-                </DataTrigger.Setters>
-              </DataTrigger>
-            </Style.Triggers>
-          </Style>
-        </Image.Style>
+             Height="25"
+             Width="25"
+             Style="{StaticResource image-conv-result}">
       </Image>
       <TextBlock Grid.Row="1"
                  Text="{Binding Path=FileName}"

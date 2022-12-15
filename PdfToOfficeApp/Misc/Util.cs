@@ -95,6 +95,9 @@ namespace PdfToOfficeApp
                     case ErrorStatus.AlreadyLoaded:
                         msg = GetString("IDS_HNC_PDFSDK_MSG_FILE_LOCKED");
                         break;
+                    case ErrorStatus.Success:
+                        msg = GetString("IDS_HNC_PDFSDK_MSG_CONVERSION_SUCCESS");
+                        break;
 
                     default:
                         msg = GetString("IDS_HNC_PDFSDK_MSG_CONVERSION_ERROR");
