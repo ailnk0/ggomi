@@ -80,7 +80,7 @@ namespace PdfToOfficeApp
                         strResult += string.Format("{0} : " + Util.String.GetMsg(doc.FileErrorStatus) + "\n", doc.FileName);
                     }
                 }
-                if(strResult == "")
+                if (strResult == "")
                     strResult = Util.String.GetMsg(ErrorStatus.Success);
             }
 
@@ -267,12 +267,24 @@ namespace PdfToOfficeApp
         // 파일 제거
         private void OnRemoveFile(object sender, ExecutedRoutedEventArgs e)
         {
-
+            foreach (Doc doc in GetModel().Docs.ListSelectedItems)
+            {
+                GetModel().Docs.Remove(doc);
+            }
         }
 
         private void CanRemoveFile(object sender, CanExecuteRoutedEventArgs e)
         {
+            if (GetModel().Status == AppStatus.Ready)
+            {
+                if (GetModel().Docs.ListSelectedItems != null && GetModel().Docs.ListSelectedItems.Count > 0)
+                {
+                    e.CanExecute = true;
+                    return;
+                }
+            }
 
+            e.CanExecute = false;
         }
         #endregion
     }
