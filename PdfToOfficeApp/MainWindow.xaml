@@ -44,7 +44,8 @@
       </Button>
       <Button x:Name="IDC_Button_SecondaryRemove"
               Grid.Column="2"
-              Style="{StaticResource btn-rmdoc}">
+              Style="{StaticResource btn-rmdoc}"
+              Command="{x:Static local:MainWindow.RemoveFileCommand}">
       </Button>
       <Button x:Name="IDC_Button_SecondarySetting"
               Grid.Column="3"
