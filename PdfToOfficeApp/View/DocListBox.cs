@@ -13,7 +13,6 @@ namespace PdfToOfficeApp
 
         protected override void OnItemsChanged(NotifyCollectionChangedEventArgs e)
         {
-            //IList<Doc> itemsSource = ItemsSource as IList<Doc>;
             if (!(ItemsSource is DocList itemsSource))
                 return;
 

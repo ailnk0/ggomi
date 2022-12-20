@@ -16,11 +16,6 @@ namespace PdfToOfficeApp
         private PdfToOfficeProxy pdfToOffice;
         private BackgroundWorker worker = new BackgroundWorker();
         private ProgressSiteCli progressSiteCli { get; set; }
-        public DocListBox PublicDocListBox
-        {
-            get { return IDC_DocListBox; }
-            set { IDC_DocListBox = value; }
-        }
 
         public MainWindow()
         {

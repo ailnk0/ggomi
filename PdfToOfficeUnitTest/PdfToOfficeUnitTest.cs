@@ -68,7 +68,8 @@ namespace PdfToOfficeUnitTest
             // 선택 전 버튼 비활성화
             Assert.AreEqual(false, MainWindow.RemoveFileCommand.CanExecute(null, window));
 
-            window.PublicDocListBox.SelectedIndex = 0;
+            var obj = (DocListBox)window.FindName("IDC_DocListBox");
+            obj.SelectedIndex = 0;
 
             // 선택 후 버튼 활성화
             Assert.AreEqual(true, MainWindow.RemoveFileCommand.CanExecute(null, window));
