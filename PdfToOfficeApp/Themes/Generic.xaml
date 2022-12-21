@@ -66,25 +66,30 @@
   <SolidColorBrush x:Key="Gray_Light"
                    Color="LightGray"
                    Opacity="0.5" />
+
   <Duration x:Key="ani-short">0:0:0.25</Duration>
   <Duration x:Key="ani-long">0:0:0.5</Duration>
 
-  <system:Double x:Key="sz-btn-pri">70</system:Double>
-  <system:Double x:Key="sz-btn-pri-mouseover">74</system:Double>
+  <Thickness x:Key="m-10"
+             Left="10"
+             Top="10"
+             Right="10"
+             Bottom="10" />
+
+  <system:Double x:Key="opcity-btn-disable">0.2</system:Double>
+
+  <system:Double x:Key="sz-btn-pri">50</system:Double>
   <system:Double x:Key="opcity-btn-pri">1</system:Double>
   <system:Double x:Key="opcity-btn-pri-mouseover">0.8</system:Double>
 
-  <system:Double x:Key="sz-btn-sec">30</system:Double>
-  <system:Double x:Key="sz-btn-sec-mouseover">33</system:Double>
+  <system:Double x:Key="sz-btn-sec">20</system:Double>
   <system:Double x:Key="opcity-btn-sec">1</system:Double>
   <system:Double x:Key="opcity-btn-sec-mouseover">0.8</system:Double>
 
   <system:Double x:Key="sz-btn-format">50</system:Double>
-  <system:Double x:Key="sz-btn-format-mouseover">54</system:Double>
-
-  <system:Double x:Key="opcity-btn-disable">0.4</system:Double>
-
   <system:Double x:Key="sz-btn-radiobtn">50</system:Double>
+
+  <system:Double x:Key="sz-div">100</system:Double>
 
   <local:MainViewModel x:Key="main-vm" />
 
@@ -93,83 +98,10 @@
            Source="{StaticResource main-vm}"
            Path="Status" />
 
-  <!-- Style : div-adddoc -->
   <Style TargetType="Border"
-         x:Key="div-adddoc">
-    <Setter Property="Width"
-            Value="100" />
-    <Setter Property="Padding"
-            Value="10" />
-    <Style.Triggers>
-      <DataTrigger Binding="{StaticResource app-status}"
-                   Value="{x:Static local:AppStatus.Init}">
-        <DataTrigger.Setters>
-          <Setter Property="Visibility"
-                  Value="Visible" />
-          <Setter Property="Grid.ColumnSpan"
-                  Value="3" />
-        </DataTrigger.Setters>
-        <DataTrigger.EnterActions>
-          <BeginStoryboard>
-            <Storyboard>
-              <DoubleAnimation Storyboard.TargetProperty="Width"
-                               To="400"
-                               Duration="{StaticResource ani-short}" />
-            </Storyboard>
-          </BeginStoryboard>
-        </DataTrigger.EnterActions>
-      </DataTrigger>
-      <DataTrigger Binding="{StaticResource app-status}"
-                   Value="{x:Static local:AppStatus.Ready}">
-        <DataTrigger.Setters>
-          <Setter Property="Visibility"
-                  Value="Visible" />
-          <Setter Property="Grid.ColumnSpan"
-                  Value="1" />
-        </DataTrigger.Setters>
-        <DataTrigger.EnterActions>
-          <BeginStoryboard>
-            <Storyboard>
-              <DoubleAnimation Storyboard.TargetProperty="Width"
-                               To="100"
-                               Duration="{StaticResource ani-short}" />
-            </Storyboard>
-          </BeginStoryboard>
-        </DataTrigger.EnterActions>
-      </DataTrigger>
-    </Style.Triggers>
-  </Style>
-
-  <!-- Style : div-doclistbox -->
-  <Style TargetType="Border"
-         x:Key="div-doclistbox">
-    <Setter Property="Padding"
-            Value="10" />
-    <Style.Triggers>
-      <DataTrigger Binding="{StaticResource app-status}"
-                   Value="{x:Static local:AppStatus.Init}">
-        <DataTrigger.Setters>
-          <Setter Property="Visibility"
-                  Value="Collapsed" />
-        </DataTrigger.Setters>
-      </DataTrigger>
-      <DataTrigger Binding="{StaticResource app-status}"
-                   Value="{x:Static local:AppStatus.Ready}">
-        <DataTrigger.Setters>
-          <Setter Property="Visibility"
-                  Value="Visible" />
-        </DataTrigger.Setters>
-      </DataTrigger>
-    </Style.Triggers>
-  </Style>
-
-  <!-- Style : div-convert -->
-  <Style TargetType="Border"
-         x:Key="div-convert">
-    <Setter Property="Width"
-            Value="100" />
-    <Setter Property="Padding"
-            Value="10" />
+         x:Key="div-sel-format">
+    <Setter Property="Height"
+            Value="{StaticResource sz-div}" />
     <Style.Triggers>
       <DataTrigger Binding="{StaticResource app-status}"
                    Value="{x:Static local:AppStatus.Init}">
@@ -180,7 +112,7 @@
         <DataTrigger.EnterActions>
           <BeginStoryboard>
             <Storyboard>
-              <DoubleAnimation Storyboard.TargetProperty="Width"
+              <DoubleAnimation Storyboard.TargetProperty="Height"
                                To="0"
                                Duration="{StaticResource ani-short}" />
             </Storyboard>
@@ -196,8 +128,40 @@
         <DataTrigger.EnterActions>
           <BeginStoryboard>
             <Storyboard>
-              <DoubleAnimation Storyboard.TargetProperty="Width"
-                               To="100"
+              <DoubleAnimation Storyboard.TargetProperty="Height"
+                               To="{StaticResource sz-div}"
+                               Duration="{StaticResource ani-short}" />
+            </Storyboard>
+          </BeginStoryboard>
+        </DataTrigger.EnterActions>
+      </DataTrigger>
+      <DataTrigger Binding="{StaticResource app-status}"
+                   Value="{x:Static local:AppStatus.Running}">
+        <DataTrigger.Setters>
+          <Setter Property="Visibility"
+                  Value="Collapsed" />
+        </DataTrigger.Setters>
+        <DataTrigger.EnterActions>
+          <BeginStoryboard>
+            <Storyboard>
+              <DoubleAnimation Storyboard.TargetProperty="Height"
+                               To="0"
+                               Duration="{StaticResource ani-short}" />
+            </Storyboard>
+          </BeginStoryboard>
+        </DataTrigger.EnterActions>
+      </DataTrigger>
+      <DataTrigger Binding="{StaticResource app-status}"
+                   Value="{x:Static local:AppStatus.Completed}">
+        <DataTrigger.Setters>
+          <Setter Property="Visibility"
+                  Value="Collapsed" />
+        </DataTrigger.Setters>
+        <DataTrigger.EnterActions>
+          <BeginStoryboard>
+            <Storyboard>
+              <DoubleAnimation Storyboard.TargetProperty="Height"
+                               To="0"
                                Duration="{StaticResource ani-short}" />
             </Storyboard>
           </BeginStoryboard>
@@ -206,26 +170,12 @@
     </Style.Triggers>
   </Style>
 
-  <!-- Style : btn-sm-tmp -->
   <Style TargetType="Button"
          x:Key="btn-sm-tmp">
     <Setter Property="Width"
             Value="{StaticResource sz-btn-sec}" />
     <Setter Property="Height"
             Value="{StaticResource sz-btn-sec}" />
-    <Setter Property="Template">
-      <Setter.Value>
-        <ControlTemplate TargetType="Button">
-          <Grid>
-            <Image>
-              <Image.Source>
-                <DrawingImage Drawing="{DynamicResource sm_add}"></DrawingImage>
-              </Image.Source>
-            </Image>
-          </Grid>
-        </ControlTemplate>
-      </Setter.Value>
-    </Setter>
     <Style.Triggers>
       <Trigger Property="IsEnabled"
                Value="False">
@@ -258,7 +208,6 @@
     </Style.Triggers>
   </Style>
 
-  <!-- Style : btn-adddoc -->
   <Style TargetType="Button"
          x:Key="btn-adddoc"
          BasedOn="{StaticResource btn-sm-tmp}">
@@ -277,7 +226,6 @@
     </Setter>
   </Style>
 
-  <!-- Style : btn-rmdoc -->
   <Style TargetType="Button"
          x:Key="btn-rmdoc"
          BasedOn="{StaticResource btn-sm-tmp}">
@@ -296,7 +244,6 @@
     </Setter>
   </Style>
 
-  <!-- Style : btn-config -->
   <Style TargetType="Button"
          x:Key="btn-config"
          BasedOn="{StaticResource btn-sm-tmp}">
@@ -317,24 +264,11 @@
 
   <!-- Style : btn-convert -->
   <Style TargetType="Button"
-         x:Key="btn-convert">
+         x:Key="btn-pri-tmp">
     <Setter Property="Width"
             Value="{StaticResource sz-btn-pri}" />
     <Setter Property="Height"
             Value="{StaticResource sz-btn-pri}" />
-    <Setter Property="Template">
-      <Setter.Value>
-        <ControlTemplate TargetType="Button">
-          <Grid>
-            <Image>
-              <Image.Source>
-                <DrawingImage Drawing="{DynamicResource sm_r_run}"></DrawingImage>
-              </Image.Source>
-            </Image>
-          </Grid>
-        </ControlTemplate>
-      </Setter.Value>
-    </Setter>
     <Style.Triggers>
       <Trigger Property="IsEnabled"
                Value="False">
@@ -351,12 +285,6 @@
               <DoubleAnimation Storyboard.TargetProperty="Opacity"
                                To="{StaticResource opcity-btn-pri-mouseover}"
                                Duration="{StaticResource ani-short}" />
-              <DoubleAnimation Storyboard.TargetProperty="Width"
-                               To="{StaticResource sz-btn-pri-mouseover}"
-                               Duration="{StaticResource ani-short}" />
-              <DoubleAnimation Storyboard.TargetProperty="Height"
-                               To="{StaticResource sz-btn-pri-mouseover}"
-                               Duration="{StaticResource ani-short}" />
             </Storyboard>
           </BeginStoryboard>
         </Trigger.EnterActions>
@@ -366,16 +294,178 @@
               <DoubleAnimation Storyboard.TargetProperty="Opacity"
                                To="{StaticResource opcity-btn-pri}"
                                Duration="{StaticResource ani-short}" />
-              <DoubleAnimation Storyboard.TargetProperty="Width"
-                               To="{StaticResource sz-btn-pri}"
-                               Duration="{StaticResource ani-short}" />
-              <DoubleAnimation Storyboard.TargetProperty="Height"
-                               To="{StaticResource sz-btn-pri}"
-                               Duration="{StaticResource ani-short}" />
             </Storyboard>
           </BeginStoryboard>
         </Trigger.ExitActions>
       </Trigger>
+    </Style.Triggers>
+  </Style>
+
+  <Style TargetType="Button"
+         x:Key="btn-pri-convert"
+         BasedOn="{StaticResource btn-pri-tmp}">
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="Button">
+          <Grid>
+            <Image>
+              <Image.Source>
+                <DrawingImage Drawing="{DynamicResource sm_r_run}"></DrawingImage>
+              </Image.Source>
+            </Image>
+          </Grid>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+    <Style.Triggers>
+      <DataTrigger Binding="{StaticResource app-status}"
+                   Value="{x:Static local:AppStatus.Init}">
+        <DataTrigger.Setters>
+          <Setter Property="Visibility"
+                  Value="Visible" />
+          <Setter Property="IsEnabled"
+                  Value="False" />
+        </DataTrigger.Setters>
+      </DataTrigger>
+      <DataTrigger Binding="{StaticResource app-status}"
+                   Value="{x:Static local:AppStatus.Ready}">
+        <DataTrigger.Setters>
+          <Setter Property="Visibility"
+                  Value="Visible" />
+          <Setter Property="IsEnabled"
+                  Value="True" />
+        </DataTrigger.Setters>
+      </DataTrigger>
+      <DataTrigger Binding="{StaticResource app-status}"
+                   Value="{x:Static local:AppStatus.Running}">
+        <DataTrigger.Setters>
+          <Setter Property="Visibility"
+                  Value="Collapsed" />
+          <Setter Property="IsEnabled"
+                  Value="False" />
+        </DataTrigger.Setters>
+      </DataTrigger>
+      <DataTrigger Binding="{StaticResource app-status}"
+                   Value="{x:Static local:AppStatus.Completed}">
+        <DataTrigger.Setters>
+          <Setter Property="Visibility"
+                  Value="Collapsed" />
+          <Setter Property="IsEnabled"
+                  Value="False" />
+        </DataTrigger.Setters>
+      </DataTrigger>
+    </Style.Triggers>
+  </Style>
+
+  <Style TargetType="Button"
+         x:Key="btn-pri-reset"
+         BasedOn="{StaticResource btn-pri-tmp}">
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="Button">
+          <Grid>
+            <Image>
+              <Image.Source>
+                <DrawingImage Drawing="{DynamicResource sm_r_check}"></DrawingImage>
+              </Image.Source>
+            </Image>
+          </Grid>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+    <Style.Triggers>
+      <DataTrigger Binding="{StaticResource app-status}"
+                   Value="{x:Static local:AppStatus.Init}">
+        <DataTrigger.Setters>
+          <Setter Property="Visibility"
+                  Value="Collapsed" />
+          <Setter Property="IsEnabled"
+                  Value="False" />
+        </DataTrigger.Setters>
+      </DataTrigger>
+      <DataTrigger Binding="{StaticResource app-status}"
+                   Value="{x:Static local:AppStatus.Ready}">
+        <DataTrigger.Setters>
+          <Setter Property="Visibility"
+                  Value="Collapsed" />
+          <Setter Property="IsEnabled"
+                  Value="False" />
+        </DataTrigger.Setters>
+      </DataTrigger>
+      <DataTrigger Binding="{StaticResource app-status}"
+                   Value="{x:Static local:AppStatus.Running}">
+        <DataTrigger.Setters>
+          <Setter Property="Visibility"
+                  Value="Collapsed" />
+          <Setter Property="IsEnabled"
+                  Value="False" />
+        </DataTrigger.Setters>
+      </DataTrigger>
+      <DataTrigger Binding="{StaticResource app-status}"
+                   Value="{x:Static local:AppStatus.Completed}">
+        <DataTrigger.Setters>
+          <Setter Property="Visibility"
+                  Value="Visible" />
+          <Setter Property="IsEnabled"
+                  Value="True" />
+        </DataTrigger.Setters>
+      </DataTrigger>
+    </Style.Triggers>
+  </Style>
+
+  <Style TargetType="Button"
+         x:Key="btn-pri-stop"
+         BasedOn="{StaticResource btn-pri-tmp}">
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="Button">
+          <Grid>
+            <Image>
+              <Image.Source>
+                <DrawingImage Drawing="{DynamicResource sm_r_stop}"></DrawingImage>
+              </Image.Source>
+            </Image>
+          </Grid>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+    <Style.Triggers>
+      <DataTrigger Binding="{StaticResource app-status}"
+                   Value="{x:Static local:AppStatus.Init}">
+        <DataTrigger.Setters>
+          <Setter Property="Visibility"
+                  Value="Collapsed" />
+          <Setter Property="IsEnabled"
+                  Value="False" />
+        </DataTrigger.Setters>
+      </DataTrigger>
+      <DataTrigger Binding="{StaticResource app-status}"
+                   Value="{x:Static local:AppStatus.Ready}">
+        <DataTrigger.Setters>
+          <Setter Property="Visibility"
+                  Value="Collapsed" />
+          <Setter Property="IsEnabled"
+                  Value="False" />
+        </DataTrigger.Setters>
+      </DataTrigger>
+      <DataTrigger Binding="{StaticResource app-status}"
+                   Value="{x:Static local:AppStatus.Running}">
+        <DataTrigger.Setters>
+          <Setter Property="Visibility"
+                  Value="Visible" />
+          <Setter Property="IsEnabled"
+                  Value="True" />
+        </DataTrigger.Setters>
+      </DataTrigger>
+      <DataTrigger Binding="{StaticResource app-status}"
+                   Value="{x:Static local:AppStatus.Completed}">
+        <DataTrigger.Setters>
+          <Setter Property="Visibility"
+                  Value="Collapsed" />
+          <Setter Property="IsEnabled"
+                  Value="False" />
+        </DataTrigger.Setters>
+      </DataTrigger>
     </Style.Triggers>
   </Style>
 
@@ -451,9 +541,11 @@
       <Setter.Value>
         <ControlTemplate TargetType="{x:Type ProgressBar}">
           <Grid>
-            <!--<Ellipse Height="15"
+            <Ellipse Height="15"
                      Width="15"
-                     Fill="DarkGray" />-->
+                     Fill="White"
+                     Opacity="0.8">
+            </Ellipse>
             <local:Arc StrokeThickness="5"
                        Stroke="{DynamicResource Green_100}">
               <local:Arc.StartAngle>
@@ -474,11 +566,10 @@
               </local:Arc.EndAngle>
             </local:Arc>
             <TextBlock Text="{Binding Value, RelativeSource={RelativeSource TemplatedParent}, StringFormat=\{0:0\}}"
-                       Foreground="Black"
+                       Foreground="{DynamicResource Green_100}"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Center"
-                       FontSize="10"
-                       FontWeight="Bold" />
+                       FontSize="10" />
           </Grid>
         </ControlTemplate>
       </Setter.Value>

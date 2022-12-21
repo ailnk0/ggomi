@@ -15,7 +15,7 @@
   </UserControl.Resources>
   <Grid>
     <StackPanel>
-      <Grid Height="90">
+      <Grid>
         <Grid.ColumnDefinitions>
           <ColumnDefinition Width="*" />
           <ColumnDefinition Width="80" />
@@ -106,8 +106,7 @@
           </RadioButton>
         </Border>
         <StackPanel Grid.Column="6">
-          <Expander FocusVisualStyle="{x:Null}"
-                    Height="90">
+          <Expander FocusVisualStyle="{x:Null}">
             <StackPanel>
               <RadioButton Content="JPG" />
               <RadioButton Content="PNG" />

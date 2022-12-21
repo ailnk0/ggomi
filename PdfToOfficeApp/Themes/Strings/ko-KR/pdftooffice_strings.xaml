@@ -2,19 +2,20 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:System="clr-namespace:System;assembly=mscorlib">
 
-    <System:String x:Key="IDS_HNC_PDFSDK_MSG_CONVERSION_SUCCESS">성공적으로 변환하였습니다.</System:String>
-    <System:String x:Key="IDS_HNC_PDFSDK_MSG_CONVERSION_FAIL">PDF 파일을 변환하지 못했습니다.</System:String>
-    <System:String x:Key="IDS_HNC_PDFSDK_MSG_WARNING_NOTIFY">PDF를 편집 가능한 문서로 변환할 수 있으며, 변환 시 약간의 시간이 소요될 수 있습니다. &#xA;변환하는 동안 일부 속성이 변경되어 원본 PDF 파일과 내용이 달라질 수 있습니다.</System:String>
-    <System:String x:Key="IDS_HNC_PDFSDK_MSG_PASSWORD_PROTECT">암호가 설정된 문서는 변환할 수 없습니다.</System:String>
-    <System:String x:Key="IDS_HNC_PDFSDK_MSG_UNSUPPORT_FORMAT">지원하지 않는 PDF 파일 형식입니다.</System:String>
-    <System:String x:Key="IDS_HNC_PDFSDK_MSG_BAD_FILE">PDF 파일을 변환하지 못했습니다. 손상되었거나 잘못된 파일입니다.</System:String>
-    <System:String x:Key="IDS_HNC_PDFSDK_MSG_CONVERSION_ERROR">변환 과정에서 오류가 발생하였습니다.</System:String>
-    <System:String x:Key="IDS_HNC_PDFSDK_MSG_FILE_IO_ERROR">파일이 없거나 해당 경로에 접근할 수 없습니다.</System:String>
-    <System:String x:Key="IDS_HNC_PDFSDK_MSG_FILE_LOCKED">파일이 존재하지 않거나 이미 열려 있는 문서입니다.</System:String>
-    <System:String x:Key="IDS_HNC_PDFSDK_MSG_NO_TABLES_TO_EXTRACT">표가 없는 문서는 [표만 변환하기] 옵션을 적용할 수 없습니다.&#xA;[PDF 변환하기-설정] 대화 상자에서 [표만 변환하기] 옵션을 해제하세요.</System:String>
-    <System:String x:Key="IDS_HNC_PDFSDK_MSG_NO_IMAGES_TO_EXTRACT">이미지가 없는 문서는 [PDF 내 이미지만 변환] 옵션을 적용할 수 없습니다.&#xA;[PDF 변환하기-설정] 대화 상자에서 [이미지 변환 설정]을 변경하세요.</System:String>
-    <System:String x:Key="IDS_HNC_PDFSDK_MSG_WARNING_NOTIFY_LIMIT">PDF를 편집 가능한 문서로 변환할 수 있으며, 변환 시 약간의 시간이 소요될 수 있습니다. &#xA;변환하는 동안 일부 속성이 변경되어 원본 PDF 파일과 내용이 달라질 수 있습니다. &#xA;대용량 문서는 최대 %d쪽까지 변환할 수 있습니다.</System:String>
-    <System:String x:Key="IDS_ConvertUserCancelMessage">문서로 변환하기를 취소했습니다.</System:String>
-    <System:String x:Key="IDS_ConvertStopMessage">작업을 중지하는 동안 잠시만 기다려 주세요.</System:String>
+  <System:String x:Key="IDS_APP_NAME">PDF를 오피스 문서로 변환하기</System:String>
+  <System:String x:Key="IDS_HNC_PDFSDK_MSG_CONVERSION_SUCCESS">성공적으로 변환하였습니다.</System:String>
+  <System:String x:Key="IDS_HNC_PDFSDK_MSG_CONVERSION_FAIL">PDF 파일을 변환하지 못했습니다.</System:String>
+  <System:String x:Key="IDS_HNC_PDFSDK_MSG_WARNING_NOTIFY">PDF를 편집 가능한 문서로 변환할 수 있으며, 변환 시 약간의 시간이 소요될 수 있습니다. &#xA;변환하는 동안 일부 속성이 변경되어 원본 PDF 파일과 내용이 달라질 수 있습니다.</System:String>
+  <System:String x:Key="IDS_HNC_PDFSDK_MSG_PASSWORD_PROTECT">암호가 설정된 문서는 변환할 수 없습니다.</System:String>
+  <System:String x:Key="IDS_HNC_PDFSDK_MSG_UNSUPPORT_FORMAT">지원하지 않는 PDF 파일 형식입니다.</System:String>
+  <System:String x:Key="IDS_HNC_PDFSDK_MSG_BAD_FILE">PDF 파일을 변환하지 못했습니다. 손상되었거나 잘못된 파일입니다.</System:String>
+  <System:String x:Key="IDS_HNC_PDFSDK_MSG_CONVERSION_ERROR">변환 과정에서 오류가 발생하였습니다.</System:String>
+  <System:String x:Key="IDS_HNC_PDFSDK_MSG_FILE_IO_ERROR">파일이 없거나 해당 경로에 접근할 수 없습니다.</System:String>
+  <System:String x:Key="IDS_HNC_PDFSDK_MSG_FILE_LOCKED">파일이 존재하지 않거나 이미 열려 있는 문서입니다.</System:String>
+  <System:String x:Key="IDS_HNC_PDFSDK_MSG_NO_TABLES_TO_EXTRACT">표가 없는 문서는 [표만 변환하기] 옵션을 적용할 수 없습니다.&#xA;[PDF 변환하기-설정] 대화 상자에서 [표만 변환하기] 옵션을 해제하세요.</System:String>
+  <System:String x:Key="IDS_HNC_PDFSDK_MSG_NO_IMAGES_TO_EXTRACT">이미지가 없는 문서는 [PDF 내 이미지만 변환] 옵션을 적용할 수 없습니다.&#xA;[PDF 변환하기-설정] 대화 상자에서 [이미지 변환 설정]을 변경하세요.</System:String>
+  <System:String x:Key="IDS_HNC_PDFSDK_MSG_WARNING_NOTIFY_LIMIT">PDF를 편집 가능한 문서로 변환할 수 있으며, 변환 시 약간의 시간이 소요될 수 있습니다. &#xA;변환하는 동안 일부 속성이 변경되어 원본 PDF 파일과 내용이 달라질 수 있습니다. &#xA;대용량 문서는 최대 %d쪽까지 변환할 수 있습니다.</System:String>
+  <System:String x:Key="IDS_ConvertUserCancelMessage">문서로 변환하기를 취소했습니다.</System:String>
+  <System:String x:Key="IDS_ConvertStopMessage">작업을 중지하는 동안 잠시만 기다려 주세요.</System:String>
 
 </ResourceDictionary>

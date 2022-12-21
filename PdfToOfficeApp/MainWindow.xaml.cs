@@ -132,6 +132,8 @@ namespace PdfToOfficeApp
             Util.Commands.Add(this, AddFileCommand, OnAddFile, CanAddFile);
             Util.Commands.Add(this, RemoveFileCommand, OnRemoveFile, CanRemoveFile);
             Util.Commands.Add(this, ConvertCommand, OnConvert, CanConvert);
+            Util.Commands.Add(this, StopCommand, OnStop, CanStop);
+            Util.Commands.Add(this, ResetCommand, OnReset, CanReset);
         }
 
         private void MainWindow_ContentRendered(object sender, EventArgs e)
@@ -187,6 +189,10 @@ namespace PdfToOfficeApp
         #region RoutedCommand
         // 파일 변환 커맨드
         public static RoutedCommand ConvertCommand = new RoutedCommand("ConvertCommand", typeof(Button));
+        // 파일 변환 중지 커맨드
+        public static RoutedCommand StopCommand = new RoutedCommand("StopCommand", typeof(Button));
+        // 앱 초기화 커맨드
+        public static RoutedCommand ResetCommand = new RoutedCommand("ResetCommand", typeof(Button));
         // 파일 추가 커맨드
         public static RoutedCommand AddFileCommand = new RoutedCommand("AddFileCommand", typeof(Button));
         // 파일 제거 커맨드
@@ -209,7 +215,14 @@ namespace PdfToOfficeApp
 
         private void CanOpen(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = true;
+            if (GetModel().Status == AppStatus.Init || GetModel().Status == AppStatus.Ready)
+            {
+                e.CanExecute = true;
+            }
+            else
+            {
+                e.CanExecute = false;
+            }
         }
 
         private void OnConvert(object sender, ExecutedRoutedEventArgs e)
@@ -243,6 +256,41 @@ namespace PdfToOfficeApp
             e.CanExecute = false;
         }
 
+        private void OnStop(object sender, ExecutedRoutedEventArgs e)
+        {
+            if (worker != null && worker.IsBusy)
+            {
+                worker.CancelAsync();
+            }
+        }
+
+        private void CanStop(object sender, CanExecuteRoutedEventArgs e)
+        {
+            if (GetModel().Status == AppStatus.Running)
+            {
+                e.CanExecute = true;
+                return;
+            }
+
+            e.CanExecute = false;
+        }
+
+        private void OnReset(object sender, ExecutedRoutedEventArgs e)
+        {
+            GetModel().Docs.Clear();
+        }
+
+        private void CanReset(object sender, CanExecuteRoutedEventArgs e)
+        {
+            if (GetModel().Docs.Count > 0 && worker != null && !worker.IsBusy)
+            {
+                e.CanExecute = true;
+                return;
+            }
+
+            e.CanExecute = false;
+        }
+
         // 파일 추가
         private void OnAddFile(object sender, ExecutedRoutedEventArgs e)
         {
@@ -261,7 +309,14 @@ namespace PdfToOfficeApp
 
         private void CanAddFile(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = true;
+            if (GetModel().Status == AppStatus.Init || GetModel().Status == AppStatus.Ready)
+            {
+                e.CanExecute = true;
+            }
+            else
+            {
+                e.CanExecute = false;
+            }
         }
 
         // 파일 제거

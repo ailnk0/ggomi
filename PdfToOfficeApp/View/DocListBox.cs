@@ -9,6 +9,11 @@ namespace PdfToOfficeApp
         protected override void OnInitialized(EventArgs e)
         {
             base.OnInitialized(e);
+
+            if (GetModel() != null && GetModel().Docs != null)
+            {
+                GetModel().Docs.ListSelectedItems = SelectedItems;
+            }
         }
 
         protected override void OnItemsChanged(NotifyCollectionChangedEventArgs e)
@@ -28,7 +33,6 @@ namespace PdfToOfficeApp
 
         protected override void OnSelectionChanged(SelectionChangedEventArgs e)
         {
-            GetModel().Docs.ListSelectedItems = SelectedItems;
         }
 
         public MainViewModel GetModel()

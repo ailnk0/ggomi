@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PdfToOfficeApp"
         mc:Ignorable="d"
-        Title="PDF 파일 형식 변환기"
+        Title="{StaticResource IDS_APP_NAME}"
         Height="450"
         Width="800">
 
@@ -21,29 +21,31 @@
     <Binding Source="{StaticResource main-vm}" />
   </Window.DataContext>
 
-  <Grid Margin="10">
+  <Grid Margin="{StaticResource m-10}">
     <Grid.RowDefinitions>
-      <RowDefinition Height="40" />
-      <RowDefinition Height="*" />
-      <RowDefinition Height="100" />
-      <RowDefinition Height="80" />
+      <RowDefinition Height="auto" />
+      <RowDefinition />
+      <RowDefinition Height="auto" />
+      <RowDefinition Height="auto" />
+      <RowDefinition Height="auto" />
     </Grid.RowDefinitions>
+
     <Grid Grid.Row="0"
-          Margin="5"
           x:Name="IDC_Grid_SecondaryButtons">
       <Grid.ColumnDefinitions>
-        <ColumnDefinition Width="*" />
-        <ColumnDefinition Width="40" />
-        <ColumnDefinition Width="40" />
-        <ColumnDefinition Width="40" />
+        <ColumnDefinition Width="auto" />
+        <ColumnDefinition Width="auto" />
+        <ColumnDefinition />
+        <ColumnDefinition Width="auto" />
       </Grid.ColumnDefinitions>
+
       <Button x:Name="IDC_Button_SecondaryAdd"
-              Grid.Column="1"
+              Grid.Column="0"
               Style="{StaticResource btn-adddoc}"
               Command="ApplicationCommands.Open">
       </Button>
       <Button x:Name="IDC_Button_SecondaryRemove"
-              Grid.Column="2"
+              Grid.Column="1"
               Style="{StaticResource btn-rmdoc}"
               Command="{x:Static local:MainWindow.RemoveFileCommand}">
       </Button>
@@ -52,24 +54,44 @@
               Style="{StaticResource btn-config}">
       </Button>
     </Grid>
+
     <local:DocListBox x:Name="IDC_DocListBox"
                       Grid.Row="1"
                       AllowDrop="true"
                       DataContext="{Binding Source={StaticResource main-vm}}"
                       ItemsSource="{Binding Path=Docs}" />
-    <Grid Grid.Row="2">
-      <Border BorderBrush="Gainsboro"
-              BorderThickness="0,1,0,0"
-              Padding="0,10,0,0">
-        <local:SelectFormat x:Name="IDC_SelectFormat"
-                            DataContext="{Binding Source={StaticResource main-vm}}" />
-      </Border>
-    </Grid>
-    <Grid Grid.Row="3">
+
+    <Border Grid.Row="2"
+            Margin="{StaticResource m-10}"
+            BorderBrush="Gainsboro"
+            BorderThickness="0.5">
+    </Border>
+
+    <Border Grid.Row="3"
+            x:Name="IDC_Selector"
+            Style="{StaticResource div-sel-format}">
+      <local:SelectFormat x:Name="IDC_SelectFormat"
+                          Margin="{StaticResource m-10}"
+                          DataContext="{Binding Source={StaticResource main-vm}}" />
+    </Border>
+
+    <StackPanel Grid.Row="4">
       <Button x:Name="IDC_Button_PrimaryConvert"
-              Style="{StaticResource btn-convert}"
+              Margin="{StaticResource m-10}"
+              Style="{StaticResource btn-pri-convert}"
               Command="{x:Static local:MainWindow.ConvertCommand}">
       </Button>
-    </Grid>
+      <Button x:Name="IDC_Button_PrimaryStop"
+              Margin="{StaticResource m-10}"
+              Style="{StaticResource btn-pri-stop}"
+              Command="{x:Static local:MainWindow.StopCommand}">
+      </Button>
+      <Button x:Name="IDC_Button_PrimaryReset"
+              Margin="{StaticResource m-10}"
+              Style="{StaticResource btn-pri-reset}"
+              Command="{x:Static local:MainWindow.ResetCommand}">
+      </Button>
+    </StackPanel>
+
   </Grid>
 </Window>
