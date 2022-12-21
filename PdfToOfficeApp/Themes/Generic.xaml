@@ -176,6 +176,17 @@
     </Style.Triggers>
   </Style>
 
+  <Style TargetType="Image"
+         x:Key="btn-img-st">
+    <Style.Triggers>
+      <Trigger Property="IsEnabled"
+               Value="False">
+        <Setter Property="Opacity"
+                Value="{StaticResource opcity-btn-disable}" />
+      </Trigger>
+    </Style.Triggers>
+  </Style>
+
   <Style TargetType="Button"
          x:Key="btn-sm-tmp">
     <Setter Property="Width"
@@ -183,13 +194,6 @@
     <Setter Property="Height"
             Value="{StaticResource sz-btn-sec}" />
     <Style.Triggers>
-      <Trigger Property="IsEnabled"
-               Value="False">
-        <Trigger.Setters>
-          <Setter Property="Opacity"
-                  Value="{StaticResource opcity-btn-disable}" />
-        </Trigger.Setters>
-      </Trigger>
       <Trigger Property="IsMouseOver"
                Value="True">
         <Trigger.EnterActions>
@@ -221,7 +225,7 @@
       <Setter.Value>
         <ControlTemplate TargetType="Button">
           <Grid>
-            <Image>
+            <Image Style="{StaticResource btn-img-st}">
               <Image.Source>
                 <DrawingImage Drawing="{DynamicResource sm_add}"></DrawingImage>
               </Image.Source>
@@ -239,7 +243,7 @@
       <Setter.Value>
         <ControlTemplate TargetType="Button">
           <Grid>
-            <Image>
+            <Image Style="{StaticResource btn-img-st}">
               <Image.Source>
                 <DrawingImage Drawing="{DynamicResource sm_sub}"></DrawingImage>
               </Image.Source>
@@ -257,7 +261,7 @@
       <Setter.Value>
         <ControlTemplate TargetType="Button">
           <Grid>
-            <Image>
+            <Image Style="{StaticResource btn-img-st}">
               <Image.Source>
                 <DrawingImage Drawing="{DynamicResource sm_config}"></DrawingImage>
               </Image.Source>

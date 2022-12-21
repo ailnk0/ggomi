@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using PdfToOfficeApp.Misc;
 
 namespace PdfToOfficeApp
@@ -33,6 +34,17 @@ namespace PdfToOfficeApp
             {
                 _Docs = value;
                 OnPropertyChanged("Docs");
+            }
+        }
+
+        private IList _SelectedItems;
+        public IList SelectedItems
+        {
+            get { return _SelectedItems; }
+            set
+            {
+                _SelectedItems = value;
+                OnPropertyChanged("SelectedItems");
             }
         }
 

@@ -327,7 +327,15 @@ namespace PdfToOfficeApp
         // 파일 제거
         private void OnRemoveFile(object sender, ExecutedRoutedEventArgs e)
         {
-            foreach (Doc doc in GetModel().Docs.ListSelectedItems)
+            // Keep selected items as temp
+            Doc[] temp = new Doc[GetModel().SelectedItems.Count];
+            GetModel().SelectedItems.CopyTo(temp, 0);
+
+            // Unselect all to sync list and selected items after remove
+            GetModel().SelectedItems.Clear();
+
+            // Remove selected items
+            foreach (Doc doc in temp)
             {
                 GetModel().Docs.Remove(doc);
             }
@@ -337,7 +345,7 @@ namespace PdfToOfficeApp
         {
             if (GetModel().Status == AppStatus.Ready)
             {
-                if (GetModel().Docs.ListSelectedItems != null && GetModel().Docs.ListSelectedItems.Count > 0)
+                if (GetModel().SelectedItems != null && GetModel().SelectedItems.Count > 0)
                 {
                     e.CanExecute = true;
                     return;

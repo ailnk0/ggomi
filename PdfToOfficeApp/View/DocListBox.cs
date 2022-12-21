@@ -10,18 +10,14 @@ namespace PdfToOfficeApp
         {
             base.OnInitialized(e);
 
-            if (GetModel() != null && GetModel().Docs != null)
-            {
-                GetModel().Docs.ListSelectedItems = SelectedItems;
-            }
+            GetModel().SelectedItems = SelectedItems;
         }
 
         protected override void OnItemsChanged(NotifyCollectionChangedEventArgs e)
         {
-            if (!(ItemsSource is DocList itemsSource))
-                return;
+            base.OnItemsChanged(e);
 
-            if (itemsSource.Count > 0)
+            if (GetModel().Docs.Count > 0)
             {
                 GetModel().Status = AppStatus.Ready;
             }
@@ -29,10 +25,6 @@ namespace PdfToOfficeApp
             {
                 GetModel().Status = AppStatus.Init;
             }
-        }
-
-        protected override void OnSelectionChanged(SelectionChangedEventArgs e)
-        {
         }
 
         public MainViewModel GetModel()
