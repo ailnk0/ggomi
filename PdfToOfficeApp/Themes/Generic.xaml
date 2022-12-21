@@ -76,6 +76,12 @@
              Right="10"
              Bottom="10" />
 
+  <Thickness x:Key="m-5"
+             Left="5"
+             Top="5"
+             Right="5"
+             Bottom="5" />
+
   <system:Double x:Key="opcity-btn-disable">0.2</system:Double>
 
   <system:Double x:Key="sz-btn-pri">50</system:Double>
@@ -262,7 +268,6 @@
     </Setter>
   </Style>
 
-  <!-- Style : btn-convert -->
   <Style TargetType="Button"
          x:Key="btn-pri-tmp">
     <Setter Property="Width"

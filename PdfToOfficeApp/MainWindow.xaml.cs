@@ -1,5 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Reflection;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -134,6 +136,7 @@ namespace PdfToOfficeApp
             Util.Commands.Add(this, ConvertCommand, OnConvert, CanConvert);
             Util.Commands.Add(this, StopCommand, OnStop, CanStop);
             Util.Commands.Add(this, ResetCommand, OnReset, CanReset);
+            Util.Commands.Add(this, AboutCommand, OnAbout, CanAbout);
         }
 
         private void MainWindow_ContentRendered(object sender, EventArgs e)
@@ -197,6 +200,8 @@ namespace PdfToOfficeApp
         public static RoutedCommand AddFileCommand = new RoutedCommand("AddFileCommand", typeof(Button));
         // 파일 제거 커맨드
         public static RoutedCommand RemoveFileCommand = new RoutedCommand("RemoveFileCommand", typeof(Button));
+        // 정보 커맨드
+        public static RoutedCommand AboutCommand = new RoutedCommand("AboutCommand", typeof(MenuItem));
 
         private void OnOpen(object sender, RoutedEventArgs e)
         {
@@ -340,6 +345,20 @@ namespace PdfToOfficeApp
             }
 
             e.CanExecute = false;
+        }
+
+        private void OnAbout(object sender, ExecutedRoutedEventArgs e)
+        {
+            var info = new StringBuilder();
+            info.AppendLine(Util.String.GetString("IDS_APP_NAME"));
+            info.AppendLine(Assembly.GetExecutingAssembly().GetName().Version.ToString());
+            info.AppendLine();
+            MessageBox.Show(this, info.ToString(), Util.String.GetString("IDS_MENU_ABOUT"), MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        private void CanAbout(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
         }
         #endregion
     }
