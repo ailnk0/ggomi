@@ -82,7 +82,7 @@
              Right="5"
              Bottom="5" />
 
-  <system:Double x:Key="opcity-btn-disable">0.2</system:Double>
+  <system:Double x:Key="opcity-btn-disable">0.3</system:Double>
 
   <system:Double x:Key="sz-btn-pri">50</system:Double>
   <system:Double x:Key="opcity-btn-pri">1</system:Double>
@@ -317,7 +317,7 @@
       <Setter.Value>
         <ControlTemplate TargetType="Button">
           <Grid>
-            <Image>
+            <Image Style="{StaticResource btn-img-st}">
               <Image.Source>
                 <DrawingImage Drawing="{DynamicResource sm_r_run}"></DrawingImage>
               </Image.Source>
@@ -332,8 +332,6 @@
         <DataTrigger.Setters>
           <Setter Property="Visibility"
                   Value="Visible" />
-          <Setter Property="IsEnabled"
-                  Value="False" />
         </DataTrigger.Setters>
       </DataTrigger>
       <DataTrigger Binding="{StaticResource app-status}"
@@ -341,8 +339,6 @@
         <DataTrigger.Setters>
           <Setter Property="Visibility"
                   Value="Visible" />
-          <Setter Property="IsEnabled"
-                  Value="True" />
         </DataTrigger.Setters>
       </DataTrigger>
       <DataTrigger Binding="{StaticResource app-status}"
@@ -350,8 +346,6 @@
         <DataTrigger.Setters>
           <Setter Property="Visibility"
                   Value="Collapsed" />
-          <Setter Property="IsEnabled"
-                  Value="False" />
         </DataTrigger.Setters>
       </DataTrigger>
       <DataTrigger Binding="{StaticResource app-status}"
@@ -359,8 +353,6 @@
         <DataTrigger.Setters>
           <Setter Property="Visibility"
                   Value="Collapsed" />
-          <Setter Property="IsEnabled"
-                  Value="False" />
         </DataTrigger.Setters>
       </DataTrigger>
     </Style.Triggers>
@@ -373,7 +365,7 @@
       <Setter.Value>
         <ControlTemplate TargetType="Button">
           <Grid>
-            <Image>
+            <Image Style="{StaticResource btn-img-st}">
               <Image.Source>
                 <DrawingImage Drawing="{DynamicResource sm_r_check}"></DrawingImage>
               </Image.Source>
@@ -388,8 +380,6 @@
         <DataTrigger.Setters>
           <Setter Property="Visibility"
                   Value="Collapsed" />
-          <Setter Property="IsEnabled"
-                  Value="False" />
         </DataTrigger.Setters>
       </DataTrigger>
       <DataTrigger Binding="{StaticResource app-status}"
@@ -397,8 +387,6 @@
         <DataTrigger.Setters>
           <Setter Property="Visibility"
                   Value="Collapsed" />
-          <Setter Property="IsEnabled"
-                  Value="False" />
         </DataTrigger.Setters>
       </DataTrigger>
       <DataTrigger Binding="{StaticResource app-status}"
@@ -406,8 +394,6 @@
         <DataTrigger.Setters>
           <Setter Property="Visibility"
                   Value="Collapsed" />
-          <Setter Property="IsEnabled"
-                  Value="False" />
         </DataTrigger.Setters>
       </DataTrigger>
       <DataTrigger Binding="{StaticResource app-status}"
@@ -415,8 +401,6 @@
         <DataTrigger.Setters>
           <Setter Property="Visibility"
                   Value="Visible" />
-          <Setter Property="IsEnabled"
-                  Value="True" />
         </DataTrigger.Setters>
       </DataTrigger>
     </Style.Triggers>
@@ -429,7 +413,7 @@
       <Setter.Value>
         <ControlTemplate TargetType="Button">
           <Grid>
-            <Image>
+            <Image Style="{StaticResource btn-img-st}">
               <Image.Source>
                 <DrawingImage Drawing="{DynamicResource sm_r_stop}"></DrawingImage>
               </Image.Source>
@@ -444,8 +428,6 @@
         <DataTrigger.Setters>
           <Setter Property="Visibility"
                   Value="Collapsed" />
-          <Setter Property="IsEnabled"
-                  Value="False" />
         </DataTrigger.Setters>
       </DataTrigger>
       <DataTrigger Binding="{StaticResource app-status}"
@@ -453,8 +435,6 @@
         <DataTrigger.Setters>
           <Setter Property="Visibility"
                   Value="Collapsed" />
-          <Setter Property="IsEnabled"
-                  Value="False" />
         </DataTrigger.Setters>
       </DataTrigger>
       <DataTrigger Binding="{StaticResource app-status}"
@@ -462,8 +442,6 @@
         <DataTrigger.Setters>
           <Setter Property="Visibility"
                   Value="Visible" />
-          <Setter Property="IsEnabled"
-                  Value="True" />
         </DataTrigger.Setters>
       </DataTrigger>
       <DataTrigger Binding="{StaticResource app-status}"
@@ -471,8 +449,6 @@
         <DataTrigger.Setters>
           <Setter Property="Visibility"
                   Value="Collapsed" />
-          <Setter Property="IsEnabled"
-                  Value="False" />
         </DataTrigger.Setters>
       </DataTrigger>
     </Style.Triggers>
