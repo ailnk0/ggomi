@@ -70,25 +70,18 @@
   <Duration x:Key="ani-short">0:0:0.25</Duration>
   <Duration x:Key="ani-long">0:0:0.5</Duration>
 
-  <Thickness x:Key="m-10"
-             Left="10"
-             Top="10"
-             Right="10"
-             Bottom="10" />
-
-  <Thickness x:Key="m-5"
-             Left="5"
-             Top="5"
-             Right="5"
-             Bottom="5" />
+  <Thickness x:Key="m-3">3</Thickness>
+  <Thickness x:Key="m-5">5</Thickness>
+  <Thickness x:Key="m-10">10</Thickness>
 
   <system:Double x:Key="opcity-btn-disable">0.3</system:Double>
 
-  <system:Double x:Key="sz-btn-pri">50</system:Double>
+  <system:Double x:Key="sz-btn-pri">60</system:Double>
   <system:Double x:Key="opcity-btn-pri">1</system:Double>
   <system:Double x:Key="opcity-btn-pri-mouseover">0.8</system:Double>
 
-  <system:Double x:Key="sz-btn-sec">20</system:Double>
+  <system:Double x:Key="sz-btn-sec">30</system:Double>
+  <CornerRadius x:Key="rad-btn-sec">5</CornerRadius>
   <system:Double x:Key="opcity-btn-sec">1</system:Double>
   <system:Double x:Key="opcity-btn-sec-mouseover">0.8</system:Double>
 
@@ -177,12 +170,27 @@
   </Style>
 
   <Style TargetType="Image"
-         x:Key="btn-img-st">
+         x:Key="btn-st-img">
+    <Setter Property="Margin"
+            Value="{StaticResource m-5}" />
     <Style.Triggers>
       <Trigger Property="IsEnabled"
                Value="False">
         <Setter Property="Opacity"
                 Value="{StaticResource opcity-btn-disable}" />
+      </Trigger>
+    </Style.Triggers>
+  </Style>
+
+  <Style TargetType="Border"
+         x:Key="btn-st-bg">
+    <Setter Property="CornerRadius"
+            Value="{StaticResource rad-btn-sec}" />
+    <Style.Triggers>
+      <Trigger Property="IsMouseOver"
+               Value="True">
+        <Setter Property="Background"
+                Value="{StaticResource Gray_20}" />
       </Trigger>
     </Style.Triggers>
   </Style>
@@ -225,11 +233,13 @@
       <Setter.Value>
         <ControlTemplate TargetType="Button">
           <Grid>
-            <Image Style="{StaticResource btn-img-st}">
-              <Image.Source>
-                <DrawingImage Drawing="{DynamicResource sm_add}"></DrawingImage>
-              </Image.Source>
-            </Image>
+            <Border Style="{StaticResource btn-st-bg}">
+              <Image Style="{StaticResource btn-st-img}">
+                <Image.Source>
+                  <DrawingImage Drawing="{DynamicResource sm_add}"></DrawingImage>
+                </Image.Source>
+              </Image>
+            </Border>
           </Grid>
         </ControlTemplate>
       </Setter.Value>
@@ -243,11 +253,13 @@
       <Setter.Value>
         <ControlTemplate TargetType="Button">
           <Grid>
-            <Image Style="{StaticResource btn-img-st}">
-              <Image.Source>
-                <DrawingImage Drawing="{DynamicResource sm_sub}"></DrawingImage>
-              </Image.Source>
-            </Image>
+            <Border Style="{StaticResource btn-st-bg}">
+              <Image Style="{StaticResource btn-st-img}">
+                <Image.Source>
+                  <DrawingImage Drawing="{DynamicResource sm_sub}"></DrawingImage>
+                </Image.Source>
+              </Image>
+            </Border>
           </Grid>
         </ControlTemplate>
       </Setter.Value>
@@ -261,11 +273,13 @@
       <Setter.Value>
         <ControlTemplate TargetType="Button">
           <Grid>
-            <Image Style="{StaticResource btn-img-st}">
-              <Image.Source>
-                <DrawingImage Drawing="{DynamicResource sm_config}"></DrawingImage>
-              </Image.Source>
-            </Image>
+            <Border Style="{StaticResource btn-st-bg}">
+              <Image Style="{StaticResource btn-st-img}">
+                <Image.Source>
+                  <DrawingImage Drawing="{DynamicResource sm_config}"></DrawingImage>
+                </Image.Source>
+              </Image>
+            </Border>
           </Grid>
         </ControlTemplate>
       </Setter.Value>
@@ -317,7 +331,7 @@
       <Setter.Value>
         <ControlTemplate TargetType="Button">
           <Grid>
-            <Image Style="{StaticResource btn-img-st}">
+            <Image Style="{StaticResource btn-st-img}">
               <Image.Source>
                 <DrawingImage Drawing="{DynamicResource sm_r_run}"></DrawingImage>
               </Image.Source>
@@ -365,7 +379,7 @@
       <Setter.Value>
         <ControlTemplate TargetType="Button">
           <Grid>
-            <Image Style="{StaticResource btn-img-st}">
+            <Image Style="{StaticResource btn-st-img}">
               <Image.Source>
                 <DrawingImage Drawing="{DynamicResource sm_r_check}"></DrawingImage>
               </Image.Source>
@@ -413,7 +427,7 @@
       <Setter.Value>
         <ControlTemplate TargetType="Button">
           <Grid>
-            <Image Style="{StaticResource btn-img-st}">
+            <Image Style="{StaticResource btn-st-img}">
               <Image.Source>
                 <DrawingImage Drawing="{DynamicResource sm_r_stop}"></DrawingImage>
               </Image.Source>

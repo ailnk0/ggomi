@@ -31,6 +31,7 @@
     </Grid.RowDefinitions>
 
     <Grid Grid.Row="0"
+          Margin="{StaticResource m-3}"
           x:Name="IDC_Grid_SecondaryButtons">
       <Grid.ColumnDefinitions>
         <ColumnDefinition Width="auto" />
@@ -40,19 +41,19 @@
       </Grid.ColumnDefinitions>
       <Button x:Name="IDC_Button_SecondaryAdd"
               Grid.Column="0"
-              Margin="{StaticResource m-5}"
+              Margin="{StaticResource m-3}"
               Style="{StaticResource btn-adddoc}"
               Command="ApplicationCommands.Open">
       </Button>
       <Button x:Name="IDC_Button_SecondaryRemove"
               Grid.Column="1"
-              Margin="{StaticResource m-5}"
+              Margin="{StaticResource m-3}"
               Style="{StaticResource btn-rmdoc}"
               Command="{x:Static local:MainWindow.RemoveFileCommand}">
       </Button>
       <Button x:Name="IDC_Button_SecondarySetting"
               Grid.Column="3"
-              Margin="{StaticResource m-5}"
+              Margin="{StaticResource m-3}"
               Style="{StaticResource btn-config}"
               Command="{x:Static local:MainWindow.AboutCommand}">
       </Button>
