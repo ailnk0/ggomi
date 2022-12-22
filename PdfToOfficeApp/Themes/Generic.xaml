@@ -106,7 +106,7 @@
                    Value="{x:Static local:AppStatus.Init}">
         <DataTrigger.Setters>
           <Setter Property="Visibility"
-                  Value="Collapsed" />
+                  Value="Visible" />
         </DataTrigger.Setters>
         <DataTrigger.EnterActions>
           <BeginStoryboard>
@@ -117,6 +117,15 @@
             </Storyboard>
           </BeginStoryboard>
         </DataTrigger.EnterActions>
+        <DataTrigger.ExitActions>
+          <BeginStoryboard>
+            <Storyboard>
+              <DoubleAnimation Storyboard.TargetProperty="Height"
+                               To="{StaticResource sz-div}"
+                               Duration="{StaticResource ani-short}" />
+            </Storyboard>
+          </BeginStoryboard>
+        </DataTrigger.ExitActions>
       </DataTrigger>
       <DataTrigger Binding="{StaticResource app-status}"
                    Value="{x:Static local:AppStatus.Ready}">
@@ -133,6 +142,15 @@
             </Storyboard>
           </BeginStoryboard>
         </DataTrigger.EnterActions>
+        <DataTrigger.ExitActions>
+          <BeginStoryboard>
+            <Storyboard>
+              <DoubleAnimation Storyboard.TargetProperty="Height"
+                               To="0"
+                               Duration="{StaticResource ani-short}" />
+            </Storyboard>
+          </BeginStoryboard>
+        </DataTrigger.ExitActions>
       </DataTrigger>
       <DataTrigger Binding="{StaticResource app-status}"
                    Value="{x:Static local:AppStatus.Running}">
@@ -140,15 +158,6 @@
           <Setter Property="Visibility"
                   Value="Collapsed" />
         </DataTrigger.Setters>
-        <DataTrigger.EnterActions>
-          <BeginStoryboard>
-            <Storyboard>
-              <DoubleAnimation Storyboard.TargetProperty="Height"
-                               To="0"
-                               Duration="{StaticResource ani-short}" />
-            </Storyboard>
-          </BeginStoryboard>
-        </DataTrigger.EnterActions>
       </DataTrigger>
       <DataTrigger Binding="{StaticResource app-status}"
                    Value="{x:Static local:AppStatus.Completed}">
@@ -156,15 +165,6 @@
           <Setter Property="Visibility"
                   Value="Collapsed" />
         </DataTrigger.Setters>
-        <DataTrigger.EnterActions>
-          <BeginStoryboard>
-            <Storyboard>
-              <DoubleAnimation Storyboard.TargetProperty="Height"
-                               To="0"
-                               Duration="{StaticResource ani-short}" />
-            </Storyboard>
-          </BeginStoryboard>
-        </DataTrigger.EnterActions>
       </DataTrigger>
     </Style.Triggers>
   </Style>

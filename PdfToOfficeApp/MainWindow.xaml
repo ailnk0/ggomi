@@ -27,7 +27,6 @@
       <RowDefinition />
       <RowDefinition Height="auto" />
       <RowDefinition Height="auto" />
-      <RowDefinition Height="auto" />
     </Grid.RowDefinitions>
 
     <Grid Grid.Row="0"
@@ -66,20 +65,16 @@
                       ItemsSource="{Binding Path=Docs}" />
 
     <Border Grid.Row="2"
-            Margin="{StaticResource m-10}"
-            BorderBrush="Gainsboro"
-            BorderThickness="0.5">
-    </Border>
-
-    <Border Grid.Row="3"
             x:Name="IDC_Selector"
-            Style="{StaticResource div-sel-format}">
+            Style="{StaticResource div-sel-format}"
+            BorderBrush="{StaticResource Gray_20}"
+            BorderThickness="0,1,0,0">
       <local:SelectFormat x:Name="IDC_SelectFormat"
                           Margin="{StaticResource m-10}"
                           DataContext="{Binding Source={StaticResource main-vm}}" />
     </Border>
 
-    <StackPanel Grid.Row="4">
+    <StackPanel Grid.Row="3">
       <Button x:Name="IDC_Button_PrimaryConvert"
               Margin="{StaticResource m-10}"
               Style="{StaticResource btn-pri-convert}"
