@@ -10,6 +10,7 @@ namespace PdfToOfficeApp
         private string _filePath;
         private string _fileName;
         private string _fileFormat;
+        private string _tooltip;
         private FileConversionStatus _conversionStatus = FileConversionStatus.Ready;
         private int _progressValue = 0;
         private ErrorStatus _fileErrorStatus = ErrorStatus.Unknown;
@@ -20,16 +21,8 @@ namespace PdfToOfficeApp
 
         public Doc(string filePath)
         {
-            _filePath = filePath;
-            _progressValue = 0;
-            try
-            {
-                _fileName = System.IO.Path.GetFileName(_filePath);
-            }
-            catch (Exception)
-            {
-                _fileName = filePath;
-            }
+            FilePath = filePath;
+            Tooltip = filePath;
         }
 
         public int Index
@@ -57,6 +50,7 @@ namespace PdfToOfficeApp
                     FileName = _filePath;
                 }
                 OnPropertyChanged("FilePath");
+                OnPropertyChanged("FileName");
             }
         }
 
@@ -77,6 +71,16 @@ namespace PdfToOfficeApp
             {
                 _fileFormat = value;
                 OnPropertyChanged("FileFormat");
+            }
+        }
+
+        public string Tooltip
+        {
+            get { return _tooltip; }
+            set
+            {
+                _tooltip = value;
+                OnPropertyChanged("Tooltip");
             }
         }
 
