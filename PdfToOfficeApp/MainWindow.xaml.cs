@@ -5,6 +5,7 @@ using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Threading;
 using Microsoft.Win32;
 using PdfToOfficeAppModule;
 
@@ -99,6 +100,8 @@ namespace PdfToOfficeApp
         private void Worker_DoWork(object sender, DoWorkEventArgs e)
         {
             // TODO : 변환 작업 중일 때는 변환 버튼을 정지 버튼으로 바꾸기
+            // TODO : 선택한 포맷 적용 안되는 이유
+            string strFormat = ((DocList)e.Argument).SelectedFileFormat.ToString();
             foreach (Doc doc in (DocList)e.Argument)
             {
                 if (worker.CancellationPending)
@@ -114,7 +117,7 @@ namespace PdfToOfficeApp
 
                 doc.ConversionStatus = FileConversionStatus.Running;
 
-                ErrorStatus status = pdfToOffice.DoWordConversion(path, "");
+                ErrorStatus status = pdfToOffice.DoWordConversion(path, "", strFormat);
                 doc.FileErrorStatus = status;
 
                 if (status == ErrorStatus.Success)
@@ -161,16 +164,14 @@ namespace PdfToOfficeApp
             string strFileFormat = fileFormat;
 
             // TODO : Binding으로 바꾸기
-            if (strFileFormat == "HWP")
-                IDC_SelectFormat.IDC_RadioButton_HWP.IsChecked = true;
-            else if (strFileFormat == "XSLX")
+            if (strFileFormat == "XSLX")
                 IDC_SelectFormat.IDC_RadioButton_XLSX.IsChecked = true;
             else if (strFileFormat == "PPTX")
                 IDC_SelectFormat.IDC_RadioButton_PPTX.IsChecked = true;
             else if (strFileFormat == "DOCX")
                 IDC_SelectFormat.IDC_RadioButton_DOCX.IsChecked = true;
             else if (strFileFormat == "IMAGE")
-                IDC_SelectFormat.IDC_RadioButton_Image.IsChecked = true;
+                IDC_SelectFormat.IDC_RadioButton_IMAGE.IsChecked = true;
 
             if (strFilePath == null)
             {

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using PdfToOfficeApp.Misc;
 
 namespace PdfToOfficeApp
 {
@@ -59,6 +58,8 @@ namespace PdfToOfficeApp
                 OnPropertyChanged("Status");
             }
         }
+
+        
 
         // 변환 형식
         private string _FormatName;

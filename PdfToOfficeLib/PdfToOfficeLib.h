@@ -16,7 +16,7 @@ private:
 
   public:
     virtual ErrorStatus InitializeSolidFramework();
-    virtual ErrorStatus DoWordConversion(const String &path, const String &password);
+    virtual ErrorStatus DoWordConversion(const String &path, const String &password, const String &fileFormat);
   public:
     static void DoProgress(SolidFramework::ProgressEventArgsPtr pProgressEventArgs);
     static void SetSite(IProgressSite* progressSite);
