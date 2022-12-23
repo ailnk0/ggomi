@@ -101,7 +101,13 @@ namespace PdfToOfficeApp
         {
             // TODO : 변환 작업 중일 때는 변환 버튼을 정지 버튼으로 바꾸기
             // TODO : 선택한 포맷 적용 안되는 이유
-            string strFormat = ((DocList)e.Argument).SelectedFileFormat.ToString();
+            string strFormat = "";
+            this.Dispatcher.BeginInvoke(DispatcherPriority.Normal
+                , new Action(delegate
+                {
+                    strFormat = GetModel().SelectedFileFormat.ToString();
+                }));
+
             foreach (Doc doc in (DocList)e.Argument)
             {
                 if (worker.CancellationPending)
@@ -247,7 +253,6 @@ namespace PdfToOfficeApp
             }
 
             GetModel().Status = AppStatus.Running;
-            // TODO : 변환 진행 창으로 변경 (SelectFormat 없애고 DocList 확장)
             worker.RunWorkerAsync(GetModel().Docs);
         }
 

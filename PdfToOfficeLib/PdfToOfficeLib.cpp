@@ -102,7 +102,9 @@ ErrorStatus PdfToOfficeLib::DoWordConversion(const String &path, const String &p
     ErrorStatus status = ErrorStatus::Success;
     try
     {
-      if (fileFormat == L"XLSX")
+        if(fileFormat ==  L"")
+            ErrorStatus status = ErrorStatus::Fail;
+      else if (fileFormat == L"XLSX")
       {
         auto pConverter = std::make_shared<SolidFramework::Converters::PdfToExcelConverter>();
         pConverter->SetOutputType(SolidFramework::Converters::Plumbing::ExcelDocumentType::XlsX);

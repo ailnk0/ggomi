@@ -6,7 +6,7 @@
         PPTX,
         DOCX,
         IMAGE,
-        JPG,
+        JPEG,
         PNG,
         BMP,
         GIF

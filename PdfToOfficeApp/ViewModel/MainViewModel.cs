@@ -9,6 +9,7 @@ namespace PdfToOfficeApp
         {
             _Docs = new DocList();
             _Docs.CollectionChanged += _Docs_CollectionChanged;
+            _imageFormat = FileFormat.JPEG;
         }
 
         public void Dispose()
@@ -44,6 +45,24 @@ namespace PdfToOfficeApp
             {
                 _SelectedItems = value;
                 OnPropertyChanged("SelectedItems");
+            }
+        }
+
+        private FileFormat _selectedFileFormat;
+        public FileFormat SelectedFileFormat
+        {
+            get { return _selectedFileFormat; }
+            set { _selectedFileFormat = value;
+                OnPropertyChanged("SelectedFileFormat");
+            }
+        }
+
+        private FileFormat _imageFormat;
+        public FileFormat ImageFormat
+        {
+            get { return _imageFormat; }
+            set { _imageFormat = value;
+                OnPropertyChanged("ImageFormat");
             }
         }
 

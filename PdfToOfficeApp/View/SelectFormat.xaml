@@ -12,9 +12,9 @@
       <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="../Themes/Generic.xaml" />
       </ResourceDictionary.MergedDictionaries>
-      <local:RadioBoolToFileFormatConverter x:Key="RadioConverter" />
     </ResourceDictionary>
   </UserControl.Resources>
+
   <Grid>
     <StackPanel>
       <Grid>
@@ -34,6 +34,7 @@
                  Margin="{StaticResource m-3}">
           <RadioButton x:Name="IDC_RadioButton_XLSX"
                        GroupName="RadioFormatGroup"
+                       IsChecked="True"
                        Checked="RadioButton_Checked">
             <Image Height="{StaticResource sz-btn-format}">
               <Image.Source>
@@ -99,6 +100,7 @@
             <StackPanel>
               <RadioButton x:Name="IDC_RadioButton_JPEG"
                            Content="JPEG" 
+                           IsChecked="True"
                            Checked="RadioButton_Image_Checked"/>
               <RadioButton x:Name="IDC_RadioButton_PNG" 
                            Content="PNG"

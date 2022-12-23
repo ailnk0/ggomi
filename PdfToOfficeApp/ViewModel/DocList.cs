@@ -9,19 +9,5 @@ namespace PdfToOfficeApp
         {
            
         }
-
-        private FileFormat _selectedFileFormat;
-        public FileFormat SelectedFileFormat
-        {
-            get { return _selectedFileFormat; }
-            set { _selectedFileFormat = value; }
-        }
-
-        private FileFormat _imageFormat;
-        public FileFormat ImageFormat
-        {
-            get { return _imageFormat; }
-            set { _imageFormat = value; }
-        }
     }
 }
