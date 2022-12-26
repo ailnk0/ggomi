@@ -5,6 +5,7 @@ using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Threading;
 using Microsoft.Win32;
 using PdfToOfficeAppModule;
 
@@ -63,7 +64,10 @@ namespace PdfToOfficeApp
 
         private void Worker_DoWork(object sender, DoWorkEventArgs e)
         {
-            foreach (Doc doc in (DocList)e.Argument)
+            MainViewModel viewModel = (MainViewModel)e.Argument;
+            string strFormat = viewModel.SelectedFileFormat.ToString();
+
+            foreach (Doc doc in viewModel.Docs)
             {
                 if (worker.CancellationPending)
                 {
@@ -80,7 +84,7 @@ namespace PdfToOfficeApp
 
                 progressSiteCli = new ProgressSiteCli(doc);
                 pdfToOffice.SetProgressSiteCli(progressSiteCli);
-                doc.FileErrorStatus = pdfToOffice.DoWordConversion(doc.FilePath, "");
+                doc.FileErrorStatus = pdfToOffice.DoConversion(doc.FilePath, "", strFormat);
 
                 if (doc.FileErrorStatus == ErrorStatus.Success)
                 {
@@ -132,16 +136,14 @@ namespace PdfToOfficeApp
             string strFileFormat = fileFormat;
 
             // TODO : Binding으로 바꾸기
-            if (strFileFormat == "HWP")
-                IDC_SelectFormat.IDC_RadioButton_HWP.IsChecked = true;
-            else if (strFileFormat == "XSLX")
+            if (strFileFormat == "XSLX")
                 IDC_SelectFormat.IDC_RadioButton_XLSX.IsChecked = true;
             else if (strFileFormat == "PPTX")
                 IDC_SelectFormat.IDC_RadioButton_PPTX.IsChecked = true;
             else if (strFileFormat == "DOCX")
                 IDC_SelectFormat.IDC_RadioButton_DOCX.IsChecked = true;
             else if (strFileFormat == "IMAGE")
-                IDC_SelectFormat.IDC_RadioButton_Image.IsChecked = true;
+                IDC_SelectFormat.IDC_RadioButton_IMAGE.IsChecked = true;
 
             if (strFilePath == null)
             {
@@ -152,7 +154,7 @@ namespace PdfToOfficeApp
 
             string[] fileNames = { strFilePath };
             AddFileCommand.Execute(fileNames, this);
-            ConvertCommand.Execute(GetModel().Docs, IDC_Button_PrimaryConvert);
+            ConvertCommand.Execute(GetModel(), IDC_Button_PrimaryConvert);
         }
 
         public MainViewModel GetModel()
@@ -215,7 +217,7 @@ namespace PdfToOfficeApp
 
             GetModel().Status = AppStatus.Running;
 
-            worker.RunWorkerAsync(GetModel().Docs);
+            worker.RunWorkerAsync(GetModel());
         }
 
         private void CanConvert(object sender, CanExecuteRoutedEventArgs e)

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace PdfToOfficeApp.Misc
+namespace PdfToOfficeApp
 {
     public class Notifier : INotifyPropertyChanged
     {

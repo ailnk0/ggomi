@@ -66,12 +66,12 @@
 
     <Border Grid.Row="2"
             x:Name="IDC_Selector"
+            DataContext="{Binding Source={StaticResource main-vm}}"
             Style="{StaticResource div-sel-format}"
             BorderBrush="{StaticResource Gray_20}"
-            BorderThickness="0,1,0,0">
+            BorderThickness="0,1,0,0" >
       <local:SelectFormat x:Name="IDC_SelectFormat"
-                          Margin="{StaticResource m-10}"
-                          DataContext="{Binding Source={StaticResource main-vm}}" />
+                          Margin="{StaticResource m-3}" />
     </Border>
 
     <StackPanel Grid.Row="3">

@@ -27,7 +27,7 @@ ref class PdfToOfficeProxy
   public:
     virtual void SetProgressSiteCli(IProgressSiteCli ^ progressSiteCli);
     virtual ErrorStatus InitializeSolidFramework();
-    virtual ErrorStatus DoWordConversion(System::String ^ path, System::String ^ password);
+    virtual ErrorStatus DoConversion(System::String ^ path, System::String ^ password, System::String ^ fileFormat);
 
   private:
     HpdfToOffice::PdfToOfficeLib *lib = nullptr;

@@ -3,8 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:PdfToOfficeApp"
              mc:Ignorable="d"
-             d:DesignHeight="90"
+             d:DesignHeight="95"
              d:DesignWidth="800">
   <UserControl.Resources>
     <ResourceDictionary>
@@ -13,41 +14,27 @@
       </ResourceDictionary.MergedDictionaries>
     </ResourceDictionary>
   </UserControl.Resources>
+
   <Grid>
     <StackPanel>
       <Grid>
         <Grid.ColumnDefinitions>
           <ColumnDefinition Width="*" />
-          <ColumnDefinition Width="80" />
-          <ColumnDefinition Width="80" />
-          <ColumnDefinition Width="80" />
-          <ColumnDefinition Width="80" />
-          <ColumnDefinition Width="80" />
+          <ColumnDefinition Width="auto" />
+          <ColumnDefinition Width="auto" />
+          <ColumnDefinition Width="auto" />
+          <ColumnDefinition Width="auto" />
           <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <Border HorizontalAlignment="Center"
-                VerticalAlignment="Top"
-                Height="{StaticResource sz-btn-radiobtn}"
-                Grid.Column="1"
-                Style="{StaticResource border-radiobutton}">
-          <RadioButton x:Name="IDC_RadioButton_HWP"
-                       GroupName="RadioFormatGroup"
-                       Checked="RadioButton_Checked"
-                       IsChecked="True">
-            <Image Height="{StaticResource sz-btn-format}">
-              <Image.Source>
-                <DrawingImage Drawing="{DynamicResource lg_pdftohwpdlg}" />
-              </Image.Source>
-            </Image>
-          </RadioButton>
-        </Border>
         <Border  HorizontalAlignment="Center"
                  VerticalAlignment="Top"
                  Height="{StaticResource sz-btn-radiobtn}"
-                 Grid.Column="2"
-                 Style="{StaticResource border-radiobutton}">
+                 Grid.Column="1"
+                 Style="{StaticResource border-radiobutton}"
+                 Margin="{StaticResource m-3}">
           <RadioButton x:Name="IDC_RadioButton_XLSX"
                        GroupName="RadioFormatGroup"
+                       IsChecked="True"
                        Checked="RadioButton_Checked">
             <Image Height="{StaticResource sz-btn-format}">
               <Image.Source>
@@ -59,8 +46,9 @@
         <Border  HorizontalAlignment="Center"
                  VerticalAlignment="Top"
                  Height="{StaticResource sz-btn-radiobtn}"
-                 Grid.Column="3"
-                 Style="{StaticResource border-radiobutton}">
+                 Grid.Column="2"
+                 Style="{StaticResource border-radiobutton}"
+                 Margin="{StaticResource m-3}">
           <RadioButton x:Name="IDC_RadioButton_PPTX"
                        GroupName="RadioFormatGroup"
                        Checked="RadioButton_Checked">
@@ -75,8 +63,9 @@
         <Border HorizontalAlignment="Center"
                 VerticalAlignment="Top"
                 Height="{StaticResource sz-btn-radiobtn}"
-                Grid.Column="4"
-                Style="{StaticResource border-radiobutton}">
+                Grid.Column="3"
+                Style="{StaticResource border-radiobutton}"
+                Margin="{StaticResource m-3}">
           <RadioButton x:Name="IDC_RadioButton_DOCX"
                        GroupName="RadioFormatGroup"
                        Checked="RadioButton_Checked">
@@ -91,12 +80,14 @@
         <Border  HorizontalAlignment="Center"
                  VerticalAlignment="Top"
                  Height="{StaticResource sz-btn-radiobtn}"
-                 Grid.Column="5"
-                 Style="{StaticResource border-radiobutton}">
-          <RadioButton x:Name="IDC_RadioButton_Image"
+                 Grid.Column="4"
+                 Style="{StaticResource border-radiobutton}"
+                 Margin="{StaticResource m-3}">
+          <RadioButton x:Name="IDC_RadioButton_IMAGE"
                        GroupName="RadioFormatGroup"
-                       Checked="RadioButton_Checked">
-            <Image Grid.Column="5"
+                       Checked="RadioButton_Checked"
+                       IsChecked="{Binding IsImage}">
+            <Image Grid.Column="4"
                    VerticalAlignment="Top"
                    Height="{StaticResource sz-btn-format}">
               <Image.Source>
@@ -105,13 +96,26 @@
             </Image>
           </RadioButton>
         </Border>
-        <StackPanel Grid.Column="6">
-          <Expander FocusVisualStyle="{x:Null}">
+        <StackPanel Grid.Column="5">
+          <Expander FocusVisualStyle="{x:Null}"
+                    IsExpanded="{Binding IsImage}">
             <StackPanel>
-              <RadioButton Content="JPG" />
-              <RadioButton Content="PNG" />
-              <RadioButton Content="BMP" />
-              <RadioButton Content="GIF" />
+              <RadioButton x:Name="IDC_RadioButton_JPEG"
+                           Content="JPEG" 
+                           IsChecked="True"
+                           Checked="RadioButton_Image_Checked"/>
+              <RadioButton x:Name="IDC_RadioButton_PNG" 
+                           Content="PNG"
+                           Checked="RadioButton_Image_Checked" />
+              <RadioButton x:Name="IDC_RadioButton_BMP"
+                           Content="BMP"
+                           Checked="RadioButton_Image_Checked" />
+              <RadioButton x:Name="IDC_RadioButton_GIF"
+                           Content="GIF"
+                           Checked="RadioButton_Image_Checked"/>
+              <RadioButton x:Name="IDC_RadioButton_TIFF"
+                           Content="TIFF"
+                           Checked="RadioButton_Image_Checked" />
             </StackPanel>
           </Expander>
         </StackPanel>

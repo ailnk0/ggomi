@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using PdfToOfficeApp.Misc;
 
 namespace PdfToOfficeApp
 {
@@ -10,6 +9,7 @@ namespace PdfToOfficeApp
         {
             _Docs = new DocList();
             _Docs.CollectionChanged += _Docs_CollectionChanged;
+            _imageFormat = FileFormat.JPEG;
         }
 
         public void Dispose()
@@ -48,6 +48,24 @@ namespace PdfToOfficeApp
             }
         }
 
+        private FileFormat _selectedFileFormat;
+        public FileFormat SelectedFileFormat
+        {
+            get { return _selectedFileFormat; }
+            set { _selectedFileFormat = value;
+                OnPropertyChanged("SelectedFileFormat");
+            }
+        }
+
+        private FileFormat _imageFormat;
+        public FileFormat ImageFormat
+        {
+            get { return _imageFormat; }
+            set { _imageFormat = value;
+                OnPropertyChanged("ImageFormat");
+            }
+        }
+
         private AppStatus _status = AppStatus.Init;
 
         public AppStatus Status
@@ -57,6 +75,18 @@ namespace PdfToOfficeApp
             {
                 _status = value;
                 OnPropertyChanged("Status");
+            }
+        }
+
+        // 이미지 형식 체크
+        private bool _IsImage;
+        public bool IsImage
+        {
+            get { return _IsImage; }
+            set
+            {
+                _IsImage = value;
+                OnPropertyChanged("IsImage");
             }
         }
 
