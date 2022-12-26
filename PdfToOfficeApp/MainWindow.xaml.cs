@@ -64,14 +64,10 @@ namespace PdfToOfficeApp
 
         private void Worker_DoWork(object sender, DoWorkEventArgs e)
         {
-            string strFormat = "";
-            this.Dispatcher.BeginInvoke(DispatcherPriority.Normal
-                , new Action(delegate
-                {
-                    strFormat = GetModel().SelectedFileFormat.ToString();
-                }));
+            MainViewModel viewModel = (MainViewModel)e.Argument;
+            string strFormat = viewModel.SelectedFileFormat.ToString();
 
-            foreach (Doc doc in (DocList)e.Argument)
+            foreach (Doc doc in viewModel.Docs)
             {
                 if (worker.CancellationPending)
                 {
@@ -88,7 +84,7 @@ namespace PdfToOfficeApp
 
                 progressSiteCli = new ProgressSiteCli(doc);
                 pdfToOffice.SetProgressSiteCli(progressSiteCli);
-                doc.FileErrorStatus = pdfToOffice.DoWordConversion(doc.FilePath, "");
+                doc.FileErrorStatus = pdfToOffice.DoConversion(doc.FilePath, "", strFormat);
 
                 if (doc.FileErrorStatus == ErrorStatus.Success)
                 {
@@ -158,7 +154,7 @@ namespace PdfToOfficeApp
 
             string[] fileNames = { strFilePath };
             AddFileCommand.Execute(fileNames, this);
-            ConvertCommand.Execute(GetModel().Docs, IDC_Button_PrimaryConvert);
+            ConvertCommand.Execute(GetModel(), IDC_Button_PrimaryConvert);
         }
 
         public MainViewModel GetModel()
@@ -221,7 +217,7 @@ namespace PdfToOfficeApp
 
             GetModel().Status = AppStatus.Running;
 
-            worker.RunWorkerAsync(GetModel().Docs);
+            worker.RunWorkerAsync(GetModel());
         }
 
         private void CanConvert(object sender, CanExecuteRoutedEventArgs e)

@@ -50,12 +50,12 @@ ErrorStatus PdfToOfficeProxy::InitializeSolidFramework()
     }
 }
 
-ErrorStatus PdfToOfficeProxy::DoWordConversion(System::String ^ path, System::String ^ password, System::String ^ fileFormat)
+ErrorStatus PdfToOfficeProxy::DoConversion(System::String ^ path, System::String ^ password, System::String ^ fileFormat)
 {
     try
     {
         return static_cast<ErrorStatus>(
-            lib->DoWordConversion(msclr::interop::marshal_as<HpdfToOffice::String>(path),
+            lib->DoConversion(msclr::interop::marshal_as<HpdfToOffice::String>(path),
                                   msclr::interop::marshal_as<HpdfToOffice::String>(password),
               msclr::interop::marshal_as<HpdfToOffice::String>(fileFormat)));
     }

@@ -93,7 +93,7 @@ namespace HpdfToOffice
     m_ProgressSite = progressSite;
   }
 
-  ErrorStatus PdfToOfficeLib::DoWordConversion(const String &path, const String &password, const String &format)
+  ErrorStatus PdfToOfficeLib::DoConversion(const String &path, const String &password, const String &format)
   {
     std::wstring filePath = path;
     std::wstring outPath = Util::Path::GetDirName(path);
