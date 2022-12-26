@@ -9,6 +9,7 @@
         JPEG,
         PNG,
         BMP,
-        GIF
+        GIF,
+        TIFF
     }
 }

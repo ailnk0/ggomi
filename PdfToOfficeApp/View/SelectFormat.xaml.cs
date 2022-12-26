@@ -37,8 +37,11 @@ namespace PdfToOfficeApp
                 {
                     fileFormat = GetModel().ImageFormat;
                 }
+                else
+                {
+                    GetModel().IsImage = false;
+                }
                 GetModel().SelectedFileFormat = fileFormat;
-                GetModel().StrSavePath = "Select_Main";
             }
         }
 
@@ -52,14 +55,13 @@ namespace PdfToOfficeApp
             var m = GetModel();
             if (m != null)
             {
+                GetModel().IsImage = true;
                 var rButton = sender as RadioButton;
                 string format = rButton.Name.Replace("IDC_RadioButton_", "");
                 FileFormat imageFormat = (FileFormat)Enum.Parse(typeof(FileFormat), format);
 
                 GetModel().ImageFormat = imageFormat;
-                // TODO : 이미지 형식 선택 시 라디오버튼도 이미지로 체크
                 GetModel().SelectedFileFormat = imageFormat;
-                GetModel().StrSavePath = "Select_Sub";
             }
         }
     }

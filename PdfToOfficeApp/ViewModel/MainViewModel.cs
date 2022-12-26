@@ -78,7 +78,17 @@ namespace PdfToOfficeApp
             }
         }
 
-        
+        // 이미지 형식 체크
+        private bool _IsImage;
+        public bool IsImage
+        {
+            get { return _IsImage; }
+            set
+            {
+                _IsImage = value;
+                OnPropertyChanged("IsImage");
+            }
+        }
 
         // 변환 형식
         private string _FormatName;

@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:PdfToOfficeApp"
              mc:Ignorable="d"
-             d:DesignHeight="90"
+             d:DesignHeight="95"
              d:DesignWidth="800">
   <UserControl.Resources>
     <ResourceDictionary>
@@ -85,7 +85,8 @@
                  Margin="{StaticResource m-3}">
           <RadioButton x:Name="IDC_RadioButton_IMAGE"
                        GroupName="RadioFormatGroup"
-                       Checked="RadioButton_Checked">
+                       Checked="RadioButton_Checked"
+                       IsChecked="{Binding IsImage}">
             <Image Grid.Column="4"
                    VerticalAlignment="Top"
                    Height="{StaticResource sz-btn-format}">
@@ -96,7 +97,8 @@
           </RadioButton>
         </Border>
         <StackPanel Grid.Column="5">
-          <Expander FocusVisualStyle="{x:Null}">
+          <Expander FocusVisualStyle="{x:Null}"
+                    IsExpanded="{Binding IsImage}">
             <StackPanel>
               <RadioButton x:Name="IDC_RadioButton_JPEG"
                            Content="JPEG" 
@@ -111,6 +113,9 @@
               <RadioButton x:Name="IDC_RadioButton_GIF"
                            Content="GIF"
                            Checked="RadioButton_Image_Checked"/>
+              <RadioButton x:Name="IDC_RadioButton_TIFF"
+                           Content="TIFF"
+                           Checked="RadioButton_Image_Checked" />
             </StackPanel>
           </Expander>
         </StackPanel>

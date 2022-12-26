@@ -72,7 +72,7 @@
             BorderBrush="{StaticResource Gray_20}"
             BorderThickness="0,1,0,0" >
       <local:SelectFormat x:Name="IDC_SelectFormat"
-                          Margin="{StaticResource m-10}" />
+                          Margin="{StaticResource m-3}" />
     </Border>
 
     <StackPanel Grid.Row="3">
