@@ -51,56 +51,19 @@ namespace PdfToOfficeApp
 
             worker.DoWork += Worker_DoWork;
             worker.RunWorkerCompleted += Worker_RunWorkerCompleted;
-            worker.ProgressChanged += Worker_ProgressChanged;
             worker.WorkerReportsProgress = true;
             worker.WorkerSupportsCancellation = true;
+
+            pdfToOffice = new PdfToOfficeProxy();
         }
 
-        private void Worker_ProgressChanged(object sender, ProgressChangedEventArgs e)
-        {
-
-        }
-
-        // 작업 완료
         private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            string strResult;
-            if (e.Error != null)
-            {
-                strResult = Util.String.GetMsg(ErrorStatus.Unknown);
-            }
-            else if (e.Cancelled)
-            {
-                strResult = Util.String.GetMsg(ErrorStatus.Canceled);
-            }
-            else
-            {
-                strResult = "";
-                foreach (var doc in GetModel().Docs)
-                {
-                    if (doc.FileErrorStatus != ErrorStatus.Success)
-                    {
-                        strResult += string.Format("{0} : " + Util.String.GetMsg(doc.FileErrorStatus) + "\n", doc.FileName);
-                    }
-                }
-                if (strResult == "")
-                    strResult = Util.String.GetMsg(ErrorStatus.Success);
-            }
-
             GetModel().Status = AppStatus.Completed;
-
-            if (GetModel().ShowMsg)
-            {
-                MessageBox.Show(strResult);
-            }
-
-            // TODO : 변환 작업 완료되면 변환 버튼을 돌아가기 버튼으로 바꾸기
         }
 
         private void Worker_DoWork(object sender, DoWorkEventArgs e)
         {
-            // TODO : 변환 작업 중일 때는 변환 버튼을 정지 버튼으로 바꾸기
-            // TODO : 선택한 포맷 적용 안되는 이유
             string strFormat = "";
             this.Dispatcher.BeginInvoke(DispatcherPriority.Normal
                 , new Action(delegate
@@ -116,23 +79,30 @@ namespace PdfToOfficeApp
                     return;
                 }
 
-                progressSiteCli = new ProgressSiteCli(doc);
-                pdfToOffice.SetProgressSiteCli(progressSiteCli);
-
-                string path = doc.FilePath;
+                if (doc.ConversionStatus != FileConversionStatus.Ready)
+                {
+                    continue;
+                }
 
                 doc.ConversionStatus = FileConversionStatus.Running;
 
-                ErrorStatus status = pdfToOffice.DoWordConversion(path, "", strFormat);
-                doc.FileErrorStatus = status;
+                progressSiteCli = new ProgressSiteCli(doc);
+                pdfToOffice.SetProgressSiteCli(progressSiteCli);
+                doc.FileErrorStatus = pdfToOffice.DoWordConversion(doc.FilePath, "");
 
-                if (status == ErrorStatus.Success)
+                if (doc.FileErrorStatus == ErrorStatus.Success)
                 {
                     doc.ConversionStatus = FileConversionStatus.Completed;
                 }
                 else
                 {
                     doc.ConversionStatus = FileConversionStatus.Fail;
+
+                    StringBuilder msg = new StringBuilder();
+                    msg.AppendLine(doc.FilePath);
+                    msg.AppendLine();
+                    msg.AppendFormat("⚠ {0}", Util.String.GetMsg(doc.FileErrorStatus));
+                    doc.Tooltip = msg.ToString();
                 }
             }
         }
@@ -239,20 +209,18 @@ namespace PdfToOfficeApp
 
         private void OnConvert(object sender, ExecutedRoutedEventArgs e)
         {
-            pdfToOffice = new PdfToOfficeProxy();
-
-            ErrorStatus result = pdfToOffice.InitializeSolidFramework();
-            if (result != ErrorStatus.Success)
+            ErrorStatus errorStatus = pdfToOffice.InitializeSolidFramework();
+            if (errorStatus != ErrorStatus.Success)
             {
                 if (GetModel().ShowMsg)
                 {
-                    string strErr = string.Format("Error Code : {0}", result.ToString());
-                    MessageBox.Show(strErr);
+                    MessageBox.Show(Util.String.GetMsg(errorStatus));
                     return;
                 }
             }
 
             GetModel().Status = AppStatus.Running;
+
             worker.RunWorkerAsync(GetModel().Docs);
         }
 
