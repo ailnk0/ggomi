@@ -98,7 +98,7 @@
                          GroupName="RadioFormatGroup">
             </RadioButton>
           </StackPanel>
-          <Menu Style="{StaticResource menu_test}">
+          <Menu Style="{StaticResource radio-sub-st}">
             <MenuItem x:Name="IDC_SelImgType"
                       PreviewMouseDown="IDC_SelImgType_PreviewMouseDown"
                       Width="15">
@@ -106,7 +106,7 @@
                 <Image RenderTransformOrigin="0.5,0.5">
                   <Image.RenderTransform>
                     <TransformGroup>
-                      <TranslateTransform X="-5" />
+                      <TranslateTransform X="-4.5" />
                     </TransformGroup>
                   </Image.RenderTransform>
                   <Image.Source>

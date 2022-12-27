@@ -491,25 +491,6 @@
     </Style.Triggers>
   </Style>
 
-  <Style TargetType="Border"
-         x:Key="radio-sub-st-bg">
-    <Setter Property="CornerRadius"
-            Value="0, 5, 5, 0" />
-    <Setter Property="BorderThickness"
-            Value="1, 0, 0, 0" />
-    <Setter Property="BorderBrush"
-            Value="White" />
-    <Setter Property="Background"
-            Value="Transparent" />
-    <Style.Triggers>
-      <Trigger Property="IsMouseOver"
-               Value="True">
-        <Setter Property="Background"
-                Value="{StaticResource Gray_Light}" />
-      </Trigger>
-    </Style.Triggers>
-  </Style>
-
   <Style TargetType="Button"
          x:Key="radio-st">
     <Setter Property="Margin"
@@ -529,23 +510,7 @@
     </Setter>
   </Style>
 
-  <Style TargetType="Button"
-         x:Key="radio-sub-st">
-    <Setter Property="Template">
-      <Setter.Value>
-        <ControlTemplate TargetType="{x:Type Button}">
-          <Grid>
-            <Border Style="{StaticResource radio-sub-st-bg}">
-              <ContentPresenter HorizontalAlignment="Center"
-                                VerticalAlignment="Center" />
-            </Border>
-          </Grid>
-        </ControlTemplate>
-      </Setter.Value>
-    </Setter>
-  </Style>
-
-  <Style x:Key="menu_test"
+  <Style x:Key="radio-sub-st"
          TargetType="{x:Type Menu}">
     <Setter Property="Template">
       <Setter.Value>
