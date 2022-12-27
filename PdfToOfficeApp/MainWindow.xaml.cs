@@ -134,12 +134,12 @@ namespace PdfToOfficeApp
                     return;
                 }
 
-                if (doc.ConversionStatus != CONV_STATUS.READY)
+                if (doc.ConvStatus != CONV_STATUS.READY)
                 {
                     continue;
                 }
 
-                doc.ConversionStatus = CONV_STATUS.RUNNING;
+                doc.ConvStatus = CONV_STATUS.RUNNING;
 
                 progressSiteCli = new ProgressSiteCli(doc);
                 pdfToOffice.SetProgressSiteCli(progressSiteCli);
@@ -147,11 +147,11 @@ namespace PdfToOfficeApp
 
                 if (doc.ResCode == RES_CODE.Success)
                 {
-                    doc.ConversionStatus = CONV_STATUS.COMPLETED;
+                    doc.ConvStatus = CONV_STATUS.COMPLETED;
                 }
                 else
                 {
-                    doc.ConversionStatus = CONV_STATUS.FAIL;
+                    doc.ConvStatus = CONV_STATUS.FAIL;
 
                     StringBuilder msg = new StringBuilder();
                     msg.AppendLine(doc.FilePath);
@@ -300,7 +300,6 @@ namespace PdfToOfficeApp
             foreach (var file in fileNames)
             {
                 Doc doc = new Doc(file);
-                doc.Index = GetModel().Docs.Count;
                 GetModel().Docs.Add(doc);
             }
         }

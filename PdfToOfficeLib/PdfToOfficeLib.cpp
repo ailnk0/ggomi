@@ -48,7 +48,7 @@ void PdfToOfficeLib::DoProgress(
       pProgressEventArgs->GetStatusCode();
   String statusDesc = pProgressEventArgs->GetStatusDescription();
 
-  double totalProgress = 0;
+  int totalProgress = 0;
   if (statusDesc.find(L"PDFOCRInfoText") == 0) {
     totalProgress = progress / 4;
   } else if (statusDesc.find(L"PDFLoadingInfoText") == 0) {
@@ -60,7 +60,7 @@ void PdfToOfficeLib::DoProgress(
   }
 
   if (m_ProgressSite) {
-    m_ProgressSite->SetPercent((int)totalProgress);
+    m_ProgressSite->SetPercent(totalProgress);
   }
 }
 

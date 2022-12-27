@@ -8,7 +8,6 @@ namespace PdfToOfficeApp
     {
         public MainViewModel()
         {
-            _Docs = new DocList();
             _Docs.CollectionChanged += _Docs_CollectionChanged;
         }
 
@@ -26,7 +25,7 @@ namespace PdfToOfficeApp
             OnPropertyChanged("Docs");
         }
 
-        private DocList _Docs;
+        private DocList _Docs = new DocList();
         public DocList Docs
         {
             get { return _Docs; }
@@ -48,35 +47,35 @@ namespace PdfToOfficeApp
             }
         }
 
-        private FILE_TYPE _convFileType = FILE_TYPE.XLSX;
+        private FILE_TYPE _ConvFileType = FILE_TYPE.DOCX;
         public FILE_TYPE ConvFileType
         {
-            get { return _convFileType; }
+            get { return _ConvFileType; }
             set
             {
-                _convFileType = value;
+                _ConvFileType = value;
                 OnPropertyChanged("ConvFileType");
             }
         }
 
-        private IMG_TYPE _convImgType = IMG_TYPE.PNG;
+        private IMG_TYPE _ConvImgType = IMG_TYPE.PNG;
         public IMG_TYPE ConvImgType
         {
-            get { return _convImgType; }
+            get { return _ConvImgType; }
             set
             {
-                _convImgType = value;
+                _ConvImgType = value;
                 OnPropertyChanged("ConvImgType");
             }
         }
 
-        private APP_STATUS _appStatus = APP_STATUS.INIT;
+        private APP_STATUS _AppStatus = APP_STATUS.INIT;
         public APP_STATUS AppStatus
         {
-            get { return _appStatus; }
+            get { return _AppStatus; }
             set
             {
-                _appStatus = value;
+                _AppStatus = value;
                 OnPropertyChanged("AppStatus");
             }
         }

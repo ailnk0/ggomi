@@ -1,18 +1,21 @@
 ﻿using System;
+using System.Globalization;
+using System.Windows.Controls;
+using System.Windows.Data;
 
 namespace PdfToOfficeApp
 {
-    public class ProgressToAngleConverter : System.Windows.Data.IMultiValueConverter
+    public class ProgressToAngleConverter : IMultiValueConverter
     {
-        public object Convert(object[] values, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
             double progress = (double)values[0];
-            System.Windows.Controls.ProgressBar bar = values[1] as System.Windows.Controls.ProgressBar;
+            ProgressBar bar = values[1] as ProgressBar;
 
             return 359.999 * (progress / (bar.Maximum - bar.Minimum));
         }
 
-        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, System.Globalization.CultureInfo culture)
+        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
         {
             throw new NotImplementedException();
         }

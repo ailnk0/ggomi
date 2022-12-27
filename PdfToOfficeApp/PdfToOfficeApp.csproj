@@ -84,7 +84,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Misc\Defines.cs" />
-    <Compile Include="Misc\ImgTypeDataConv.cs" />
     <Compile Include="Misc\Notifier.cs" />
     <Compile Include="Misc\ProgressToAngleConverter.cs" />
     <Compile Include="Misc\DataConv.cs" />

@@ -1,19 +1,11 @@
 ﻿using System;
-using System.ComponentModel;
+using System.IO;
 using PdfToOfficeAppModule;
 
 namespace PdfToOfficeApp
 {
-    public class Doc : INotifyPropertyChanged
+    public class Doc : Notifier
     {
-        private int _index;
-        private string _filePath;
-        private string _fileName;
-        private string _tooltip;
-        private CONV_STATUS _conversionStatus = CONV_STATUS.READY;
-        private int _progressValue = 0;
-        private RES_CODE _resCode = RES_CODE.Unknown;
-
         public Doc()
         {
         }
@@ -24,93 +16,79 @@ namespace PdfToOfficeApp
             Tooltip = filePath;
         }
 
-        public int Index
-        {
-            get { return _index; }
-            set
-            {
-                _index = value;
-                OnPropertyChanged("Index");
-            }
-        }
-
+        private string _FilePath;
         public string FilePath
         {
-            get { return _filePath; }
+            get { return _FilePath; }
             set
             {
-                _filePath = value;
+                _FilePath = value;
                 try
                 {
-                    FileName = System.IO.Path.GetFileName(_filePath);
+                    FileName = Path.GetFileName(_FilePath);
                 }
                 catch (Exception)
                 {
-                    FileName = _filePath;
+                    FileName = _FilePath;
                 }
                 OnPropertyChanged("FilePath");
                 OnPropertyChanged("FileName");
             }
         }
 
+        private string _FileName;
         public string FileName
         {
-            get { return _fileName; }
+            get { return _FileName; }
             set
             {
-                _fileName = value;
+                _FileName = value;
                 OnPropertyChanged("FileName");
             }
         }
 
+        private string _Tooltip;
         public string Tooltip
         {
-            get { return _tooltip; }
+            get { return _Tooltip; }
             set
             {
-                _tooltip = value;
+                _Tooltip = value;
                 OnPropertyChanged("Tooltip");
             }
         }
 
-        public CONV_STATUS ConversionStatus
+        private CONV_STATUS _ConvStatus = CONV_STATUS.READY;
+        public CONV_STATUS ConvStatus
         {
-            get { return _conversionStatus; }
+            get { return _ConvStatus; }
             set
             {
-                _conversionStatus = value;
-                OnPropertyChanged("ConversionStatus");
+                _ConvStatus = value;
+                OnPropertyChanged("ConvStatus");
             }
         }
 
+        private int _ProgressValue = 0;
         public int ProgressValue
         {
-            get { return _progressValue; }
+            get { return _ProgressValue; }
             set
             {
-                _progressValue = value;
+                _ProgressValue = value;
                 OnPropertyChanged("ProgressValue");
             }
         }
 
+        private RES_CODE _ResCode = RES_CODE.Unknown;
         public RES_CODE ResCode
         {
-            get { return _resCode; }
+            get { return _ResCode; }
             set
             {
-                _resCode = value;
+                _ResCode = value;
                 OnPropertyChanged("ResCode");
             }
-        }
-
-        public override string ToString() => FileName;
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected void OnPropertyChanged(string info)
-        {
-            var handler = PropertyChanged;
-            handler?.Invoke(this, new PropertyChangedEventArgs(info));
         }
     }
 }

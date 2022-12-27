@@ -569,21 +569,21 @@
     <Setter Property="Visibility"
             Value="Visible" />
     <Style.Triggers>
-      <DataTrigger Binding="{Binding Path=ConversionStatus}"
+      <DataTrigger Binding="{Binding Path=ConvStatus}"
                    Value="{x:Static local:CONV_STATUS.COMPLETED}">
         <DataTrigger.Setters>
           <Setter Property="Opacity"
                   Value="{StaticResource opcity-btn-disable}" />
         </DataTrigger.Setters>
       </DataTrigger>
-      <DataTrigger Binding="{Binding Path=ConversionStatus}"
+      <DataTrigger Binding="{Binding Path=ConvStatus}"
                    Value="{x:Static local:CONV_STATUS.FAIL}">
         <DataTrigger.Setters>
           <Setter Property="Opacity"
                   Value="{StaticResource opcity-btn-disable}" />
         </DataTrigger.Setters>
       </DataTrigger>
-      <DataTrigger Binding="{Binding Path=ConversionStatus}"
+      <DataTrigger Binding="{Binding Path=ConvStatus}"
                    Value="{x:Static local:CONV_STATUS.RUNNING}">
         <DataTrigger.Setters>
           <Setter Property="Opacity"
@@ -597,14 +597,14 @@
   <Style TargetType="Image"
          x:Key="image-conv-result">
     <Style.Triggers>
-      <DataTrigger Binding="{Binding Path=ConversionStatus}"
+      <DataTrigger Binding="{Binding Path=ConvStatus}"
                    Value="{x:Static local:CONV_STATUS.COMPLETED}">
         <DataTrigger.Setters>
           <Setter Property="Source"
                   Value="{StaticResource drawing_validate_check}" />
         </DataTrigger.Setters>
       </DataTrigger>
-      <DataTrigger Binding="{Binding Path=ConversionStatus}"
+      <DataTrigger Binding="{Binding Path=ConvStatus}"
                    Value="{x:Static local:CONV_STATUS.FAIL}">
         <DataTrigger.Setters>
           <Setter Property="Source"
@@ -657,28 +657,28 @@
     <Setter Property="Visibility"
             Value="Visible" />
     <Style.Triggers>
-      <DataTrigger Binding="{Binding Path=ConversionStatus}"
+      <DataTrigger Binding="{Binding Path=ConvStatus}"
                    Value="{x:Static local:CONV_STATUS.READY}">
         <DataTrigger.Setters>
           <Setter Property="Visibility"
                   Value="Hidden" />
         </DataTrigger.Setters>
       </DataTrigger>
-      <DataTrigger Binding="{Binding Path=ConversionStatus}"
+      <DataTrigger Binding="{Binding Path=ConvStatus}"
                    Value="{x:Static local:CONV_STATUS.RUNNING}">
         <DataTrigger.Setters>
           <Setter Property="Visibility"
                   Value="Visible" />
         </DataTrigger.Setters>
       </DataTrigger>
-      <DataTrigger Binding="{Binding Path=ConversionStatus}"
+      <DataTrigger Binding="{Binding Path=ConvStatus}"
                    Value="{x:Static local:CONV_STATUS.COMPLETED}">
         <DataTrigger.Setters>
           <Setter Property="Visibility"
                   Value="Hidden" />
         </DataTrigger.Setters>
       </DataTrigger>
-      <DataTrigger Binding="{Binding Path=ConversionStatus}"
+      <DataTrigger Binding="{Binding Path=ConvStatus}"
                    Value="{x:Static local:CONV_STATUS.FAIL}">
         <DataTrigger.Setters>
           <Setter Property="Visibility"
