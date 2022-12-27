@@ -19,11 +19,11 @@ namespace PdfToOfficeApp
 
             if (GetModel().Docs.Count > 0)
             {
-                GetModel().Status = AppStatus.Ready;
+                GetModel().AppStatus = APP_STATUS.READY;
             }
             else
             {
-                GetModel().Status = AppStatus.Init;
+                GetModel().AppStatus = APP_STATUS.INIT;
             }
         }
 

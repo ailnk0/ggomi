@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using PdfToOfficeAppModule;
 
 namespace PdfToOfficeApp
 {
@@ -9,7 +10,6 @@ namespace PdfToOfficeApp
         {
             _Docs = new DocList();
             _Docs.CollectionChanged += _Docs_CollectionChanged;
-            _imageFormat = FileFormat.JPEG;
         }
 
         public void Dispose()
@@ -48,70 +48,36 @@ namespace PdfToOfficeApp
             }
         }
 
-        private FileFormat _selectedFileFormat;
-        public FileFormat SelectedFileFormat
+        private FILE_TYPE _convFileType = FILE_TYPE.XLSX;
+        public FILE_TYPE ConvFileType
         {
-            get { return _selectedFileFormat; }
-            set { _selectedFileFormat = value;
-                OnPropertyChanged("SelectedFileFormat");
-            }
-        }
-
-        private FileFormat _imageFormat;
-        public FileFormat ImageFormat
-        {
-            get { return _imageFormat; }
-            set { _imageFormat = value;
-                OnPropertyChanged("ImageFormat");
-            }
-        }
-
-        private AppStatus _status = AppStatus.Init;
-
-        public AppStatus Status
-        {
-            get { return _status; }
+            get { return _convFileType; }
             set
             {
-                _status = value;
-                OnPropertyChanged("Status");
+                _convFileType = value;
+                OnPropertyChanged("ConvFileType");
             }
         }
 
-        // 이미지 형식 체크
-        private bool _IsImage;
-        public bool IsImage
+        private IMG_TYPE _convImgType = IMG_TYPE.PNG;
+        public IMG_TYPE ConvImgType
         {
-            get { return _IsImage; }
+            get { return _convImgType; }
             set
             {
-                _IsImage = value;
-                OnPropertyChanged("IsImage");
+                _convImgType = value;
+                OnPropertyChanged("ConvImgType");
             }
         }
 
-        // 변환 형식
-        private string _FormatName;
-        public string FormatName
+        private APP_STATUS _appStatus = APP_STATUS.INIT;
+        public APP_STATUS AppStatus
         {
-            get { return _FormatName; }
+            get { return _appStatus; }
             set
             {
-                _FormatName = value;
-                OnPropertyChanged("FormatName");
-            }
-        }
-
-        // 변환 파일 저장 경로
-        private string _StrSavePath;
-
-        public string StrSavePath
-        {
-            get { return _StrSavePath; }
-            set
-            {
-                _StrSavePath = value;
-                OnPropertyChanged("StrSavePath");
+                _appStatus = value;
+                OnPropertyChanged("AppStatus");
             }
         }
 

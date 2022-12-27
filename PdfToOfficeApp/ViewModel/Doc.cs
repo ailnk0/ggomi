@@ -9,11 +9,10 @@ namespace PdfToOfficeApp
         private int _index;
         private string _filePath;
         private string _fileName;
-        private string _fileFormat;
         private string _tooltip;
-        private FileConversionStatus _conversionStatus = FileConversionStatus.Ready;
+        private CONV_STATUS _conversionStatus = CONV_STATUS.READY;
         private int _progressValue = 0;
-        private ErrorStatus _fileErrorStatus = ErrorStatus.Unknown;
+        private RES_CODE _resCode = RES_CODE.Unknown;
 
         public Doc()
         {
@@ -64,16 +63,6 @@ namespace PdfToOfficeApp
             }
         }
 
-        public string FileFormat
-        {
-            get { return _fileFormat; }
-            set
-            {
-                _fileFormat = value;
-                OnPropertyChanged("FileFormat");
-            }
-        }
-
         public string Tooltip
         {
             get { return _tooltip; }
@@ -84,7 +73,7 @@ namespace PdfToOfficeApp
             }
         }
 
-        public FileConversionStatus ConversionStatus
+        public CONV_STATUS ConversionStatus
         {
             get { return _conversionStatus; }
             set
@@ -104,13 +93,13 @@ namespace PdfToOfficeApp
             }
         }
 
-        public ErrorStatus FileErrorStatus
+        public RES_CODE ResCode
         {
-            get { return _fileErrorStatus; }
+            get { return _resCode; }
             set
             {
-                _fileErrorStatus = value;
-                OnPropertyChanged("FileErrorStatus");
+                _resCode = value;
+                OnPropertyChanged("ResCode");
             }
         }
 

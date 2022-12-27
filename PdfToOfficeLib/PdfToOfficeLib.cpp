@@ -12,175 +12,166 @@
 using namespace SolidFramework::Platform;
 using namespace SolidFramework::Converters::Plumbing;
 
-namespace HpdfToOffice
-{
+namespace HpdfToOffice {
 
-  IProgressSite* PdfToOfficeLib::m_ProgressSite = nullptr;
+IProgressSite* PdfToOfficeLib::m_ProgressSite = nullptr;
 
-  ErrorStatus PdfToOfficeLib::InitializeSolidFramework()
-  {
-    SolidFramework::SupportPlatformIndependentPaths(true);
+RES_CODE PdfToOfficeLib::InitializeSolidFramework() {
+  SolidFramework::SupportPlatformIndependentPaths(true);
 
-    try
-    {
-      String sdkDir = Util::Path::GetSdkDir();
-      if (sdkDir.empty())
-      {
-        return ErrorStatus::InternalError;
-      }
-      if (!SolidFramework::Initialize(sdkDir))
-      {
-        return ErrorStatus::InternalError;
-      }
+  try {
+    String sdkDir = Util::Path::GetSdkDir();
+    if (sdkDir.empty()) {
+      return RES_CODE::InternalError;
     }
-    catch (...)
-    {
-      return ErrorStatus::InternalError;
+    if (!SolidFramework::Initialize(sdkDir)) {
+      return RES_CODE::InternalError;
     }
-
-    try
-    {
-      SolidFramework::License::Import(Util::Path::GetSdkLicPath());
-    }
-    catch (SolidFramework::InvalidLicenseException)
-    {
-      return ErrorStatus::InvalidLicense;
-    }
-
-    return ErrorStatus::Success;
+  } catch (...) {
+    return RES_CODE::InternalError;
   }
 
-  void PdfToOfficeLib::DoProgress(SolidFramework::ProgressEventArgsPtr pProgressEventArgs)
-  {
-    int progress = pProgressEventArgs->GetProgress();
-    int maxProgress = pProgressEventArgs->GetMaxProgress();
-    SolidFramework::Interop::SolidErrorCodes statusCode = pProgressEventArgs->GetStatusCode();
-    std::wstring statusDesc = pProgressEventArgs->GetStatusDescription();
-
-    double totalProgress = 0;
-    if (statusDesc.find(L"PDFOCRInfoText") == 0)
-    {
-      totalProgress = progress / 4;
-    }
-    else if (statusDesc.find(L"PDFLoadingInfoText") == 0)
-    {
-      totalProgress = 25 + (progress / 4);
-    }
-    else if (statusDesc.find(L"PDFConvertingInfoText") == 0)
-    {
-      totalProgress = 50 + (progress / 4);
-    }
-    else if (statusDesc.find(L"WritingFileMessage") == 0)
-    {
-      totalProgress = 75 + (progress / 4);
-    }
-
-    std::wstring strDebug;
-    strDebug.append(statusDesc.c_str());
-    strDebug.append(L" : ");
-    strDebug.append(std::to_wstring(progress));
-    strDebug.append(L"%");
-
-    std::wcout << strDebug << std::endl;
-
-    if (m_ProgressSite) {
-      m_ProgressSite->SetPercent(totalProgress);
-    }
+  try {
+    SolidFramework::License::Import(Util::Path::GetSdkLicPath());
+  } catch (SolidFramework::InvalidLicenseException) {
+    return RES_CODE::InvalidLicense;
   }
 
-  void PdfToOfficeLib::SetSite(IProgressSite* progressSite)
-  {
-    m_ProgressSite = progressSite;
+  return RES_CODE::Success;
+}
+
+void PdfToOfficeLib::DoProgress(
+    SolidFramework::ProgressEventArgsPtr pProgressEventArgs) {
+  int progress = pProgressEventArgs->GetProgress();
+  int maxProgress = pProgressEventArgs->GetMaxProgress();
+  SolidFramework::Interop::SolidErrorCodes statusCode =
+      pProgressEventArgs->GetStatusCode();
+  String statusDesc = pProgressEventArgs->GetStatusDescription();
+
+  double totalProgress = 0;
+  if (statusDesc.find(L"PDFOCRInfoText") == 0) {
+    totalProgress = progress / 4;
+  } else if (statusDesc.find(L"PDFLoadingInfoText") == 0) {
+    totalProgress = 25 + (progress / 4);
+  } else if (statusDesc.find(L"PDFConvertingInfoText") == 0) {
+    totalProgress = 50 + (progress / 4);
+  } else if (statusDesc.find(L"WritingFileMessage") == 0) {
+    totalProgress = 75 + (progress / 4);
   }
 
-  ErrorStatus PdfToOfficeLib::DoConversion(const String &path, const String &password, const String &format)
-  {
-    std::wstring filePath = path;
-    std::wstring outPath = Util::Path::GetDirName(path);
-    std::wstring fileFormat = format;
-
-    ErrorStatus status = ErrorStatus::Success;
-    try
-    {
-      if (fileFormat == L"")
-        status = ErrorStatus::Fail;
-      else if (fileFormat == L"XLSX")
-      {
-        auto pConverter = std::make_shared<SolidFramework::Converters::PdfToExcelConverter>();
-        pConverter->SetOutputType(SolidFramework::Converters::Plumbing::ExcelDocumentType::XlsX);
-        pConverter->AddSourceFile(filePath);
-        pConverter->SetOutputDirectory(outPath);
-        pConverter->SetOverwriteMode(SolidFramework::Plumbing::OverwriteMode::ForceOverwrite);
-        pConverter->SetPassword(password);
-        pConverter->OnProgress = &DoProgress;
-
-        pConverter->Convert();
-        status = static_cast<ErrorStatus>(pConverter->GetResults()[0]->GetStatus());
-      }
-      else if (fileFormat == L"DOCX")
-      {
-        auto pWordConverter = std::make_shared<SolidFramework::Converters::PdfToWordConverter>();
-
-        pWordConverter->SetReconstructionMode(SolidFramework::Converters::Plumbing::ReconstructionMode::Flowing);
-        pWordConverter->SetOutputType(SolidFramework::Converters::Plumbing::WordDocumentType::DocX);
-        pWordConverter->AddSourceFile(filePath);
-        pWordConverter->SetOutputDirectory(outPath);
-        pWordConverter->SetOverwriteMode(SolidFramework::Plumbing::OverwriteMode::ForceOverwrite);
-        pWordConverter->SetPassword(password);
-        pWordConverter->OnProgress = &DoProgress;
-
-        pWordConverter->Convert();
-        status = static_cast<ErrorStatus>(pWordConverter->GetResults()[0]->GetStatus());
-      }
-      else if (fileFormat == L"PPTX")
-      {
-        auto pWordConverter = std::make_shared<SolidFramework::Converters::PdfToPowerPointConverter>();
-
-        pWordConverter->AddSourceFile(filePath);
-        pWordConverter->SetOutputDirectory(outPath);
-        pWordConverter->SetOverwriteMode(SolidFramework::Plumbing::OverwriteMode::ForceOverwrite);
-        pWordConverter->SetPassword(password);
-        pWordConverter->OnProgress = &DoProgress;
-
-        pWordConverter->Convert();
-        status = static_cast<ErrorStatus>(pWordConverter->GetResults()[0]->GetStatus());
-      }
-      else if (fileFormat == L"BMP" || fileFormat == L"JPEG" || fileFormat == L"PNG" || fileFormat == L"TIFF" || fileFormat == L"GIF")
-      {
-        auto pImageConverter = std::make_shared<SolidFramework::Converters::PdfToImageConverter>();
-
-        SolidFramework::Converters::Plumbing::ImageDocumentType imageType;
-        if (fileFormat == L"BMP")
-          imageType = SolidFramework::Converters::Plumbing::ImageDocumentType::Bmp;
-        else if (fileFormat == L"JPEG")
-          imageType = SolidFramework::Converters::Plumbing::ImageDocumentType::Jpeg;
-        else if (fileFormat == L"PNG")
-          imageType = SolidFramework::Converters::Plumbing::ImageDocumentType::Png;
-        else if (fileFormat == L"TIFF")
-          imageType = SolidFramework::Converters::Plumbing::ImageDocumentType::Tiff;
-        else if (fileFormat == L"GIF")
-          imageType = SolidFramework::Converters::Plumbing::ImageDocumentType::Gif;
-
-        pImageConverter->SetOutputType(imageType);
-        pImageConverter->AddSourceFile(filePath);
-        pImageConverter->SetOutputDirectory(outPath);
-        pImageConverter->SetOverwriteMode(SolidFramework::Plumbing::OverwriteMode::ForceOverwrite);
-        pImageConverter->SetPassword(password);
-        pImageConverter->OnProgress = &DoProgress;
-
-        pImageConverter->Convert();
-        status = static_cast<ErrorStatus>(pImageConverter->GetResults()[0]->GetStatus());
-      }
-           
-      //// TODO : 취소 기능 분리
-      //pWordConverter->Cancel();
-      //pWordConverter->ClearSourceFiles();
-    }
-    catch (const std::exception & /*e*/)
-    {
-      status = ErrorStatus::Unknown;
-    }
-
-    return status;
+  if (m_ProgressSite) {
+    m_ProgressSite->SetPercent((int)totalProgress);
   }
-} // namespace HpdfToOffice
+}
+
+void PdfToOfficeLib::SetSite(IProgressSite* progressSite) {
+  m_ProgressSite = progressSite;
+}
+
+RES_CODE PdfToOfficeLib::DoConversion(const String& path,
+                                      const String& password,
+                                      FILE_TYPE fileFormat,
+                                      IMG_TYPE imageFormat) {
+  String filePath = path;
+  String outPath = Util::Path::GetDirName(path);
+
+  RES_CODE status = RES_CODE::Success;
+  try {
+    if (fileFormat == FILE_TYPE::XLSX) {
+      auto pConverter =
+          std::make_shared<SolidFramework::Converters::PdfToExcelConverter>();
+      pConverter->SetOutputType(
+          SolidFramework::Converters::Plumbing::ExcelDocumentType::XlsX);
+      pConverter->AddSourceFile(filePath);
+      pConverter->SetOutputDirectory(outPath);
+      pConverter->SetOverwriteMode(
+          SolidFramework::Plumbing::OverwriteMode::ForceOverwrite);
+      pConverter->SetPassword(password);
+      pConverter->OnProgress = &DoProgress;
+
+      pConverter->Convert();
+      status = static_cast<RES_CODE>(pConverter->GetResults()[0]->GetStatus());
+
+    } else if (fileFormat == FILE_TYPE::DOCX) {
+      auto pWordConverter =
+          std::make_shared<SolidFramework::Converters::PdfToWordConverter>();
+
+      pWordConverter->SetReconstructionMode(
+          SolidFramework::Converters::Plumbing::ReconstructionMode::Flowing);
+      pWordConverter->SetOutputType(
+          SolidFramework::Converters::Plumbing::WordDocumentType::DocX);
+      pWordConverter->AddSourceFile(filePath);
+      pWordConverter->SetOutputDirectory(outPath);
+      pWordConverter->SetOverwriteMode(
+          SolidFramework::Plumbing::OverwriteMode::ForceOverwrite);
+      pWordConverter->SetPassword(password);
+      pWordConverter->OnProgress = &DoProgress;
+
+      pWordConverter->Convert();
+      status =
+          static_cast<RES_CODE>(pWordConverter->GetResults()[0]->GetStatus());
+
+    } else if (fileFormat == FILE_TYPE::PPTX) {
+      auto pWordConverter = std::make_shared<
+          SolidFramework::Converters::PdfToPowerPointConverter>();
+
+      pWordConverter->AddSourceFile(filePath);
+      pWordConverter->SetOutputDirectory(outPath);
+      pWordConverter->SetOverwriteMode(
+          SolidFramework::Plumbing::OverwriteMode::ForceOverwrite);
+      pWordConverter->SetPassword(password);
+      pWordConverter->OnProgress = &DoProgress;
+
+      pWordConverter->Convert();
+      status =
+          static_cast<RES_CODE>(pWordConverter->GetResults()[0]->GetStatus());
+
+    } else if (fileFormat == FILE_TYPE::IMAGE) {
+      auto pImageConverter =
+          std::make_shared<SolidFramework::Converters::PdfToImageConverter>();
+
+      SolidFramework::Converters::Plumbing::ImageDocumentType imageType =
+          SolidFramework::Converters::Plumbing::ImageDocumentType::Png;
+      if (imageFormat == IMG_TYPE::BMP)
+        imageType =
+            SolidFramework::Converters::Plumbing::ImageDocumentType::Bmp;
+      else if (imageFormat == IMG_TYPE::JPEG)
+        imageType =
+            SolidFramework::Converters::Plumbing::ImageDocumentType::Jpeg;
+      else if (imageFormat == IMG_TYPE::PNG)
+        imageType =
+            SolidFramework::Converters::Plumbing::ImageDocumentType::Png;
+      else if (imageFormat == IMG_TYPE::TIFF)
+        imageType =
+            SolidFramework::Converters::Plumbing::ImageDocumentType::Tiff;
+      else if (imageFormat == IMG_TYPE::GIF)
+        imageType =
+            SolidFramework::Converters::Plumbing::ImageDocumentType::Gif;
+
+      pImageConverter->SetConversionType(ImageConversionType::ExtractPages);
+      pImageConverter->SetOutputType(imageType);
+      pImageConverter->AddSourceFile(filePath);
+      pImageConverter->SetOutputDirectory(outPath);
+      pImageConverter->SetOverwriteMode(
+          SolidFramework::Plumbing::OverwriteMode::ForceOverwrite);
+      pImageConverter->SetPassword(password);
+      pImageConverter->OnProgress = &DoProgress;
+
+      pImageConverter->Convert();
+      status =
+          static_cast<RES_CODE>(pImageConverter->GetResults()[0]->GetStatus());
+
+    } else {
+    }
+
+    //// TODO : 취소 기능 분리
+    // pWordConverter->Cancel();
+    // pWordConverter->ClearSourceFiles();
+
+  } catch (const std::exception& /*e*/) {
+    status = RES_CODE::Unknown;
+  }
+
+  return status;
+}
+}  // namespace HpdfToOffice

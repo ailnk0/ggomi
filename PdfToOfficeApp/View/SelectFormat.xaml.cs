@@ -1,6 +1,6 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
+using PdfToOfficeAppModule;
 
 namespace PdfToOfficeApp
 {
@@ -12,37 +12,6 @@ namespace PdfToOfficeApp
         public SelectFormat()
         {
             InitializeComponent();
-            Loaded += SelectFormat_Loaded;
-        }
-
-        private void SelectFormat_Loaded(object sender, RoutedEventArgs e)
-        {
-            var m = GetModel();
-            if(m != null)
-            {
-
-            }
-        }
-
-        private void RadioButton_Checked(object sender, RoutedEventArgs e)
-        {
-            var rButton = sender as RadioButton;
-            var m = GetModel();
-            if (m != null)
-            {
-                string format = rButton.Name.Replace("IDC_RadioButton_", "");
-                FileFormat fileFormat = (FileFormat)Enum.Parse(typeof(FileFormat), format);
-
-                if (fileFormat == FileFormat.IMAGE)
-                {
-                    fileFormat = GetModel().ImageFormat;
-                }
-                else
-                {
-                    GetModel().IsImage = false;
-                }
-                GetModel().SelectedFileFormat = fileFormat;
-            }
         }
 
         public MainViewModel GetModel()
@@ -50,19 +19,44 @@ namespace PdfToOfficeApp
             return DataContext as MainViewModel;
         }
 
-        private void RadioButton_Image_Checked(object sender, RoutedEventArgs e)
+        private void IDC_SelXlsx_Click(object sender, RoutedEventArgs e)
         {
-            var m = GetModel();
-            if (m != null)
-            {
-                GetModel().IsImage = true;
-                var rButton = sender as RadioButton;
-                string format = rButton.Name.Replace("IDC_RadioButton_", "");
-                FileFormat imageFormat = (FileFormat)Enum.Parse(typeof(FileFormat), format);
+            GetModel().ConvFileType = FILE_TYPE.XLSX;
+        }
 
-                GetModel().ImageFormat = imageFormat;
-                GetModel().SelectedFileFormat = imageFormat;
-            }
+        private void IDC_SelPptx_Click(object sender, RoutedEventArgs e)
+        {
+            GetModel().ConvFileType = FILE_TYPE.PPTX;
+        }
+
+        private void IDC_SelDocx_Click(object sender, RoutedEventArgs e)
+        {
+            GetModel().ConvFileType = FILE_TYPE.DOCX;
+        }
+
+        private void IDC_SelImg_Click(object sender, RoutedEventArgs e)
+        {
+            GetModel().ConvFileType = FILE_TYPE.IMAGE;
+        }
+
+        private void IDC_SelPng_Click(object sender, RoutedEventArgs e)
+        {
+            GetModel().ConvImgType = IMG_TYPE.PNG;
+        }
+
+        private void IDC_SelJpg_Click(object sender, RoutedEventArgs e)
+        {
+            GetModel().ConvImgType = IMG_TYPE.JPEG;
+        }
+
+        private void IDC_SelGif_Click(object sender, RoutedEventArgs e)
+        {
+            GetModel().ConvImgType = IMG_TYPE.GIF;
+        }
+
+        private void IDC_SelImgType_PreviewMouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            GetModel().ConvFileType = FILE_TYPE.IMAGE;
         }
     }
 }

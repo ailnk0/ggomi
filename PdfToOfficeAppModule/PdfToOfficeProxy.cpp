@@ -8,83 +8,68 @@
 #include <msclr/marshal.h>
 #include <msclr/marshal_cppstd.h>
 
-namespace PdfToOfficeAppModule
-{
+namespace PdfToOfficeAppModule {
 
-PdfToOfficeProxy::PdfToOfficeProxy()
-{
-    lib = new HpdfToOffice::PdfToOfficeLib();
+PdfToOfficeProxy::PdfToOfficeProxy() {
+  lib = new HpdfToOffice::PdfToOfficeLib();
 }
 
-PdfToOfficeProxy::~PdfToOfficeProxy()
-{
-    if (lib)
-    {
-        delete lib;
-        lib = nullptr;
-    }
+PdfToOfficeProxy::~PdfToOfficeProxy() {
+  if (lib) {
+    delete lib;
+    lib = nullptr;
+  }
 
-    if (m_ProgressSite != nullptr)
-    {
-        delete m_ProgressSite;
-        m_ProgressSite = nullptr;
-    }
+  if (m_ProgressSite != nullptr) {
+    delete m_ProgressSite;
+    m_ProgressSite = nullptr;
+  }
 }
 
-void PdfToOfficeProxy::SetProgressSiteCli(IProgressSiteCli ^ progressSiteCli)
-{
-    ProgressSiteProxy *progressSiteProxy = new ProgressSiteProxy(progressSiteCli);
-    m_ProgressSite = static_cast<HpdfToOffice::IProgressSite *>(progressSiteProxy);
-    HpdfToOffice::PdfToOfficeLib::SetSite(m_ProgressSite);
+void PdfToOfficeProxy::SetProgressSiteCli(IProgressSiteCli ^ progressSiteCli) {
+  ProgressSiteProxy* progressSiteProxy = new ProgressSiteProxy(progressSiteCli);
+  m_ProgressSite = static_cast<HpdfToOffice::IProgressSite*>(progressSiteProxy);
+  HpdfToOffice::PdfToOfficeLib::SetSite(m_ProgressSite);
 }
 
-ErrorStatus PdfToOfficeProxy::InitializeSolidFramework()
-{
-    try
-    {
-        return static_cast<ErrorStatus>(lib->InitializeSolidFramework());
-    }
-    catch (...)
-    {
-        return static_cast<ErrorStatus>(HpdfToOffice::ErrorStatus::Unknown);
-    }
+RES_CODE PdfToOfficeProxy::InitializeSolidFramework() {
+  try {
+    return static_cast<RES_CODE>(lib->InitializeSolidFramework());
+  } catch (...) {
+    return static_cast<RES_CODE>(HpdfToOffice::RES_CODE::Unknown);
+  }
 }
 
-ErrorStatus PdfToOfficeProxy::DoConversion(System::String ^ path, System::String ^ password, System::String ^ fileFormat)
-{
-    try
-    {
-        return static_cast<ErrorStatus>(
-            lib->DoConversion(msclr::interop::marshal_as<HpdfToOffice::String>(path),
-                                  msclr::interop::marshal_as<HpdfToOffice::String>(password),
-              msclr::interop::marshal_as<HpdfToOffice::String>(fileFormat)));
-    }
-    catch (...)
-    {
-        return static_cast<ErrorStatus>(HpdfToOffice::ErrorStatus::Unknown);
-    }
+RES_CODE PdfToOfficeProxy::DoConversion(System::String ^ path,
+                                        System::String ^ password,
+                                        FILE_TYPE fileType,
+                                        IMG_TYPE imageType) {
+  try {
+    return static_cast<RES_CODE>(lib->DoConversion(
+        msclr::interop::marshal_as<HpdfToOffice::String>(path),
+        msclr::interop::marshal_as<HpdfToOffice::String>(password),
+        static_cast<HpdfToOffice::FILE_TYPE>(fileType),
+        static_cast<HpdfToOffice::IMG_TYPE>(imageType)));
+  } catch (...) {
+    return static_cast<RES_CODE>(HpdfToOffice::RES_CODE::Unknown);
+  }
 }
 
-ProgressSiteProxy::ProgressSiteProxy(gcroot<IProgressSiteCli ^> site)
-{
-    m_Site = site;
+ProgressSiteProxy::ProgressSiteProxy(gcroot<IProgressSiteCli ^> site) {
+  m_Site = site;
 }
 
-ProgressSiteProxy::~ProgressSiteProxy()
-{
-    if (static_cast<IProgressSiteCli ^>(m_Site) != nullptr)
-    {
-        delete m_Site;
-        m_Site = nullptr;
-    }
+ProgressSiteProxy::~ProgressSiteProxy() {
+  if (static_cast<IProgressSiteCli ^>(m_Site) != nullptr) {
+    delete m_Site;
+    m_Site = nullptr;
+  }
 }
 
-void ProgressSiteProxy::SetPercent(int percent)
-{
-    if (static_cast<IProgressSiteCli ^>(m_Site) != nullptr)
-    {
-        m_Site->SetPercent(percent); // C#에 구현되어 있는 SetPercent메서드가 호출됨
-    }
+void ProgressSiteProxy::SetPercent(int percent) {
+  if (static_cast<IProgressSiteCli ^>(m_Site) != nullptr) {
+    m_Site->SetPercent(percent);
+  }
 }
 
-} // namespace PdfToOfficeAppModule
+}  // namespace PdfToOfficeAppModule

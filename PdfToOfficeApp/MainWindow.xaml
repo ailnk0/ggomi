@@ -42,18 +42,21 @@
               Grid.Column="0"
               Margin="{StaticResource m-3}"
               Style="{StaticResource btn-adddoc}"
+              ToolTip="{StaticResource IDS_MENU_ADD}"
               Command="ApplicationCommands.Open">
       </Button>
       <Button x:Name="IDC_Button_SecondaryRemove"
               Grid.Column="1"
               Margin="{StaticResource m-3}"
               Style="{StaticResource btn-rmdoc}"
+              ToolTip="{StaticResource IDS_MENU_RM_SEL}"
               Command="{x:Static local:MainWindow.RemoveFileCommand}">
       </Button>
       <Button x:Name="IDC_Button_SecondarySetting"
               Grid.Column="3"
               Margin="{StaticResource m-3}"
               Style="{StaticResource btn-config}"
+              ToolTip="{StaticResource IDS_MENU_ABOUT}"
               Command="{x:Static local:MainWindow.AboutCommand}">
       </Button>
     </Grid>
@@ -67,9 +70,9 @@
     <Border Grid.Row="2"
             x:Name="IDC_Selector"
             DataContext="{Binding Source={StaticResource main-vm}}"
-            Style="{StaticResource div-sel-format}"
+            Style="{StaticResource div-selformat}"
             BorderBrush="{StaticResource Gray_20}"
-            BorderThickness="0,1,0,0" >
+            BorderThickness="0,1,0,0">
       <local:SelectFormat x:Name="IDC_SelectFormat"
                           Margin="{StaticResource m-3}" />
     </Border>

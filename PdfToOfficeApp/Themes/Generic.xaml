@@ -33,6 +33,7 @@
   </ResourceDictionary.MergedDictionaries>
 
   <local:ProgressToAngleConverter x:Key="ProgressConverter" />
+  <local:DataConv x:Key="dataConv" />
 
   <DrawingImage x:Key="drawing_validate_check"
                 Drawing="{DynamicResource dlg_data_validate_check}">
@@ -60,6 +61,9 @@
   <SolidColorBrush x:Key="Gray_60"
                    Color="#666666"
                    Opacity="1" />
+  <SolidColorBrush x:Key="Gray_40"
+                   Color="#999999"
+                   Opacity="1" />
   <SolidColorBrush x:Key="Gray_20"
                    Color="#cccccc"
                    Opacity="1" />
@@ -85,25 +89,24 @@
   <system:Double x:Key="opcity-btn-sec">1</system:Double>
   <system:Double x:Key="opcity-btn-sec-mouseover">0.8</system:Double>
 
-  <system:Double x:Key="sz-btn-format">50</system:Double>
-  <system:Double x:Key="sz-btn-radiobtn">50</system:Double>
+  <system:Double x:Key="sz-radio-img">50</system:Double>
 
-  <system:Double x:Key="sz-div">110</system:Double>
+  <system:Double x:Key="sz-h-selformat">90</system:Double>
 
   <local:MainViewModel x:Key="main-vm" />
 
   <!-- Binding MainWindow.Status -->
   <Binding x:Key="app-status"
            Source="{StaticResource main-vm}"
-           Path="Status" />
+           Path="AppStatus" />
 
   <Style TargetType="Border"
-         x:Key="div-sel-format">
+         x:Key="div-selformat">
     <Setter Property="Height"
-            Value="{StaticResource sz-div}" />
+            Value="{StaticResource sz-h-selformat}" />
     <Style.Triggers>
       <DataTrigger Binding="{StaticResource app-status}"
-                   Value="{x:Static local:AppStatus.Init}">
+                   Value="{x:Static local:APP_STATUS.INIT}">
         <DataTrigger.Setters>
           <Setter Property="Visibility"
                   Value="Visible" />
@@ -121,14 +124,14 @@
           <BeginStoryboard>
             <Storyboard>
               <DoubleAnimation Storyboard.TargetProperty="Height"
-                               To="{StaticResource sz-div}"
+                               To="{StaticResource sz-h-selformat}"
                                Duration="{StaticResource ani-short}" />
             </Storyboard>
           </BeginStoryboard>
         </DataTrigger.ExitActions>
       </DataTrigger>
       <DataTrigger Binding="{StaticResource app-status}"
-                   Value="{x:Static local:AppStatus.Ready}">
+                   Value="{x:Static local:APP_STATUS.READY}">
         <DataTrigger.Setters>
           <Setter Property="Visibility"
                   Value="Visible" />
@@ -137,7 +140,7 @@
           <BeginStoryboard>
             <Storyboard>
               <DoubleAnimation Storyboard.TargetProperty="Height"
-                               To="{StaticResource sz-div}"
+                               To="{StaticResource sz-h-selformat}"
                                Duration="{StaticResource ani-short}" />
             </Storyboard>
           </BeginStoryboard>
@@ -153,14 +156,14 @@
         </DataTrigger.ExitActions>
       </DataTrigger>
       <DataTrigger Binding="{StaticResource app-status}"
-                   Value="{x:Static local:AppStatus.Running}">
+                   Value="{x:Static local:APP_STATUS.RUNNING}">
         <DataTrigger.Setters>
           <Setter Property="Visibility"
                   Value="Collapsed" />
         </DataTrigger.Setters>
       </DataTrigger>
       <DataTrigger Binding="{StaticResource app-status}"
-                   Value="{x:Static local:AppStatus.Completed}">
+                   Value="{x:Static local:APP_STATUS.COMPLETED}">
         <DataTrigger.Setters>
           <Setter Property="Visibility"
                   Value="Collapsed" />
@@ -190,7 +193,7 @@
       <Trigger Property="IsMouseOver"
                Value="True">
         <Setter Property="Background"
-                Value="{StaticResource Gray_20}" />
+                Value="{StaticResource Gray_Light}" />
       </Trigger>
     </Style.Triggers>
   </Style>
@@ -342,28 +345,28 @@
     </Setter>
     <Style.Triggers>
       <DataTrigger Binding="{StaticResource app-status}"
-                   Value="{x:Static local:AppStatus.Init}">
+                   Value="{x:Static local:APP_STATUS.INIT}">
         <DataTrigger.Setters>
           <Setter Property="Visibility"
                   Value="Visible" />
         </DataTrigger.Setters>
       </DataTrigger>
       <DataTrigger Binding="{StaticResource app-status}"
-                   Value="{x:Static local:AppStatus.Ready}">
+                   Value="{x:Static local:APP_STATUS.READY}">
         <DataTrigger.Setters>
           <Setter Property="Visibility"
                   Value="Visible" />
         </DataTrigger.Setters>
       </DataTrigger>
       <DataTrigger Binding="{StaticResource app-status}"
-                   Value="{x:Static local:AppStatus.Running}">
+                   Value="{x:Static local:APP_STATUS.RUNNING}">
         <DataTrigger.Setters>
           <Setter Property="Visibility"
                   Value="Collapsed" />
         </DataTrigger.Setters>
       </DataTrigger>
       <DataTrigger Binding="{StaticResource app-status}"
-                   Value="{x:Static local:AppStatus.Completed}">
+                   Value="{x:Static local:APP_STATUS.COMPLETED}">
         <DataTrigger.Setters>
           <Setter Property="Visibility"
                   Value="Collapsed" />
@@ -390,28 +393,28 @@
     </Setter>
     <Style.Triggers>
       <DataTrigger Binding="{StaticResource app-status}"
-                   Value="{x:Static local:AppStatus.Init}">
+                   Value="{x:Static local:APP_STATUS.INIT}">
         <DataTrigger.Setters>
           <Setter Property="Visibility"
                   Value="Collapsed" />
         </DataTrigger.Setters>
       </DataTrigger>
       <DataTrigger Binding="{StaticResource app-status}"
-                   Value="{x:Static local:AppStatus.Ready}">
+                   Value="{x:Static local:APP_STATUS.READY}">
         <DataTrigger.Setters>
           <Setter Property="Visibility"
                   Value="Collapsed" />
         </DataTrigger.Setters>
       </DataTrigger>
       <DataTrigger Binding="{StaticResource app-status}"
-                   Value="{x:Static local:AppStatus.Running}">
+                   Value="{x:Static local:APP_STATUS.RUNNING}">
         <DataTrigger.Setters>
           <Setter Property="Visibility"
                   Value="Collapsed" />
         </DataTrigger.Setters>
       </DataTrigger>
       <DataTrigger Binding="{StaticResource app-status}"
-                   Value="{x:Static local:AppStatus.Completed}">
+                   Value="{x:Static local:APP_STATUS.COMPLETED}">
         <DataTrigger.Setters>
           <Setter Property="Visibility"
                   Value="Visible" />
@@ -438,28 +441,28 @@
     </Setter>
     <Style.Triggers>
       <DataTrigger Binding="{StaticResource app-status}"
-                   Value="{x:Static local:AppStatus.Init}">
+                   Value="{x:Static local:APP_STATUS.INIT}">
         <DataTrigger.Setters>
           <Setter Property="Visibility"
                   Value="Collapsed" />
         </DataTrigger.Setters>
       </DataTrigger>
       <DataTrigger Binding="{StaticResource app-status}"
-                   Value="{x:Static local:AppStatus.Ready}">
+                   Value="{x:Static local:APP_STATUS.READY}">
         <DataTrigger.Setters>
           <Setter Property="Visibility"
                   Value="Collapsed" />
         </DataTrigger.Setters>
       </DataTrigger>
       <DataTrigger Binding="{StaticResource app-status}"
-                   Value="{x:Static local:AppStatus.Running}">
+                   Value="{x:Static local:APP_STATUS.RUNNING}">
         <DataTrigger.Setters>
           <Setter Property="Visibility"
                   Value="Visible" />
         </DataTrigger.Setters>
       </DataTrigger>
       <DataTrigger Binding="{StaticResource app-status}"
-                   Value="{x:Static local:AppStatus.Completed}">
+                   Value="{x:Static local:APP_STATUS.COMPLETED}">
         <DataTrigger.Setters>
           <Setter Property="Visibility"
                   Value="Collapsed" />
@@ -468,18 +471,96 @@
     </Style.Triggers>
   </Style>
 
-  <!-- Style : border-radiobutton -->
+  <!-- Style : SelectFormat -->
   <Style TargetType="Border"
-         x:Key="border-radiobutton">
+         x:Key="radio-st-bg">
+    <Setter Property="CornerRadius"
+            Value="{StaticResource rad-btn-sec}" />
+    <Setter Property="BorderThickness"
+            Value="1" />
+    <Setter Property="BorderBrush"
+            Value="White" />
+    <Setter Property="Background"
+            Value="White" />
     <Style.Triggers>
       <Trigger Property="IsMouseOver"
                Value="True">
-        <Trigger.Setters>
-          <Setter Property="Background"
-                  Value="{StaticResource Gray_Light}" />
-        </Trigger.Setters>
+        <Setter Property="Background"
+                Value="{StaticResource Gray_Light}" />
       </Trigger>
     </Style.Triggers>
+  </Style>
+
+  <Style TargetType="Border"
+         x:Key="radio-sub-st-bg">
+    <Setter Property="CornerRadius"
+            Value="0, 5, 5, 0" />
+    <Setter Property="BorderThickness"
+            Value="1, 0, 0, 0" />
+    <Setter Property="BorderBrush"
+            Value="White" />
+    <Setter Property="Background"
+            Value="Transparent" />
+    <Style.Triggers>
+      <Trigger Property="IsMouseOver"
+               Value="True">
+        <Setter Property="Background"
+                Value="{StaticResource Gray_Light}" />
+      </Trigger>
+    </Style.Triggers>
+  </Style>
+
+  <Style TargetType="Button"
+         x:Key="radio-st">
+    <Setter Property="Margin"
+            Value="{StaticResource m-5}" />
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="{x:Type Button}">
+          <Grid>
+            <Border Style="{StaticResource radio-st-bg}">
+              <ContentPresenter Margin="3"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center" />
+            </Border>
+          </Grid>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+
+  <Style TargetType="Button"
+         x:Key="radio-sub-st">
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="{x:Type Button}">
+          <Grid>
+            <Border Style="{StaticResource radio-sub-st-bg}">
+              <ContentPresenter HorizontalAlignment="Center"
+                                VerticalAlignment="Center" />
+            </Border>
+          </Grid>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+
+  <Style x:Key="menu_test"
+         TargetType="{x:Type Menu}">
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="{x:Type Menu}">
+          <Border CornerRadius="0, 5, 5, 0"
+                  Background="Transparent"
+                  BorderBrush="White"
+                  BorderThickness="1, 0, 0, 0">
+            <StackPanel ClipToBounds="True"
+                        Orientation="Horizontal"
+                        IsItemsHost="True" />
+          </Border>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
   </Style>
 
   <!-- Style : image-conv-completed -->
@@ -489,21 +570,21 @@
             Value="Visible" />
     <Style.Triggers>
       <DataTrigger Binding="{Binding Path=ConversionStatus}"
-                   Value="{x:Static local:FileConversionStatus.Completed}">
+                   Value="{x:Static local:CONV_STATUS.COMPLETED}">
         <DataTrigger.Setters>
           <Setter Property="Opacity"
                   Value="{StaticResource opcity-btn-disable}" />
         </DataTrigger.Setters>
       </DataTrigger>
       <DataTrigger Binding="{Binding Path=ConversionStatus}"
-                   Value="{x:Static local:FileConversionStatus.Fail}">
+                   Value="{x:Static local:CONV_STATUS.FAIL}">
         <DataTrigger.Setters>
           <Setter Property="Opacity"
                   Value="{StaticResource opcity-btn-disable}" />
         </DataTrigger.Setters>
       </DataTrigger>
       <DataTrigger Binding="{Binding Path=ConversionStatus}"
-                   Value="{x:Static local:FileConversionStatus.Running}">
+                   Value="{x:Static local:CONV_STATUS.RUNNING}">
         <DataTrigger.Setters>
           <Setter Property="Opacity"
                   Value="{StaticResource opcity-btn-disable}" />
@@ -517,14 +598,14 @@
          x:Key="image-conv-result">
     <Style.Triggers>
       <DataTrigger Binding="{Binding Path=ConversionStatus}"
-                   Value="{x:Static local:FileConversionStatus.Completed}">
+                   Value="{x:Static local:CONV_STATUS.COMPLETED}">
         <DataTrigger.Setters>
           <Setter Property="Source"
                   Value="{StaticResource drawing_validate_check}" />
         </DataTrigger.Setters>
       </DataTrigger>
       <DataTrigger Binding="{Binding Path=ConversionStatus}"
-                   Value="{x:Static local:FileConversionStatus.Fail}">
+                   Value="{x:Static local:CONV_STATUS.FAIL}">
         <DataTrigger.Setters>
           <Setter Property="Source"
                   Value="{StaticResource drawing_validate_warning}" />
@@ -577,28 +658,28 @@
             Value="Visible" />
     <Style.Triggers>
       <DataTrigger Binding="{Binding Path=ConversionStatus}"
-                   Value="{x:Static local:FileConversionStatus.Ready}">
+                   Value="{x:Static local:CONV_STATUS.READY}">
         <DataTrigger.Setters>
           <Setter Property="Visibility"
                   Value="Hidden" />
         </DataTrigger.Setters>
       </DataTrigger>
       <DataTrigger Binding="{Binding Path=ConversionStatus}"
-                   Value="{x:Static local:FileConversionStatus.Running}">
+                   Value="{x:Static local:CONV_STATUS.RUNNING}">
         <DataTrigger.Setters>
           <Setter Property="Visibility"
                   Value="Visible" />
         </DataTrigger.Setters>
       </DataTrigger>
       <DataTrigger Binding="{Binding Path=ConversionStatus}"
-                   Value="{x:Static local:FileConversionStatus.Completed}">
+                   Value="{x:Static local:CONV_STATUS.COMPLETED}">
         <DataTrigger.Setters>
           <Setter Property="Visibility"
                   Value="Hidden" />
         </DataTrigger.Setters>
       </DataTrigger>
       <DataTrigger Binding="{Binding Path=ConversionStatus}"
-                   Value="{x:Static local:FileConversionStatus.Fail}">
+                   Value="{x:Static local:CONV_STATUS.FAIL}">
         <DataTrigger.Setters>
           <Setter Property="Visibility"
                   Value="Hidden" />

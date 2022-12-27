@@ -6,7 +6,7 @@ namespace PdfToOfficeApp
     {
         public DocList()
         {
-           
+
         }
     }
 }

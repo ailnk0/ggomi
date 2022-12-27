@@ -83,12 +83,11 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Misc\AppStatus.cs" />
-    <Compile Include="Misc\FileConversionStatus.cs" />
-    <Compile Include="Misc\FileFormat.cs" />
+    <Compile Include="Misc\Defines.cs" />
+    <Compile Include="Misc\ImgTypeDataConv.cs" />
     <Compile Include="Misc\Notifier.cs" />
     <Compile Include="Misc\ProgressToAngleConverter.cs" />
-    <Compile Include="Misc\RadioBoolToFileFormatConverter.cs" />
+    <Compile Include="Misc\DataConv.cs" />
     <Compile Include="ProgressSiteCli.cs" />
     <Compile Include="ViewModel\Doc.cs" />
     <Compile Include="ViewModel\DocList.cs" />

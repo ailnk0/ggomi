@@ -5,6 +5,16 @@
   <System:String x:Key="IDS_APP_NAME">PDF를 오피스 문서로 변환하기</System:String>
 
   <System:String x:Key="IDS_MENU_ABOUT">정보</System:String>
+  <System:String x:Key="IDS_MENU_ADD">추가</System:String>
+  <System:String x:Key="IDS_MENU_RM_SEL">선택한 항목을 목록에서 제거</System:String>
+
+  <System:String x:Key="IDS_CONV_TYPE_DOCX">DOCX 문서 형식으로 변환하기</System:String>
+  <System:String x:Key="IDS_CONV_TYPE_PPTX">PPTX 문서 형식으로 변환하기</System:String>
+  <System:String x:Key="IDS_CONV_TYPE_XLSX">XLSX 문서 형식으로 변환하기</System:String>
+  <System:String x:Key="IDS_CONV_TYPE_IMG">그림으로 변환하기</System:String>
+  <System:String x:Key="IDS_TYPE_PNG">PNG</System:String>
+  <System:String x:Key="IDS_TYPE_JPEG">JPG</System:String>
+  <System:String x:Key="IDS_TYPE_GIF">GIF</System:String>
 
   <System:String x:Key="IDS_HNC_PDFSDK_MSG_CONVERSION_SUCCESS">성공적으로 변환하였습니다.</System:String>
   <System:String x:Key="IDS_HNC_PDFSDK_MSG_CONVERSION_FAIL">PDF 파일을 변환하지 못했습니다.</System:String>

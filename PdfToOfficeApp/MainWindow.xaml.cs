@@ -5,7 +5,6 @@ using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Threading;
 using Microsoft.Win32;
 using PdfToOfficeAppModule;
 
@@ -57,15 +56,75 @@ namespace PdfToOfficeApp
             pdfToOffice = new PdfToOfficeProxy();
         }
 
+        private void MainWindow_ContentRendered(object sender, EventArgs e)
+        {
+            string[] arrArg = Environment.GetCommandLineArgs();
+            if (arrArg.Length >= 3)
+            {
+                WindowContextExecute(arrArg[1], arrArg[2]);
+            }
+        }
+
+        private void WindowContextExecute(string filePath, string fileFormat)
+        {
+            string strFilePath = filePath;
+            string strFileType = fileFormat.ToLower();
+
+            if (strFileType == "xlsx")
+            {
+                GetModel().ConvFileType = FILE_TYPE.XLSX;
+            }
+            else if (strFileType == "pptx")
+            {
+                GetModel().ConvFileType = FILE_TYPE.PPTX;
+            }
+            else if (strFileType == "docx")
+            {
+                GetModel().ConvFileType = FILE_TYPE.DOCX;
+            }
+            else if (strFileType == "png")
+            {
+                GetModel().ConvFileType = FILE_TYPE.IMAGE;
+                GetModel().ConvImgType = IMG_TYPE.PNG;
+            }
+            else if (strFileType == "jpg" || strFileType == "jepg")
+            {
+                GetModel().ConvFileType = FILE_TYPE.IMAGE;
+                GetModel().ConvImgType = IMG_TYPE.JPEG;
+            }
+            else if (strFileType == "gif")
+            {
+                GetModel().ConvFileType = FILE_TYPE.IMAGE;
+                GetModel().ConvImgType = IMG_TYPE.GIF;
+            }
+            else
+            {
+                // TODO : Show error - invalid format
+                return;
+            }
+
+            if (strFilePath == null)
+            {
+                // TODO : Show error - there is no file path
+                return;
+            }
+
+            GetModel().AppStatus = APP_STATUS.READY;
+
+            string[] fileNames = { strFilePath };
+
+            AddFileCommand.Execute(fileNames, this);
+            ConvertCommand.Execute(GetModel(), IDC_Button_PrimaryConvert);
+        }
+
         private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            GetModel().Status = AppStatus.Completed;
+            GetModel().AppStatus = APP_STATUS.COMPLETED;
         }
 
         private void Worker_DoWork(object sender, DoWorkEventArgs e)
         {
             MainViewModel viewModel = (MainViewModel)e.Argument;
-            string strFormat = viewModel.SelectedFileFormat.ToString();
 
             foreach (Doc doc in viewModel.Docs)
             {
@@ -75,29 +134,29 @@ namespace PdfToOfficeApp
                     return;
                 }
 
-                if (doc.ConversionStatus != FileConversionStatus.Ready)
+                if (doc.ConversionStatus != CONV_STATUS.READY)
                 {
                     continue;
                 }
 
-                doc.ConversionStatus = FileConversionStatus.Running;
+                doc.ConversionStatus = CONV_STATUS.RUNNING;
 
                 progressSiteCli = new ProgressSiteCli(doc);
                 pdfToOffice.SetProgressSiteCli(progressSiteCli);
-                doc.FileErrorStatus = pdfToOffice.DoConversion(doc.FilePath, "", strFormat);
+                doc.ResCode = pdfToOffice.DoConversion(doc.FilePath, "", viewModel.ConvFileType, viewModel.ConvImgType);
 
-                if (doc.FileErrorStatus == ErrorStatus.Success)
+                if (doc.ResCode == RES_CODE.Success)
                 {
-                    doc.ConversionStatus = FileConversionStatus.Completed;
+                    doc.ConversionStatus = CONV_STATUS.COMPLETED;
                 }
                 else
                 {
-                    doc.ConversionStatus = FileConversionStatus.Fail;
+                    doc.ConversionStatus = CONV_STATUS.FAIL;
 
                     StringBuilder msg = new StringBuilder();
                     msg.AppendLine(doc.FilePath);
                     msg.AppendLine();
-                    msg.AppendFormat("⚠ {0}", Util.String.GetMsg(doc.FileErrorStatus));
+                    msg.AppendFormat("⚠ {0}", Util.String.GetMsg(doc.ResCode));
                     doc.Tooltip = msg.ToString();
                 }
             }
@@ -114,47 +173,11 @@ namespace PdfToOfficeApp
             Util.Commands.Add(this, AboutCommand, OnAbout, CanAbout);
         }
 
-        private void MainWindow_ContentRendered(object sender, EventArgs e)
-        {
-            string[] arrArg = Environment.GetCommandLineArgs();
-            if (arrArg.Length >= 3)
-            {
-                WindowContextExecute(arrArg[1], arrArg[2]);
-            }
-        }
-
         protected override void OnPreviewDrop(DragEventArgs e)
         {
             e.Handled = true;
             var fileNames = e.Data.GetData(DataFormats.FileDrop, true) as string[];
             AddFileCommand.Execute(fileNames, this);
-        }
-
-        private void WindowContextExecute(string filePath, string fileFormat)
-        {
-            string strFilePath = filePath;
-            string strFileFormat = fileFormat;
-
-            // TODO : Binding으로 바꾸기
-            if (strFileFormat == "XSLX")
-                IDC_SelectFormat.IDC_RadioButton_XLSX.IsChecked = true;
-            else if (strFileFormat == "PPTX")
-                IDC_SelectFormat.IDC_RadioButton_PPTX.IsChecked = true;
-            else if (strFileFormat == "DOCX")
-                IDC_SelectFormat.IDC_RadioButton_DOCX.IsChecked = true;
-            else if (strFileFormat == "IMAGE")
-                IDC_SelectFormat.IDC_RadioButton_IMAGE.IsChecked = true;
-
-            if (strFilePath == null)
-            {
-                return;
-            }
-
-            GetModel().Status = AppStatus.Ready;
-
-            string[] fileNames = { strFilePath };
-            AddFileCommand.Execute(fileNames, this);
-            ConvertCommand.Execute(GetModel(), IDC_Button_PrimaryConvert);
         }
 
         public MainViewModel GetModel()
@@ -193,7 +216,7 @@ namespace PdfToOfficeApp
 
         private void CanOpen(object sender, CanExecuteRoutedEventArgs e)
         {
-            if (GetModel().Status == AppStatus.Init || GetModel().Status == AppStatus.Ready)
+            if (GetModel().AppStatus == APP_STATUS.INIT || GetModel().AppStatus == APP_STATUS.READY)
             {
                 e.CanExecute = true;
             }
@@ -205,8 +228,8 @@ namespace PdfToOfficeApp
 
         private void OnConvert(object sender, ExecutedRoutedEventArgs e)
         {
-            ErrorStatus errorStatus = pdfToOffice.InitializeSolidFramework();
-            if (errorStatus != ErrorStatus.Success)
+            RES_CODE errorStatus = pdfToOffice.InitializeSolidFramework();
+            if (errorStatus != RES_CODE.Success)
             {
                 if (GetModel().ShowMsg)
                 {
@@ -215,14 +238,14 @@ namespace PdfToOfficeApp
                 }
             }
 
-            GetModel().Status = AppStatus.Running;
+            GetModel().AppStatus = APP_STATUS.RUNNING;
 
             worker.RunWorkerAsync(GetModel());
         }
 
         private void CanConvert(object sender, CanExecuteRoutedEventArgs e)
         {
-            if (GetModel().Status == AppStatus.Ready)
+            if (GetModel().AppStatus == APP_STATUS.READY)
             {
                 e.CanExecute = true;
                 return;
@@ -241,7 +264,7 @@ namespace PdfToOfficeApp
 
         private void CanStop(object sender, CanExecuteRoutedEventArgs e)
         {
-            if (GetModel().Status == AppStatus.Running)
+            if (GetModel().AppStatus == APP_STATUS.RUNNING)
             {
                 e.CanExecute = true;
                 return;
@@ -284,7 +307,7 @@ namespace PdfToOfficeApp
 
         private void CanAddFile(object sender, CanExecuteRoutedEventArgs e)
         {
-            if (GetModel().Status == AppStatus.Init || GetModel().Status == AppStatus.Ready)
+            if (GetModel().AppStatus == APP_STATUS.INIT || GetModel().AppStatus == APP_STATUS.READY)
             {
                 e.CanExecute = true;
             }
@@ -313,7 +336,7 @@ namespace PdfToOfficeApp
 
         private void CanRemoveFile(object sender, CanExecuteRoutedEventArgs e)
         {
-            if (GetModel().Status == AppStatus.Ready)
+            if (GetModel().AppStatus == APP_STATUS.READY)
             {
                 if (GetModel().SelectedItems != null && GetModel().SelectedItems.Count > 0)
                 {
