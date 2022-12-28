@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:PdfToOfficeApp"
              xmlns:module="clr-namespace:PdfToOfficeAppModule;assembly=PdfToOfficeAppModule"
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
              d:DataContext="{d:DesignInstance Type=local:MainViewModel}"
              mc:Ignorable="d">
 
@@ -13,127 +14,190 @@
       <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="../Themes/Generic.xaml" />
       </ResourceDictionary.MergedDictionaries>
+
+      <system:Double x:Key="sz-w-radio-img">50</system:Double>
+      <system:Double x:Key="sz-w-radio-sub">15</system:Double>
+      <Thickness x:Key="border-radio-sub"
+                 Left="1"
+                 Top="0"
+                 Right="0"
+                 Bottom="0" />
+      <CornerRadius x:Key="round-radio-sub"
+                    TopLeft="0"
+                    TopRight="5"
+                    BottomRight="5"
+                    BottomLeft="0" />
+
+      <Style x:Key="radio-st-bg"
+             TargetType="{x:Type Border}">
+        <Setter Property="CornerRadius"
+                Value="{StaticResource rad-btn-sec}" />
+        <Setter Property="Background"
+                Value="{StaticResource bg}" />
+        <Style.Triggers>
+          <Trigger Property="IsMouseOver"
+                   Value="True">
+            <Setter Property="Background"
+                    Value="{StaticResource bg-mouseover}" />
+          </Trigger>
+        </Style.Triggers>
+      </Style>
+
+      <Style x:Key="radio-st"
+             TargetType="{x:Type Button}">
+        <Setter Property="Margin"
+                Value="{StaticResource m-5}" />
+        <Setter Property="Template">
+          <Setter.Value>
+            <ControlTemplate TargetType="{x:Type Button}">
+              <Grid>
+                <Border Style="{StaticResource radio-st-bg}">
+                  <ContentPresenter Margin="{StaticResource m-3}"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center" />
+                </Border>
+              </Grid>
+            </ControlTemplate>
+          </Setter.Value>
+        </Setter>
+      </Style>
+
+      <Style x:Key="radio-sub-st"
+             TargetType="{x:Type Menu}">
+        <Setter Property="Template">
+          <Setter.Value>
+            <ControlTemplate TargetType="{x:Type Menu}">
+              <Border CornerRadius="{StaticResource round-radio-sub}"
+                      Background="Transparent"
+                      BorderBrush="{StaticResource bg}"
+                      BorderThickness="{StaticResource border-radio-sub}">
+                <StackPanel ClipToBounds="True"
+                            Orientation="Horizontal"
+                            IsItemsHost="True" />
+              </Border>
+            </ControlTemplate>
+          </Setter.Value>
+        </Setter>
+      </Style>
     </ResourceDictionary>
   </UserControl.Resources>
 
-  <StackPanel>
-    <Grid>
-      <Grid.ColumnDefinitions>
-        <ColumnDefinition Width="*" />
-        <ColumnDefinition Width="auto" />
-        <ColumnDefinition Width="auto" />
-        <ColumnDefinition Width="auto" />
-        <ColumnDefinition Width="auto" />
-        <ColumnDefinition Width="*" />
-      </Grid.ColumnDefinitions>
-      
-      <Button x:Name="IDC_SelDocx"
-              Click="IDC_SelDocx_Click"
-              Grid.Column="1"
-              Style="{StaticResource radio-st}"
-              ToolTip="{StaticResource IDS_CONV_TYPE_DOCX}">
+  <Grid>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="*" />
+      <ColumnDefinition Width="auto" />
+      <ColumnDefinition Width="auto" />
+      <ColumnDefinition Width="auto" />
+      <ColumnDefinition Width="auto" />
+      <ColumnDefinition Width="*" />
+    </Grid.ColumnDefinitions>
+
+    <Button x:Name="IDC_SelDocx"
+            Click="IDC_SelDocx_Click"
+            Grid.Column="1"
+            Style="{StaticResource radio-st}"
+            ToolTip="{StaticResource IDS_CONV_TYPE_DOCX}">
+      <StackPanel>
+        <Image Width="{StaticResource sz-w-radio-img}">
+          <Image.Source>
+            <DrawingImage Drawing="{DynamicResource lg_pdftodocxdlg}" />
+          </Image.Source>
+        </Image>
+        <RadioButton HorizontalAlignment="Center"
+                     IsChecked="{Binding Path=ConvFileType, Converter={StaticResource dataConv}, ConverterParameter={x:Static module:FILE_TYPE.DOCX}}"
+                     GroupName="RadioFormatGroup">
+        </RadioButton>
+      </StackPanel>
+    </Button>
+
+    <Button x:Name="IDC_SelPptx"
+            Click="IDC_SelPptx_Click"
+            Grid.Column="2"
+            Style="{StaticResource radio-st}"
+            ToolTip="{StaticResource IDS_CONV_TYPE_PPTX}">
+      <StackPanel>
+        <Image Width="{StaticResource sz-w-radio-img}">
+          <Image.Source>
+            <DrawingImage Drawing="{DynamicResource lg_pdftopptxdlg}" />
+          </Image.Source>
+        </Image>
+        <RadioButton HorizontalAlignment="Center"
+                     IsChecked="{Binding Path=ConvFileType, Converter={StaticResource dataConv}, ConverterParameter={x:Static module:FILE_TYPE.PPTX}}"
+                     GroupName="RadioFormatGroup">
+        </RadioButton>
+      </StackPanel>
+    </Button>
+
+    <Button x:Name="IDC_SelXlsx"
+            Click="IDC_SelXlsx_Click"
+            Grid.Column="3"
+            Style="{StaticResource radio-st}"
+            ToolTip="{StaticResource IDS_CONV_TYPE_XLSX}">
+      <StackPanel>
+        <Image Width="{StaticResource sz-w-radio-img}">
+          <Image.Source>
+            <DrawingImage Drawing="{DynamicResource lg_pdftoxlsxdlg}" />
+          </Image.Source>
+        </Image>
+        <RadioButton HorizontalAlignment="Center"
+                     GroupName="RadioFormatGroup"
+                     IsChecked="{Binding Path=ConvFileType, Converter={StaticResource dataConv}, ConverterParameter={x:Static module:FILE_TYPE.XLSX}}">
+        </RadioButton>
+      </StackPanel>
+    </Button>
+
+    <Button x:Name="IDC_SelImg"
+            Click="IDC_SelImg_Click"
+            Grid.Column="4"
+            Style="{StaticResource radio-st}"
+            ToolTip="{StaticResource IDS_CONV_TYPE_IMG}">
+      <StackPanel Orientation="Horizontal">
         <StackPanel>
-          <Image Width="{StaticResource sz-radio-img}">
+          <Image Width="{StaticResource sz-w-radio-img}">
             <Image.Source>
-              <DrawingImage Drawing="{DynamicResource lg_pdftodocxdlg}" />
+              <DrawingImage Drawing="{DynamicResource lg_pdftoimagedlg}" />
             </Image.Source>
           </Image>
           <RadioButton HorizontalAlignment="Center"
-                       IsChecked="{Binding Path=ConvFileType, Converter={StaticResource dataConv}, ConverterParameter={x:Static module:FILE_TYPE.DOCX}}"
+                       IsChecked="{Binding Path=ConvFileType, Converter={StaticResource dataConv}, ConverterParameter={x:Static module:FILE_TYPE.IMAGE}}"
                        GroupName="RadioFormatGroup">
           </RadioButton>
         </StackPanel>
-      </Button>
-      
-      <Button x:Name="IDC_SelPptx"
-              Click="IDC_SelPptx_Click"
-              Grid.Column="2"
-              Style="{StaticResource radio-st}"
-              ToolTip="{StaticResource IDS_CONV_TYPE_PPTX}">
-        <StackPanel>
-          <Image Width="{StaticResource sz-radio-img}">
-            <Image.Source>
-              <DrawingImage Drawing="{DynamicResource lg_pdftopptxdlg}" />
-            </Image.Source>
-          </Image>
-          <RadioButton HorizontalAlignment="Center"
-                       IsChecked="{Binding Path=ConvFileType, Converter={StaticResource dataConv}, ConverterParameter={x:Static module:FILE_TYPE.PPTX}}"
-                       GroupName="RadioFormatGroup">
-          </RadioButton>
-        </StackPanel>
-      </Button>
-      
-      <Button x:Name="IDC_SelXlsx"
-              Click="IDC_SelXlsx_Click"
-              Grid.Column="3"
-              Style="{StaticResource radio-st}"
-              ToolTip="{StaticResource IDS_CONV_TYPE_XLSX}">
-        <StackPanel>
-          <Image Width="{StaticResource sz-radio-img}">
-            <Image.Source>
-              <DrawingImage Drawing="{DynamicResource lg_pdftoxlsxdlg}" />
-            </Image.Source>
-          </Image>
-          <RadioButton HorizontalAlignment="Center"
-                       GroupName="RadioFormatGroup"
-                       IsChecked="{Binding Path=ConvFileType, Converter={StaticResource dataConv}, ConverterParameter={x:Static module:FILE_TYPE.XLSX}}">
-          </RadioButton>
-        </StackPanel>
-      </Button>
-      
-      <Button x:Name="IDC_SelImg"
-              Click="IDC_SelImg_Click"
-              Grid.Column="4"
-              Style="{StaticResource radio-st}"
-              ToolTip="{StaticResource IDS_CONV_TYPE_IMG}">
-        <StackPanel Orientation="Horizontal">
-          <StackPanel>
-            <Image Width="{StaticResource sz-radio-img}">
-              <Image.Source>
-                <DrawingImage Drawing="{DynamicResource lg_pdftoimagedlg}" />
-              </Image.Source>
-            </Image>
-            <RadioButton HorizontalAlignment="Center"
-                         IsChecked="{Binding Path=ConvFileType, Converter={StaticResource dataConv}, ConverterParameter={x:Static module:FILE_TYPE.IMAGE}}"
-                         GroupName="RadioFormatGroup">
-            </RadioButton>
-          </StackPanel>
-          <Menu Style="{StaticResource radio-sub-st}">
-            <MenuItem x:Name="IDC_SelImgType"
-                      PreviewMouseDown="IDC_SelImgType_PreviewMouseDown"
-                      Width="15">
-              <MenuItem.Icon>
-                <Image RenderTransformOrigin="0.5,0.5">
-                  <Image.RenderTransform>
-                    <TransformGroup>
-                      <TranslateTransform X="-4.5" />
-                    </TransformGroup>
-                  </Image.RenderTransform>
-                  <Image.Source>
-                    <DrawingImage Drawing="{DynamicResource sm_dropdown}" />
-                  </Image.Source>
-                </Image>
-              </MenuItem.Icon>
-              <MenuItem x:Name="IDC_SelPng"
-                        Click="IDC_SelPng_Click"
-                        Header="{StaticResource IDS_TYPE_PNG}"
-                        IsCheckable="true"
-                        IsChecked="{Binding Path=ConvImgType, Converter={StaticResource dataConv}, ConverterParameter={x:Static module:IMG_TYPE.PNG}}" />
-              <MenuItem x:Name="IDC_SelJpg"
-                        Click="IDC_SelJpg_Click"
-                        Header="{StaticResource IDS_TYPE_JPEG}"
-                        IsCheckable="true"
-                        IsChecked="{Binding Path=ConvImgType, Converter={StaticResource dataConv}, ConverterParameter={x:Static module:IMG_TYPE.JPEG}}" />
-              <MenuItem x:Name="IDC_SelGif"
-                        Click="IDC_SelGif_Click"
-                        Header="{StaticResource IDS_TYPE_GIF}"
-                        IsCheckable="true"
-                        IsChecked="{Binding Path=ConvImgType, Converter={StaticResource dataConv}, ConverterParameter={x:Static module:IMG_TYPE.GIF}}" />
-            </MenuItem>
-          </Menu>
-        </StackPanel>
-      </Button>
-    </Grid>
-  </StackPanel>
+        <Menu Style="{StaticResource radio-sub-st}">
+          <MenuItem x:Name="IDC_SelImgType"
+                    PreviewMouseDown="IDC_SelImgType_PreviewMouseDown"
+                    Width="{StaticResource sz-w-radio-sub}">
+            <MenuItem.Icon>
+              <Image RenderTransformOrigin="0.5,0.5">
+                <Image.RenderTransform>
+                  <TransformGroup>
+                    <TranslateTransform X="-4.5" />
+                  </TransformGroup>
+                </Image.RenderTransform>
+                <Image.Source>
+                  <DrawingImage Drawing="{DynamicResource sm_dropdown}" />
+                </Image.Source>
+              </Image>
+            </MenuItem.Icon>
+            <MenuItem x:Name="IDC_SelPng"
+                      Click="IDC_SelPng_Click"
+                      Header="{StaticResource IDS_TYPE_PNG}"
+                      IsCheckable="true"
+                      IsChecked="{Binding Path=ConvImgType, Converter={StaticResource dataConv}, ConverterParameter={x:Static module:IMG_TYPE.PNG}}" />
+            <MenuItem x:Name="IDC_SelJpg"
+                      Click="IDC_SelJpg_Click"
+                      Header="{StaticResource IDS_TYPE_JPEG}"
+                      IsCheckable="true"
+                      IsChecked="{Binding Path=ConvImgType, Converter={StaticResource dataConv}, ConverterParameter={x:Static module:IMG_TYPE.JPEG}}" />
+            <MenuItem x:Name="IDC_SelGif"
+                      Click="IDC_SelGif_Click"
+                      Header="{StaticResource IDS_TYPE_GIF}"
+                      IsCheckable="true"
+                      IsChecked="{Binding Path=ConvImgType, Converter={StaticResource dataConv}, ConverterParameter={x:Static module:IMG_TYPE.GIF}}" />
+          </MenuItem>
+        </Menu>
+      </StackPanel>
+    </Button>
+  </Grid>
 
 </UserControl>

@@ -44,30 +44,25 @@
 
   <!-- Colors -->
   <SolidColorBrush x:Key="Blue_100"
-                   Color="#2367ff"
-                   Opacity="1" />
+                   Color="#2367ff" />
   <SolidColorBrush x:Key="Red_100"
-                   Color="#e13a1b"
-                   Opacity="1" />
+                   Color="#e13a1b" />
   <SolidColorBrush x:Key="Yellow_100"
-                   Color="#eeaf0f"
-                   Opacity="1" />
+                   Color="#eeaf0f" />
   <SolidColorBrush x:Key="Green_100"
-                   Color="#168e12"
-                   Opacity="1" />
+                   Color="#168e12" />
   <SolidColorBrush x:Key="Gray_100"
-                   Color="#000000"
-                   Opacity="1" />
+                   Color="#000000" />
   <SolidColorBrush x:Key="Gray_60"
-                   Color="#666666"
-                   Opacity="1" />
+                   Color="#666666" />
   <SolidColorBrush x:Key="Gray_40"
-                   Color="#999999"
-                   Opacity="1" />
+                   Color="#999999" />
   <SolidColorBrush x:Key="Gray_20"
-                   Color="#cccccc"
-                   Opacity="1" />
-  <SolidColorBrush x:Key="Gray_Light"
+                   Color="#cccccc" />
+
+  <SolidColorBrush x:Key="bg"
+                   Color="White" />
+  <SolidColorBrush x:Key="bg-mouseover"
                    Color="LightGray"
                    Opacity="0.5" />
 
@@ -88,8 +83,6 @@
   <CornerRadius x:Key="rad-btn-sec">5</CornerRadius>
   <system:Double x:Key="opcity-btn-sec">1</system:Double>
   <system:Double x:Key="opcity-btn-sec-mouseover">0.8</system:Double>
-
-  <system:Double x:Key="sz-radio-img">50</system:Double>
 
   <system:Double x:Key="sz-h-selformat">90</system:Double>
 
@@ -193,7 +186,7 @@
       <Trigger Property="IsMouseOver"
                Value="True">
         <Setter Property="Background"
-                Value="{StaticResource Gray_Light}" />
+                Value="{StaticResource bg-mouseover}" />
       </Trigger>
     </Style.Triggers>
   </Style>
@@ -471,63 +464,6 @@
     </Style.Triggers>
   </Style>
 
-  <!-- Style : SelectFormat -->
-  <Style TargetType="Border"
-         x:Key="radio-st-bg">
-    <Setter Property="CornerRadius"
-            Value="{StaticResource rad-btn-sec}" />
-    <Setter Property="BorderThickness"
-            Value="1" />
-    <Setter Property="BorderBrush"
-            Value="White" />
-    <Setter Property="Background"
-            Value="White" />
-    <Style.Triggers>
-      <Trigger Property="IsMouseOver"
-               Value="True">
-        <Setter Property="Background"
-                Value="{StaticResource Gray_Light}" />
-      </Trigger>
-    </Style.Triggers>
-  </Style>
-
-  <Style TargetType="Button"
-         x:Key="radio-st">
-    <Setter Property="Margin"
-            Value="{StaticResource m-5}" />
-    <Setter Property="Template">
-      <Setter.Value>
-        <ControlTemplate TargetType="{x:Type Button}">
-          <Grid>
-            <Border Style="{StaticResource radio-st-bg}">
-              <ContentPresenter Margin="3"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center" />
-            </Border>
-          </Grid>
-        </ControlTemplate>
-      </Setter.Value>
-    </Setter>
-  </Style>
-
-  <Style x:Key="radio-sub-st"
-         TargetType="{x:Type Menu}">
-    <Setter Property="Template">
-      <Setter.Value>
-        <ControlTemplate TargetType="{x:Type Menu}">
-          <Border CornerRadius="0, 5, 5, 0"
-                  Background="Transparent"
-                  BorderBrush="White"
-                  BorderThickness="1, 0, 0, 0">
-            <StackPanel ClipToBounds="True"
-                        Orientation="Horizontal"
-                        IsItemsHost="True" />
-          </Border>
-        </ControlTemplate>
-      </Setter.Value>
-    </Setter>
-  </Style>
-
   <!-- Style : image-conv-completed -->
   <Style TargetType="Image"
          x:Key="image-conv-completed">
@@ -589,10 +525,10 @@
             <Ellipse Height="15"
                      Width="15"
                      Fill="White"
-                     Opacity="0.8">
+                     Opacity="0.7">
             </Ellipse>
             <local:Arc StrokeThickness="5"
-                       Stroke="{DynamicResource Green_100}">
+                       Stroke="{StaticResource Green_100}">
               <local:Arc.StartAngle>
                 <MultiBinding Converter="{StaticResource ProgressConverter}">
                   <Binding Path="Minimum"
@@ -611,7 +547,7 @@
               </local:Arc.EndAngle>
             </local:Arc>
             <TextBlock Text="{Binding Value, RelativeSource={RelativeSource TemplatedParent}, StringFormat=\{0:0\}}"
-                       Foreground="{DynamicResource Green_100}"
+                       Foreground="{StaticResource Green_100}"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Center"
                        FontSize="10" />
