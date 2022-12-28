@@ -44,6 +44,9 @@ namespace PdfToOfficeApp
         protected override void OnInitialized(EventArgs e)
         {
             base.OnInitialized(e);
+
+            GetModel().AppVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+
             AddCommandHandlers();
 
             ContentRendered += MainWindow_ContentRendered;
@@ -349,11 +352,9 @@ namespace PdfToOfficeApp
 
         private void OnAbout(object sender, ExecutedRoutedEventArgs e)
         {
-            var info = new StringBuilder();
-            info.AppendLine(Util.String.GetString("IDS_APP_NAME"));
-            info.AppendLine(Assembly.GetExecutingAssembly().GetName().Version.ToString());
-            info.AppendLine();
-            MessageBox.Show(this, info.ToString(), Util.String.GetString("IDS_MENU_ABOUT"), MessageBoxButton.OK, MessageBoxImage.Information);
+            AboutWindow w = new AboutWindow();
+            w.DataContext = GetModel();
+            w.ShowDialog();
         }
 
         private void CanAbout(object sender, CanExecuteRoutedEventArgs e)

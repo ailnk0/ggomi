@@ -90,5 +90,16 @@ namespace PdfToOfficeApp
                 OnPropertyChanged("ShowMsg");
             }
         }
+
+        private string _AppVersion;
+        public string AppVersion
+        {
+            get { return _AppVersion; }
+            set
+            {
+                _AppVersion = value;
+                OnPropertyChanged("AppVersion");
+            }
+        }
     }
 }
