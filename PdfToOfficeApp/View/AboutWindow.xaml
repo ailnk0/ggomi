@@ -18,16 +18,16 @@
     </ResourceDictionary>
   </Window.Resources>
 
-  <Grid Margin="15">
+  <Grid Margin="{StaticResource m-3}">
     <Grid.ColumnDefinitions>
       <ColumnDefinition Width="75" />
       <ColumnDefinition />
     </Grid.ColumnDefinitions>
 
     <Grid Grid.Column="0"
-          Margin="5">
+          Margin="{StaticResource m-2}">
       <Image VerticalAlignment="Top"
-             Margin="5">
+             Margin="{StaticResource m-2}">
         <Image.Source>
           <DrawingImage Drawing="{DynamicResource icon-hpdf}"></DrawingImage>
         </Image.Source>
@@ -35,20 +35,20 @@
     </Grid>
 
     <Grid Grid.Column="1"
-          Margin="5">
+          Margin="{StaticResource m-2}">
       <StackPanel VerticalAlignment="Top">
         <TextBlock x:Name="IDC_AboutTitle"
                    TextWrapping="Wrap"
                    Text="{StaticResource IDS_APP_NAME}"
                    FontSize="14"
                    FontWeight="Bold"
-                   Margin="5" />
+                   Margin="{StaticResource m-2}" />
         <TextBlock x:Name="IDC_AboutVersion"
                    TextWrapping="Wrap"
                    Text="{Binding Path=AppVersion}"
-                   Margin="5" />
-        <ScrollViewer MaxHeight="100"
-                      Margin="10"
+                   Margin="{StaticResource m-2}" />
+        <ScrollViewer MaxHeight="{StaticResource sz-h-selformat}"
+                      Margin="{StaticResource m-3}"
                       Width="Auto"
                       HorizontalScrollBarVisibility="Disabled"
                       VerticalScrollBarVisibility="Auto">

@@ -21,7 +21,7 @@
     <Binding Source="{StaticResource main-vm}" />
   </Window.DataContext>
 
-  <Grid Margin="{StaticResource m-10}">
+  <Grid Margin="{StaticResource m-3}">
     <Grid.RowDefinitions>
       <RowDefinition Height="auto" />
       <RowDefinition />
@@ -30,7 +30,7 @@
     </Grid.RowDefinitions>
 
     <Grid Grid.Row="0"
-          Margin="{StaticResource m-3}"
+          Margin="{StaticResource m-1}"
           x:Name="IDC_Grid_SecondaryButtons">
       <Grid.ColumnDefinitions>
         <ColumnDefinition Width="auto" />
@@ -38,27 +38,72 @@
         <ColumnDefinition />
         <ColumnDefinition Width="auto" />
       </Grid.ColumnDefinitions>
-      <Button x:Name="IDC_Button_SecondaryAdd"
-              Grid.Column="0"
-              Margin="{StaticResource m-3}"
-              Style="{StaticResource btn-adddoc}"
-              ToolTip="{StaticResource IDS_MENU_ADD}"
-              Command="ApplicationCommands.Open">
-      </Button>
-      <Button x:Name="IDC_Button_SecondaryRemove"
-              Grid.Column="1"
-              Margin="{StaticResource m-3}"
-              Style="{StaticResource btn-rmdoc}"
-              ToolTip="{StaticResource IDS_MENU_RM_SEL}"
-              Command="{x:Static local:MainWindow.RemoveFileCommand}">
-      </Button>
-      <Button x:Name="IDC_Button_SecondarySetting"
-              Grid.Column="3"
-              Margin="{StaticResource m-3}"
-              Style="{StaticResource btn-config}"
-              ToolTip="{StaticResource IDS_MENU_ABOUT}"
-              Command="{x:Static local:MainWindow.AboutCommand}">
-      </Button>
+
+      <Menu Grid.Column="0"
+            Style="{StaticResource menu}"
+            Margin="{StaticResource m-1}">
+        <MenuItem Header="{StaticResource IDS_MENU_ADD}"
+                  ToolTip="{StaticResource IDS_MENU_ADD}"
+                  Style="{StaticResource menu-i}"
+                  Command="ApplicationCommands.Open">
+          <MenuItem.Icon>
+            <Image>
+              <Image.Source>
+                <DrawingImage Drawing="{DynamicResource sm_add}" />
+              </Image.Source>
+            </Image>
+          </MenuItem.Icon>
+        </MenuItem>
+      </Menu>
+
+      <Menu Grid.Column="1"
+            Style="{StaticResource menu}"
+            Margin="{StaticResource m-1}">
+        <MenuItem Header="{StaticResource IDS_MENU_RM_SEL}"
+                  ToolTip="{StaticResource IDS_MENU_RM_SEL}"
+                  Style="{StaticResource menu-i}"
+                  Command="{x:Static local:MainWindow.RemoveFileCommand}">
+          <MenuItem.Icon>
+            <Image>
+              <Image.Source>
+                <DrawingImage Drawing="{DynamicResource sm_sub}" />
+              </Image.Source>
+            </Image>
+          </MenuItem.Icon>
+        </MenuItem>
+      </Menu>
+
+      <Menu Grid.Column="3"
+            Style="{StaticResource menu}"
+            Margin="{StaticResource m-1}">
+        <MenuItem Style="{StaticResource menu-i}"
+                  ToolTip="{StaticResource IDS_MENU}">
+          <MenuItem.Icon>
+            <Image>
+              <Image.Source>
+                <DrawingImage Drawing="{DynamicResource sm_menu}" />
+              </Image.Source>
+            </Image>
+          </MenuItem.Icon>
+
+          <MenuItem Header="{StaticResource IDS_MENU_CONFIG}"
+                    ToolTip="{StaticResource IDS_MENU_CONFIG}"
+                    Command="{x:Static local:MainWindow.ConfigCommand}">
+            <MenuItem.Icon>
+              <Image>
+                <Image.Source>
+                  <DrawingImage Drawing="{DynamicResource sm_config}" />
+                </Image.Source>
+              </Image>
+            </MenuItem.Icon>
+          </MenuItem>
+
+          <MenuItem Header="{StaticResource IDS_MENU_ABOUT}"
+                    ToolTip="{StaticResource IDS_MENU_ABOUT}"
+                    Command="{x:Static local:MainWindow.AboutCommand}">
+          </MenuItem>
+        </MenuItem>
+      </Menu>
     </Grid>
 
     <local:DocListBox x:Name="IDC_DocListBox"
@@ -74,24 +119,39 @@
             BorderBrush="{StaticResource Gray_20}"
             BorderThickness="0,1,0,0">
       <local:SelectFormat x:Name="IDC_SelectFormat"
-                          Margin="{StaticResource m-3}" />
+                          Margin="{StaticResource m-1}" />
     </Border>
 
     <StackPanel Grid.Row="3">
       <Button x:Name="IDC_Button_PrimaryConvert"
-              Margin="{StaticResource m-10}"
+              Margin="{StaticResource m-3}"
               Style="{StaticResource btn-pri-convert}"
               Command="{x:Static local:MainWindow.ConvertCommand}">
+        <Image>
+          <Image.Source>
+            <DrawingImage Drawing="{DynamicResource sm_r_run}" />
+          </Image.Source>
+        </Image>
       </Button>
       <Button x:Name="IDC_Button_PrimaryStop"
-              Margin="{StaticResource m-10}"
+              Margin="{StaticResource m-3}"
               Style="{StaticResource btn-pri-stop}"
               Command="{x:Static local:MainWindow.StopCommand}">
+        <Image>
+          <Image.Source>
+            <DrawingImage Drawing="{DynamicResource sm_r_stop}" />
+          </Image.Source>
+        </Image>
       </Button>
       <Button x:Name="IDC_Button_PrimaryReset"
-              Margin="{StaticResource m-10}"
+              Margin="{StaticResource m-3}"
               Style="{StaticResource btn-pri-reset}"
               Command="{x:Static local:MainWindow.ResetCommand}">
+        <Image>
+          <Image.Source>
+            <DrawingImage Drawing="{DynamicResource sm_r_check}" />
+          </Image.Source>
+        </Image>
       </Button>
     </StackPanel>
 

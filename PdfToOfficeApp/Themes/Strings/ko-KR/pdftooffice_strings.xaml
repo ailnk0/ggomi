@@ -5,6 +5,8 @@
 
   <System:String x:Key="IDS_APP_NAME">PDF를 오피스 문서로 변환하기</System:String>
 
+  <System:String x:Key="IDS_MENU">메뉴</System:String>
+  <System:String x:Key="IDS_MENU_CONFIG">설정</System:String>
   <System:String x:Key="IDS_MENU_ABOUT">정보</System:String>
   <System:String x:Key="IDS_MENU_ADD">추가</System:String>
   <System:String x:Key="IDS_MENU_RM_SEL">선택한 항목을 목록에서 제거</System:String>

@@ -174,6 +174,7 @@ namespace PdfToOfficeApp
             Util.Commands.Add(this, StopCommand, OnStop, CanStop);
             Util.Commands.Add(this, ResetCommand, OnReset, CanReset);
             Util.Commands.Add(this, AboutCommand, OnAbout, CanAbout);
+            Util.Commands.Add(this, ConfigCommand, OnConfig, CanConfig);
         }
 
         protected override void OnPreviewDrop(DragEventArgs e)
@@ -196,9 +197,11 @@ namespace PdfToOfficeApp
         // 앱 초기화 커맨드
         public static RoutedCommand ResetCommand = new RoutedCommand("ResetCommand", typeof(Button));
         // 파일 추가 커맨드
-        public static RoutedCommand AddFileCommand = new RoutedCommand("AddFileCommand", typeof(Button));
+        public static RoutedCommand AddFileCommand = new RoutedCommand("AddFileCommand", typeof(MenuItem));
         // 파일 제거 커맨드
-        public static RoutedCommand RemoveFileCommand = new RoutedCommand("RemoveFileCommand", typeof(Button));
+        public static RoutedCommand RemoveFileCommand = new RoutedCommand("RemoveFileCommand", typeof(MenuItem));
+        // 설정 커맨드
+        public static RoutedCommand ConfigCommand = new RoutedCommand("ConfigCommand", typeof(MenuItem));
         // 정보 커맨드
         public static RoutedCommand AboutCommand = new RoutedCommand("AboutCommand", typeof(MenuItem));
 
@@ -283,13 +286,7 @@ namespace PdfToOfficeApp
 
         private void CanReset(object sender, CanExecuteRoutedEventArgs e)
         {
-            if (GetModel().Docs.Count > 0 && worker != null && !worker.IsBusy)
-            {
-                e.CanExecute = true;
-                return;
-            }
-
-            e.CanExecute = false;
+            e.CanExecute = true;
         }
 
         // 파일 추가
@@ -352,12 +349,24 @@ namespace PdfToOfficeApp
 
         private void OnAbout(object sender, ExecutedRoutedEventArgs e)
         {
-            AboutWindow w = new AboutWindow();
-            w.DataContext = GetModel();
-            w.ShowDialog();
+            AboutWindow aboutWin = new AboutWindow();
+            aboutWin.DataContext = GetModel();
+            aboutWin.ShowDialog();
         }
 
         private void CanAbout(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }
+
+        private void OnConfig(object sender, ExecutedRoutedEventArgs e)
+        {
+            ConfigWindow confWin = new ConfigWindow();
+            confWin.DataContext = GetModel();
+            confWin.ShowDialog();
+        }
+
+        private void CanConfig(object sender, CanExecuteRoutedEventArgs e)
         {
             e.CanExecute = true;
         }

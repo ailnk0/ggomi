@@ -1,4 +1,4 @@
-<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:PdfToOfficeApp"
                     xmlns:system="clr-namespace:System;assembly=mscorlib">
@@ -23,6 +23,7 @@
     <ResourceDictionary Source="Images/sm_config.xaml" />
     <ResourceDictionary Source="Images/sm_dropdown.xaml" />
     <ResourceDictionary Source="Images/sm_fail.xaml" />
+    <ResourceDictionary Source="Images/sm_menu.xaml" />
     <ResourceDictionary Source="Images/sm_offset_down.xaml" />
     <ResourceDictionary Source="Images/sm_offset_up.xaml" />
     <ResourceDictionary Source="Images/sm_r_add.xaml" />
@@ -69,20 +70,20 @@
   <Duration x:Key="ani-short">0:0:0.25</Duration>
   <Duration x:Key="ani-long">0:0:0.5</Duration>
 
-  <Thickness x:Key="m-3">3</Thickness>
-  <Thickness x:Key="m-5">5</Thickness>
-  <Thickness x:Key="m-10">10</Thickness>
+  <Thickness x:Key="m-1">2.5</Thickness>
+  <Thickness x:Key="m-2">5</Thickness>
+  <Thickness x:Key="m-3">10</Thickness>
+  <Thickness x:Key="m-4">15</Thickness>
+  <Thickness x:Key="m-5">20</Thickness>
 
-  <system:Double x:Key="opcity-btn-disable">0.3</system:Double>
+  <system:Double x:Key="sz-menu-i">30</system:Double>
 
   <system:Double x:Key="sz-btn-pri">60</system:Double>
-  <system:Double x:Key="opcity-btn-pri">1</system:Double>
-  <system:Double x:Key="opcity-btn-pri-mouseover">0.8</system:Double>
-
-  <system:Double x:Key="sz-btn-sec">30</system:Double>
-  <CornerRadius x:Key="rad-btn-sec">5</CornerRadius>
-  <system:Double x:Key="opcity-btn-sec">1</system:Double>
-  <system:Double x:Key="opcity-btn-sec-mouseover">0.8</system:Double>
+  <Thickness x:Key="pad-btn">5</Thickness>
+  <system:Double x:Key="opcity-btn">1</system:Double>
+  <system:Double x:Key="opcity-btn-mouseover">0.8</system:Double>
+  <system:Double x:Key="opcity-btn-disable">0.3</system:Double>
+  <CornerRadius x:Key="round-btn">5</CornerRadius>
 
   <system:Double x:Key="sz-h-selformat">90</system:Double>
 
@@ -96,7 +97,7 @@
   <Style TargetType="Border"
          x:Key="div-selformat">
     <Setter Property="Height"
-            Value="{StaticResource sz-h-selformat}" />
+            Value="0" />
     <Style.Triggers>
       <DataTrigger Binding="{StaticResource app-status}"
                    Value="{x:Static local:APP_STATUS.INIT}">
@@ -148,55 +149,114 @@
           </BeginStoryboard>
         </DataTrigger.ExitActions>
       </DataTrigger>
-      <DataTrigger Binding="{StaticResource app-status}"
-                   Value="{x:Static local:APP_STATUS.RUNNING}">
-        <DataTrigger.Setters>
-          <Setter Property="Visibility"
-                  Value="Collapsed" />
-        </DataTrigger.Setters>
-      </DataTrigger>
-      <DataTrigger Binding="{StaticResource app-status}"
-                   Value="{x:Static local:APP_STATUS.COMPLETED}">
-        <DataTrigger.Setters>
-          <Setter Property="Visibility"
-                  Value="Collapsed" />
-        </DataTrigger.Setters>
-      </DataTrigger>
     </Style.Triggers>
   </Style>
 
-  <Style TargetType="Image"
-         x:Key="btn-st-img">
-    <Setter Property="Margin"
-            Value="{StaticResource m-5}" />
-    <Style.Triggers>
-      <Trigger Property="IsEnabled"
-               Value="False">
-        <Setter Property="Opacity"
-                Value="{StaticResource opcity-btn-disable}" />
-      </Trigger>
-    </Style.Triggers>
-  </Style>
-
-  <Style TargetType="Border"
-         x:Key="btn-st-bg">
-    <Setter Property="CornerRadius"
-            Value="{StaticResource rad-btn-sec}" />
-    <Style.Triggers>
-      <Trigger Property="IsMouseOver"
-               Value="True">
-        <Setter Property="Background"
-                Value="{StaticResource bg-mouseover}" />
-      </Trigger>
-    </Style.Triggers>
-  </Style>
-
-  <Style TargetType="Button"
-         x:Key="btn-sm-tmp">
+  <Style x:Key="menu"
+         TargetType="{x:Type Menu}">
     <Setter Property="Width"
-            Value="{StaticResource sz-btn-sec}" />
+            Value="{StaticResource sz-menu-i}" />
     <Setter Property="Height"
-            Value="{StaticResource sz-btn-sec}" />
+            Value="{StaticResource sz-menu-i}" />
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="{x:Type Menu}">
+          <Border>
+            <StackPanel Orientation="Horizontal"
+                        IsItemsHost="True" />
+          </Border>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+
+  <Style x:Key="menu-i"
+         TargetType="{x:Type MenuItem}">
+    <Setter Property="Width"
+            Value="{StaticResource sz-menu-i}" />
+    <Setter Property="Height"
+            Value="{StaticResource sz-menu-i}" />
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="{x:Type MenuItem}">
+          <Border x:Name="border"
+                  CornerRadius="{StaticResource round-btn}">
+            <Grid>
+              <Border Padding="{StaticResource pad-btn}">
+                <ContentPresenter ContentSource="Icon" />
+              </Border>
+              <Popup x:Name="Popup"
+                     Placement="Bottom"
+                     IsOpen="{TemplateBinding IsSubmenuOpen}"
+                     AllowsTransparency="True"
+                     PopupAnimation="Fade">
+                <Border x:Name="SubmenuBorder"
+                        CornerRadius="{StaticResource round-btn}"
+                        Padding="{StaticResource m-1}"
+                        BorderThickness="1"
+                        BorderBrush="{StaticResource Gray_20}"
+                        Background="{StaticResource bg}">
+                  <StackPanel IsItemsHost="True"
+                              KeyboardNavigation.DirectionalNavigation="Cycle" />
+                </Border>
+              </Popup>
+            </Grid>
+          </Border>
+          <ControlTemplate.Triggers>
+            <Trigger Property="IsHighlighted"
+                     Value="True">
+              <Setter TargetName="border"
+                      Property="Background"
+                      Value="{StaticResource bg-mouseover}" />
+            </Trigger>
+            <Trigger Property="IsEnabled"
+                     Value="False">
+              <Setter TargetName="border"
+                      Property="Opacity"
+                      Value="{StaticResource opcity-btn-disable}" />
+            </Trigger>
+          </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+
+  <Style x:Key="btn-pri"
+         TargetType="{x:Type Button}">
+    <Setter Property="Width"
+            Value="{StaticResource sz-btn-pri}" />
+    <Setter Property="Height"
+            Value="{StaticResource sz-btn-pri}" />
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="{x:Type Button}">
+          <Grid>
+            <Border x:Name="border"
+                    Padding="{StaticResource pad-btn}"
+                    CornerRadius="{StaticResource round-btn}">
+              <ContentPresenter>
+              </ContentPresenter>
+            </Border>
+          </Grid>
+          <ControlTemplate.Triggers>
+            <Trigger SourceName="border"
+                     Property="IsMouseOver"
+                     Value="True">
+              <Setter TargetName="border"
+                      Property="Background"
+                      Value="{StaticResource bg-mouseover}" />
+            </Trigger>
+            <Trigger SourceName="border"
+                     Property="IsEnabled"
+                     Value="False">
+              <Setter TargetName="border"
+                      Property="Opacity"
+                      Value="{StaticResource opcity-btn-disable}" />
+            </Trigger>
+          </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
     <Style.Triggers>
       <Trigger Property="IsMouseOver"
                Value="True">
@@ -204,7 +264,7 @@
           <BeginStoryboard>
             <Storyboard>
               <DoubleAnimation Storyboard.TargetProperty="Opacity"
-                               To="{StaticResource opcity-btn-pri-mouseover}"
+                               To="{StaticResource opcity-btn-mouseover}"
                                Duration="{StaticResource ani-short}" />
             </Storyboard>
           </BeginStoryboard>
@@ -213,7 +273,7 @@
           <BeginStoryboard>
             <Storyboard>
               <DoubleAnimation Storyboard.TargetProperty="Opacity"
-                               To="{StaticResource opcity-btn-pri}"
+                               To="{StaticResource opcity-btn}"
                                Duration="{StaticResource ani-short}" />
             </Storyboard>
           </BeginStoryboard>
@@ -222,120 +282,9 @@
     </Style.Triggers>
   </Style>
 
-  <Style TargetType="Button"
-         x:Key="btn-adddoc"
-         BasedOn="{StaticResource btn-sm-tmp}">
-    <Setter Property="Template">
-      <Setter.Value>
-        <ControlTemplate TargetType="Button">
-          <Grid>
-            <Border Style="{StaticResource btn-st-bg}">
-              <Image Style="{StaticResource btn-st-img}">
-                <Image.Source>
-                  <DrawingImage Drawing="{DynamicResource sm_add}"></DrawingImage>
-                </Image.Source>
-              </Image>
-            </Border>
-          </Grid>
-        </ControlTemplate>
-      </Setter.Value>
-    </Setter>
-  </Style>
-
-  <Style TargetType="Button"
-         x:Key="btn-rmdoc"
-         BasedOn="{StaticResource btn-sm-tmp}">
-    <Setter Property="Template">
-      <Setter.Value>
-        <ControlTemplate TargetType="Button">
-          <Grid>
-            <Border Style="{StaticResource btn-st-bg}">
-              <Image Style="{StaticResource btn-st-img}">
-                <Image.Source>
-                  <DrawingImage Drawing="{DynamicResource sm_sub}"></DrawingImage>
-                </Image.Source>
-              </Image>
-            </Border>
-          </Grid>
-        </ControlTemplate>
-      </Setter.Value>
-    </Setter>
-  </Style>
-
-  <Style TargetType="Button"
-         x:Key="btn-config"
-         BasedOn="{StaticResource btn-sm-tmp}">
-    <Setter Property="Template">
-      <Setter.Value>
-        <ControlTemplate TargetType="Button">
-          <Grid>
-            <Border Style="{StaticResource btn-st-bg}">
-              <Image Style="{StaticResource btn-st-img}">
-                <Image.Source>
-                  <DrawingImage Drawing="{DynamicResource sm_config}"></DrawingImage>
-                </Image.Source>
-              </Image>
-            </Border>
-          </Grid>
-        </ControlTemplate>
-      </Setter.Value>
-    </Setter>
-  </Style>
-
-  <Style TargetType="Button"
-         x:Key="btn-pri-tmp">
-    <Setter Property="Width"
-            Value="{StaticResource sz-btn-pri}" />
-    <Setter Property="Height"
-            Value="{StaticResource sz-btn-pri}" />
-    <Style.Triggers>
-      <Trigger Property="IsEnabled"
-               Value="False">
-        <Trigger.Setters>
-          <Setter Property="Opacity"
-                  Value="{StaticResource opcity-btn-disable}" />
-        </Trigger.Setters>
-      </Trigger>
-      <Trigger Property="IsMouseOver"
-               Value="True">
-        <Trigger.EnterActions>
-          <BeginStoryboard>
-            <Storyboard>
-              <DoubleAnimation Storyboard.TargetProperty="Opacity"
-                               To="{StaticResource opcity-btn-pri-mouseover}"
-                               Duration="{StaticResource ani-short}" />
-            </Storyboard>
-          </BeginStoryboard>
-        </Trigger.EnterActions>
-        <Trigger.ExitActions>
-          <BeginStoryboard>
-            <Storyboard>
-              <DoubleAnimation Storyboard.TargetProperty="Opacity"
-                               To="{StaticResource opcity-btn-pri}"
-                               Duration="{StaticResource ani-short}" />
-            </Storyboard>
-          </BeginStoryboard>
-        </Trigger.ExitActions>
-      </Trigger>
-    </Style.Triggers>
-  </Style>
-
-  <Style TargetType="Button"
-         x:Key="btn-pri-convert"
-         BasedOn="{StaticResource btn-pri-tmp}">
-    <Setter Property="Template">
-      <Setter.Value>
-        <ControlTemplate TargetType="Button">
-          <Grid>
-            <Image Style="{StaticResource btn-st-img}">
-              <Image.Source>
-                <DrawingImage Drawing="{DynamicResource sm_r_run}"></DrawingImage>
-              </Image.Source>
-            </Image>
-          </Grid>
-        </ControlTemplate>
-      </Setter.Value>
-    </Setter>
+  <Style x:Key="btn-pri-convert"
+         TargetType="{x:Type Button}"
+         BasedOn="{StaticResource btn-pri}">
     <Style.Triggers>
       <DataTrigger Binding="{StaticResource app-status}"
                    Value="{x:Static local:APP_STATUS.INIT}">
@@ -368,22 +317,9 @@
     </Style.Triggers>
   </Style>
 
-  <Style TargetType="Button"
-         x:Key="btn-pri-reset"
-         BasedOn="{StaticResource btn-pri-tmp}">
-    <Setter Property="Template">
-      <Setter.Value>
-        <ControlTemplate TargetType="Button">
-          <Grid>
-            <Image Style="{StaticResource btn-st-img}">
-              <Image.Source>
-                <DrawingImage Drawing="{DynamicResource sm_r_check}"></DrawingImage>
-              </Image.Source>
-            </Image>
-          </Grid>
-        </ControlTemplate>
-      </Setter.Value>
-    </Setter>
+  <Style x:Key="btn-pri-reset"
+         TargetType="{x:Type Button}"
+         BasedOn="{StaticResource btn-pri}">
     <Style.Triggers>
       <DataTrigger Binding="{StaticResource app-status}"
                    Value="{x:Static local:APP_STATUS.INIT}">
@@ -416,22 +352,9 @@
     </Style.Triggers>
   </Style>
 
-  <Style TargetType="Button"
-         x:Key="btn-pri-stop"
-         BasedOn="{StaticResource btn-pri-tmp}">
-    <Setter Property="Template">
-      <Setter.Value>
-        <ControlTemplate TargetType="Button">
-          <Grid>
-            <Image Style="{StaticResource btn-st-img}">
-              <Image.Source>
-                <DrawingImage Drawing="{DynamicResource sm_r_stop}"></DrawingImage>
-              </Image.Source>
-            </Image>
-          </Grid>
-        </ControlTemplate>
-      </Setter.Value>
-    </Setter>
+  <Style x:Key="btn-pri-stop"
+         TargetType="{x:Type Button}"
+         BasedOn="{StaticResource btn-pri}">
     <Style.Triggers>
       <DataTrigger Binding="{StaticResource app-status}"
                    Value="{x:Static local:APP_STATUS.INIT}">

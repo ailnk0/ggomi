@@ -28,57 +28,105 @@
                     BottomRight="5"
                     BottomLeft="0" />
 
-      <Style x:Key="radio-st-bg"
-             TargetType="{x:Type Border}">
-        <Setter Property="CornerRadius"
-                Value="{StaticResource rad-btn-sec}" />
-        <Setter Property="Background"
-                Value="{StaticResource bg}" />
-        <Style.Triggers>
-          <Trigger Property="IsMouseOver"
-                   Value="True">
-            <Setter Property="Background"
-                    Value="{StaticResource bg-mouseover}" />
-          </Trigger>
-        </Style.Triggers>
-      </Style>
-
-      <Style x:Key="radio-st"
+      <Style x:Key="sf-radio"
              TargetType="{x:Type Button}">
-        <Setter Property="Margin"
-                Value="{StaticResource m-5}" />
+        <Setter Property="VerticalAlignment"
+                Value="Center" />
         <Setter Property="Template">
           <Setter.Value>
             <ControlTemplate TargetType="{x:Type Button}">
               <Grid>
-                <Border Style="{StaticResource radio-st-bg}">
-                  <ContentPresenter Margin="{StaticResource m-3}"
-                                    HorizontalAlignment="Center"
+                <Border x:Name="border"
+                        CornerRadius="{StaticResource round-btn}"
+                        Background="{StaticResource bg}">
+                  <ContentPresenter HorizontalAlignment="Center"
                                     VerticalAlignment="Center" />
                 </Border>
               </Grid>
+              <ControlTemplate.Triggers>
+                <Trigger SourceName="border"
+                         Property="IsMouseOver"
+                         Value="True">
+                  <Setter TargetName="border"
+                          Property="Background"
+                          Value="{StaticResource bg-mouseover}" />
+                </Trigger>
+                <Trigger SourceName="border"
+                         Property="IsEnabled"
+                         Value="False">
+                  <Setter TargetName="border"
+                          Property="Opacity"
+                          Value="{StaticResource opcity-btn-disable}" />
+                </Trigger>
+              </ControlTemplate.Triggers>
             </ControlTemplate>
           </Setter.Value>
         </Setter>
       </Style>
 
-      <Style x:Key="radio-sub-st"
-             TargetType="{x:Type Menu}">
+      <Style x:Key="sf-radio-sub"
+             TargetType="{x:Type Menu}"
+             BasedOn="{StaticResource menu}">
+        <Setter Property="Width"
+                Value="{StaticResource sz-w-radio-sub}" />
+        <Setter Property="Height"
+                Value="auto" />
+      </Style>
+
+      <Style x:Key="sf-radio-sub-i"
+             TargetType="{x:Type MenuItem}"
+             BasedOn="{StaticResource menu-i}">
+        <Setter Property="Width"
+                Value="{StaticResource sz-w-radio-sub}" />
+        <Setter Property="Height"
+                Value="auto" />
         <Setter Property="Template">
           <Setter.Value>
-            <ControlTemplate TargetType="{x:Type Menu}">
-              <Border CornerRadius="{StaticResource round-radio-sub}"
-                      Background="Transparent"
-                      BorderBrush="{StaticResource bg}"
-                      BorderThickness="{StaticResource border-radio-sub}">
-                <StackPanel ClipToBounds="True"
-                            Orientation="Horizontal"
-                            IsItemsHost="True" />
+            <ControlTemplate TargetType="{x:Type MenuItem}">
+              <Border x:Name="border"
+                      CornerRadius="{StaticResource round-radio-sub}"
+                      BorderThickness="{StaticResource border-radio-sub}"
+                      BorderBrush="{StaticResource bg}">
+                <Grid>
+                  <Border>
+                    <ContentPresenter ContentSource="Icon" />
+                  </Border>
+                  <Popup x:Name="Popup"
+                         Placement="Bottom"
+                         IsOpen="{TemplateBinding IsSubmenuOpen}"
+                         AllowsTransparency="True"
+                         PopupAnimation="Fade">
+                    <Border x:Name="SubmenuBorder"
+                            CornerRadius="{StaticResource round-btn}"
+                            Padding="{StaticResource m-1}"
+                            BorderThickness="1"
+                            BorderBrush="{StaticResource Gray_20}"
+                            Background="{StaticResource bg}">
+                      <StackPanel IsItemsHost="True"
+                                  KeyboardNavigation.DirectionalNavigation="Cycle" />
+                    </Border>
+                  </Popup>
+                </Grid>
               </Border>
+              <ControlTemplate.Triggers>
+                <Trigger Property="IsHighlighted"
+                         Value="True">
+                  <Setter TargetName="border"
+                          Property="Background"
+                          Value="{StaticResource bg-mouseover}" />
+                </Trigger>
+                <Trigger Property="IsEnabled"
+                         Value="False">
+                  <Setter TargetName="border"
+                          Property="Opacity"
+                          Value="{StaticResource opcity-btn-disable}" />
+                </Trigger>
+              </ControlTemplate.Triggers>
             </ControlTemplate>
           </Setter.Value>
         </Setter>
       </Style>
+
     </ResourceDictionary>
   </UserControl.Resources>
 
@@ -95,9 +143,10 @@
     <Button x:Name="IDC_SelDocx"
             Click="IDC_SelDocx_Click"
             Grid.Column="1"
-            Style="{StaticResource radio-st}"
+            Margin="{StaticResource m-2}"
+            Style="{StaticResource sf-radio}"
             ToolTip="{StaticResource IDS_CONV_TYPE_DOCX}">
-      <StackPanel>
+      <StackPanel Margin="{StaticResource m-1}">
         <Image Width="{StaticResource sz-w-radio-img}">
           <Image.Source>
             <DrawingImage Drawing="{DynamicResource lg_pdftodocxdlg}" />
@@ -113,9 +162,10 @@
     <Button x:Name="IDC_SelPptx"
             Click="IDC_SelPptx_Click"
             Grid.Column="2"
-            Style="{StaticResource radio-st}"
+            Margin="{StaticResource m-2}"
+            Style="{StaticResource sf-radio}"
             ToolTip="{StaticResource IDS_CONV_TYPE_PPTX}">
-      <StackPanel>
+      <StackPanel Margin="{StaticResource m-1}">
         <Image Width="{StaticResource sz-w-radio-img}">
           <Image.Source>
             <DrawingImage Drawing="{DynamicResource lg_pdftopptxdlg}" />
@@ -131,9 +181,10 @@
     <Button x:Name="IDC_SelXlsx"
             Click="IDC_SelXlsx_Click"
             Grid.Column="3"
-            Style="{StaticResource radio-st}"
+            Margin="{StaticResource m-2}"
+            Style="{StaticResource sf-radio}"
             ToolTip="{StaticResource IDS_CONV_TYPE_XLSX}">
-      <StackPanel>
+      <StackPanel Margin="{StaticResource m-1}">
         <Image Width="{StaticResource sz-w-radio-img}">
           <Image.Source>
             <DrawingImage Drawing="{DynamicResource lg_pdftoxlsxdlg}" />
@@ -149,10 +200,11 @@
     <Button x:Name="IDC_SelImg"
             Click="IDC_SelImg_Click"
             Grid.Column="4"
-            Style="{StaticResource radio-st}"
+            Margin="{StaticResource m-2}"
+            Style="{StaticResource sf-radio}"
             ToolTip="{StaticResource IDS_CONV_TYPE_IMG}">
       <StackPanel Orientation="Horizontal">
-        <StackPanel>
+        <StackPanel Margin="{StaticResource m-1}">
           <Image Width="{StaticResource sz-w-radio-img}">
             <Image.Source>
               <DrawingImage Drawing="{DynamicResource lg_pdftoimagedlg}" />
@@ -163,17 +215,12 @@
                        GroupName="RadioFormatGroup">
           </RadioButton>
         </StackPanel>
-        <Menu Style="{StaticResource radio-sub-st}">
+        <Menu Style="{StaticResource sf-radio-sub}">
           <MenuItem x:Name="IDC_SelImgType"
                     PreviewMouseDown="IDC_SelImgType_PreviewMouseDown"
-                    Width="{StaticResource sz-w-radio-sub}">
+                    Style="{StaticResource sf-radio-sub-i}">
             <MenuItem.Icon>
-              <Image RenderTransformOrigin="0.5,0.5">
-                <Image.RenderTransform>
-                  <TransformGroup>
-                    <TranslateTransform X="-4.5" />
-                  </TransformGroup>
-                </Image.RenderTransform>
+              <Image>
                 <Image.Source>
                   <DrawingImage Drawing="{DynamicResource sm_dropdown}" />
                 </Image.Source>
