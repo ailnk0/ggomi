@@ -19,16 +19,15 @@
     </ResourceDictionary>
   </Window.Resources>
 
-  <Grid Margin="{StaticResource m-3}">
+  <Grid Margin="{StaticResource m-5}">
     <Grid.ColumnDefinitions>
       <ColumnDefinition Width="75" />
       <ColumnDefinition />
     </Grid.ColumnDefinitions>
 
     <Grid Grid.Column="0"
-          Margin="{StaticResource m-2}">
-      <Image VerticalAlignment="Top"
-             Margin="{StaticResource m-2}">
+          Margin="{StaticResource m-3}">
+      <Image VerticalAlignment="Top">
         <Image.Source>
           <DrawingImage Drawing="{DynamicResource icon-hpdf}"></DrawingImage>
         </Image.Source>
@@ -36,29 +35,30 @@
     </Grid>
 
     <Grid Grid.Column="1"
-          Margin="{StaticResource m-2}">
-      <StackPanel VerticalAlignment="Top">
-        <TextBlock x:Name="IDC_AboutTitle"
+          Margin="{StaticResource m-1}">
+      <Grid.RowDefinitions>
+        <RowDefinition Height="auto" />
+        <RowDefinition Height="auto" />
+        <RowDefinition />
+      </Grid.RowDefinitions>
+      <TextBlock Grid.Row="0"
+                 Margin="{StaticResource m-2}"
+                 Text="{StaticResource IDS_APP_NAME}"
+                 TextWrapping="Wrap"
+                 FontSize="14"
+                 FontWeight="Bold" />
+      <TextBlock Grid.Row="1"
+                 Margin="{StaticResource m-2}"
+                 TextWrapping="Wrap"
+                 Text="{Binding Path=AppVersion}" />
+      <ScrollViewer Grid.Row="2"
+                    Margin="{StaticResource m-2}"
+                    HorizontalScrollBarVisibility="Disabled"
+                    VerticalScrollBarVisibility="Auto">
+        <TextBlock x:Name="IDC_AboutCopyright"
                    TextWrapping="Wrap"
-                   Text="{StaticResource IDS_APP_NAME}"
-                   FontSize="14"
-                   FontWeight="Bold"
-                   Margin="{StaticResource m-2}" />
-        <TextBlock x:Name="IDC_AboutVersion"
-                   TextWrapping="Wrap"
-                   Text="{Binding Path=AppVersion}"
-                   Margin="{StaticResource m-2}" />
-        <ScrollViewer MaxHeight="{StaticResource sz-h-selformat}"
-                      Margin="{StaticResource m-3}"
-                      Width="Auto"
-                      HorizontalScrollBarVisibility="Disabled"
-                      VerticalScrollBarVisibility="Auto">
-          <TextBlock x:Name="IDC_AboutCopyright"
-                     TextWrapping="Wrap"
-                     Text="{StaticResource IDS_COPYRIGHT}" />
-        </ScrollViewer>
-      </StackPanel>
+                   Text="{StaticResource IDS_COPYRIGHT}" />
+      </ScrollViewer>
     </Grid>
   </Grid>
-
 </Window>

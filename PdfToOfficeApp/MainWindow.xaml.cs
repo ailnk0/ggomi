@@ -350,6 +350,7 @@ namespace PdfToOfficeApp
         private void OnAbout(object sender, ExecutedRoutedEventArgs e)
         {
             AboutWindow aboutWin = new AboutWindow();
+            aboutWin.Owner = this;
             aboutWin.DataContext = GetModel();
             aboutWin.ShowDialog();
         }
@@ -362,6 +363,7 @@ namespace PdfToOfficeApp
         private void OnConfig(object sender, ExecutedRoutedEventArgs e)
         {
             ConfigWindow confWin = new ConfigWindow();
+            confWin.Owner = this;
             confWin.DataContext = GetModel();
             confWin.ShowDialog();
         }

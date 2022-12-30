@@ -7,8 +7,9 @@
         mc:Ignorable="d"
         Title="{StaticResource IDS_MENU_CONFIG}"
         d:DataContext="{d:DesignInstance Type=local:MainViewModel}"
-        Height="250"
-        Width="400">
+        ResizeMode="NoResize"
+        Height="300"
+        Width="300">
 
   <Window.Resources>
     <ResourceDictionary>
@@ -18,11 +19,20 @@
     </ResourceDictionary>
   </Window.Resources>
 
-  <Grid Margin="{StaticResource m-3}">
+  <Grid Margin="{StaticResource m-5}">
     <StackPanel>
       <Border Margin="{StaticResource m-2}">
         <StackPanel>
-          <CheckBox Margin="{StaticResource m-2}"
+          <CheckBox Style="{StaticResource check-slide}">
+            <TextBlock Text="{StaticResource IDS_OPT_DARK_THEME}"
+                       TextWrapping="Wrap" />
+          </CheckBox>
+        </StackPanel>
+      </Border>
+
+      <Border Margin="{StaticResource m-2}">
+        <StackPanel>
+          <CheckBox Style="{StaticResource check-slide}"
                     IsChecked="{Binding Path=AllowOverwrite}">
             <TextBlock Text="{StaticResource IDS_OPT_OVERWRITE}"
                        TextWrapping="Wrap" />
@@ -32,7 +42,7 @@
 
       <Border Margin="{StaticResource m-2}">
         <StackPanel>
-          <CheckBox Margin="{StaticResource m-2}"
+          <CheckBox Style="{StaticResource check-slide}"
                     IsChecked="{Binding Path=AllowUserDir}">
             <Grid>
               <Grid.RowDefinitions>
@@ -44,28 +54,25 @@
                          TextWrapping="Wrap" />
             </Grid>
           </CheckBox>
-          <Grid Margin="{StaticResource mx-2}"
-                Grid.Row="1"
+          <Grid Grid.Row="1"
+                Margin="{StaticResource m-1}"
                 IsEnabled="{Binding Path=AllowUserDir}">
             <Grid.ColumnDefinitions>
-              <ColumnDefinition Width="15" />
-              <ColumnDefinition Width="auto" />
               <ColumnDefinition />
               <ColumnDefinition Width="auto" />
+              <ColumnDefinition Width="auto" />
             </Grid.ColumnDefinitions>
-            <Label Grid.Column="1"
-                   VerticalAlignment="Center"
-                   Content="{StaticResource IDS_OPT_SAVE_DIR}" />
-            <TextBox Grid.Column="2"
+            <TextBox Grid.Column="0"
                      VerticalAlignment="Center"
-                     Margin="{StaticResource mx-2}"
                      IsReadOnly="True"
                      Background="{StaticResource bg-mouseover}"
                      Foreground="{StaticResource Gray_60}"
                      Text="{Binding Path=SaveDir}" />
-            <Menu Grid.Column="3"
-                  Style="{StaticResource menu}"
-                  Margin="{StaticResource mx-2}">
+            <Separator Grid.Column="1"
+                       Width="0"
+                       Margin="{StaticResource mx-2}" />
+            <Menu Grid.Column="2"
+                  Style="{StaticResource menu}">
               <MenuItem Header="{StaticResource IDS_OPT_SET_SAVE_DIR}"
                         ToolTip="{StaticResource IDS_OPT_SET_SAVE_DIR}"
                         Style="{StaticResource menu-i}">
