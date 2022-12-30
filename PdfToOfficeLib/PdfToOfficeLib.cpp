@@ -43,9 +43,6 @@ RES_CODE PdfToOfficeLib::InitializeSolidFramework() {
 void PdfToOfficeLib::DoProgress(
     SolidFramework::ProgressEventArgsPtr pProgressEventArgs) {
   int progress = pProgressEventArgs->GetProgress();
-  int maxProgress = pProgressEventArgs->GetMaxProgress();
-  SolidFramework::Interop::SolidErrorCodes statusCode =
-      pProgressEventArgs->GetStatusCode();
   String statusDesc = pProgressEventArgs->GetStatusDescription();
 
   int totalProgress = 0;
