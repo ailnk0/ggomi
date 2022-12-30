@@ -10,7 +10,15 @@
   <System:String x:Key="IDS_MENU_ABOUT">정보</System:String>
   <System:String x:Key="IDS_MENU_ADD">추가</System:String>
   <System:String x:Key="IDS_MENU_RM_SEL">선택한 항목을 목록에서 제거</System:String>
-
+  <System:String x:Key="IDS_MENU_CONVERT">변환하기</System:String>
+  <System:String x:Key="IDS_MENU_CANCEL">취소</System:String>
+  <System:String x:Key="IDS_MENU_OK">확인</System:String>
+  
+  <System:String x:Key="IDS_OPT_OVERWRITE">중복 시 덮어쓰기</System:String>
+  <System:String x:Key="IDS_OPT_USER_DIR">사용자 경로에 저장하기</System:String>
+  <System:String x:Key="IDS_OPT_SAVE_DIR">저장 경로</System:String>
+  <System:String x:Key="IDS_OPT_SET_SAVE_DIR">저장 경로 설정</System:String>
+  
   <System:String x:Key="IDS_COPYRIGHT">Copyright (c) 2022 GGOMI&#xA;&#xA;Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:&#xA;&#xA;1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.&#xA;&#xA;2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.&#xA;&#xA;THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</System:String>
 
   <System:String x:Key="IDS_CONV_TYPE_DOCX">DOCX 문서 형식으로 변환하기</System:String>

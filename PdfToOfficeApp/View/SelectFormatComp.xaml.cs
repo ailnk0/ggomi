@@ -5,11 +5,11 @@ using PdfToOfficeAppModule;
 namespace PdfToOfficeApp
 {
     /// <summary>
-    /// SelectFormat.xaml에 대한 상호 작용 논리
+    /// SelectFormatComp.xaml에 대한 상호 작용 논리
     /// </summary>
-    public partial class SelectFormat : UserControl
+    public partial class SelectFormatComp : UserControl
     {
-        public SelectFormat()
+        public SelectFormatComp()
         {
             InitializeComponent();
         }

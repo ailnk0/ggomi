@@ -10,12 +10,27 @@ namespace PdfToOfficeApp
         {
             base.OnInitialized(e);
 
+            Loaded += DocListBox_Loaded;
+        }
+
+        private void DocListBox_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        {
+            if (GetModel() == null)
+            {
+                return;
+            }
+
             GetModel().SelectedItems = SelectedItems;
         }
 
         protected override void OnItemsChanged(NotifyCollectionChangedEventArgs e)
         {
             base.OnItemsChanged(e);
+
+            if (GetModel() == null)
+            {
+                return;
+            }
 
             if (GetModel().Docs.Count > 0)
             {

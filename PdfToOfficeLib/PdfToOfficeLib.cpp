@@ -71,7 +71,8 @@ void PdfToOfficeLib::SetSite(IProgressSite* progressSite) {
 RES_CODE PdfToOfficeLib::DoConversion(const String& path,
                                       const String& password,
                                       FILE_TYPE fileFormat,
-                                      IMG_TYPE imageFormat) {
+                                      IMG_TYPE imageFormat,
+                                      bool overwrite) {
   String filePath = path;
   String outPath = Util::Path::GetDirName(path);
 
@@ -84,10 +85,13 @@ RES_CODE PdfToOfficeLib::DoConversion(const String& path,
           SolidFramework::Converters::Plumbing::ExcelDocumentType::XlsX);
       pConverter->AddSourceFile(filePath);
       pConverter->SetOutputDirectory(outPath);
-      pConverter->SetOverwriteMode(
-          SolidFramework::Plumbing::OverwriteMode::ForceOverwrite);
       pConverter->SetPassword(password);
       pConverter->OnProgress = &DoProgress;
+
+      if (overwrite) {
+        pConverter->SetOverwriteMode(
+            SolidFramework::Plumbing::OverwriteMode::ForceOverwrite);
+      }
 
       pConverter->Convert();
       status = static_cast<RES_CODE>(pConverter->GetResults()[0]->GetStatus());

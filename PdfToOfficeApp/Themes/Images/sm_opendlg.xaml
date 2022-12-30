@@ -1,0 +1,37 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+  <DrawingGroup x:Key="sm_opendlg">
+    <DrawingGroup.ClipGeometry>
+      <RectangleGeometry Rect="0,0,16,16" />
+    </DrawingGroup.ClipGeometry>
+    <DrawingGroup>
+      <GeometryDrawing Brush="#00000000">
+        <GeometryDrawing.Geometry>
+          <RectangleGeometry RadiusX="0"
+                             RadiusY="0"
+                             Rect="0,0,16,16" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+      <GeometryDrawing Brush="{DynamicResource Gray_60}">
+        <GeometryDrawing.Geometry>
+          <PathGeometry FillRule="EvenOdd"
+                        Figures="M0,1L5,1 7,3 14,3 14,6 13,6 13,4 6.58578644,4 4.585,2 1,2 1,10 0,14 0,1z" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+      <GeometryDrawing Brush="{DynamicResource Yellow_30}">
+        <GeometryDrawing.Geometry>
+          <PathGeometry FillRule="Nonzero"
+                        Figures="M14.718,7L14.718,7 2.781,7 1.281,13 13.218,13z" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+      <GeometryDrawing Brush="{DynamicResource Yellow_100}">
+        <GeometryDrawing.Geometry>
+          <PathGeometry FillRule="Nonzero"
+                        Figures="M16,6L14,14 0,14 2,6 16,6z M14.718,7L2.781,7 1.281,13 13.218,13 14.718,7z" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+    </DrawingGroup>
+  </DrawingGroup>
+
+</ResourceDictionary>

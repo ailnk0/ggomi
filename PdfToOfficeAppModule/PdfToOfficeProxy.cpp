@@ -43,13 +43,14 @@ RES_CODE PdfToOfficeProxy::InitializeSolidFramework() {
 RES_CODE PdfToOfficeProxy::DoConversion(System::String ^ path,
                                         System::String ^ password,
                                         FILE_TYPE fileType,
-                                        IMG_TYPE imageType) {
+                                        IMG_TYPE imageType,
+                                        bool overwrite) {
   try {
     return static_cast<RES_CODE>(lib->DoConversion(
         msclr::interop::marshal_as<HpdfToOffice::String>(path),
         msclr::interop::marshal_as<HpdfToOffice::String>(password),
         static_cast<HpdfToOffice::FILE_TYPE>(fileType),
-        static_cast<HpdfToOffice::IMG_TYPE>(imageType)));
+        static_cast<HpdfToOffice::IMG_TYPE>(imageType), overwrite));
   } catch (...) {
     return static_cast<RES_CODE>(HpdfToOffice::RES_CODE::Unknown);
   }

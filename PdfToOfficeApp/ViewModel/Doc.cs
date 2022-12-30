@@ -16,7 +16,7 @@ namespace PdfToOfficeApp
             Tooltip = filePath;
         }
 
-        private string _FilePath;
+        private string _FilePath = string.Empty;
         public string FilePath
         {
             get { return _FilePath; }
@@ -36,7 +36,7 @@ namespace PdfToOfficeApp
             }
         }
 
-        private string _FileName;
+        private string _FileName = string.Empty;
         public string FileName
         {
             get { return _FileName; }
@@ -47,7 +47,18 @@ namespace PdfToOfficeApp
             }
         }
 
-        private string _Tooltip;
+        private string _Password = string.Empty;
+        public string Password
+        {
+            get { return _Password; }
+            set
+            {
+                _Password = value;
+                OnPropertyChanged("Password");
+            }
+        }
+
+        private string _Tooltip = string.Empty;
         public string Tooltip
         {
             get { return _Tooltip; }

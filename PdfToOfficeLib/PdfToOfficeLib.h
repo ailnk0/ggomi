@@ -18,7 +18,8 @@ class PdfToOfficeLib {
   virtual RES_CODE DoConversion(const String& path,
                                 const String& password,
                                 FILE_TYPE fileFormat,
-                                IMG_TYPE imageFormat);
+                                IMG_TYPE imageFormat,
+                                bool overwrite);
 
  public:
   static void DoProgress(

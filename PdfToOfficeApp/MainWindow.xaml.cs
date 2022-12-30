@@ -17,7 +17,6 @@ namespace PdfToOfficeApp
     {
         private PdfToOfficeProxy pdfToOffice;
         private BackgroundWorker worker = new BackgroundWorker();
-        private ProgressSiteCli progressSiteCli { get; set; }
 
         public MainWindow()
         {
@@ -45,8 +44,6 @@ namespace PdfToOfficeApp
         {
             base.OnInitialized(e);
 
-            GetModel().AppVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
-
             AddCommandHandlers();
 
             ContentRendered += MainWindow_ContentRendered;
@@ -57,6 +54,9 @@ namespace PdfToOfficeApp
             worker.WorkerSupportsCancellation = true;
 
             pdfToOffice = new PdfToOfficeProxy();
+
+            GetModel().AppVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            GetModel().SaveDir = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
         }
 
         private void MainWindow_ContentRendered(object sender, EventArgs e)
@@ -90,7 +90,7 @@ namespace PdfToOfficeApp
                 GetModel().ConvFileType = FILE_TYPE.IMAGE;
                 GetModel().ConvImgType = IMG_TYPE.PNG;
             }
-            else if (strFileType == "jpg" || strFileType == "jepg")
+            else if (strFileType == "jpg" || strFileType == "jpeg")
             {
                 GetModel().ConvFileType = FILE_TYPE.IMAGE;
                 GetModel().ConvImgType = IMG_TYPE.JPEG;
@@ -102,13 +102,13 @@ namespace PdfToOfficeApp
             }
             else
             {
-                // TODO : Show error - invalid format
+                Console.WriteLine(Util.String.GetMsg(RES_CODE.PdfAError));
                 return;
             }
 
             if (strFilePath == null)
             {
-                // TODO : Show error - there is no file path
+                Console.WriteLine(Util.String.GetMsg(RES_CODE.IOError));
                 return;
             }
 
@@ -117,7 +117,7 @@ namespace PdfToOfficeApp
             string[] fileNames = { strFilePath };
 
             AddFileCommand.Execute(fileNames, this);
-            ConvertCommand.Execute(GetModel(), IDC_Button_PrimaryConvert);
+            ConvertCommand.Execute(null, this);
         }
 
         private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -127,9 +127,9 @@ namespace PdfToOfficeApp
 
         private void Worker_DoWork(object sender, DoWorkEventArgs e)
         {
-            MainViewModel viewModel = (MainViewModel)e.Argument;
+            MainViewModel model = (MainViewModel)e.Argument;
 
-            foreach (Doc doc in viewModel.Docs)
+            foreach (Doc doc in model.Docs)
             {
                 if (worker.CancellationPending)
                 {
@@ -144,9 +144,9 @@ namespace PdfToOfficeApp
 
                 doc.ConvStatus = CONV_STATUS.RUNNING;
 
-                progressSiteCli = new ProgressSiteCli(doc);
+                ProgressSiteCli progressSiteCli = new ProgressSiteCli(doc);
                 pdfToOffice.SetProgressSiteCli(progressSiteCli);
-                doc.ResCode = pdfToOffice.DoConversion(doc.FilePath, "", viewModel.ConvFileType, viewModel.ConvImgType);
+                doc.ResCode = pdfToOffice.DoConversion(doc.FilePath, doc.Password, model.ConvFileType, model.ConvImgType, model.AllowOverwrite);
 
                 if (doc.ResCode == RES_CODE.Success)
                 {
@@ -217,7 +217,7 @@ namespace PdfToOfficeApp
                 return;
             }
 
-            AddFileCommand.Execute(dialog.FileNames, IDC_DocListBox);
+            AddFileCommand.Execute(dialog.FileNames, this);
         }
 
         private void CanOpen(object sender, CanExecuteRoutedEventArgs e)
@@ -234,12 +234,12 @@ namespace PdfToOfficeApp
 
         private void OnConvert(object sender, ExecutedRoutedEventArgs e)
         {
-            RES_CODE errorStatus = pdfToOffice.InitializeSolidFramework();
-            if (errorStatus != RES_CODE.Success)
+            RES_CODE resCode = pdfToOffice.InitializeSolidFramework();
+            if (resCode != RES_CODE.Success)
             {
                 if (GetModel().ShowMsg)
                 {
-                    MessageBox.Show(Util.String.GetMsg(errorStatus));
+                    MessageBox.Show(Util.String.GetMsg(resCode));
                     return;
                 }
             }
@@ -368,7 +368,14 @@ namespace PdfToOfficeApp
 
         private void CanConfig(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = true;
+            if (GetModel().AppStatus != APP_STATUS.RUNNING)
+            {
+                e.CanExecute = true;
+            }
+            else
+            {
+                e.CanExecute = false;
+            }
         }
         #endregion
     }

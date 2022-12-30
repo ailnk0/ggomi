@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:PdfToOfficeApp"
         mc:Ignorable="d"
         Title="{StaticResource IDS_MENU_ABOUT}"
+        d:DataContext="{d:DesignInstance Type=local:MainViewModel}"
         ResizeMode="NoResize"
         Height="250"
         Width="400">

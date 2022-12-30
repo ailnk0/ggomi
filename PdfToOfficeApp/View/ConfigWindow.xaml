@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:PdfToOfficeApp"
         mc:Ignorable="d"
         Title="{StaticResource IDS_MENU_CONFIG}"
+        d:DataContext="{d:DesignInstance Type=local:MainViewModel}"
         Height="250"
         Width="400">
 
@@ -17,8 +18,70 @@
     </ResourceDictionary>
   </Window.Resources>
 
-  <Grid>
+  <Grid Margin="{StaticResource m-3}">
+    <StackPanel>
+      <Border Margin="{StaticResource m-2}">
+        <StackPanel>
+          <CheckBox Margin="{StaticResource m-2}"
+                    IsChecked="{Binding Path=AllowOverwrite}">
+            <TextBlock Text="{StaticResource IDS_OPT_OVERWRITE}"
+                       TextWrapping="Wrap" />
+          </CheckBox>
+        </StackPanel>
+      </Border>
 
+      <Border Margin="{StaticResource m-2}">
+        <StackPanel>
+          <CheckBox Margin="{StaticResource m-2}"
+                    IsChecked="{Binding Path=AllowUserDir}">
+            <Grid>
+              <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+              </Grid.RowDefinitions>
+              <TextBlock Grid.Row="0"
+                         Text="{StaticResource IDS_OPT_USER_DIR}"
+                         TextWrapping="Wrap" />
+            </Grid>
+          </CheckBox>
+          <Grid Margin="{StaticResource mx-2}"
+                Grid.Row="1"
+                IsEnabled="{Binding Path=AllowUserDir}">
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="15" />
+              <ColumnDefinition Width="auto" />
+              <ColumnDefinition />
+              <ColumnDefinition Width="auto" />
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="1"
+                   VerticalAlignment="Center"
+                   Content="{StaticResource IDS_OPT_SAVE_DIR}" />
+            <TextBox Grid.Column="2"
+                     VerticalAlignment="Center"
+                     Margin="{StaticResource mx-2}"
+                     IsReadOnly="True"
+                     Background="{StaticResource bg-mouseover}"
+                     Foreground="{StaticResource Gray_60}"
+                     Text="{Binding Path=SaveDir}" />
+            <Menu Grid.Column="3"
+                  Style="{StaticResource menu}"
+                  Margin="{StaticResource mx-2}">
+              <MenuItem Header="{StaticResource IDS_OPT_SET_SAVE_DIR}"
+                        ToolTip="{StaticResource IDS_OPT_SET_SAVE_DIR}"
+                        Style="{StaticResource menu-i}">
+                <MenuItem.Icon>
+                  <Image>
+                    <Image.Source>
+                      <DrawingImage Drawing="{DynamicResource sm_opendlg}" />
+                    </Image.Source>
+                  </Image>
+                </MenuItem.Icon>
+              </MenuItem>
+            </Menu>
+          </Grid>
+        </StackPanel>
+      </Border>
+    </StackPanel>
   </Grid>
 
 </Window>

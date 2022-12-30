@@ -106,26 +106,21 @@
       </Menu>
     </Grid>
 
-    <local:DocListBox x:Name="IDC_DocListBox"
-                      Grid.Row="1"
-                      AllowDrop="true"
-                      DataContext="{Binding Source={StaticResource main-vm}}"
-                      ItemsSource="{Binding Path=Docs}" />
+    <Border Grid.Row="1">
+      <local:DocListComp Margin="{StaticResource m-1}" />
+    </Border>
 
     <Border Grid.Row="2"
-            x:Name="IDC_Selector"
-            DataContext="{Binding Source={StaticResource main-vm}}"
             Style="{StaticResource div-selformat}"
             BorderBrush="{StaticResource Gray_20}"
             BorderThickness="0,1,0,0">
-      <local:SelectFormat x:Name="IDC_SelectFormat"
-                          Margin="{StaticResource m-1}" />
+      <local:SelectFormatComp Margin="{StaticResource m-1}" />
     </Border>
 
     <StackPanel Grid.Row="3">
-      <Button x:Name="IDC_Button_PrimaryConvert"
-              Margin="{StaticResource m-3}"
+      <Button Margin="{StaticResource m-3}"
               Style="{StaticResource btn-pri-convert}"
+              ToolTip="{StaticResource IDS_MENU_CONVERT}"
               Command="{x:Static local:MainWindow.ConvertCommand}">
         <Image>
           <Image.Source>
@@ -133,9 +128,9 @@
           </Image.Source>
         </Image>
       </Button>
-      <Button x:Name="IDC_Button_PrimaryStop"
-              Margin="{StaticResource m-3}"
+      <Button Margin="{StaticResource m-3}"
               Style="{StaticResource btn-pri-stop}"
+              ToolTip="{StaticResource IDS_MENU_CANCEL}"
               Command="{x:Static local:MainWindow.StopCommand}">
         <Image>
           <Image.Source>
@@ -143,9 +138,9 @@
           </Image.Source>
         </Image>
       </Button>
-      <Button x:Name="IDC_Button_PrimaryReset"
-              Margin="{StaticResource m-3}"
+      <Button Margin="{StaticResource m-3}"
               Style="{StaticResource btn-pri-reset}"
+              ToolTip="{StaticResource IDS_MENU_OK}"
               Command="{x:Static local:MainWindow.ResetCommand}">
         <Image>
           <Image.Source>
@@ -154,6 +149,5 @@
         </Image>
       </Button>
     </StackPanel>
-
   </Grid>
 </Window>

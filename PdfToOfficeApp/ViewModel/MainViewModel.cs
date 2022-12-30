@@ -91,7 +91,7 @@ namespace PdfToOfficeApp
             }
         }
 
-        private string _AppVersion;
+        private string _AppVersion = string.Empty;
         public string AppVersion
         {
             get { return _AppVersion; }
@@ -99,6 +99,39 @@ namespace PdfToOfficeApp
             {
                 _AppVersion = value;
                 OnPropertyChanged("AppVersion");
+            }
+        }
+
+        private string _SaveDir = string.Empty;
+        public string SaveDir
+        {
+            get { return _SaveDir; }
+            set
+            {
+                _SaveDir = value;
+                OnPropertyChanged("SaveDir");
+            }
+        }
+
+        private bool _AllowUserDir = false;
+        public bool AllowUserDir
+        {
+            get { return _AllowUserDir; }
+            set
+            {
+                _AllowUserDir = value;
+                OnPropertyChanged("AllowUserDir");
+            }
+        }
+
+        private bool _AllowOverwrite = true;
+        public bool AllowOverwrite
+        {
+            get { return _AllowOverwrite; }
+            set
+            {
+                _AllowOverwrite = value;
+                OnPropertyChanged("AllowOverwrite");
             }
         }
     }

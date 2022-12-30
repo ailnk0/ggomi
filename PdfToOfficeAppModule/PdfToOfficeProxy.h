@@ -27,7 +27,8 @@ ref class PdfToOfficeProxy {
   virtual RES_CODE DoConversion(System::String ^ path,
                                 System::String ^ password,
                                 FILE_TYPE fileType,
-                                IMG_TYPE imageType);
+                                IMG_TYPE imageType,
+                                bool overwrite);
 
  private:
   HpdfToOffice::PdfToOfficeLib* lib = nullptr;

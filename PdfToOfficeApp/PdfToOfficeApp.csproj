@@ -98,8 +98,11 @@
       <DependentUpon>ConfigWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\DocListBox.cs" />
-    <Compile Include="View\SelectFormat.xaml.cs">
-      <DependentUpon>SelectFormat.xaml</DependentUpon>
+    <Compile Include="View\DocListComp.xaml.cs">
+      <DependentUpon>DocListComp.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\SelectFormatComp.xaml.cs">
+      <DependentUpon>SelectFormatComp.xaml</DependentUpon>
     </Compile>
     <Compile Include="Misc\Util.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
@@ -111,6 +114,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Themes\Images\sm_opendlg.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="View\AboutWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -119,7 +126,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\SelectFormat.xaml">
+    <Page Include="View\DocListComp.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\SelectFormatComp.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
