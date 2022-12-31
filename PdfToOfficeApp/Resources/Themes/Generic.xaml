@@ -104,6 +104,12 @@
   <Thickness x:Key="m-4">15</Thickness>
   <Thickness x:Key="m-5">20</Thickness>
 
+  <Thickness x:Key="mr-1"
+             Left="0"
+             Top="0"
+             Right="2.5"
+             Bottom="0" />
+
   <Thickness x:Key="mx-2"
              Left="5"
              Top="0"
@@ -555,6 +561,22 @@
         </ControlTemplate>
       </Setter.Value>
     </Setter>
+  </Style>
+
+  <Style x:Key="text-readonly"
+         TargetType="{x:Type TextBox}">
+    <Setter Property="IsReadOnly"
+            Value="True" />
+    <Setter Property="BorderThickness"
+            Value="0" />
+    <Setter Property="Padding"
+            Value="{DynamicResource m-2}" />
+    <Setter Property="Background"
+            Value="{DynamicResource bg-mouseover}" />
+    <Setter Property="Foreground"
+            Value="{DynamicResource Gray_60}" />
+    <Setter Property="TextWrapping"
+            Value="Wrap" />
   </Style>
 
 </ResourceDictionary>

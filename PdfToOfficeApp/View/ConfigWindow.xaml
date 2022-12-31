@@ -52,7 +52,6 @@
             </Grid>
           </CheckBox>
           <Grid Grid.Row="1"
-                Margin="{StaticResource m-1}"
                 IsEnabled="{Binding Path=IsSaveToUserDir}">
             <Grid.ColumnDefinitions>
               <ColumnDefinition />
@@ -61,14 +60,21 @@
             </Grid.ColumnDefinitions>
             <TextBox Grid.Column="0"
                      VerticalAlignment="Center"
-                     IsReadOnly="True"
-                     Background="{DynamicResource bg-mouseover}"
-                     Foreground="{DynamicResource Gray_60}"
-                     Text="{Binding Path=UserDir}" />
-            <Separator Grid.Column="1"
-                       Width="0"
-                       Margin="{StaticResource mx-2}" />
+                     Text="{Binding Path=UserDir}"
+                     Style="{StaticResource text-readonly}">
+              <TextBox.Resources>
+                <Style TargetType="{x:Type Border}">
+                  <Setter Property="CornerRadius"
+                          Value="{StaticResource round-btn}" />
+                </Style>
+              </TextBox.Resources>
+            </TextBox>
+
+            <Border Grid.Column="1"
+                    Margin="{StaticResource mr-1}" />
+
             <Menu Grid.Column="2"
+                  VerticalAlignment="Center"
                   Style="{StaticResource menu}">
               <MenuItem Header="{DynamicResource IDS_OPT_SAVE_DIR}"
                         ToolTip="{DynamicResource IDS_OPT_SAVE_DIR}"
