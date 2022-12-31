@@ -56,6 +56,14 @@ RES_CODE PdfToOfficeProxy::DoConversion(System::String ^ path,
   }
 }
 
+void PdfToOfficeProxy::SetIsSaveToUserDir(bool allow) {
+  lib->SetIsSaveToUserDir(allow);
+}
+
+void PdfToOfficeProxy::SetUserDir(System::String ^ path) {
+  lib->SetUserDir(msclr::interop::marshal_as<HpdfToOffice::String>(path));
+}
+
 ProgressSiteProxy::ProgressSiteProxy(gcroot<IProgressSiteCli ^> site) {
   m_Site = site;
 }

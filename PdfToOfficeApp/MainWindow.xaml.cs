@@ -56,7 +56,7 @@ namespace PdfToOfficeApp
             pdfToOffice = new PdfToOfficeProxy();
 
             GetModel().AppVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
-            GetModel().SaveDir = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            GetModel().UserDir = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
         }
 
         private void MainWindow_ContentRendered(object sender, EventArgs e)
@@ -146,6 +146,10 @@ namespace PdfToOfficeApp
 
                 ProgressSiteCli progressSiteCli = new ProgressSiteCli(doc);
                 pdfToOffice.SetProgressSiteCli(progressSiteCli);
+
+                pdfToOffice.SetIsSaveToUserDir(model.IsSaveToUserDir);
+                pdfToOffice.SetUserDir(model.UserDir);
+
                 doc.ResCode = pdfToOffice.DoConversion(doc.FilePath, doc.Password, model.ConvFileType, model.ConvImgType, model.AllowOverwrite);
 
                 if (doc.ResCode == RES_CODE.Success)

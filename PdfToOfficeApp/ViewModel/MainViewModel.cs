@@ -102,25 +102,25 @@ namespace PdfToOfficeApp
             }
         }
 
-        private string _SaveDir = string.Empty;
-        public string SaveDir
+        private string _UserDir = string.Empty;
+        public string UserDir
         {
-            get { return _SaveDir; }
+            get { return _UserDir; }
             set
             {
-                _SaveDir = value;
-                OnPropertyChanged("SaveDir");
+                _UserDir = value;
+                OnPropertyChanged("UserDir");
             }
         }
 
-        private bool _AllowUserDir = false;
-        public bool AllowUserDir
+        private bool _IsSaveToUserDir = false;
+        public bool IsSaveToUserDir
         {
-            get { return _AllowUserDir; }
+            get { return _IsSaveToUserDir; }
             set
             {
-                _AllowUserDir = value;
-                OnPropertyChanged("AllowUserDir");
+                _IsSaveToUserDir = value;
+                OnPropertyChanged("IsSaveToUserDir");
             }
         }
 

@@ -39,7 +39,7 @@
       <Border Margin="{StaticResource m-1}">
         <StackPanel>
           <CheckBox Style="{StaticResource check-slide}"
-                    IsChecked="{Binding Path=AllowUserDir}">
+                    IsChecked="{Binding Path=IsSaveToUserDir}">
             <Grid>
               <Grid.RowDefinitions>
                 <RowDefinition />
@@ -53,7 +53,7 @@
           </CheckBox>
           <Grid Grid.Row="1"
                 Margin="{StaticResource m-1}"
-                IsEnabled="{Binding Path=AllowUserDir}">
+                IsEnabled="{Binding Path=IsSaveToUserDir}">
             <Grid.ColumnDefinitions>
               <ColumnDefinition />
               <ColumnDefinition Width="auto" />
@@ -64,7 +64,7 @@
                      IsReadOnly="True"
                      Background="{DynamicResource bg-mouseover}"
                      Foreground="{DynamicResource Gray_60}"
-                     Text="{Binding Path=SaveDir}" />
+                     Text="{Binding Path=UserDir}" />
             <Separator Grid.Column="1"
                        Width="0"
                        Margin="{StaticResource mx-2}" />
@@ -72,7 +72,8 @@
                   Style="{StaticResource menu}">
               <MenuItem Header="{DynamicResource IDS_OPT_SAVE_DIR}"
                         ToolTip="{DynamicResource IDS_OPT_SAVE_DIR}"
-                        Style="{StaticResource menu-i}">
+                        Style="{StaticResource menu-i}"
+                        Command="{x:Static local:ConfigWindow.SelUserDirCommand}">
                 <MenuItem.Icon>
                   <Image>
                     <Image.Source>

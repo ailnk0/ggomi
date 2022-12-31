@@ -14,7 +14,7 @@ using namespace SolidFramework::Converters::Plumbing;
 
 namespace HpdfToOffice {
 
-IProgressSite* PdfToOfficeLib::m_ProgressSite = nullptr;
+IProgressSite* PdfToOfficeLib::s_ProgressSite = nullptr;
 
 RES_CODE PdfToOfficeLib::InitializeSolidFramework() {
   SolidFramework::SupportPlatformIndependentPaths(true);
@@ -56,13 +56,13 @@ void PdfToOfficeLib::DoProgress(
     totalProgress = 75 + (progress / 4);
   }
 
-  if (m_ProgressSite) {
-    m_ProgressSite->SetPercent(totalProgress);
+  if (s_ProgressSite) {
+    s_ProgressSite->SetPercent(totalProgress);
   }
 }
 
 void PdfToOfficeLib::SetSite(IProgressSite* progressSite) {
-  m_ProgressSite = progressSite;
+  s_ProgressSite = progressSite;
 }
 
 RES_CODE PdfToOfficeLib::DoConversion(const String& path,
@@ -71,7 +71,13 @@ RES_CODE PdfToOfficeLib::DoConversion(const String& path,
                                       IMG_TYPE imageFormat,
                                       bool overwrite) {
   String filePath = path;
-  String outPath = Util::Path::GetDirName(path);
+
+  String outPath;
+  if (m_IsSaveToUserDir && !m_UserDir.empty()) {
+    outPath = m_UserDir;
+  } else {
+    outPath = Util::Path::GetDirName(path);
+  }
 
   RES_CODE status = RES_CODE::Success;
   try {
@@ -175,4 +181,13 @@ RES_CODE PdfToOfficeLib::DoConversion(const String& path,
 
   return status;
 }
+
+void PdfToOfficeLib::SetIsSaveToUserDir(bool allow) {
+  m_IsSaveToUserDir = allow;
+}
+
+void PdfToOfficeLib::SetUserDir(const String& path) {
+  m_UserDir = path;
+}
+
 }  // namespace HpdfToOffice

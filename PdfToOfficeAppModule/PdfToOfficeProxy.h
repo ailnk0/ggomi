@@ -29,6 +29,8 @@ ref class PdfToOfficeProxy {
                                 FILE_TYPE fileType,
                                 IMG_TYPE imageType,
                                 bool overwrite);
+  virtual void SetIsSaveToUserDir(bool allow);
+  virtual void SetUserDir(System::String ^ path);
 
  private:
   HpdfToOffice::PdfToOfficeLib* lib = nullptr;

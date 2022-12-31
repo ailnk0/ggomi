@@ -8,7 +8,11 @@ namespace HpdfToOffice {
 
 class PdfToOfficeLib {
  private:
-  static IProgressSite* m_ProgressSite;
+  static IProgressSite* s_ProgressSite;
+
+ private:
+  bool m_IsSaveToUserDir = false;
+  String m_UserDir;
 
  public:
   PdfToOfficeLib() = default;
@@ -20,6 +24,8 @@ class PdfToOfficeLib {
                                 FILE_TYPE fileFormat,
                                 IMG_TYPE imageFormat,
                                 bool overwrite);
+  virtual void SetIsSaveToUserDir(bool allow);
+  virtual void SetUserDir(const String& path);
 
  public:
   static void DoProgress(
