@@ -2,9 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:System="clr-namespace:System;assembly=mscorlib"
                     xml:space="preserve">
-
   <System:String x:Key="IDS_APP_NAME">PDF를 오피스 문서로 변환하기</System:String>
-
   <System:String x:Key="IDS_MENU">메뉴</System:String>
   <System:String x:Key="IDS_MENU_CONFIG">설정</System:String>
   <System:String x:Key="IDS_MENU_ABOUT">정보</System:String>
@@ -13,18 +11,14 @@
   <System:String x:Key="IDS_MENU_CONVERT">변환하기</System:String>
   <System:String x:Key="IDS_MENU_CANCEL">취소</System:String>
   <System:String x:Key="IDS_MENU_OK">확인</System:String>
-  
   <System:String x:Key="IDS_OPT_DARK_THEME">어두운 테마</System:String>
-  <System:String x:Key="IDS_OPT_OVERWRITE">중복 시 덮어쓰기</System:String>
-  <System:String x:Key="IDS_OPT_USER_DIR">사용자 경로에 저장하기</System:String>
+  <System:String x:Key="IDS_OPT_OVERWRITE">덮어쓰기</System:String>
+  <System:String x:Key="IDS_OPT_SAVE_TO_USER_DIR">사용자 경로에 저장하기</System:String>
   <System:String x:Key="IDS_OPT_SAVE_DIR">저장 경로</System:String>
-  <System:String x:Key="IDS_OPT_SET_SAVE_DIR">저장 경로 설정</System:String>
   <System:String x:Key="IDS_OPT_LANG">언어</System:String>
   <System:String x:Key="IDS_OPT_LANG_KO_KR">한국어</System:String>
   <System:String x:Key="IDS_OPT_LANG_EN_US">영어 (미국)</System:String>
-  
   <System:String x:Key="IDS_COPYRIGHT">Copyright (c) 2022 GGOMI&#xA;&#xA;Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:&#xA;&#xA;1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.&#xA;&#xA;2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.&#xA;&#xA;THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</System:String>
-
   <System:String x:Key="IDS_CONV_TYPE_DOCX">DOCX 문서 형식으로 변환하기</System:String>
   <System:String x:Key="IDS_CONV_TYPE_PPTX">PPTX 문서 형식으로 변환하기</System:String>
   <System:String x:Key="IDS_CONV_TYPE_XLSX">XLSX 문서 형식으로 변환하기</System:String>
@@ -32,7 +26,6 @@
   <System:String x:Key="IDS_TYPE_PNG">PNG</System:String>
   <System:String x:Key="IDS_TYPE_JPEG">JPG</System:String>
   <System:String x:Key="IDS_TYPE_GIF">GIF</System:String>
-
   <System:String x:Key="IDS_HNC_PDFSDK_MSG_CONVERSION_SUCCESS">성공적으로 변환하였습니다.</System:String>
   <System:String x:Key="IDS_HNC_PDFSDK_MSG_CONVERSION_FAIL">PDF 파일을 변환하지 못했습니다.</System:String>
   <System:String x:Key="IDS_HNC_PDFSDK_MSG_WARNING_NOTIFY">PDF를 편집 가능한 문서로 변환할 수 있으며, 변환 시 약간의 시간이 소요될 수 있습니다. &#xA;변환하는 동안 일부 속성이 변경되어 원본 PDF 파일과 내용이 달라질 수 있습니다.</System:String>
@@ -47,5 +40,4 @@
   <System:String x:Key="IDS_HNC_PDFSDK_MSG_WARNING_NOTIFY_LIMIT">PDF를 편집 가능한 문서로 변환할 수 있으며, 변환 시 약간의 시간이 소요될 수 있습니다. &#xA;변환하는 동안 일부 속성이 변경되어 원본 PDF 파일과 내용이 달라질 수 있습니다. &#xA;대용량 문서는 최대 %d쪽까지 변환할 수 있습니다.</System:String>
   <System:String x:Key="IDS_ConvertUserCancelMessage">문서로 변환하기를 취소했습니다.</System:String>
   <System:String x:Key="IDS_ConvertStopMessage">작업을 중지하는 동안 잠시만 기다려 주세요.</System:String>
-
 </ResourceDictionary>

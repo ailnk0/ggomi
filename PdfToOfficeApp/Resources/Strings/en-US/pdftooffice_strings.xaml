@@ -2,29 +2,23 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:System="clr-namespace:System;assembly=mscorlib"
                     xml:space="preserve">
-
-  <System:String x:Key="IDS_APP_NAME">Convert PDF to office document</System:String>
-
+  <System:String x:Key="IDS_APP_NAME">Convert PDF to Office Document</System:String>
   <System:String x:Key="IDS_MENU">Menu</System:String>
   <System:String x:Key="IDS_MENU_CONFIG">Config</System:String>
   <System:String x:Key="IDS_MENU_ABOUT">About</System:String>
   <System:String x:Key="IDS_MENU_ADD">Add</System:String>
-  <System:String x:Key="IDS_MENU_RM_SEL">Remove</System:String>
+  <System:String x:Key="IDS_MENU_RM_SEL">Remove Selected Item from List</System:String>
   <System:String x:Key="IDS_MENU_CONVERT">Convert</System:String>
   <System:String x:Key="IDS_MENU_CANCEL">Cancel</System:String>
   <System:String x:Key="IDS_MENU_OK">OK</System:String>
-  
   <System:String x:Key="IDS_OPT_DARK_THEME">Dark Theme</System:String>
   <System:String x:Key="IDS_OPT_OVERWRITE">Overwrite</System:String>
-  <System:String x:Key="IDS_OPT_USER_DIR">User Save Location</System:String>
-  <System:String x:Key="IDS_OPT_SAVE_DIR">Save Location</System:String>
-  <System:String x:Key="IDS_OPT_SET_SAVE_DIR">Set Save Location</System:String>
+  <System:String x:Key="IDS_OPT_SAVE_TO_USER_DIR">Save to User Path</System:String>
+  <System:String x:Key="IDS_OPT_SAVE_DIR">Save Path</System:String>
   <System:String x:Key="IDS_OPT_LANG">Language</System:String>
   <System:String x:Key="IDS_OPT_LANG_KO_KR">Korean</System:String>
   <System:String x:Key="IDS_OPT_LANG_EN_US">English (US)</System:String>
-  
   <System:String x:Key="IDS_COPYRIGHT">Copyright (c) 2022 GGOMI&#xA;&#xA;Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:&#xA;&#xA;1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.&#xA;&#xA;2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.&#xA;&#xA;THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</System:String>
-
   <System:String x:Key="IDS_CONV_TYPE_DOCX">Convert to DOCX</System:String>
   <System:String x:Key="IDS_CONV_TYPE_PPTX">Convert to PPTX</System:String>
   <System:String x:Key="IDS_CONV_TYPE_XLSX">Convert to XLSX</System:String>
@@ -32,20 +26,19 @@
   <System:String x:Key="IDS_TYPE_PNG">PNG</System:String>
   <System:String x:Key="IDS_TYPE_JPEG">JPG</System:String>
   <System:String x:Key="IDS_TYPE_GIF">GIF</System:String>
-
-  <System:String x:Key="IDS_HNC_PDFSDK_MSG_CONVERSION_SUCCESS">성공적으로 변환하였습니다.</System:String>
-  <System:String x:Key="IDS_HNC_PDFSDK_MSG_CONVERSION_FAIL">PDF 파일을 변환하지 못했습니다.</System:String>
-  <System:String x:Key="IDS_HNC_PDFSDK_MSG_WARNING_NOTIFY">PDF를 편집 가능한 문서로 변환할 수 있으며, 변환 시 약간의 시간이 소요될 수 있습니다. &#xA;변환하는 동안 일부 속성이 변경되어 원본 PDF 파일과 내용이 달라질 수 있습니다.</System:String>
-  <System:String x:Key="IDS_HNC_PDFSDK_MSG_PASSWORD_PROTECT">암호가 설정된 문서는 변환할 수 없습니다.</System:String>
-  <System:String x:Key="IDS_HNC_PDFSDK_MSG_UNSUPPORT_FORMAT">지원하지 않는 PDF 파일 형식입니다.</System:String>
-  <System:String x:Key="IDS_HNC_PDFSDK_MSG_BAD_FILE">PDF 파일을 변환하지 못했습니다. 손상되었거나 잘못된 파일입니다.</System:String>
-  <System:String x:Key="IDS_HNC_PDFSDK_MSG_CONVERSION_ERROR">변환 과정에서 오류가 발생하였습니다.</System:String>
-  <System:String x:Key="IDS_HNC_PDFSDK_MSG_FILE_IO_ERROR">파일이 없거나 해당 경로에 접근할 수 없습니다.</System:String>
-  <System:String x:Key="IDS_HNC_PDFSDK_MSG_FILE_LOCKED">파일이 존재하지 않거나 이미 열려 있는 문서입니다.</System:String>
-  <System:String x:Key="IDS_HNC_PDFSDK_MSG_NO_TABLES_TO_EXTRACT">표가 없는 문서는 [표만 변환하기] 옵션을 적용할 수 없습니다.&#xA;[PDF 변환하기-설정] 대화 상자에서 [표만 변환하기] 옵션을 해제하세요.</System:String>
-  <System:String x:Key="IDS_HNC_PDFSDK_MSG_NO_IMAGES_TO_EXTRACT">이미지가 없는 문서는 [PDF 내 이미지만 변환] 옵션을 적용할 수 없습니다.&#xA;[PDF 변환하기-설정] 대화 상자에서 [이미지 변환 설정]을 변경하세요.</System:String>
-  <System:String x:Key="IDS_HNC_PDFSDK_MSG_WARNING_NOTIFY_LIMIT">PDF를 편집 가능한 문서로 변환할 수 있으며, 변환 시 약간의 시간이 소요될 수 있습니다. &#xA;변환하는 동안 일부 속성이 변경되어 원본 PDF 파일과 내용이 달라질 수 있습니다. &#xA;대용량 문서는 최대 %d쪽까지 변환할 수 있습니다.</System:String>
-  <System:String x:Key="IDS_ConvertUserCancelMessage">문서로 변환하기를 취소했습니다.</System:String>
-  <System:String x:Key="IDS_ConvertStopMessage">작업을 중지하는 동안 잠시만 기다려 주세요.</System:String>
-
+  <System:String x:Key="IDS_HNC_PDFSDK_MSG_CONVERSION_SUCCESS">Converted successfully.</System:String>
+  <System:String x:Key="IDS_HNC_PDFSDK_MSG_CONVERSION_FAIL">Failed to convert the PDF file.</System:String>
+  <System:String x:Key="IDS_HNC_PDFSDK_MSG_WARNING_NOTIFY">It will convert your PDF to an editable document, and this may also take a while. &#xA;Some properties of this file may be changed while it converts and it may become different than the PDF file.</System:String>
+  <System:String x:Key="IDS_HNC_PDFSDK_MSG_PASSWORD_PROTECT">Password-protected document cannot be converted.</System:String>
+  <System:String x:Key="IDS_HNC_PDFSDK_MSG_UNSUPPORT_FORMAT">This PDF file is in an unsupported format.</System:String>
+  <System:String x:Key="IDS_HNC_PDFSDK_MSG_BAD_FILE">Failed to convert the PDF file. The file may be corrupted or invalid.</System:String>
+  <System:String x:Key="IDS_HNC_PDFSDK_MSG_CONVERSION_ERROR">An error has occurred during the conversion process.</System:String>
+  <System:String x:Key="IDS_HNC_PDFSDK_MSG_FILE_IO_ERROR">File does not exist or path cannot be accessed.</System:String>
+  <System:String x:Key="IDS_HNC_PDFSDK_MSG_FILE_LOCKED">File does not exist or is already open.</System:String>
+  <System:String x:Key="IDS_HNC_PDFSDK_MSG_NO_TABLES_TO_EXTRACT">Convert Tables Only option cannot be applied to a document without tables.&#xA;Uncheck Convert Tables Only option in the Convert PDF > Settings dialog box.</System:String>
+  <System:String x:Key="IDS_HNC_PDFSDK_MSG_NO_IMAGES_TO_EXTRACT">Convert Only Images in PDF option cannot be applied to a document without images.&#xA;Change Convert Image Setting option in the Convert PDF > Settings dialog box.</System:String>
+  <System:String x:Key="IDS_HNC_PDFSDK_MSG_WARNING_NOTIFY_LIMIT">It will convert your PDF to an editable document, and this may also take a while. &#xA;Some properties of this file may be changed while it converts and it may become different than the PDF file. &#xA;If you are converting a huge document, it could be converted up to %d page.</System:String>
+  <System:String x:Key="IDS_PdfConverter_Convert">Being Converted File</System:String>    
+  <System:String x:Key="IDS_ConvertUserCancelMessage">Converting to a document has been canceled.</System:String>
+  <System:String x:Key="IDS_ConvertStopMessage">Please wait while stopping the operation.</System:String>
 </ResourceDictionary>

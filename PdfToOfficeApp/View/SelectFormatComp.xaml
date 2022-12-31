@@ -5,14 +5,14 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:PdfToOfficeApp"
              xmlns:module="clr-namespace:PdfToOfficeAppModule;assembly=PdfToOfficeAppModule"
-             xmlns:system="clr-namespace:System;assembly=mscorlib"
+             xmlns:System="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance Type=local:MainViewModel}">
 
   <UserControl.Resources>
     <ResourceDictionary>
-      <system:Double x:Key="sz-w-radio-img">50</system:Double>
-      <system:Double x:Key="sz-w-radio-sub">15</system:Double>
+      <System:Double x:Key="sz-w-radio-img">50</System:Double>
+      <System:Double x:Key="sz-w-radio-sub">15</System:Double>
       <Thickness x:Key="border-radio-sub"
                  Left="1"
                  Top="0"

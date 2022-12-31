@@ -46,7 +46,7 @@
                 <RowDefinition />
               </Grid.RowDefinitions>
               <TextBlock Grid.Row="0"
-                         Text="{DynamicResource IDS_OPT_USER_DIR}"
+                         Text="{DynamicResource IDS_OPT_SAVE_TO_USER_DIR}"
                          Foreground="{DynamicResource Gray_100}"
                          TextWrapping="Wrap" />
             </Grid>
@@ -70,8 +70,8 @@
                        Margin="{StaticResource mx-2}" />
             <Menu Grid.Column="2"
                   Style="{StaticResource menu}">
-              <MenuItem Header="{DynamicResource IDS_OPT_SET_SAVE_DIR}"
-                        ToolTip="{DynamicResource IDS_OPT_SET_SAVE_DIR}"
+              <MenuItem Header="{DynamicResource IDS_OPT_SAVE_DIR}"
+                        ToolTip="{DynamicResource IDS_OPT_SAVE_DIR}"
                         Style="{StaticResource menu-i}">
                 <MenuItem.Icon>
                   <Image>
