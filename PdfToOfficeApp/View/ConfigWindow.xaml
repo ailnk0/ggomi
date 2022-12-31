@@ -6,25 +6,20 @@
         xmlns:local="clr-namespace:PdfToOfficeApp"
         mc:Ignorable="d"
         Title="{StaticResource IDS_MENU_CONFIG}"
+        Background="{DynamicResource bg}"
         d:DataContext="{d:DesignInstance Type=local:MainViewModel}"
         ResizeMode="NoResize"
         Height="300"
         Width="300">
 
-  <Window.Resources>
-    <ResourceDictionary>
-      <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="../Themes/Generic.xaml" />
-      </ResourceDictionary.MergedDictionaries>
-    </ResourceDictionary>
-  </Window.Resources>
-
   <Grid Margin="{StaticResource m-5}">
     <StackPanel>
       <Border Margin="{StaticResource m-2}">
         <StackPanel>
-          <CheckBox Style="{StaticResource check-slide}">
+          <CheckBox Style="{StaticResource check-slide}"
+                    IsChecked="{Binding Path=AllowDarkTheme}">
             <TextBlock Text="{StaticResource IDS_OPT_DARK_THEME}"
+                       Foreground="{DynamicResource Gray_100}"
                        TextWrapping="Wrap" />
           </CheckBox>
         </StackPanel>
@@ -35,6 +30,7 @@
           <CheckBox Style="{StaticResource check-slide}"
                     IsChecked="{Binding Path=AllowOverwrite}">
             <TextBlock Text="{StaticResource IDS_OPT_OVERWRITE}"
+                       Foreground="{DynamicResource Gray_100}"
                        TextWrapping="Wrap" />
           </CheckBox>
         </StackPanel>
@@ -51,6 +47,7 @@
               </Grid.RowDefinitions>
               <TextBlock Grid.Row="0"
                          Text="{StaticResource IDS_OPT_USER_DIR}"
+                         Foreground="{DynamicResource Gray_100}"
                          TextWrapping="Wrap" />
             </Grid>
           </CheckBox>
@@ -65,8 +62,8 @@
             <TextBox Grid.Column="0"
                      VerticalAlignment="Center"
                      IsReadOnly="True"
-                     Background="{StaticResource bg-mouseover}"
-                     Foreground="{StaticResource Gray_60}"
+                     Background="{DynamicResource bg-mouseover}"
+                     Foreground="{DynamicResource Gray_60}"
                      Text="{Binding Path=SaveDir}" />
             <Separator Grid.Column="1"
                        Width="0"

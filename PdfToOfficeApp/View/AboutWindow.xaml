@@ -6,18 +6,11 @@
         xmlns:local="clr-namespace:PdfToOfficeApp"
         mc:Ignorable="d"
         Title="{StaticResource IDS_MENU_ABOUT}"
+        Background="{DynamicResource bg}"
         d:DataContext="{d:DesignInstance Type=local:MainViewModel}"
         ResizeMode="NoResize"
         Height="250"
         Width="400">
-
-  <Window.Resources>
-    <ResourceDictionary>
-      <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="../Themes/Generic.xaml" />
-      </ResourceDictionary.MergedDictionaries>
-    </ResourceDictionary>
-  </Window.Resources>
 
   <Grid Margin="{StaticResource m-5}">
     <Grid.ColumnDefinitions>
@@ -44,20 +37,23 @@
       <TextBlock Grid.Row="0"
                  Margin="{StaticResource m-2}"
                  Text="{StaticResource IDS_APP_NAME}"
+                 Foreground="{DynamicResource Gray_100}"
                  TextWrapping="Wrap"
                  FontSize="14"
                  FontWeight="Bold" />
       <TextBlock Grid.Row="1"
                  Margin="{StaticResource m-2}"
-                 TextWrapping="Wrap"
-                 Text="{Binding Path=AppVersion}" />
+                 Text="{Binding Path=AppVersion}"
+                 Foreground="{DynamicResource Gray_100}"
+                 TextWrapping="Wrap" />
       <ScrollViewer Grid.Row="2"
                     Margin="{StaticResource m-2}"
                     HorizontalScrollBarVisibility="Disabled"
                     VerticalScrollBarVisibility="Auto">
         <TextBlock x:Name="IDC_AboutCopyright"
-                   TextWrapping="Wrap"
-                   Text="{StaticResource IDS_COPYRIGHT}" />
+                   Text="{StaticResource IDS_COPYRIGHT}"
+                   Foreground="{DynamicResource Gray_100}"
+                   TextWrapping="Wrap" />
       </ScrollViewer>
     </Grid>
   </Grid>

@@ -134,5 +134,26 @@ namespace PdfToOfficeApp
                 OnPropertyChanged("AllowOverwrite");
             }
         }
+
+        private bool _AllowDarkTheme = false;
+        public bool AllowDarkTheme
+        {
+            get { return _AllowDarkTheme; }
+            set
+            {
+                _AllowDarkTheme = value;
+
+                if (value)
+                {
+                    Util.ThemeManager.Apply(Util.ThemeManager.THEME.DARK);
+                }
+                else
+                {
+                    Util.ThemeManager.Apply(Util.ThemeManager.THEME.NORMAL);
+                }
+
+                OnPropertyChanged("AllowDarkTheme");
+            }
+        }
     }
 }

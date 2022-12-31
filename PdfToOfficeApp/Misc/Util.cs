@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using PdfToOfficeAppModule;
@@ -15,6 +17,78 @@ namespace PdfToOfficeApp
                     new CommandBinding(command,
                         new ExecutedRoutedEventHandler(execute),
                         new CanExecuteRoutedEventHandler(canExecute)));
+            }
+        }
+
+        public class ResManager
+        {
+            public static Collection<ResourceDictionary> GetAppRes()
+            {
+                return Application.Current.Resources.MergedDictionaries;
+            }
+        }
+
+        public class ThemeManager : ResManager
+        {
+            public enum THEME
+            {
+                NORMAL,
+                DARK,
+            }
+
+            private static readonly Uri SRC_NORMAL = new Uri("Resources/Themes/Generic.xaml", UriKind.RelativeOrAbsolute);
+            private static readonly Uri SRC_DARK = new Uri("Resources/Themes/Dark.xaml", UriKind.RelativeOrAbsolute);
+
+            public static void Apply(THEME theme)
+            {
+                var themeRes = GetAppRes().FirstOrDefault(res => res.Source.OriginalString.StartsWith("Resources/Themes/"));
+                if (themeRes == null)
+                {
+                    return;
+                }
+
+                switch (theme)
+                {
+                    case THEME.NORMAL:
+                        themeRes.Source = SRC_NORMAL;
+                        break;
+                    case THEME.DARK:
+                        themeRes.Source = SRC_DARK;
+                        break;
+                    default:
+                        themeRes.Source = SRC_NORMAL;
+                        break;
+                }
+            }
+        }
+
+        public class LangManager : ResManager
+        {
+            public enum LANG
+            {
+                KO_KR,
+            }
+
+            private static readonly Uri SRC_KO_KR = new Uri("Resources/Strings/ko-KR/pdftooffice_strings.xaml", UriKind.RelativeOrAbsolute);
+
+            public static void Apply(LANG lang)
+            {
+                var langRes = GetAppRes().FirstOrDefault(res => res.Source.OriginalString.StartsWith("Resources/Strings/"));
+                if (langRes == null)
+                {
+                    return;
+                }
+
+                switch (lang)
+                {
+                    case LANG.KO_KR:
+                        langRes.Source = SRC_KO_KR;
+                        break;
+
+                    default:
+                        langRes.Source = SRC_KO_KR;
+                        break;
+                }
             }
         }
 

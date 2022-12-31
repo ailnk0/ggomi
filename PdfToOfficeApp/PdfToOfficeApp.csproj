@@ -112,11 +112,15 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Themes\Images\sm_menu.xaml">
+    <Page Include="Resources\Themes\Dark.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Themes\Images\sm_opendlg.xaml">
+    <Page Include="Resources\Images\sm_menu.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Images\sm_opendlg.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -136,115 +140,115 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Themes\Generic.xaml">
+    <Page Include="Resources\Themes\Generic.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Themes\Images\dlg_data_validate_check.xaml">
+    <Page Include="Resources\Images\dlg_data_validate_check.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Themes\Images\dlg_data_validate_info.xaml">
+    <Page Include="Resources\Images\dlg_data_validate_info.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Themes\Images\dlg_data_validate_question.xaml">
+    <Page Include="Resources\Images\dlg_data_validate_question.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Themes\Images\dlg_data_validate_stop.xaml">
+    <Page Include="Resources\Images\dlg_data_validate_stop.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Themes\Images\dlg_data_validate_warning.xaml">
+    <Page Include="Resources\Images\dlg_data_validate_warning.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Themes\Images\lg_hpdftypedocument.xaml">
+    <Page Include="Resources\Images\lg_hpdftypedocument.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Themes\Images\lg_pdftodocxdlg.xaml">
+    <Page Include="Resources\Images\lg_pdftodocxdlg.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Themes\Images\lg_pdftohwpdlg.xaml">
+    <Page Include="Resources\Images\lg_pdftohwpdlg.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Themes\Images\lg_pdftoimagedlg.xaml">
+    <Page Include="Resources\Images\lg_pdftoimagedlg.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Themes\Images\lg_pdftopptxdlg.xaml">
+    <Page Include="Resources\Images\lg_pdftopptxdlg.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Themes\Images\lg_pdftoxlsxdlg.xaml">
+    <Page Include="Resources\Images\lg_pdftoxlsxdlg.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Themes\Images\sm_add.xaml">
+    <Page Include="Resources\Images\sm_add.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Themes\Images\sm_arrow_left.xaml">
+    <Page Include="Resources\Images\sm_arrow_left.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Themes\Images\sm_arrow_right.xaml">
+    <Page Include="Resources\Images\sm_arrow_right.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Themes\Images\sm_cancel.xaml">
+    <Page Include="Resources\Images\sm_cancel.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Themes\Images\sm_check.xaml">
+    <Page Include="Resources\Images\sm_check.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Themes\Images\sm_config.xaml">
+    <Page Include="Resources\Images\sm_config.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Themes\Images\sm_dropdown.xaml">
+    <Page Include="Resources\Images\sm_dropdown.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Themes\Images\sm_fail.xaml">
+    <Page Include="Resources\Images\sm_fail.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Themes\Images\sm_offset_down.xaml">
+    <Page Include="Resources\Images\sm_offset_down.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Themes\Images\sm_offset_up.xaml">
+    <Page Include="Resources\Images\sm_offset_up.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Themes\Images\sm_r_add.xaml">
+    <Page Include="Resources\Images\sm_r_add.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Themes\Images\sm_r_check.xaml">
+    <Page Include="Resources\Images\sm_r_check.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Themes\Images\sm_r_run.xaml">
+    <Page Include="Resources\Images\sm_r_run.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Themes\Images\sm_r_stop.xaml">
+    <Page Include="Resources\Images\sm_r_stop.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Themes\Images\sm_sub.xaml">
+    <Page Include="Resources\Images\sm_sub.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Themes\Strings\ko-KR\pdftooffice_strings.xaml">
+    <Page Include="Resources\Strings\ko-KR\pdftooffice_strings.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

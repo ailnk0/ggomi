@@ -11,10 +11,6 @@
 
   <UserControl.Resources>
     <ResourceDictionary>
-      <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="../Themes/Generic.xaml" />
-      </ResourceDictionary.MergedDictionaries>
-
       <system:Double x:Key="sz-w-radio-img">50</system:Double>
       <system:Double x:Key="sz-w-radio-sub">15</system:Double>
       <Thickness x:Key="border-radio-sub"
@@ -38,7 +34,7 @@
               <Grid>
                 <Border x:Name="border"
                         CornerRadius="{StaticResource round-btn}"
-                        Background="{StaticResource bg}">
+                        Background="Transparent">
                   <ContentPresenter HorizontalAlignment="Center"
                                     VerticalAlignment="Center" />
                 </Border>
@@ -49,7 +45,7 @@
                          Value="True">
                   <Setter TargetName="border"
                           Property="Background"
-                          Value="{StaticResource bg-mouseover}" />
+                          Value="{DynamicResource bg-mouseover}" />
                 </Trigger>
                 <Trigger SourceName="border"
                          Property="IsEnabled"
@@ -86,7 +82,7 @@
               <Border x:Name="border"
                       CornerRadius="{StaticResource round-radio-sub}"
                       BorderThickness="{StaticResource border-radio-sub}"
-                      BorderBrush="{StaticResource bg}">
+                      BorderBrush="{DynamicResource bg}">
                 <Grid>
                   <Border>
                     <ContentPresenter ContentSource="Icon" />
@@ -100,8 +96,8 @@
                             CornerRadius="{StaticResource round-btn}"
                             Padding="{StaticResource m-1}"
                             BorderThickness="1"
-                            BorderBrush="{StaticResource Gray_20}"
-                            Background="{StaticResource bg}">
+                            BorderBrush="{DynamicResource Gray_20}"
+                            Background="{DynamicResource bg}">
                       <StackPanel IsItemsHost="True"
                                   KeyboardNavigation.DirectionalNavigation="Cycle" />
                     </Border>
@@ -113,7 +109,7 @@
                          Value="True">
                   <Setter TargetName="border"
                           Property="Background"
-                          Value="{StaticResource bg-mouseover}" />
+                          Value="{DynamicResource bg-mouseover}" />
                 </Trigger>
                 <Trigger Property="IsEnabled"
                          Value="False">
@@ -126,7 +122,6 @@
           </Setter.Value>
         </Setter>
       </Style>
-
     </ResourceDictionary>
   </UserControl.Resources>
 
@@ -228,16 +223,19 @@
             </MenuItem.Icon>
             <MenuItem x:Name="IDC_SelPng"
                       Click="IDC_SelPng_Click"
+                      Style="{StaticResource menu-i-sub}"
                       Header="{StaticResource IDS_TYPE_PNG}"
                       IsCheckable="true"
                       IsChecked="{Binding Path=ConvImgType, Converter={StaticResource dataConv}, ConverterParameter={x:Static module:IMG_TYPE.PNG}}" />
             <MenuItem x:Name="IDC_SelJpg"
                       Click="IDC_SelJpg_Click"
+                      Style="{StaticResource menu-i-sub}"
                       Header="{StaticResource IDS_TYPE_JPEG}"
                       IsCheckable="true"
                       IsChecked="{Binding Path=ConvImgType, Converter={StaticResource dataConv}, ConverterParameter={x:Static module:IMG_TYPE.JPEG}}" />
             <MenuItem x:Name="IDC_SelGif"
                       Click="IDC_SelGif_Click"
+                      Style="{StaticResource menu-i-sub}"
                       Header="{StaticResource IDS_TYPE_GIF}"
                       IsCheckable="true"
                       IsChecked="{Binding Path=ConvImgType, Converter={StaticResource dataConv}, ConverterParameter={x:Static module:IMG_TYPE.GIF}}" />

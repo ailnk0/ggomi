@@ -10,10 +10,6 @@
 
   <UserControl.Resources>
     <ResourceDictionary>
-      <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="../Themes/Generic.xaml" />
-      </ResourceDictionary.MergedDictionaries>
-
       <system:Double x:Key="sz-list-item">90</system:Double>
       <system:Double x:Key="sz-list-img">50</system:Double>
       <system:Double x:Key="sz-list-icon">25</system:Double>
@@ -76,10 +72,10 @@
               <Grid>
                 <Ellipse Height="{StaticResource sz-list-inner}"
                          Width="{StaticResource sz-list-inner}"
-                         Fill="{StaticResource bg}"
+                         Fill="{DynamicResource bg}"
                          Opacity="0.7" />
                 <local:Arc StrokeThickness="5"
-                           Stroke="{StaticResource Green_100}">
+                           Stroke="{DynamicResource Green_100}">
                   <local:Arc.StartAngle>
                     <MultiBinding Converter="{StaticResource ProgressConverter}">
                       <Binding Path="Minimum"
@@ -98,7 +94,7 @@
                   </local:Arc.EndAngle>
                 </local:Arc>
                 <TextBlock Text="{Binding Value, RelativeSource={RelativeSource TemplatedParent}, StringFormat=\{0:0\}}"
-                           Foreground="{StaticResource Green_100}"
+                           Foreground="{DynamicResource Green_100}"
                            VerticalAlignment="Center"
                            HorizontalAlignment="Center"
                            FontSize="10" />
@@ -169,6 +165,7 @@
           <Grid Grid.Row="1"
                 VerticalAlignment="Top">
             <TextBlock Text="{Binding Path=FileName}"
+                       Foreground="{DynamicResource Gray_100}"
                        TextWrapping="Wrap"
                        TextAlignment="Center" />
           </Grid>
@@ -185,6 +182,8 @@
                 Value="True" />
         <Setter Property="BorderThickness"
                 Value="0" />
+        <Setter Property="Background"
+                Value="Transparent" />
         <Setter Property="ItemTemplate"
                 Value="{StaticResource doclistbox-item}" />
         <Setter Property="ItemsPanel">

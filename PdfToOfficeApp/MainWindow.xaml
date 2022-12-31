@@ -6,16 +6,9 @@
         xmlns:local="clr-namespace:PdfToOfficeApp"
         mc:Ignorable="d"
         Title="{StaticResource IDS_APP_NAME}"
+        Background="{DynamicResource bg}"
         Height="450"
         Width="800">
-
-  <Window.Resources>
-    <ResourceDictionary>
-      <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="Themes/Generic.xaml" />
-      </ResourceDictionary.MergedDictionaries>
-    </ResourceDictionary>
-  </Window.Resources>
 
   <Window.DataContext>
     <Binding Source="{StaticResource main-vm}" />
@@ -86,7 +79,8 @@
             </Image>
           </MenuItem.Icon>
 
-          <MenuItem Header="{StaticResource IDS_MENU_CONFIG}"
+          <MenuItem Style="{StaticResource menu-i-sub}"
+                    Header="{StaticResource IDS_MENU_CONFIG}"
                     ToolTip="{StaticResource IDS_MENU_CONFIG}"
                     Command="{x:Static local:MainWindow.ConfigCommand}">
             <MenuItem.Icon>
@@ -98,7 +92,8 @@
             </MenuItem.Icon>
           </MenuItem>
 
-          <MenuItem Header="{StaticResource IDS_MENU_ABOUT}"
+          <MenuItem Style="{StaticResource menu-i-sub}"
+                    Header="{StaticResource IDS_MENU_ABOUT}"
                     ToolTip="{StaticResource IDS_MENU_ABOUT}"
                     Command="{x:Static local:MainWindow.AboutCommand}">
           </MenuItem>
@@ -112,7 +107,7 @@
 
     <Border Grid.Row="2"
             Style="{StaticResource div-selformat}"
-            BorderBrush="{StaticResource Gray_20}"
+            BorderBrush="{DynamicResource Gray_20}"
             BorderThickness="0,1,0,0">
       <local:SelectFormatComp Margin="{StaticResource m-1}" />
     </Border>
@@ -150,4 +145,5 @@
       </Button>
     </StackPanel>
   </Grid>
+
 </Window>

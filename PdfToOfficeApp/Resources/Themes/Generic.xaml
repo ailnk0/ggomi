@@ -4,34 +4,34 @@
                     xmlns:system="clr-namespace:System;assembly=mscorlib">
 
   <ResourceDictionary.MergedDictionaries>
-    <ResourceDictionary Source="Images/dlg_data_validate_check.xaml" />
-    <ResourceDictionary Source="Images/dlg_data_validate_info.xaml" />
-    <ResourceDictionary Source="Images/dlg_data_validate_question.xaml" />
-    <ResourceDictionary Source="Images/dlg_data_validate_stop.xaml" />
-    <ResourceDictionary Source="Images/dlg_data_validate_warning.xaml" />
-    <ResourceDictionary Source="Images/lg_hpdftypedocument.xaml" />
-    <ResourceDictionary Source="Images/lg_pdftodocxdlg.xaml" />
-    <ResourceDictionary Source="Images/lg_pdftohwpdlg.xaml" />
-    <ResourceDictionary Source="Images/lg_pdftoimagedlg.xaml" />
-    <ResourceDictionary Source="Images/lg_pdftopptxdlg.xaml" />
-    <ResourceDictionary Source="Images/lg_pdftoxlsxdlg.xaml" />
-    <ResourceDictionary Source="Images/sm_add.xaml" />
-    <ResourceDictionary Source="Images/sm_arrow_left.xaml" />
-    <ResourceDictionary Source="Images/sm_arrow_right.xaml" />
-    <ResourceDictionary Source="Images/sm_cancel.xaml" />
-    <ResourceDictionary Source="Images/sm_check.xaml" />
-    <ResourceDictionary Source="Images/sm_config.xaml" />
-    <ResourceDictionary Source="Images/sm_dropdown.xaml" />
-    <ResourceDictionary Source="Images/sm_fail.xaml" />
-    <ResourceDictionary Source="Images/sm_menu.xaml" />
-    <ResourceDictionary Source="Images/sm_offset_down.xaml" />
-    <ResourceDictionary Source="Images/sm_offset_up.xaml" />
-    <ResourceDictionary Source="Images/sm_opendlg.xaml" />
-    <ResourceDictionary Source="Images/sm_r_add.xaml" />
-    <ResourceDictionary Source="Images/sm_r_check.xaml" />
-    <ResourceDictionary Source="Images/sm_r_run.xaml" />
-    <ResourceDictionary Source="Images/sm_r_stop.xaml" />
-    <ResourceDictionary Source="Images/sm_sub.xaml" />
+    <ResourceDictionary Source="../Images/dlg_data_validate_check.xaml" />
+    <ResourceDictionary Source="../Images/dlg_data_validate_info.xaml" />
+    <ResourceDictionary Source="../Images/dlg_data_validate_question.xaml" />
+    <ResourceDictionary Source="../Images/dlg_data_validate_stop.xaml" />
+    <ResourceDictionary Source="../Images/dlg_data_validate_warning.xaml" />
+    <ResourceDictionary Source="../Images/lg_hpdftypedocument.xaml" />
+    <ResourceDictionary Source="../Images/lg_pdftodocxdlg.xaml" />
+    <ResourceDictionary Source="../Images/lg_pdftohwpdlg.xaml" />
+    <ResourceDictionary Source="../Images/lg_pdftoimagedlg.xaml" />
+    <ResourceDictionary Source="../Images/lg_pdftopptxdlg.xaml" />
+    <ResourceDictionary Source="../Images/lg_pdftoxlsxdlg.xaml" />
+    <ResourceDictionary Source="../Images/sm_add.xaml" />
+    <ResourceDictionary Source="../Images/sm_arrow_left.xaml" />
+    <ResourceDictionary Source="../Images/sm_arrow_right.xaml" />
+    <ResourceDictionary Source="../Images/sm_cancel.xaml" />
+    <ResourceDictionary Source="../Images/sm_check.xaml" />
+    <ResourceDictionary Source="../Images/sm_config.xaml" />
+    <ResourceDictionary Source="../Images/sm_dropdown.xaml" />
+    <ResourceDictionary Source="../Images/sm_fail.xaml" />
+    <ResourceDictionary Source="../Images/sm_menu.xaml" />
+    <ResourceDictionary Source="../Images/sm_offset_down.xaml" />
+    <ResourceDictionary Source="../Images/sm_offset_up.xaml" />
+    <ResourceDictionary Source="../Images/sm_opendlg.xaml" />
+    <ResourceDictionary Source="../Images/sm_r_add.xaml" />
+    <ResourceDictionary Source="../Images/sm_r_check.xaml" />
+    <ResourceDictionary Source="../Images/sm_r_run.xaml" />
+    <ResourceDictionary Source="../Images/sm_r_stop.xaml" />
+    <ResourceDictionary Source="../Images/sm_sub.xaml" />
   </ResourceDictionary.MergedDictionaries>
 
   <local:ProgressToAngleConverter x:Key="ProgressConverter" />
@@ -45,30 +45,46 @@
   </DrawingImage>
 
   <!-- Colors -->
-  <SolidColorBrush x:Key="Blue_100"
-                   Color="#2367ff" />
-  <SolidColorBrush x:Key="Red_100"
-                   Color="#e13a1b" />
-  <SolidColorBrush x:Key="Yellow_100"
-                   Color="#eeaf0f" />
-  <SolidColorBrush x:Key="Yellow_30"
-                   Color="#FAE7B7" />
-  <SolidColorBrush x:Key="Green_100"
-                   Color="#168e12" />
-  <SolidColorBrush x:Key="Gray_100"
-                   Color="#000000" />
-  <SolidColorBrush x:Key="Gray_60"
-                   Color="#666666" />
-  <SolidColorBrush x:Key="Gray_40"
-                   Color="#999999" />
-  <SolidColorBrush x:Key="Gray_20"
-                   Color="#cccccc" />
+  <Color x:Key="icon-red">#e13a1b</Color>
+  <Color x:Key="icon-green">#168e12</Color>
+  <Color x:Key="icon-blue">#2367ff</Color>
+  <Color x:Key="icon-yellow">#eeaf0f</Color>
+  <Color x:Key="icon-content">#000000</Color>
+  <Color x:Key="icon-bg">#ffffff</Color>
 
+  <SolidColorBrush x:Key="Blue_100"
+                   Color="{DynamicResource icon-blue}"
+                   Opacity="1.0" />
+  <SolidColorBrush x:Key="Red_100"
+                   Color="{DynamicResource icon-red}"
+                   Opacity="1.0" />
+  <SolidColorBrush x:Key="Yellow_100"
+                   Color="{DynamicResource icon-yellow}"
+                   Opacity="1.0" />
+  <SolidColorBrush x:Key="Yellow_30"
+                   Color="{DynamicResource icon-yellow}"
+                   Opacity="0.3" />
+  <SolidColorBrush x:Key="Green_100"
+                   Color="{DynamicResource icon-green}"
+                   Opacity="1.0" />
+  <SolidColorBrush x:Key="Gray_100"
+                   Color="{DynamicResource icon-content}"
+                   Opacity="1.0" />
+  <SolidColorBrush x:Key="Gray_60"
+                   Color="{DynamicResource icon-content}"
+                   Opacity="0.6" />
+  <SolidColorBrush x:Key="Gray_40"
+                   Color="{DynamicResource icon-content}"
+                   Opacity="0.4" />
+  <SolidColorBrush x:Key="Gray_20"
+                   Color="{DynamicResource icon-content}"
+                   Opacity="0.2" />
   <SolidColorBrush x:Key="bg"
-                   Color="White" />
+                   Color="{DynamicResource icon-bg}"
+                   Opacity="1" />
   <SolidColorBrush x:Key="bg-mouseover"
-                   Color="LightGray"
-                   Opacity="0.5" />
+                   Color="{DynamicResource icon-content}"
+                   Opacity="0.1" />
 
   <Duration x:Key="ani-short">0:0:0.1</Duration>
   <Duration x:Key="ani-long">0:0:0.25</Duration>
@@ -89,7 +105,6 @@
   <system:Double x:Key="sz-btn-pri">60</system:Double>
   <Thickness x:Key="pad-btn">5</Thickness>
   <system:Double x:Key="opcity-btn">1</system:Double>
-  <system:Double x:Key="opcity-btn-mouseover">0.8</system:Double>
   <system:Double x:Key="opcity-btn-disable">0.3</system:Double>
   <CornerRadius x:Key="round-btn">5</CornerRadius>
   <system:Double x:Key="sz-w-check-slide">40</system:Double>
@@ -212,8 +227,8 @@
                         CornerRadius="{StaticResource round-btn}"
                         Padding="{StaticResource m-1}"
                         BorderThickness="1"
-                        BorderBrush="{StaticResource Gray_20}"
-                        Background="{StaticResource bg}">
+                        BorderBrush="{DynamicResource Gray_20}"
+                        Background="{DynamicResource bg}">
                   <StackPanel IsItemsHost="True"
                               KeyboardNavigation.DirectionalNavigation="Cycle" />
                 </Border>
@@ -225,7 +240,7 @@
                      Value="True">
               <Setter TargetName="border"
                       Property="Background"
-                      Value="{StaticResource bg-mouseover}" />
+                      Value="{DynamicResource bg-mouseover}" />
             </Trigger>
             <Trigger Property="IsEnabled"
                      Value="False">
@@ -237,6 +252,12 @@
         </ControlTemplate>
       </Setter.Value>
     </Setter>
+  </Style>
+
+  <Style x:Key="menu-i-sub"
+         TargetType="{x:Type MenuItem}">
+    <Setter Property="Foreground"
+            Value="{DynamicResource Gray_100}" />
   </Style>
 
   <Style x:Key="btn-pri"
@@ -262,7 +283,7 @@
                      Value="True">
               <Setter TargetName="border"
                       Property="Background"
-                      Value="{StaticResource bg-mouseover}" />
+                      Value="{DynamicResource bg-mouseover}" />
             </Trigger>
             <Trigger SourceName="border"
                      Property="IsEnabled"
@@ -275,29 +296,6 @@
         </ControlTemplate>
       </Setter.Value>
     </Setter>
-    <Style.Triggers>
-      <Trigger Property="IsMouseOver"
-               Value="True">
-        <Trigger.EnterActions>
-          <BeginStoryboard>
-            <Storyboard>
-              <DoubleAnimation Storyboard.TargetProperty="Opacity"
-                               To="{StaticResource opcity-btn-mouseover}"
-                               Duration="{StaticResource ani-short}" />
-            </Storyboard>
-          </BeginStoryboard>
-        </Trigger.EnterActions>
-        <Trigger.ExitActions>
-          <BeginStoryboard>
-            <Storyboard>
-              <DoubleAnimation Storyboard.TargetProperty="Opacity"
-                               To="{StaticResource opcity-btn}"
-                               Duration="{StaticResource ani-short}" />
-            </Storyboard>
-          </BeginStoryboard>
-        </Trigger.ExitActions>
-      </Trigger>
-    </Style.Triggers>
   </Style>
 
   <Style x:Key="btn-pri-convert"
@@ -424,10 +422,10 @@
                     Height="{StaticResource sz-h-check-slide}"
                     Width="{StaticResource sz-w-check-slide}"
                     CornerRadius="{StaticResource round-check-slide}"
-                    Background="{StaticResource Gray_40}">
+                    Background="{DynamicResource Gray_40}">
               <Grid>
                 <Ellipse x:Name="PART_Btn"
-                         Fill="{StaticResource bg}"
+                         Fill="{DynamicResource bg}"
                          Margin="{StaticResource off-pos-check-slide}"
                          Width="{StaticResource sz-check-slide-btn}" />
               </Grid>
