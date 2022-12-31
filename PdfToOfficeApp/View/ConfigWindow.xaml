@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PdfToOfficeApp"
         mc:Ignorable="d"
-        Title="{StaticResource IDS_MENU_CONFIG}"
+        Title="{DynamicResource IDS_MENU_CONFIG}"
         Background="{DynamicResource bg}"
         d:DataContext="{d:DesignInstance Type=local:MainViewModel}"
         ResizeMode="NoResize"
@@ -14,29 +14,29 @@
 
   <Grid Margin="{StaticResource m-5}">
     <StackPanel>
-      <Border Margin="{StaticResource m-2}">
+      <Border Margin="{StaticResource m-1}">
         <StackPanel>
           <CheckBox Style="{StaticResource check-slide}"
                     IsChecked="{Binding Path=AllowDarkTheme}">
-            <TextBlock Text="{StaticResource IDS_OPT_DARK_THEME}"
+            <TextBlock Text="{DynamicResource IDS_OPT_DARK_THEME}"
                        Foreground="{DynamicResource Gray_100}"
                        TextWrapping="Wrap" />
           </CheckBox>
         </StackPanel>
       </Border>
 
-      <Border Margin="{StaticResource m-2}">
+      <Border Margin="{StaticResource m-1}">
         <StackPanel>
           <CheckBox Style="{StaticResource check-slide}"
                     IsChecked="{Binding Path=AllowOverwrite}">
-            <TextBlock Text="{StaticResource IDS_OPT_OVERWRITE}"
+            <TextBlock Text="{DynamicResource IDS_OPT_OVERWRITE}"
                        Foreground="{DynamicResource Gray_100}"
                        TextWrapping="Wrap" />
           </CheckBox>
         </StackPanel>
       </Border>
 
-      <Border Margin="{StaticResource m-2}">
+      <Border Margin="{StaticResource m-1}">
         <StackPanel>
           <CheckBox Style="{StaticResource check-slide}"
                     IsChecked="{Binding Path=AllowUserDir}">
@@ -46,7 +46,7 @@
                 <RowDefinition />
               </Grid.RowDefinitions>
               <TextBlock Grid.Row="0"
-                         Text="{StaticResource IDS_OPT_USER_DIR}"
+                         Text="{DynamicResource IDS_OPT_SAVE_TO_USER_DIR}"
                          Foreground="{DynamicResource Gray_100}"
                          TextWrapping="Wrap" />
             </Grid>
@@ -70,8 +70,8 @@
                        Margin="{StaticResource mx-2}" />
             <Menu Grid.Column="2"
                   Style="{StaticResource menu}">
-              <MenuItem Header="{StaticResource IDS_OPT_SET_SAVE_DIR}"
-                        ToolTip="{StaticResource IDS_OPT_SET_SAVE_DIR}"
+              <MenuItem Header="{DynamicResource IDS_OPT_SAVE_DIR}"
+                        ToolTip="{DynamicResource IDS_OPT_SAVE_DIR}"
                         Style="{StaticResource menu-i}">
                 <MenuItem.Icon>
                   <Image>
@@ -85,6 +85,37 @@
           </Grid>
         </StackPanel>
       </Border>
+
+      <Border Margin="{StaticResource m-1}">
+        <StackPanel>
+          <Menu Style="{StaticResource menu-v}"
+                Width="auto">
+            <MenuItem Header="{DynamicResource IDS_OPT_LANG}"
+                      Tag="{Binding Path=Lang, Converter={StaticResource resConv}}"
+                      Style="{StaticResource menu-opt}">
+              <MenuItem.Icon>
+                <Image>
+                  <Image.Source>
+                    <DrawingImage Drawing="{DynamicResource sm_arrow_right}" />
+                  </Image.Source>
+                </Image>
+              </MenuItem.Icon>
+
+              <MenuItem Header="{DynamicResource IDS_OPT_LANG_KO_KR}"
+                        ToolTip="{DynamicResource IDS_OPT_LANG_KO_KR}"
+                        Style="{StaticResource menu-i-sub}"
+                        IsChecked="{Binding Path=Lang, Converter={StaticResource dataConv}, ConverterParameter={x:Static local:LANG.KO_KR}}"
+                        IsCheckable="True" />
+              <MenuItem Header="{DynamicResource IDS_OPT_LANG_EN_US}"
+                        ToolTip="{DynamicResource IDS_OPT_LANG_EN_US}"
+                        Style="{StaticResource menu-i-sub}"
+                        IsChecked="{Binding Path=Lang, Converter={StaticResource dataConv}, ConverterParameter={x:Static local:LANG.EN_US}}"
+                        IsCheckable="True" />
+            </MenuItem>
+          </Menu>
+        </StackPanel>
+      </Border>
+
     </StackPanel>
   </Grid>
 

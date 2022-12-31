@@ -5,14 +5,14 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:PdfToOfficeApp"
              xmlns:module="clr-namespace:PdfToOfficeAppModule;assembly=PdfToOfficeAppModule"
-             xmlns:system="clr-namespace:System;assembly=mscorlib"
+             xmlns:System="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance Type=local:MainViewModel}">
 
   <UserControl.Resources>
     <ResourceDictionary>
-      <system:Double x:Key="sz-w-radio-img">50</system:Double>
-      <system:Double x:Key="sz-w-radio-sub">15</system:Double>
+      <System:Double x:Key="sz-w-radio-img">50</System:Double>
+      <System:Double x:Key="sz-w-radio-sub">15</System:Double>
       <Thickness x:Key="border-radio-sub"
                  Left="1"
                  Top="0"
@@ -140,7 +140,7 @@
             Grid.Column="1"
             Margin="{StaticResource m-2}"
             Style="{StaticResource sf-radio}"
-            ToolTip="{StaticResource IDS_CONV_TYPE_DOCX}">
+            ToolTip="{DynamicResource IDS_CONV_TYPE_DOCX}">
       <StackPanel Margin="{StaticResource m-1}">
         <Image Width="{StaticResource sz-w-radio-img}">
           <Image.Source>
@@ -159,7 +159,7 @@
             Grid.Column="2"
             Margin="{StaticResource m-2}"
             Style="{StaticResource sf-radio}"
-            ToolTip="{StaticResource IDS_CONV_TYPE_PPTX}">
+            ToolTip="{DynamicResource IDS_CONV_TYPE_PPTX}">
       <StackPanel Margin="{StaticResource m-1}">
         <Image Width="{StaticResource sz-w-radio-img}">
           <Image.Source>
@@ -178,7 +178,7 @@
             Grid.Column="3"
             Margin="{StaticResource m-2}"
             Style="{StaticResource sf-radio}"
-            ToolTip="{StaticResource IDS_CONV_TYPE_XLSX}">
+            ToolTip="{DynamicResource IDS_CONV_TYPE_XLSX}">
       <StackPanel Margin="{StaticResource m-1}">
         <Image Width="{StaticResource sz-w-radio-img}">
           <Image.Source>
@@ -197,7 +197,7 @@
             Grid.Column="4"
             Margin="{StaticResource m-2}"
             Style="{StaticResource sf-radio}"
-            ToolTip="{StaticResource IDS_CONV_TYPE_IMG}">
+            ToolTip="{DynamicResource IDS_CONV_TYPE_IMG}">
       <StackPanel Orientation="Horizontal">
         <StackPanel Margin="{StaticResource m-1}">
           <Image Width="{StaticResource sz-w-radio-img}">
@@ -224,19 +224,19 @@
             <MenuItem x:Name="IDC_SelPng"
                       Click="IDC_SelPng_Click"
                       Style="{StaticResource menu-i-sub}"
-                      Header="{StaticResource IDS_TYPE_PNG}"
+                      Header="{DynamicResource IDS_TYPE_PNG}"
                       IsCheckable="true"
                       IsChecked="{Binding Path=ConvImgType, Converter={StaticResource dataConv}, ConverterParameter={x:Static module:IMG_TYPE.PNG}}" />
             <MenuItem x:Name="IDC_SelJpg"
                       Click="IDC_SelJpg_Click"
                       Style="{StaticResource menu-i-sub}"
-                      Header="{StaticResource IDS_TYPE_JPEG}"
+                      Header="{DynamicResource IDS_TYPE_JPEG}"
                       IsCheckable="true"
                       IsChecked="{Binding Path=ConvImgType, Converter={StaticResource dataConv}, ConverterParameter={x:Static module:IMG_TYPE.JPEG}}" />
             <MenuItem x:Name="IDC_SelGif"
                       Click="IDC_SelGif_Click"
                       Style="{StaticResource menu-i-sub}"
-                      Header="{StaticResource IDS_TYPE_GIF}"
+                      Header="{DynamicResource IDS_TYPE_GIF}"
                       IsCheckable="true"
                       IsChecked="{Binding Path=ConvImgType, Converter={StaticResource dataConv}, ConverterParameter={x:Static module:IMG_TYPE.GIF}}" />
           </MenuItem>
