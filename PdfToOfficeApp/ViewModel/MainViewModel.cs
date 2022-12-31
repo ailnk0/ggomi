@@ -145,14 +145,28 @@ namespace PdfToOfficeApp
 
                 if (value)
                 {
-                    Util.ThemeManager.Apply(Util.ThemeManager.THEME.DARK);
+                    Util.ThemeManager.Apply(THEME.DARK);
                 }
                 else
                 {
-                    Util.ThemeManager.Apply(Util.ThemeManager.THEME.NORMAL);
+                    Util.ThemeManager.Apply(THEME.NORMAL);
                 }
 
                 OnPropertyChanged("AllowDarkTheme");
+            }
+        }
+
+        private LANG _lang = LANG.KO_KR;
+        public LANG Lang
+        {
+            get { return _lang; }
+            set
+            {
+                _lang = value;
+
+                Util.LangManager.Apply(_lang);
+
+                OnPropertyChanged("Lang");
             }
         }
     }

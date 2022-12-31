@@ -89,6 +89,7 @@
     <Compile Include="Misc\Notifier.cs" />
     <Compile Include="Misc\ProgressToAngleConverter.cs" />
     <Compile Include="Misc\DataConv.cs" />
+    <Compile Include="Misc\ResConv.cs" />
     <Compile Include="ProgressSiteCli.cs" />
     <Compile Include="ViewModel\Doc.cs" />
     <Compile Include="ViewModel\DocList.cs" />
@@ -112,6 +113,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Resources\Strings\en-US\pdftooffice_strings.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Resources\Themes\Dark.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

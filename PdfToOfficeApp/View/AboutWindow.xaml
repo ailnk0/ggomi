@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PdfToOfficeApp"
         mc:Ignorable="d"
-        Title="{StaticResource IDS_MENU_ABOUT}"
+        Title="{DynamicResource IDS_MENU_ABOUT}"
         Background="{DynamicResource bg}"
         d:DataContext="{d:DesignInstance Type=local:MainViewModel}"
         ResizeMode="NoResize"
@@ -36,7 +36,7 @@
       </Grid.RowDefinitions>
       <TextBlock Grid.Row="0"
                  Margin="{StaticResource m-2}"
-                 Text="{StaticResource IDS_APP_NAME}"
+                 Text="{DynamicResource IDS_APP_NAME}"
                  Foreground="{DynamicResource Gray_100}"
                  TextWrapping="Wrap"
                  FontSize="14"
@@ -51,7 +51,7 @@
                     HorizontalScrollBarVisibility="Disabled"
                     VerticalScrollBarVisibility="Auto">
         <TextBlock x:Name="IDC_AboutCopyright"
-                   Text="{StaticResource IDS_COPYRIGHT}"
+                   Text="{DynamicResource IDS_COPYRIGHT}"
                    Foreground="{DynamicResource Gray_100}"
                    TextWrapping="Wrap" />
       </ScrollViewer>

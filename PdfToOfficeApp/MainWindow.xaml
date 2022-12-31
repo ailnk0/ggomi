@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PdfToOfficeApp"
         mc:Ignorable="d"
-        Title="{StaticResource IDS_APP_NAME}"
+        Title="{DynamicResource IDS_APP_NAME}"
         Background="{DynamicResource bg}"
         Height="450"
         Width="800">
@@ -35,8 +35,8 @@
       <Menu Grid.Column="0"
             Style="{StaticResource menu}"
             Margin="{StaticResource m-1}">
-        <MenuItem Header="{StaticResource IDS_MENU_ADD}"
-                  ToolTip="{StaticResource IDS_MENU_ADD}"
+        <MenuItem Header="{DynamicResource IDS_MENU_ADD}"
+                  ToolTip="{DynamicResource IDS_MENU_ADD}"
                   Style="{StaticResource menu-i}"
                   Command="ApplicationCommands.Open">
           <MenuItem.Icon>
@@ -52,8 +52,8 @@
       <Menu Grid.Column="1"
             Style="{StaticResource menu}"
             Margin="{StaticResource m-1}">
-        <MenuItem Header="{StaticResource IDS_MENU_RM_SEL}"
-                  ToolTip="{StaticResource IDS_MENU_RM_SEL}"
+        <MenuItem Header="{DynamicResource IDS_MENU_RM_SEL}"
+                  ToolTip="{DynamicResource IDS_MENU_RM_SEL}"
                   Style="{StaticResource menu-i}"
                   Command="{x:Static local:MainWindow.RemoveFileCommand}">
           <MenuItem.Icon>
@@ -70,7 +70,7 @@
             Style="{StaticResource menu}"
             Margin="{StaticResource m-1}">
         <MenuItem Style="{StaticResource menu-i}"
-                  ToolTip="{StaticResource IDS_MENU}">
+                  ToolTip="{DynamicResource IDS_MENU}">
           <MenuItem.Icon>
             <Image>
               <Image.Source>
@@ -80,8 +80,8 @@
           </MenuItem.Icon>
 
           <MenuItem Style="{StaticResource menu-i-sub}"
-                    Header="{StaticResource IDS_MENU_CONFIG}"
-                    ToolTip="{StaticResource IDS_MENU_CONFIG}"
+                    Header="{DynamicResource IDS_MENU_CONFIG}"
+                    ToolTip="{DynamicResource IDS_MENU_CONFIG}"
                     Command="{x:Static local:MainWindow.ConfigCommand}">
             <MenuItem.Icon>
               <Image>
@@ -93,8 +93,8 @@
           </MenuItem>
 
           <MenuItem Style="{StaticResource menu-i-sub}"
-                    Header="{StaticResource IDS_MENU_ABOUT}"
-                    ToolTip="{StaticResource IDS_MENU_ABOUT}"
+                    Header="{DynamicResource IDS_MENU_ABOUT}"
+                    ToolTip="{DynamicResource IDS_MENU_ABOUT}"
                     Command="{x:Static local:MainWindow.AboutCommand}">
           </MenuItem>
         </MenuItem>
@@ -115,7 +115,7 @@
     <StackPanel Grid.Row="3">
       <Button Margin="{StaticResource m-3}"
               Style="{StaticResource btn-pri-convert}"
-              ToolTip="{StaticResource IDS_MENU_CONVERT}"
+              ToolTip="{DynamicResource IDS_MENU_CONVERT}"
               Command="{x:Static local:MainWindow.ConvertCommand}">
         <Image>
           <Image.Source>
@@ -125,7 +125,7 @@
       </Button>
       <Button Margin="{StaticResource m-3}"
               Style="{StaticResource btn-pri-stop}"
-              ToolTip="{StaticResource IDS_MENU_CANCEL}"
+              ToolTip="{DynamicResource IDS_MENU_CANCEL}"
               Command="{x:Static local:MainWindow.StopCommand}">
         <Image>
           <Image.Source>
@@ -135,7 +135,7 @@
       </Button>
       <Button Margin="{StaticResource m-3}"
               Style="{StaticResource btn-pri-reset}"
-              ToolTip="{StaticResource IDS_MENU_OK}"
+              ToolTip="{DynamicResource IDS_MENU_OK}"
               Command="{x:Static local:MainWindow.ResetCommand}">
         <Image>
           <Image.Source>

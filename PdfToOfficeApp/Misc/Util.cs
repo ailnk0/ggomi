@@ -30,12 +30,6 @@ namespace PdfToOfficeApp
 
         public class ThemeManager : ResManager
         {
-            public enum THEME
-            {
-                NORMAL,
-                DARK,
-            }
-
             private static readonly Uri SRC_NORMAL = new Uri("Resources/Themes/Generic.xaml", UriKind.RelativeOrAbsolute);
             private static readonly Uri SRC_DARK = new Uri("Resources/Themes/Dark.xaml", UriKind.RelativeOrAbsolute);
 
@@ -64,12 +58,8 @@ namespace PdfToOfficeApp
 
         public class LangManager : ResManager
         {
-            public enum LANG
-            {
-                KO_KR,
-            }
-
             private static readonly Uri SRC_KO_KR = new Uri("Resources/Strings/ko-KR/pdftooffice_strings.xaml", UriKind.RelativeOrAbsolute);
+            private static readonly Uri SRC_EN_US = new Uri("Resources/Strings/en-US/pdftooffice_strings.xaml", UriKind.RelativeOrAbsolute);
 
             public static void Apply(LANG lang)
             {
@@ -83,6 +73,10 @@ namespace PdfToOfficeApp
                 {
                     case LANG.KO_KR:
                         langRes.Source = SRC_KO_KR;
+                        break;
+
+                    case LANG.EN_US:
+                        langRes.Source = SRC_EN_US;
                         break;
 
                     default:

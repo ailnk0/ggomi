@@ -36,6 +36,15 @@
 
   <local:ProgressToAngleConverter x:Key="ProgressConverter" />
   <local:DataConv x:Key="dataConv" />
+  <local:ResConv x:Key="resConv" />
+
+  <ObjectDataProvider MethodName="GetValues"
+                      ObjectType="{x:Type system:Enum}"
+                      x:Key="lang-values">
+    <ObjectDataProvider.MethodParameters>
+      <x:Type TypeName="local:LANG" />
+    </ObjectDataProvider.MethodParameters>
+  </ObjectDataProvider>
 
   <DrawingImage x:Key="drawing_validate_check"
                 Drawing="{DynamicResource dlg_data_validate_check}">
@@ -196,6 +205,20 @@
         <ControlTemplate TargetType="{x:Type Menu}">
           <Border>
             <StackPanel Orientation="Horizontal"
+                        IsItemsHost="True" />
+          </Border>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+
+  <Style x:Key="menu-v"
+         TargetType="{x:Type Menu}">
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="{x:Type Menu}">
+          <Border>
+            <StackPanel Orientation="Vertical"
                         IsItemsHost="True" />
           </Border>
         </ControlTemplate>
@@ -408,35 +431,44 @@
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="{x:Type CheckBox}">
-          <Grid>
-            <Grid.ColumnDefinitions>
-              <ColumnDefinition Width="auto" />
-              <ColumnDefinition />
-              <ColumnDefinition Width="auto" />
-            </Grid.ColumnDefinitions>
-            <ContentPresenter Grid.Column="1"
-                              VerticalAlignment="Center" />
-            <Border x:Name="PART_Bg"
-                    Grid.Column="3"
-                    VerticalAlignment="Center"
-                    Height="{StaticResource sz-h-check-slide}"
-                    Width="{StaticResource sz-w-check-slide}"
-                    CornerRadius="{StaticResource round-check-slide}"
-                    Background="{DynamicResource Gray_40}">
-              <Grid>
-                <Ellipse x:Name="PART_Btn"
-                         Fill="{DynamicResource bg}"
-                         Margin="{StaticResource off-pos-check-slide}"
-                         Width="{StaticResource sz-check-slide-btn}" />
-              </Grid>
-            </Border>
-          </Grid>
+          <Border x:Name="PART_Bg"
+                  CornerRadius="{StaticResource round-btn}">
+            <Grid Margin="{StaticResource m-2}">
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition />
+                <ColumnDefinition Width="auto" />
+              </Grid.ColumnDefinitions>
+              <ContentPresenter Grid.Column="1"
+                                VerticalAlignment="Center" />
+              <Border x:Name="PART_Btn_Bg"
+                      Grid.Column="3"
+                      VerticalAlignment="Center"
+                      Height="{StaticResource sz-h-check-slide}"
+                      Width="{StaticResource sz-w-check-slide}"
+                      CornerRadius="{StaticResource round-check-slide}"
+                      Background="{DynamicResource Gray_40}">
+                <Grid>
+                  <Ellipse x:Name="PART_Btn"
+                           Fill="{DynamicResource bg}"
+                           Margin="{StaticResource off-pos-check-slide}"
+                           Width="{StaticResource sz-check-slide-btn}" />
+                </Grid>
+              </Border>
+            </Grid>
+          </Border>
           <ControlTemplate.Triggers>
-            <Trigger Property="IsChecked"
+            <Trigger Property="IsMouseOver"
                      Value="True">
               <Setter TargetName="PART_Bg"
                       Property="Background"
-                      Value="{StaticResource Red_100}" />
+                      Value="{DynamicResource bg-mouseover}" />
+            </Trigger>
+            <Trigger Property="IsChecked"
+                     Value="True">
+              <Setter TargetName="PART_Btn_Bg"
+                      Property="Background"
+                      Value="{DynamicResource Red_100}" />
               <Trigger.EnterActions>
                 <BeginStoryboard>
                   <Storyboard>
@@ -457,6 +489,67 @@
                   </Storyboard>
                 </BeginStoryboard>
               </Trigger.ExitActions>
+            </Trigger>
+          </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+
+  <Style x:Key="menu-opt"
+         TargetType="{x:Type MenuItem}">
+    <Setter Property="Background"
+            Value="Transparent" />
+    <Setter Property="BorderBrush"
+            Value="Transparent" />
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="{x:Type MenuItem}">
+          <Border x:Name="PART_Bg"
+                  CornerRadius="{StaticResource round-btn}">
+            <Grid Margin="{StaticResource m-2}">
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition />
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="auto" />
+              </Grid.ColumnDefinitions>
+              <ContentPresenter Grid.Column="0"
+                                Content="{TemplateBinding Header}"
+                                TextBlock.Foreground="{DynamicResource Gray_100}"
+                                VerticalAlignment="Center" />
+              <TextBlock  Grid.Column="2"
+                          Margin="{StaticResource mx-2}"
+                          Text="{TemplateBinding Tag}"
+                          Foreground="{DynamicResource Gray_60}"
+                          VerticalAlignment="Center" />
+              <ContentPresenter Grid.Column="3"
+                                Height="{StaticResource sz-h-check-slide}"
+                                Content="{TemplateBinding Icon}"
+                                VerticalAlignment="Center" />
+              <Popup x:Name="Popup"
+                     Placement="Right"
+                     IsOpen="{TemplateBinding IsSubmenuOpen}"
+                     AllowsTransparency="True"
+                     PopupAnimation="Fade">
+                <Border x:Name="SubmenuBorder"
+                        CornerRadius="{StaticResource round-btn}"
+                        Padding="{StaticResource m-1}"
+                        BorderThickness="1"
+                        BorderBrush="{DynamicResource Gray_20}"
+                        Background="{DynamicResource bg}">
+                  <StackPanel IsItemsHost="True"
+                              KeyboardNavigation.DirectionalNavigation="Cycle" />
+                </Border>
+              </Popup>
+            </Grid>
+          </Border>
+          <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver"
+                     Value="True">
+              <Setter TargetName="PART_Bg"
+                      Property="Background"
+                      Value="{DynamicResource bg-mouseover}" />
             </Trigger>
           </ControlTemplate.Triggers>
         </ControlTemplate>
