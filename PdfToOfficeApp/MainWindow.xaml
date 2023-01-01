@@ -106,10 +106,11 @@
     </Border>
 
     <Border Grid.Row="2"
-            Style="{StaticResource div-selformat}"
-            BorderBrush="{DynamicResource Gray_20}"
-            BorderThickness="0,1,0,0">
-      <local:SelectFormatComp Margin="{StaticResource m-1}" />
+            Style="{StaticResource div-selformat}">
+      <StackPanel>
+        <Separator Background="{DynamicResource Gray_20}" />
+        <local:SelectFormatComp Margin="{StaticResource m-1}" />
+      </StackPanel>
     </Border>
 
     <StackPanel Grid.Row="3">

@@ -51,52 +51,54 @@
                          TextWrapping="Wrap" />
             </Grid>
           </CheckBox>
-          <Grid Grid.Row="1"
-                IsEnabled="{Binding Path=IsSaveToUserDir}">
-            <Grid.ColumnDefinitions>
-              <ColumnDefinition />
-              <ColumnDefinition Width="auto" />
-              <ColumnDefinition Width="auto" />
-            </Grid.ColumnDefinitions>
-            <TextBox Grid.Column="0"
-                     VerticalAlignment="Center"
-                     Text="{Binding Path=UserDir}"
-                     Style="{StaticResource text-readonly}">
-              <TextBox.Resources>
-                <Style TargetType="{x:Type Border}">
-                  <Setter Property="CornerRadius"
-                          Value="{StaticResource round-btn}" />
-                </Style>
-              </TextBox.Resources>
-            </TextBox>
-
-            <Border Grid.Column="1"
-                    Margin="{StaticResource mr-1}" />
-
-            <Menu Grid.Column="2"
-                  VerticalAlignment="Center"
-                  Style="{StaticResource menu}">
-              <MenuItem Header="{DynamicResource IDS_OPT_SAVE_DIR}"
-                        ToolTip="{DynamicResource IDS_OPT_SAVE_DIR}"
-                        Style="{StaticResource menu-i}"
-                        Command="{x:Static local:ConfigWindow.SelUserDirCommand}">
-                <MenuItem.Icon>
-                  <Image>
-                    <Image.Source>
-                      <DrawingImage Drawing="{DynamicResource sm_opendlg}" />
-                    </Image.Source>
-                  </Image>
-                </MenuItem.Icon>
-              </MenuItem>
-            </Menu>
-          </Grid>
+          <Border CornerRadius="{StaticResource round-btn}"
+                  Background="{StaticResource bg-mouseover}"
+                  IsEnabled="{Binding Path=IsSaveToUserDir}">
+            <Border.Style>
+              <Style TargetType="{x:Type Border}">
+                <Style.Triggers>
+                  <Trigger Property="IsEnabled"
+                           Value="False">
+                    <Setter Property="Opacity"
+                            Value="{StaticResource opcity-btn-disable}" />
+                  </Trigger>
+                </Style.Triggers>
+              </Style>
+            </Border.Style>
+            <Grid Margin="{StaticResource mx-2}">
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="auto" />
+              </Grid.ColumnDefinitions>
+              <TextBox Grid.Column="0"
+                       VerticalAlignment="Center"
+                       Text="{Binding Path=UserDir}"
+                       Style="{StaticResource textbox-readonly}">
+              </TextBox>
+              <Menu Grid.Column="2"
+                    VerticalAlignment="Center"
+                    Style="{StaticResource menu}">
+                <MenuItem Header="{DynamicResource IDS_OPT_SAVE_DIR}"
+                          ToolTip="{DynamicResource IDS_OPT_SAVE_DIR}"
+                          Style="{StaticResource menu-i}"
+                          Command="{x:Static local:ConfigWindow.SelUserDirCommand}">
+                  <MenuItem.Icon>
+                    <Image>
+                      <Image.Source>
+                        <DrawingImage Drawing="{DynamicResource sm_opendlg}" />
+                      </Image.Source>
+                    </Image>
+                  </MenuItem.Icon>
+                </MenuItem>
+              </Menu>
+            </Grid>
+          </Border>
         </StackPanel>
       </Border>
 
       <Border Margin="{StaticResource m-1}">
         <StackPanel>
-          <Menu Style="{StaticResource menu-v}"
-                Width="auto">
+          <Menu Style="{StaticResource menu-v}">
             <MenuItem Header="{DynamicResource IDS_OPT_LANG}"
                       Tag="{Binding Path=Lang, Converter={StaticResource resConv}}"
                       Style="{StaticResource menu-opt}">

@@ -120,7 +120,7 @@
   <System:Double x:Key="sz-btn-pri">60</System:Double>
   <Thickness x:Key="pad-btn">5</Thickness>
   <System:Double x:Key="opcity-btn">1</System:Double>
-  <System:Double x:Key="opcity-btn-disable">0.3</System:Double>
+  <System:Double x:Key="opcity-btn-disable">0.4</System:Double>
   <CornerRadius x:Key="round-btn">5</CornerRadius>
   <System:Double x:Key="sz-w-check-slide">40</System:Double>
   <System:Double x:Key="sz-h-check-slide">20</System:Double>
@@ -515,7 +515,6 @@
                   CornerRadius="{StaticResource round-btn}">
             <Grid Margin="{StaticResource m-2}">
               <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="auto" />
                 <ColumnDefinition />
                 <ColumnDefinition Width="auto" />
                 <ColumnDefinition Width="auto" />
@@ -524,12 +523,12 @@
                                 Content="{TemplateBinding Header}"
                                 TextBlock.Foreground="{DynamicResource Gray_100}"
                                 VerticalAlignment="Center" />
-              <TextBlock  Grid.Column="2"
+              <TextBlock  Grid.Column="1"
                           Margin="{StaticResource mx-2}"
                           Text="{TemplateBinding Tag}"
                           Foreground="{DynamicResource Gray_60}"
                           VerticalAlignment="Center" />
-              <ContentPresenter Grid.Column="3"
+              <ContentPresenter Grid.Column="2"
                                 Height="{StaticResource sz-h-check-slide}"
                                 Content="{TemplateBinding Icon}"
                                 VerticalAlignment="Center" />
@@ -563,20 +562,28 @@
     </Setter>
   </Style>
 
-  <Style x:Key="text-readonly"
+  <Style x:Key="textbox-readonly"
          TargetType="{x:Type TextBox}">
     <Setter Property="IsReadOnly"
             Value="True" />
     <Setter Property="BorderThickness"
             Value="0" />
-    <Setter Property="Padding"
-            Value="{DynamicResource m-2}" />
-    <Setter Property="Background"
-            Value="{DynamicResource bg-mouseover}" />
     <Setter Property="Foreground"
             Value="{DynamicResource Gray_60}" />
     <Setter Property="TextWrapping"
             Value="Wrap" />
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="{x:Type TextBox}">
+          <Border x:Name="PART_Border">
+            <Grid>
+              <ScrollViewer x:Name="PART_ContentHost"
+                            Margin="0" />
+            </Grid>
+          </Border>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
   </Style>
 
 </ResourceDictionary>
