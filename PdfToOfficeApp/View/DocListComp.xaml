@@ -10,13 +10,54 @@
 
   <UserControl.Resources>
     <ResourceDictionary>
-      <system:Double x:Key="sz-list-item">90</system:Double>
+      <system:Double x:Key="sz-list-item">100</system:Double>
       <system:Double x:Key="sz-list-img">50</system:Double>
       <system:Double x:Key="sz-list-icon">25</system:Double>
       <system:Double x:Key="sz-list-inner">15</system:Double>
 
+      <Style x:Key="icon-cover"
+             TargetType="{x:Type Ellipse}">
+        <Setter Property="Height"
+                Value="{StaticResource sz-list-inner}" />
+        <Setter Property="Width"
+                Value="{StaticResource sz-list-inner}" />
+        <Setter Property="Fill"
+                Value="{DynamicResource bg}" />
+        <Setter Property="Visibility"
+                Value="Collapsed" />
+        <Setter Property="Opacity"
+                Value="0.8" />
+        <Style.Triggers>
+          <DataTrigger Binding="{Binding Path=ConvStatus}"
+                       Value="{x:Static local:CONV_STATUS.COMPLETED}">
+            <DataTrigger.Setters>
+              <Setter Property="Visibility"
+                      Value="Visible" />
+            </DataTrigger.Setters>
+          </DataTrigger>
+          <DataTrigger Binding="{Binding Path=ConvStatus}"
+                       Value="{x:Static local:CONV_STATUS.FAIL}">
+            <DataTrigger.Setters>
+              <Setter Property="Visibility"
+                      Value="Visible" />
+            </DataTrigger.Setters>
+          </DataTrigger>
+          <DataTrigger Binding="{Binding Path=ConvStatus}"
+                       Value="{x:Static local:CONV_STATUS.RUNNING}">
+            <DataTrigger.Setters>
+              <Setter Property="Visibility"
+                      Value="Visible" />
+            </DataTrigger.Setters>
+          </DataTrigger>
+        </Style.Triggers>
+      </Style>
+
       <Style TargetType="{x:Type Image}"
-             x:Key="image-conv-completed">
+             x:Key="image-doc-icon">
+        <Setter Property="Height"
+                Value="{StaticResource sz-list-img}" />
+        <Setter Property="Width"
+                Value="{StaticResource sz-list-img}" />
         <Setter Property="Visibility"
                 Value="Visible" />
         <Style.Triggers>
@@ -46,6 +87,10 @@
 
       <Style TargetType="{x:Type Image}"
              x:Key="image-conv-result">
+        <Setter Property="Height"
+                Value="{StaticResource sz-list-icon}" />
+        <Setter Property="Width"
+                Value="{StaticResource sz-list-icon}" />
         <Style.Triggers>
           <DataTrigger Binding="{Binding Path=ConvStatus}"
                        Value="{x:Static local:CONV_STATUS.COMPLETED}">
@@ -66,14 +111,14 @@
 
       <Style TargetType="{x:Type ProgressBar}"
              x:Key="progressbar-circular">
+        <Setter Property="Height"
+                Value="{StaticResource sz-list-icon}" />
+        <Setter Property="Width"
+                Value="{StaticResource sz-list-icon}" />
         <Setter Property="Template">
           <Setter.Value>
             <ControlTemplate TargetType="{x:Type ProgressBar}">
               <Grid>
-                <Ellipse Height="{StaticResource sz-list-inner}"
-                         Width="{StaticResource sz-list-inner}"
-                         Fill="{DynamicResource bg}"
-                         Opacity="0.7" />
                 <local:Arc StrokeThickness="5"
                            Stroke="{DynamicResource Green_100}">
                   <local:Arc.StartAngle>
@@ -141,33 +186,28 @@
               Height="{StaticResource sz-list-item}"
               ToolTip="{Binding Path=Tooltip}">
           <Grid.RowDefinitions>
-            <RowDefinition Height="1.5*" />
+            <RowDefinition Height="2*" />
             <RowDefinition Height="*" />
           </Grid.RowDefinitions>
           <Grid Grid.Row="0"
                 VerticalAlignment="Bottom">
-            <Image Height="{StaticResource sz-list-img}"
-                   Width="{StaticResource sz-list-img}"
-                   Style="{StaticResource image-conv-completed}">
+            <Image Style="{StaticResource image-doc-icon}">
               <Image.Source>
-                <DrawingImage Drawing="{DynamicResource icon-hpdf}">
-                </DrawingImage>
+                <DrawingImage Drawing="{DynamicResource icon-hpdf}" />
               </Image.Source>
             </Image>
-            <ProgressBar Height="{StaticResource sz-list-icon}"
-                         Width="{StaticResource sz-list-icon}"
-                         Value="{Binding Path=ProgressValue}"
+            <Ellipse Style="{StaticResource icon-cover}" />
+            <ProgressBar Value="{Binding Path=ProgressValue}"
                          Style="{StaticResource progressbar-circular}" />
-            <Image Height="{StaticResource sz-list-icon}"
-                   Width="{StaticResource sz-list-icon}"
-                   Style="{StaticResource image-conv-result}" />
+            <Image Style="{StaticResource image-conv-result}" />
           </Grid>
           <Grid Grid.Row="1"
                 VerticalAlignment="Top">
             <TextBlock Text="{Binding Path=FileName}"
                        Foreground="{DynamicResource Gray_100}"
                        TextWrapping="Wrap"
-                       TextAlignment="Center" />
+                       TextAlignment="Center"
+                       TextTrimming="CharacterEllipsis" />
           </Grid>
         </Grid>
       </DataTemplate>
