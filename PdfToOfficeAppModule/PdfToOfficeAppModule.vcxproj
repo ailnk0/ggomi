@@ -143,8 +143,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="DefineProxy.h" />
+    <ClInclude Include="IProgressSiteCli.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="PdfToDocxProxy.h" />
+    <ClInclude Include="PdfToImageProxy.h" />
     <ClInclude Include="PdfToOfficeProxy.h" />
+    <ClInclude Include="PdfToPptxProxy.h" />
+    <ClInclude Include="PdfToXlsxProxy.h" />
+    <ClInclude Include="ProgressSiteProxy.h" />
     <ClInclude Include="Resource.h" />
   </ItemGroup>
   <ItemGroup>
@@ -155,7 +161,12 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="PdfToDocxProxy.cpp" />
+    <ClCompile Include="PdfToImageProxy.cpp" />
     <ClCompile Include="PdfToOfficeProxy.cpp" />
+    <ClCompile Include="PdfToPptxProxy.cpp" />
+    <ClCompile Include="PdfToXlsxProxy.cpp" />
+    <ClCompile Include="ProgressSiteProxy.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="app.rc" />

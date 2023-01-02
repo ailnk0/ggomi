@@ -16,6 +16,7 @@ namespace PdfToOfficeApp
     public partial class MainWindow : Window, IDisposable
     {
         private PdfToOfficeProxy pdfToOffice;
+
         private BackgroundWorker worker = new BackgroundWorker();
 
         public MainWindow()
@@ -52,8 +53,6 @@ namespace PdfToOfficeApp
             worker.RunWorkerCompleted += Worker_RunWorkerCompleted;
             worker.WorkerReportsProgress = true;
             worker.WorkerSupportsCancellation = true;
-
-            pdfToOffice = new PdfToOfficeProxy();
 
             GetModel().AppVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
             GetModel().UserDir = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
@@ -123,6 +122,12 @@ namespace PdfToOfficeApp
         private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             GetModel().AppStatus = APP_STATUS.COMPLETED;
+
+            if (pdfToOffice != null)
+            {
+                pdfToOffice.Dispose();
+                pdfToOffice = null;
+            }
         }
 
         private void Worker_DoWork(object sender, DoWorkEventArgs e)
@@ -149,8 +154,9 @@ namespace PdfToOfficeApp
 
                 pdfToOffice.SetIsSaveToUserDir(model.IsSaveToUserDir);
                 pdfToOffice.SetUserDir(model.UserDir);
+                pdfToOffice.SetOverwrite(model.AllowOverwrite);
 
-                doc.ResCode = pdfToOffice.DoConversion(doc.FilePath, doc.Password, model.ConvFileType, model.ConvImgType, model.AllowOverwrite);
+                doc.ResCode = pdfToOffice.Convert(doc.FilePath, doc.Password);
 
                 if (doc.ResCode == RES_CODE.Success)
                 {
@@ -238,14 +244,41 @@ namespace PdfToOfficeApp
 
         private void OnConvert(object sender, ExecutedRoutedEventArgs e)
         {
+            switch (GetModel().ConvFileType)
+            {
+                case FILE_TYPE.DOCX:
+                    pdfToOffice = new PdfToDocxProxy();
+                    break;
+                case FILE_TYPE.PPTX:
+                    pdfToOffice = new PdfToPptxProxy();
+                    break;
+                case FILE_TYPE.XLSX:
+                    pdfToOffice = new PdfToXlsxProxy();
+                    break;
+                case FILE_TYPE.IMAGE:
+                    pdfToOffice = new PdfToImageProxy();
+                    break;
+                default:
+                    break;
+            }
+
+            if (pdfToOffice == null)
+            {
+                if (GetModel().ShowMsg)
+                {
+                    MessageBox.Show(Util.String.GetMsg(RES_CODE.InternalError));
+                }
+                return;
+            }
+
             RES_CODE resCode = pdfToOffice.InitializeSolidFramework();
             if (resCode != RES_CODE.Success)
             {
                 if (GetModel().ShowMsg)
                 {
                     MessageBox.Show(Util.String.GetMsg(resCode));
-                    return;
                 }
+                return;
             }
 
             GetModel().AppStatus = APP_STATUS.RUNNING;
@@ -266,6 +299,11 @@ namespace PdfToOfficeApp
 
         private void OnStop(object sender, ExecutedRoutedEventArgs e)
         {
+            if (pdfToOffice != null)
+            {
+                pdfToOffice.Cancel();
+            }
+
             if (worker != null && worker.IsBusy)
             {
                 worker.CancelAsync();
