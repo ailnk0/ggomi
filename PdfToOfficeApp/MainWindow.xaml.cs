@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Reflection;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -45,6 +44,8 @@ namespace PdfToOfficeApp
         {
             base.OnInitialized(e);
 
+            GetModel().Init();
+
             AddCommandHandlers();
 
             ContentRendered += MainWindow_ContentRendered;
@@ -53,9 +54,6 @@ namespace PdfToOfficeApp
             worker.RunWorkerCompleted += Worker_RunWorkerCompleted;
             worker.WorkerReportsProgress = true;
             worker.WorkerSupportsCancellation = true;
-
-            GetModel().AppVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
-            GetModel().UserDir = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
         }
 
         private void MainWindow_ContentRendered(object sender, EventArgs e)

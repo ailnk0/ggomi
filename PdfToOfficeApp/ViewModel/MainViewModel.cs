@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Reflection;
 using PdfToOfficeAppModule;
 
 namespace PdfToOfficeApp
@@ -8,7 +9,27 @@ namespace PdfToOfficeApp
     {
         public MainViewModel()
         {
-            _Docs.CollectionChanged += _Docs_CollectionChanged;
+        }
+
+        public void Init()
+        {
+            if (_Docs != null)
+            {
+                _Docs.CollectionChanged += _Docs_CollectionChanged;
+            }
+
+            AppVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+
+            UserDir = Properties.Settings.Default.UserDir;
+            IsSaveToUserDir = Properties.Settings.Default.IsSaveToUserDir;
+            IsOverwrite = Properties.Settings.Default.IsOverwrite;
+            IsDarkTheme = Properties.Settings.Default.IsDarkTheme;
+            Lang = Properties.Settings.Default.Lang;
+
+            if (string.IsNullOrEmpty(UserDir))
+            {
+                UserDir = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            }
         }
 
         public void Dispose()
@@ -102,46 +123,49 @@ namespace PdfToOfficeApp
             }
         }
 
-        private string _UserDir = string.Empty;
         public string UserDir
         {
-            get { return _UserDir; }
+            get { return Properties.Settings.Default.UserDir; }
             set
             {
-                _UserDir = value;
+                Properties.Settings.Default.UserDir = value;
+                Properties.Settings.Default.Save();
+
                 OnPropertyChanged("UserDir");
             }
         }
 
-        private bool _IsSaveToUserDir = false;
         public bool IsSaveToUserDir
         {
-            get { return _IsSaveToUserDir; }
+            get { return Properties.Settings.Default.IsSaveToUserDir; }
             set
             {
-                _IsSaveToUserDir = value;
+                Properties.Settings.Default.IsSaveToUserDir = value;
+                Properties.Settings.Default.Save();
+
                 OnPropertyChanged("IsSaveToUserDir");
             }
         }
 
-        private bool _AllowOverwrite = true;
-        public bool AllowOverwrite
+        public bool IsOverwrite
         {
-            get { return _AllowOverwrite; }
+            get { return Properties.Settings.Default.IsOverwrite; }
             set
             {
-                _AllowOverwrite = value;
-                OnPropertyChanged("AllowOverwrite");
+                Properties.Settings.Default.IsOverwrite = value;
+                Properties.Settings.Default.Save();
+
+                OnPropertyChanged("IsOverwrite");
             }
         }
 
-        private bool _AllowDarkTheme = false;
-        public bool AllowDarkTheme
+        public bool IsDarkTheme
         {
-            get { return _AllowDarkTheme; }
+            get { return Properties.Settings.Default.IsDarkTheme; }
             set
             {
-                _AllowDarkTheme = value;
+                Properties.Settings.Default.IsDarkTheme = value;
+                Properties.Settings.Default.Save();
 
                 if (value)
                 {
@@ -152,19 +176,19 @@ namespace PdfToOfficeApp
                     Util.ThemeManager.Apply(THEME.NORMAL);
                 }
 
-                OnPropertyChanged("AllowDarkTheme");
+                OnPropertyChanged("IsDarkTheme");
             }
         }
 
-        private LANG _lang = LANG.KO_KR;
         public LANG Lang
         {
-            get { return _lang; }
+            get { return Properties.Settings.Default.Lang; }
             set
             {
-                _lang = value;
+                Properties.Settings.Default.Lang = value;
+                Properties.Settings.Default.Save();
 
-                Util.LangManager.Apply(_lang);
+                Util.LangManager.Apply(value);
 
                 OnPropertyChanged("Lang");
             }

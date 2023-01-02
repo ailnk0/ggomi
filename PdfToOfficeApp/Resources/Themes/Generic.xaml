@@ -38,14 +38,6 @@
   <local:DataConv x:Key="dataConv" />
   <local:ResConv x:Key="resConv" />
 
-  <ObjectDataProvider MethodName="GetValues"
-                      ObjectType="{x:Type System:Enum}"
-                      x:Key="lang-values">
-    <ObjectDataProvider.MethodParameters>
-      <x:Type TypeName="local:LANG" />
-    </ObjectDataProvider.MethodParameters>
-  </ObjectDataProvider>
-
   <DrawingImage x:Key="drawing_validate_check"
                 Drawing="{DynamicResource dlg_data_validate_check}">
   </DrawingImage>
