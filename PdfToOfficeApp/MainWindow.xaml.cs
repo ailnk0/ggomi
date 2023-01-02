@@ -152,7 +152,7 @@ namespace PdfToOfficeApp
 
                 pdfToOffice.SetIsSaveToUserDir(model.IsSaveToUserDir);
                 pdfToOffice.SetUserDir(model.UserDir);
-                pdfToOffice.SetOverwrite(model.AllowOverwrite);
+                pdfToOffice.SetOverwrite(model.IsOverwrite);
 
                 doc.ResCode = pdfToOffice.Convert(doc.FilePath, doc.Password);
 
