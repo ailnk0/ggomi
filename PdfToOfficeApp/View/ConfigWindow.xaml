@@ -17,7 +17,7 @@
       <Border Margin="{StaticResource m-1}">
         <StackPanel>
           <CheckBox Style="{StaticResource check-slide}"
-                    IsChecked="{Binding Path=AllowDarkTheme}">
+                    IsChecked="{Binding Path=IsDarkTheme}">
             <TextBlock Text="{DynamicResource IDS_OPT_DARK_THEME}"
                        Foreground="{DynamicResource Gray_100}"
                        TextWrapping="Wrap" />
@@ -28,7 +28,7 @@
       <Border Margin="{StaticResource m-1}">
         <StackPanel>
           <CheckBox Style="{StaticResource check-slide}"
-                    IsChecked="{Binding Path=AllowOverwrite}">
+                    IsChecked="{Binding Path=IsOverwrite}">
             <TextBlock Text="{DynamicResource IDS_OPT_OVERWRITE}"
                        Foreground="{DynamicResource Gray_100}"
                        TextWrapping="Wrap" />

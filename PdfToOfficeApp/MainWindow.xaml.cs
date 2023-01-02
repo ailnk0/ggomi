@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Reflection;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -44,6 +43,8 @@ namespace PdfToOfficeApp
         {
             base.OnInitialized(e);
 
+            GetModel().Init();
+
             AddCommandHandlers();
 
             ContentRendered += MainWindow_ContentRendered;
@@ -54,9 +55,6 @@ namespace PdfToOfficeApp
             worker.WorkerSupportsCancellation = true;
 
             pdfToOffice = new PdfToOfficeProxy();
-
-            GetModel().AppVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
-            GetModel().UserDir = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
         }
 
         private void MainWindow_ContentRendered(object sender, EventArgs e)
@@ -150,7 +148,7 @@ namespace PdfToOfficeApp
                 pdfToOffice.SetIsSaveToUserDir(model.IsSaveToUserDir);
                 pdfToOffice.SetUserDir(model.UserDir);
 
-                doc.ResCode = pdfToOffice.DoConversion(doc.FilePath, doc.Password, model.ConvFileType, model.ConvImgType, model.AllowOverwrite);
+                doc.ResCode = pdfToOffice.DoConversion(doc.FilePath, doc.Password, model.ConvFileType, model.ConvImgType, model.IsOverwrite);
 
                 if (doc.ResCode == RES_CODE.Success)
                 {
