@@ -27,9 +27,6 @@
     <ClInclude Include="SolidFramework.h">
       <Filter>HncPdfSdk</Filter>
     </ClInclude>
-    <ClInclude Include="PdfToOfficeLib.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Util.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -39,11 +36,26 @@
     <ClInclude Include="IProgressSite.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="PdfToDocx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PdfToXlsx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PdfToPptx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PdfToImage.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="IPdfToOffice.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PdfToOffice.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="PdfToOfficeLib.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="pch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -51,6 +63,21 @@
       <Filter>HncPdfSdk</Filter>
     </ClCompile>
     <ClCompile Include="Util.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PdfToDocx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PdfToXlsx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PdfToPptx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PdfToImage.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PdfToOffice.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
