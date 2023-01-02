@@ -13,7 +13,7 @@ namespace HpdfToOffice {
 
 IProgressSite* PdfToOffice::s_ProgressSite = nullptr;
 
-RES_CODE PdfToOffice::InitializeSolidFramework() {
+RES_CODE PdfToOffice::Init() {
   SolidFramework::SupportPlatformIndependentPaths(true);
 
   try {

@@ -15,7 +15,7 @@ ref class PdfToOfficeProxy : public IPdfToOfficeProxy {
   ~PdfToOfficeProxy();
 
  public:
-  virtual RES_CODE InitializeSolidFramework();
+  virtual RES_CODE Init();
   virtual RES_CODE Convert(System::String ^ path, System::String ^ password);
   virtual void Cancel();
   virtual void SetOverwrite(bool overwrite);

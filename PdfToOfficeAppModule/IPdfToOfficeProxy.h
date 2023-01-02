@@ -8,7 +8,7 @@ namespace PdfToOfficeAppModule {
 public
 interface class IPdfToOfficeProxy {
  public:
-  virtual RES_CODE InitializeSolidFramework() = 0;
+  virtual RES_CODE Init() = 0;
   virtual RES_CODE Convert(System::String ^ path,
                            System::String ^ password) = 0;
   virtual void Cancel() = 0;

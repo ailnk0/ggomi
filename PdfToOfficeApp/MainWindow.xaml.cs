@@ -268,7 +268,7 @@ namespace PdfToOfficeApp
                 return;
             }
 
-            RES_CODE resCode = pdfToOffice.InitializeSolidFramework();
+            RES_CODE resCode = pdfToOffice.Init();
             if (resCode != RES_CODE.Success)
             {
                 if (GetModel().ShowMsg)

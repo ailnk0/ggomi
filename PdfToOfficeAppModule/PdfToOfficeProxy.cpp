@@ -21,11 +21,11 @@ PdfToOfficeProxy::~PdfToOfficeProxy() {
   }
 }
 
-RES_CODE PdfToOfficeProxy::InitializeSolidFramework() {
+RES_CODE PdfToOfficeProxy::Init() {
   if (!lib) {
     return RES_CODE::Unknown;
   }
-  return static_cast<RES_CODE>(lib->InitializeSolidFramework());
+  return static_cast<RES_CODE>(lib->Init());
 }
 
 RES_CODE PdfToOfficeProxy::Convert(System::String ^ path,

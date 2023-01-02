@@ -5,14 +5,12 @@
 namespace HpdfToOffice {
 
 RES_CODE PdfToPptx::Convert(const String& path, const String& password) {
-  String filePath = path;
-
-  String outPath;
+  String outPath = path;
   if (m_IsSaveToUserDir && !m_UserDir.empty()) {
-    outPath = m_UserDir;
-  } else {
-    outPath = Util::Path::GetDirName(path);
+    outPath = m_UserDir + L"\\" + Util::Path::GetFileName(outPath);
   }
+  outPath = Util::Path::ChangeExt(outPath, L".pptx");
+  outPath = Util::Path::GetAvailFileName(outPath);
 
   RES_CODE status = RES_CODE::Success;
   try {
@@ -20,18 +18,11 @@ RES_CODE PdfToPptx::Convert(const String& path, const String& password) {
         SolidFramework::Converters::PdfToPowerPointConverter>();
     m_Converter = pConverter;
 
-    pConverter->AddSourceFile(filePath);
-    pConverter->SetOutputDirectory(outPath);
-    pConverter->SetPassword(password);
     pConverter->OnProgress = &DoProgress;
+    pConverter->SetPassword(password);
 
-    if (m_IsOverwrite) {
-      pConverter->SetOverwriteMode(
-          SolidFramework::Plumbing::OverwriteMode::ForceOverwrite);
-    }
+    status = static_cast<RES_CODE>(pConverter->Convert(path, outPath, true));
 
-    pConverter->Convert();
-    status = static_cast<RES_CODE>(pConverter->GetResults()[0]->GetStatus());
   } catch (const std::exception& /*e*/) {
     status = RES_CODE::Unknown;
   }

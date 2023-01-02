@@ -12,10 +12,15 @@ class Path {
 
  public:
   static bool Exist(const String& path);
+  static String ChangeExt(const String& path, const String& ext);
   static String GetCurExePath();
   static String GetCurExeDir();
   static String GetDirName(const String& path);
   static String GetFileName(const String& path);
+  static String GetExt(const String& path);
+  static String GetBeforeExt(const String& path);
+  static String GetFileNameWithoutExt(const String& path);
+  static String GetAvailFileName(const String& path);
   static String GetSdkPath();
   static String GetSdkDir();
   static String GetSdkLicPath();

@@ -5,6 +5,7 @@
 namespace HpdfToOffice {
 
 typedef std::wstring String;
+typedef std::wstringstream StringStream;
 
 enum class FILE_TYPE {
   HWP,

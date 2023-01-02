@@ -5,13 +5,11 @@
 namespace HpdfToOffice {
 
 RES_CODE PdfToImage::Convert(const String& path, const String& password) {
-  String filePath = path;
-
-  String outPath;
+  String outDir;
   if (m_IsSaveToUserDir && !m_UserDir.empty()) {
-    outPath = m_UserDir;
+    outDir = m_UserDir;
   } else {
-    outPath = Util::Path::GetDirName(path);
+    outDir = Util::Path::ChangeExt(path, L".image");
   }
 
   RES_CODE status = RES_CODE::Success;
@@ -19,6 +17,11 @@ RES_CODE PdfToImage::Convert(const String& path, const String& password) {
     auto pConverter =
         std::make_shared<SolidFramework::Converters::PdfToImageConverter>();
     m_Converter = pConverter;
+
+    pConverter->OnProgress = &DoProgress;
+    pConverter->SetPassword(password);
+    pConverter->AddSourceFile(path);
+    pConverter->SetOutputDirectory(outDir);
 
     SolidFramework::Converters::Plumbing::ImageDocumentType imageType;
     switch (m_ImgType) {
@@ -47,22 +50,16 @@ RES_CODE PdfToImage::Convert(const String& path, const String& password) {
             SolidFramework::Converters::Plumbing::ImageDocumentType::Png;
         break;
     }
-
+    pConverter->SetOutputType(imageType);
     pConverter->SetConversionType(SolidFramework::Converters::Plumbing::
                                       ImageConversionType::ExtractPages);
-    pConverter->SetOutputType(imageType);
-    pConverter->AddSourceFile(filePath);
-    pConverter->SetOutputDirectory(outPath);
-    pConverter->SetPassword(password);
-    pConverter->OnProgress = &DoProgress;
-
-    if (m_IsOverwrite) {
-      pConverter->SetOverwriteMode(
-          SolidFramework::Plumbing::OverwriteMode::ForceOverwrite);
-    }
+    pConverter->SetOverwriteMode(
+        SolidFramework::Plumbing::OverwriteMode::ForceOverwrite);
 
     pConverter->Convert();
+
     status = static_cast<RES_CODE>(pConverter->GetResults()[0]->GetStatus());
+
   } catch (const std::exception& /*e*/) {
     status = RES_CODE::Unknown;
   }

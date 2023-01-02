@@ -6,7 +6,7 @@ namespace HpdfToOffice {
 
 class IPdfToOffice {
  public:
-  virtual RES_CODE InitializeSolidFramework() = 0;
+  virtual RES_CODE Init() = 0;
   virtual RES_CODE Convert(const String& path, const String& password) = 0;
   virtual void Cancel() = 0;
   virtual void SetOverwrite(bool overwrite) = 0;

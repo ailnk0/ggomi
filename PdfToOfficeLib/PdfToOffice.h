@@ -20,7 +20,7 @@ class PdfToOffice : public IPdfToOffice {
   PdfToOffice() = default;
 
  public:
-  virtual RES_CODE InitializeSolidFramework();
+  virtual RES_CODE Init();
   virtual RES_CODE Convert(const String& path, const String& password);
   virtual void Cancel();
   virtual void SetOverwrite(bool overwrite);

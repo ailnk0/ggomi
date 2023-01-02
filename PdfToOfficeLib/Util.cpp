@@ -3,6 +3,7 @@
 #include "Util.h"
 
 #include <fstream>
+#include <sstream>
 
 namespace HpdfToOffice {
 namespace Util {
@@ -18,6 +19,12 @@ bool Path::Exist(const String& path) {
     buf.close();
   }
   return exist;
+}
+
+String Path::ChangeExt(const String& path, const String& ext) {
+  String buf = GetBeforeExt(path);
+  buf.append(ext);
+  return buf;
 }
 
 String Path::GetCurExePath() {
@@ -48,6 +55,51 @@ String Path::GetFileName(const String& path) {
     buf = path.substr(pos + 1);
   }
   return buf;
+}
+
+String Path::GetExt(const String& path) {
+  String buf;
+  auto pos = path.find_last_of(L".");
+  if (pos != String::npos) {
+    buf = path.substr(pos);
+  }
+  return buf;
+}
+
+String Path::GetBeforeExt(const String& path) {
+  String buf;
+  auto pos = path.find_last_of(L".");
+  if (pos != String::npos) {
+    buf = path.substr(0, pos);
+  }
+  return buf;
+}
+
+String Path::GetFileNameWithoutExt(const String& path) {
+  String buf = GetFileName(path);
+  auto pos = buf.find_last_of(L".");
+  if (pos != String::npos) {
+    buf = buf.substr(0, pos);
+  }
+  return buf;
+}
+
+String Path::GetAvailFileName(const String& path) {
+  String beforeExt = GetBeforeExt(path);
+  String ext = GetExt(path);
+
+  int count = 0;
+  String temp = path;
+  while (Exist(temp)) {
+    StringStream buf;
+    buf << beforeExt;
+    buf << L" (";
+    buf << ++count;
+    buf << L")";
+    buf << ext;
+    temp = buf.str();
+  };
+  return temp;
 }
 
 String Path::GetSdkPath() {
