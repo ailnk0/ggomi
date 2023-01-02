@@ -13,6 +13,7 @@
 #include "framework.h"
 
 #include "SolidFramework.h"
+#include "Define.h"
 #include "Util.h"
 
 #endif  // PCH_H

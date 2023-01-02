@@ -4,6 +4,7 @@
 #include "PdfToImageProxy.h"
 
 namespace PdfToOfficeAppModule {
+
 PdfToImageProxy::PdfToImageProxy() {
   lib = new HpdfToOffice::PdfToImage();
 }
@@ -22,4 +23,5 @@ void PdfToImageProxy::SetImgType(IMG_TYPE imgType) {
   HpdfToOffice::PdfToImage* temp = dynamic_cast<HpdfToOffice::PdfToImage*>(lib);
   temp->SetImgType(static_cast<HpdfToOffice::IMG_TYPE>(imgType));
 }
+
 }  // namespace PdfToOfficeAppModule

@@ -149,10 +149,9 @@ namespace PdfToOfficeApp
 
                 ProgressSiteCli progressSiteCli = new ProgressSiteCli(doc);
                 pdfToOffice.SetProgressSiteCli(progressSiteCli);
-
-                pdfToOffice.SetIsSaveToUserDir(model.IsSaveToUserDir);
-                pdfToOffice.SetUserDir(model.UserDir);
                 pdfToOffice.SetOverwrite(model.IsOverwrite);
+                pdfToOffice.SetSaveToUserDir(model.IsSaveToUserDir);
+                pdfToOffice.SetUserDir(model.UserDir);
 
                 doc.ResCode = pdfToOffice.Convert(doc.FilePath, doc.Password);
 

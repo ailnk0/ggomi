@@ -1,11 +1,9 @@
-﻿
-#include "pch.h"
+﻿#include "pch.h"
 
 #include "PdfToPptx.h"
 
-using namespace SolidFramework::Platform;
-using namespace SolidFramework::Converters::Plumbing;
 namespace HpdfToOffice {
+
 RES_CODE PdfToPptx::Convert(const String& path, const String& password) {
   String filePath = path;
 
@@ -24,8 +22,6 @@ RES_CODE PdfToPptx::Convert(const String& path, const String& password) {
 
     pConverter->AddSourceFile(filePath);
     pConverter->SetOutputDirectory(outPath);
-    pConverter->SetOverwriteMode(
-        SolidFramework::Plumbing::OverwriteMode::ForceOverwrite);
     pConverter->SetPassword(password);
     pConverter->OnProgress = &DoProgress;
 
@@ -41,4 +37,5 @@ RES_CODE PdfToPptx::Convert(const String& path, const String& password) {
   }
   return status;
 }
+
 }  // namespace HpdfToOffice

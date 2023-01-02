@@ -6,6 +6,7 @@
 
 namespace HpdfToOffice {
 namespace Util {
+
 const String Path::SDK_PATH = L"HncPdfSdk/SolidFrameworkNative.dll";
 const String Path::SDK_LIC_PATH = L"../../SolidFrameworkLicense/license.xml";
 
@@ -71,5 +72,6 @@ String Path::GetSdkDir() {
 String Path::GetSdkLicPath() {
   return SDK_LIC_PATH;
 }
+
 }  // namespace Util
 }  // namespace HpdfToOffice

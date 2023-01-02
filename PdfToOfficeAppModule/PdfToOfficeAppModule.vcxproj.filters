@@ -45,6 +45,9 @@
     <ClInclude Include="PdfToXlsxProxy.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="IPdfToOfficeProxy.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PdfToOfficeProxy.cpp">

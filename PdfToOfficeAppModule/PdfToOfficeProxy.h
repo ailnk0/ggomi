@@ -1,33 +1,31 @@
 ﻿#pragma once
 
 #include "DefineProxy.h"
-#include "IProgressSiteCli.h"
+#include "IPdfToOffice.h"
+#include "IPdfToOfficeProxy.h"
 #include "IProgressSite.h"
-
-#include <vcclr.h>
-
-namespace HpdfToOffice {
-class PdfToOffice;
-}
+#include "IProgressSiteCli.h"
 
 namespace PdfToOfficeAppModule {
+
 public
-ref class PdfToOfficeProxy {
+ref class PdfToOfficeProxy : public IPdfToOfficeProxy {
  public:
   PdfToOfficeProxy();
   ~PdfToOfficeProxy();
 
  public:
-  virtual void SetProgressSiteCli(IProgressSiteCli ^ progressSiteCli);
   virtual RES_CODE InitializeSolidFramework();
   virtual RES_CODE Convert(System::String ^ path, System::String ^ password);
   virtual void Cancel();
-  virtual void SetIsSaveToUserDir(bool allow);
+  virtual void SetOverwrite(bool overwrite);
+  virtual void SetSaveToUserDir(bool isSaveToUserDir);
   virtual void SetUserDir(System::String ^ path);
-  virtual void SetOverwrite(bool allow);
+  virtual void SetProgressSiteCli(IProgressSiteCli ^ progressSiteCli);
 
  protected:
-  HpdfToOffice::PdfToOffice* lib = nullptr;
+  HpdfToOffice::IPdfToOffice* lib = nullptr;
   HpdfToOffice::IProgressSite* m_ProgressSite = nullptr;
 };
+
 }  // namespace PdfToOfficeAppModule

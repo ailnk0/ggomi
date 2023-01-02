@@ -1,8 +1,10 @@
 ﻿#pragma once
 
 namespace PdfToOfficeAppModule {
+
 public
 interface class IProgressSiteCli {
-  void SetPercent(int percent);
+  virtual void SetPercent(int percent) = 0;
 };
+
 }  // namespace PdfToOfficeAppModule

@@ -4,6 +4,7 @@
 
 namespace HpdfToOffice {
 namespace Util {
+
 class Path {
  public:
   static const String SDK_PATH;
@@ -19,5 +20,6 @@ class Path {
   static String GetSdkDir();
   static String GetSdkLicPath();
 };
+
 }  // namespace Util
 }  // namespace HpdfToOffice

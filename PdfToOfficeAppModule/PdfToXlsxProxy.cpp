@@ -1,9 +1,10 @@
 ﻿#include "pch.h"
 
-#include "PdfToXlsxProxy.h"
 #include "PdfToXlsx.h"
+#include "PdfToXlsxProxy.h"
 
 namespace PdfToOfficeAppModule {
+
 PdfToXlsxProxy::PdfToXlsxProxy() {
   lib = new HpdfToOffice::PdfToXlsx();
 }
@@ -14,4 +15,5 @@ PdfToXlsxProxy::~PdfToXlsxProxy() {
     lib = nullptr;
   }
 }
+
 }  // namespace PdfToOfficeAppModule

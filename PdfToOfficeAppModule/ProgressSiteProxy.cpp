@@ -4,6 +4,7 @@
 #include "ProgressSiteProxy.h"
 
 namespace PdfToOfficeAppModule {
+
 ProgressSiteProxy::ProgressSiteProxy(gcroot<IProgressSiteCli ^> site) {
   m_Site = site;
 }
@@ -20,4 +21,5 @@ void ProgressSiteProxy::SetPercent(int percent) {
     m_Site->SetPercent(percent);
   }
 }
+
 }  // namespace PdfToOfficeAppModule

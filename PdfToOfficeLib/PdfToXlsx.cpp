@@ -6,6 +6,7 @@ using namespace SolidFramework::Platform;
 using namespace SolidFramework::Converters::Plumbing;
 
 namespace HpdfToOffice {
+
 RES_CODE PdfToXlsx::Convert(const String& path, const String& password) {
   String filePath = path;
 
@@ -41,4 +42,5 @@ RES_CODE PdfToXlsx::Convert(const String& path, const String& password) {
   }
   return status;
 }
+
 }  // namespace HpdfToOffice

@@ -143,6 +143,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="DefineProxy.h" />
+    <ClInclude Include="IPdfToOfficeProxy.h" />
     <ClInclude Include="IProgressSiteCli.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="PdfToDocxProxy.h" />

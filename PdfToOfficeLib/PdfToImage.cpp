@@ -2,10 +2,8 @@
 
 #include "PdfToImage.h"
 
-using namespace SolidFramework::Platform;
-using namespace SolidFramework::Converters::Plumbing;
-
 namespace HpdfToOffice {
+
 RES_CODE PdfToImage::Convert(const String& path, const String& password) {
   String filePath = path;
 
@@ -22,25 +20,39 @@ RES_CODE PdfToImage::Convert(const String& path, const String& password) {
         std::make_shared<SolidFramework::Converters::PdfToImageConverter>();
     m_Converter = pConverter;
 
-    SolidFramework::Converters::Plumbing::ImageDocumentType imageType =
-        SolidFramework::Converters::Plumbing::ImageDocumentType::Png;
-    if (m_ImgType == IMG_TYPE::BMP)
-      imageType = SolidFramework::Converters::Plumbing::ImageDocumentType::Bmp;
-    else if (m_ImgType == IMG_TYPE::JPEG)
-      imageType = SolidFramework::Converters::Plumbing::ImageDocumentType::Jpeg;
-    else if (m_ImgType == IMG_TYPE::PNG)
-      imageType = SolidFramework::Converters::Plumbing::ImageDocumentType::Png;
-    else if (m_ImgType == IMG_TYPE::TIFF)
-      imageType = SolidFramework::Converters::Plumbing::ImageDocumentType::Tiff;
-    else if (m_ImgType == IMG_TYPE::GIF)
-      imageType = SolidFramework::Converters::Plumbing::ImageDocumentType::Gif;
+    SolidFramework::Converters::Plumbing::ImageDocumentType imageType;
+    switch (m_ImgType) {
+      case IMG_TYPE::BMP:
+        imageType =
+            SolidFramework::Converters::Plumbing::ImageDocumentType::Bmp;
+        break;
+      case IMG_TYPE::JPEG:
+        imageType =
+            SolidFramework::Converters::Plumbing::ImageDocumentType::Jpeg;
+        break;
+      case IMG_TYPE::PNG:
+        imageType =
+            SolidFramework::Converters::Plumbing::ImageDocumentType::Png;
+        break;
+      case IMG_TYPE::TIFF:
+        imageType =
+            SolidFramework::Converters::Plumbing::ImageDocumentType::Tiff;
+        break;
+      case IMG_TYPE::GIF:
+        imageType =
+            SolidFramework::Converters::Plumbing::ImageDocumentType::Gif;
+        break;
+      default:
+        imageType =
+            SolidFramework::Converters::Plumbing::ImageDocumentType::Png;
+        break;
+    }
 
-    pConverter->SetConversionType(ImageConversionType::ExtractPages);
+    pConverter->SetConversionType(SolidFramework::Converters::Plumbing::
+                                      ImageConversionType::ExtractPages);
     pConverter->SetOutputType(imageType);
     pConverter->AddSourceFile(filePath);
     pConverter->SetOutputDirectory(outPath);
-    pConverter->SetOverwriteMode(
-        SolidFramework::Plumbing::OverwriteMode::ForceOverwrite);
     pConverter->SetPassword(password);
     pConverter->OnProgress = &DoProgress;
 
@@ -60,4 +72,5 @@ RES_CODE PdfToImage::Convert(const String& path, const String& password) {
 void PdfToImage::SetImgType(IMG_TYPE imgType) {
   m_ImgType = imgType;
 }
+
 }  // namespace HpdfToOffice

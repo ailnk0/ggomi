@@ -9,9 +9,6 @@
 #include <fstream>
 #include <iostream>
 
-using namespace SolidFramework::Platform;
-using namespace SolidFramework::Converters::Plumbing;
-
 namespace HpdfToOffice {
 
 IProgressSite* PdfToOffice::s_ProgressSite = nullptr;
@@ -46,13 +43,13 @@ void PdfToOffice::DoProgress(
   String statusDesc = pProgressEventArgs->GetStatusDescription();
 
   int totalProgress = 0;
-  if (statusDesc.find(L"PDFOCRInfoText") == 0) {
+  if (statusDesc == L"PDFOCRInfoText") {
     totalProgress = progress / 4;
-  } else if (statusDesc.find(L"PDFLoadingInfoText") == 0) {
+  } else if (statusDesc == L"PDFLoadingInfoText") {
     totalProgress = 25 + (progress / 4);
-  } else if (statusDesc.find(L"PDFConvertingInfoText") == 0) {
+  } else if (statusDesc == L"PDFConvertingInfoText") {
     totalProgress = 50 + (progress / 4);
-  } else if (statusDesc.find(L"WritingFileMessage") == 0) {
+  } else if (statusDesc == L"WritingFileMessage") {
     totalProgress = 75 + (progress / 4);
   }
 
@@ -78,15 +75,16 @@ void PdfToOffice::Cancel() {
   m_Converter->ClearSourceFiles();
 }
 
-void PdfToOffice::SetIsSaveToUserDir(bool allow) {
-  m_IsSaveToUserDir = allow;
+void PdfToOffice::SetSaveToUserDir(bool saveToUserDir) {
+  m_IsSaveToUserDir = saveToUserDir;
 }
 
 void PdfToOffice::SetUserDir(const String& path) {
   m_UserDir = path;
 }
 
-void PdfToOffice::SetOverwrite(bool allow) {
-  m_IsOverwrite = allow;
+void PdfToOffice::SetOverwrite(bool overwrite) {
+  m_IsOverwrite = overwrite;
 }
+
 }  // namespace HpdfToOffice

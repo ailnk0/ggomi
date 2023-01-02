@@ -1,19 +1,20 @@
 ﻿#pragma once
 
-#include "Define.h"
+#include "IPdfToOffice.h"
 #include "IProgressSite.h"
 #include "SolidFramework.h"
 
 namespace HpdfToOffice {
-class PdfToOffice {
+
+class PdfToOffice : public IPdfToOffice {
  private:
   static IProgressSite* s_ProgressSite;
 
  protected:
+  std::shared_ptr<SolidFramework::Converters::Converter> m_Converter = nullptr;
+  bool m_IsOverwrite = false;
   bool m_IsSaveToUserDir = false;
   String m_UserDir;
-  bool m_IsOverwrite = true;
-  std::shared_ptr<SolidFramework::Converters::Converter> m_Converter = nullptr;
 
  public:
   PdfToOffice() = default;
@@ -22,14 +23,14 @@ class PdfToOffice {
   virtual RES_CODE InitializeSolidFramework();
   virtual RES_CODE Convert(const String& path, const String& password);
   virtual void Cancel();
-
-  virtual void SetIsSaveToUserDir(bool allow);
+  virtual void SetOverwrite(bool overwrite);
+  virtual void SetSaveToUserDir(bool saveToUserDir);
   virtual void SetUserDir(const String& path);
-  virtual void SetOverwrite(bool allow);
 
  public:
   static void DoProgress(
       SolidFramework::ProgressEventArgsPtr pProgressEventArgs);
   static void SetSite(IProgressSite* progressSite);
 };
+
 }  // namespace HpdfToOffice

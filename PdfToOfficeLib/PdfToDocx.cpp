@@ -6,6 +6,7 @@ using namespace SolidFramework::Platform;
 using namespace SolidFramework::Converters::Plumbing;
 
 namespace HpdfToOffice {
+
 RES_CODE PdfToDocx::Convert(const String& path, const String& password) {
   String filePath = path;
 
@@ -28,8 +29,6 @@ RES_CODE PdfToDocx::Convert(const String& path, const String& password) {
         SolidFramework::Converters::Plumbing::WordDocumentType::DocX);
     pConverter->AddSourceFile(filePath);
     pConverter->SetOutputDirectory(outPath);
-    pConverter->SetOverwriteMode(
-        SolidFramework::Plumbing::OverwriteMode::ForceOverwrite);
     pConverter->SetPassword(password);
     pConverter->OnProgress = &DoProgress;
 
@@ -45,4 +44,5 @@ RES_CODE PdfToDocx::Convert(const String& path, const String& password) {
   }
   return status;
 }
+
 }  // namespace HpdfToOffice

@@ -3,6 +3,7 @@
 #include "PdfToOffice.h"
 
 namespace HpdfToOffice {
+
 class PdfToImage : public PdfToOffice {
  protected:
   IMG_TYPE m_ImgType = IMG_TYPE::PNG;
@@ -11,4 +12,5 @@ class PdfToImage : public PdfToOffice {
   virtual RES_CODE Convert(const String& path, const String& password);
   virtual void SetImgType(IMG_TYPE imgType);
 };
+
 }  // namespace HpdfToOffice

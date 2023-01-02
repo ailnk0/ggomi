@@ -5,6 +5,7 @@
 #include <vcclr.h>
 
 namespace PdfToOfficeAppModule {
+
 class ProgressSiteProxy : public HpdfToOffice::IProgressSite {
  private:
   gcroot<IProgressSiteCli ^> m_Site;
@@ -16,4 +17,5 @@ class ProgressSiteProxy : public HpdfToOffice::IProgressSite {
  public:
   virtual void SetPercent(int percent);
 };
+
 }  // namespace PdfToOfficeAppModule

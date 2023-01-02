@@ -2,8 +2,8 @@
 
 #include "PdfToOfficeProxy.h"
 
-#include "IProgressSiteCli.h"
 #include "IProgressSite.h"
+#include "IProgressSiteCli.h"
 #include "PdfToOffice.h"
 #include "ProgressSiteProxy.h"
 
@@ -11,6 +11,7 @@
 #include <msclr/marshal_cppstd.h>
 
 namespace PdfToOfficeAppModule {
+
 PdfToOfficeProxy::PdfToOfficeProxy() {}
 
 PdfToOfficeProxy::~PdfToOfficeProxy() {
@@ -20,18 +21,11 @@ PdfToOfficeProxy::~PdfToOfficeProxy() {
   }
 }
 
-void PdfToOfficeProxy::SetProgressSiteCli(IProgressSiteCli ^ progressSiteCli) {
-  ProgressSiteProxy* progressSiteProxy = new ProgressSiteProxy(progressSiteCli);
-  m_ProgressSite = static_cast<HpdfToOffice::IProgressSite*>(progressSiteProxy);
-  HpdfToOffice::PdfToOffice::SetSite(m_ProgressSite);
-}
-
 RES_CODE PdfToOfficeProxy::InitializeSolidFramework() {
-  try {
-    return static_cast<RES_CODE>(lib->InitializeSolidFramework());
-  } catch (...) {
-    return static_cast<RES_CODE>(HpdfToOffice::RES_CODE::Unknown);
+  if (!lib) {
+    return RES_CODE::Unknown;
   }
+  return static_cast<RES_CODE>(lib->InitializeSolidFramework());
 }
 
 RES_CODE PdfToOfficeProxy::Convert(System::String ^ path,
@@ -39,7 +33,6 @@ RES_CODE PdfToOfficeProxy::Convert(System::String ^ path,
   if (!lib) {
     return RES_CODE::Unknown;
   }
-
   return static_cast<RES_CODE>(
       lib->Convert(msclr::interop::marshal_as<HpdfToOffice::String>(path),
                    msclr::interop::marshal_as<HpdfToOffice::String>(password)));
@@ -52,11 +45,18 @@ void PdfToOfficeProxy::Cancel() {
   lib->Cancel();
 }
 
-void PdfToOfficeProxy::SetIsSaveToUserDir(bool allow) {
+void PdfToOfficeProxy::SetOverwrite(bool overwrite) {
   if (!lib) {
     return;
   }
-  lib->SetIsSaveToUserDir(allow);
+  lib->SetOverwrite(overwrite);
+}
+
+void PdfToOfficeProxy::SetSaveToUserDir(bool isSaveToUserDir) {
+  if (!lib) {
+    return;
+  }
+  lib->SetSaveToUserDir(isSaveToUserDir);
 }
 
 void PdfToOfficeProxy::SetUserDir(System::String ^ path) {
@@ -66,10 +66,10 @@ void PdfToOfficeProxy::SetUserDir(System::String ^ path) {
   lib->SetUserDir(msclr::interop::marshal_as<HpdfToOffice::String>(path));
 }
 
-void PdfToOfficeProxy::SetOverwrite(bool allow) {
-  if (!lib) {
-    return;
-  }
-  lib->SetOverwrite(allow);
+void PdfToOfficeProxy::SetProgressSiteCli(IProgressSiteCli ^ progressSiteCli) {
+  ProgressSiteProxy* progressSiteProxy = new ProgressSiteProxy(progressSiteCli);
+  m_ProgressSite = static_cast<HpdfToOffice::IProgressSite*>(progressSiteProxy);
+  HpdfToOffice::PdfToOffice::SetSite(m_ProgressSite);
 }
+
 }  // namespace PdfToOfficeAppModule

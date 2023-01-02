@@ -3,6 +3,7 @@
 #include "PdfToOfficeProxy.h"
 
 namespace PdfToOfficeAppModule {
+
 public
 ref class PdfToImageProxy : public PdfToOfficeProxy {
  public:
@@ -10,6 +11,7 @@ ref class PdfToImageProxy : public PdfToOfficeProxy {
   ~PdfToImageProxy();
 
  public:
-    virtual void SetImgType(IMG_TYPE imgType);
+  virtual void SetImgType(IMG_TYPE imgType);
 };
+
 }  // namespace PdfToOfficeAppModule
