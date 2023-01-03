@@ -40,17 +40,20 @@ RES_CODE PdfToOffice::Init() {
 void PdfToOffice::DoProgress(
     SolidFramework::ProgressEventArgsPtr pProgressEventArgs) {
   int progress = pProgressEventArgs->GetProgress();
+  int maxProgress = pProgressEventArgs->GetMaxProgress();
   String statusDesc = pProgressEventArgs->GetStatusDescription();
 
   int totalProgress = 0;
   if (statusDesc == L"PDFOCRInfoText") {
-    totalProgress = progress / 4;
+    totalProgress = (25 * progress / maxProgress);
   } else if (statusDesc == L"PDFLoadingInfoText") {
-    totalProgress = 25 + (progress / 4);
+    totalProgress = 25 + (25 * progress / maxProgress);
   } else if (statusDesc == L"PDFConvertingInfoText") {
-    totalProgress = 50 + (progress / 4);
+    totalProgress = 50 + (25 * progress / maxProgress);
   } else if (statusDesc == L"WritingFileMessage") {
-    totalProgress = 75 + (progress / 4);
+    totalProgress = 75 + (25 * progress / maxProgress);
+  } else if (statusDesc == L"PageInfo") {
+    totalProgress = 100 * progress / maxProgress;
   }
 
   if (s_ProgressSite) {

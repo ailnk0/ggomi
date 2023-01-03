@@ -23,12 +23,19 @@ RES_CODE PdfToDocx::Convert(const String& path, const String& password) {
 
     pConverter->OnProgress = &DoProgress;
     pConverter->SetPassword(password);
-    pConverter->SetReconstructionMode(
-        SolidFramework::Converters::Plumbing::ReconstructionMode::Flowing);
+    pConverter->AddSourceFile(path);
+    pConverter->SetOutputDirectory(Util::Path::GetDirName(outPath));
+    pConverter->SetOverwriteMode(
+        SolidFramework::Plumbing::OverwriteMode::ForceOverwrite);
+
     pConverter->SetOutputType(
         SolidFramework::Converters::Plumbing::WordDocumentType::DocX);
+    pConverter->SetReconstructionMode(
+        SolidFramework::Converters::Plumbing::ReconstructionMode::Flowing);
 
-    status = static_cast<RES_CODE>(pConverter->Convert(path, outPath, true));
+    pConverter->ConvertTo(outPath, true);
+
+    status = static_cast<RES_CODE>(pConverter->GetResults()[0]->GetStatus());
 
   } catch (const std::exception& /*e*/) {
     status = RES_CODE::Unknown;

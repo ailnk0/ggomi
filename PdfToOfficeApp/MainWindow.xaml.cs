@@ -121,55 +121,98 @@ namespace PdfToOfficeApp
         {
             GetModel().AppStatus = APP_STATUS.COMPLETED;
 
-            if (pdfToOffice != null)
+            RES_CODE resCode = (RES_CODE)e.Result;
+            if (resCode != RES_CODE.Success)
             {
-                pdfToOffice.Dispose();
-                pdfToOffice = null;
+                if (GetModel().ShowMsg)
+                {
+                    MessageBox.Show(Util.String.GetMsg(resCode));
+                }
             }
         }
 
         private void Worker_DoWork(object sender, DoWorkEventArgs e)
         {
+            BackgroundWorker worker = (BackgroundWorker)sender;
             MainViewModel model = (MainViewModel)e.Argument;
 
-            foreach (Doc doc in model.Docs)
+            model.AppStatus = APP_STATUS.RUNNING;
+
+            switch (model.ConvFileType)
             {
-                if (worker.CancellationPending)
+                case FILE_TYPE.DOCX:
+                    pdfToOffice = new PdfToDocxProxy();
+                    break;
+                case FILE_TYPE.PPTX:
+                    pdfToOffice = new PdfToPptxProxy();
+                    break;
+                case FILE_TYPE.XLSX:
+                    pdfToOffice = new PdfToXlsxProxy();
+                    break;
+                case FILE_TYPE.IMAGE:
+                    pdfToOffice = new PdfToImageProxy();
+                    break;
+                default:
+                    pdfToOffice = null;
+                    break;
+            }
+
+            if (pdfToOffice == null)
+            {
+                e.Result = RES_CODE.InvalidArgument;
+                return;
+            }
+
+            using (pdfToOffice)
+            {
+                RES_CODE resCode = pdfToOffice.Init();
+                if (resCode != RES_CODE.Success)
                 {
-                    e.Cancel = true;
+                    e.Result = resCode;
                     return;
                 }
 
-                if (doc.ConvStatus != CONV_STATUS.READY)
+                foreach (Doc doc in model.Docs)
                 {
-                    continue;
-                }
+                    if (worker.CancellationPending)
+                    {
+                        e.Cancel = true;
+                        return;
+                    }
 
-                doc.ConvStatus = CONV_STATUS.RUNNING;
+                    if (doc.ConvStatus != CONV_STATUS.READY)
+                    {
+                        continue;
+                    }
 
-                ProgressSiteCli progressSiteCli = new ProgressSiteCli(doc);
-                pdfToOffice.SetProgressSiteCli(progressSiteCli);
-                pdfToOffice.SetOverwrite(model.IsOverwrite);
-                pdfToOffice.SetSaveToUserDir(model.IsSaveToUserDir);
-                pdfToOffice.SetUserDir(model.UserDir);
+                    doc.ConvStatus = CONV_STATUS.RUNNING;
 
-                doc.ResCode = pdfToOffice.Convert(doc.FilePath, doc.Password);
+                    ProgressSiteCli progressSiteCli = new ProgressSiteCli(doc);
+                    pdfToOffice.SetProgressSiteCli(progressSiteCli);
+                    pdfToOffice.SetOverwrite(model.IsOverwrite);
+                    pdfToOffice.SetSaveToUserDir(model.IsSaveToUserDir);
+                    pdfToOffice.SetUserDir(model.UserDir);
 
-                if (doc.ResCode == RES_CODE.Success)
-                {
-                    doc.ConvStatus = CONV_STATUS.COMPLETED;
-                }
-                else
-                {
-                    doc.ConvStatus = CONV_STATUS.FAIL;
+                    doc.ResCode = pdfToOffice.Convert(doc.FilePath, doc.Password);
 
-                    StringBuilder msg = new StringBuilder();
-                    msg.AppendLine(doc.FilePath);
-                    msg.AppendLine();
-                    msg.AppendFormat("⚠ {0}", Util.String.GetMsg(doc.ResCode));
-                    doc.Tooltip = msg.ToString();
+                    if (doc.ResCode == RES_CODE.Success)
+                    {
+                        doc.ConvStatus = CONV_STATUS.COMPLETED;
+                    }
+                    else
+                    {
+                        doc.ConvStatus = CONV_STATUS.FAIL;
+
+                        StringBuilder msg = new StringBuilder();
+                        msg.AppendLine(doc.FilePath);
+                        msg.AppendLine();
+                        msg.AppendFormat("⚠ {0}", Util.String.GetMsg(doc.ResCode));
+                        doc.Tooltip = msg.ToString();
+                    }
                 }
             }
+
+            e.Result = RES_CODE.Success;
         }
 
         private void AddCommandHandlers()
@@ -229,69 +272,37 @@ namespace PdfToOfficeApp
 
         private void CanOpen(object sender, CanExecuteRoutedEventArgs e)
         {
-            if (GetModel().AppStatus == APP_STATUS.INIT || GetModel().AppStatus == APP_STATUS.READY)
+            if (GetModel().AppStatus == APP_STATUS.RUNNING || GetModel().AppStatus == APP_STATUS.COMPLETED)
             {
-                e.CanExecute = true;
+                return;
             }
-            else
-            {
-                e.CanExecute = false;
-            }
+            e.CanExecute = true;
         }
 
         private void OnConvert(object sender, ExecutedRoutedEventArgs e)
         {
-            switch (GetModel().ConvFileType)
+            var isSync = e.Parameter as bool?;
+            if (isSync == true)
             {
-                case FILE_TYPE.DOCX:
-                    pdfToOffice = new PdfToDocxProxy();
-                    break;
-                case FILE_TYPE.PPTX:
-                    pdfToOffice = new PdfToPptxProxy();
-                    break;
-                case FILE_TYPE.XLSX:
-                    pdfToOffice = new PdfToXlsxProxy();
-                    break;
-                case FILE_TYPE.IMAGE:
-                    pdfToOffice = new PdfToImageProxy();
-                    break;
-                default:
-                    break;
+                // 단위 테스트같은 특수한 목적을 위해 작업을 동기 실행
+                var workArgs = new DoWorkEventArgs(GetModel());
+                Worker_DoWork(worker, workArgs);
+                var resArgs = new RunWorkerCompletedEventArgs(workArgs.Result, null, workArgs.Cancel);
+                Worker_RunWorkerCompleted(worker, resArgs);
             }
-
-            if (pdfToOffice == null)
+            else
             {
-                if (GetModel().ShowMsg)
-                {
-                    MessageBox.Show(Util.String.GetMsg(RES_CODE.InternalError));
-                }
-                return;
+                worker.RunWorkerAsync(GetModel());
             }
-
-            RES_CODE resCode = pdfToOffice.Init();
-            if (resCode != RES_CODE.Success)
-            {
-                if (GetModel().ShowMsg)
-                {
-                    MessageBox.Show(Util.String.GetMsg(resCode));
-                }
-                return;
-            }
-
-            GetModel().AppStatus = APP_STATUS.RUNNING;
-
-            worker.RunWorkerAsync(GetModel());
         }
 
         private void CanConvert(object sender, CanExecuteRoutedEventArgs e)
         {
-            if (GetModel().AppStatus == APP_STATUS.READY)
+            if (GetModel().AppStatus != APP_STATUS.READY)
             {
-                e.CanExecute = true;
                 return;
             }
-
-            e.CanExecute = false;
+            e.CanExecute = true;
         }
 
         private void OnStop(object sender, ExecutedRoutedEventArgs e)
@@ -309,13 +320,11 @@ namespace PdfToOfficeApp
 
         private void CanStop(object sender, CanExecuteRoutedEventArgs e)
         {
-            if (GetModel().AppStatus == APP_STATUS.RUNNING)
+            if (GetModel().AppStatus != APP_STATUS.RUNNING)
             {
-                e.CanExecute = true;
                 return;
             }
-
-            e.CanExecute = false;
+            e.CanExecute = true;
         }
 
         private void OnReset(object sender, ExecutedRoutedEventArgs e)
@@ -345,14 +354,11 @@ namespace PdfToOfficeApp
 
         private void CanAddFile(object sender, CanExecuteRoutedEventArgs e)
         {
-            if (GetModel().AppStatus == APP_STATUS.INIT || GetModel().AppStatus == APP_STATUS.READY)
+            if (GetModel().AppStatus == APP_STATUS.RUNNING || GetModel().AppStatus == APP_STATUS.COMPLETED)
             {
-                e.CanExecute = true;
+                return;
             }
-            else
-            {
-                e.CanExecute = false;
-            }
+            e.CanExecute = true;
         }
 
         // 파일 제거
@@ -374,16 +380,15 @@ namespace PdfToOfficeApp
 
         private void CanRemoveFile(object sender, CanExecuteRoutedEventArgs e)
         {
-            if (GetModel().AppStatus == APP_STATUS.READY)
+            if (GetModel().AppStatus != APP_STATUS.READY)
             {
-                if (GetModel().SelectedItems != null && GetModel().SelectedItems.Count > 0)
-                {
-                    e.CanExecute = true;
-                    return;
-                }
+                return;
             }
-
-            e.CanExecute = false;
+            if (GetModel().SelectedItems == null || GetModel().SelectedItems.Count == 0)
+            {
+                return;
+            }
+            e.CanExecute = true;
         }
 
         private void OnAbout(object sender, ExecutedRoutedEventArgs e)
@@ -412,10 +417,6 @@ namespace PdfToOfficeApp
             if (GetModel().AppStatus != APP_STATUS.RUNNING)
             {
                 e.CanExecute = true;
-            }
-            else
-            {
-                e.CanExecute = false;
             }
         }
         #endregion

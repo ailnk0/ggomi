@@ -18,8 +18,12 @@ namespace PdfToOfficeApp
                 _Docs.CollectionChanged += _Docs_CollectionChanged;
             }
 
+            Docs = new DocList();
+            SelectedItems = null;
+            ConvFileType = FILE_TYPE.DOCX;
+            ConvImgType = IMG_TYPE.PNG;
+            AppStatus = APP_STATUS.INIT;
             AppVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
-
             UserDir = Properties.Settings.Default.UserDir;
             IsSaveToUserDir = Properties.Settings.Default.IsSaveToUserDir;
             IsOverwrite = Properties.Settings.Default.IsOverwrite;

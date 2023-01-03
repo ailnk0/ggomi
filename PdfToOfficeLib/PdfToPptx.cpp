@@ -20,8 +20,14 @@ RES_CODE PdfToPptx::Convert(const String& path, const String& password) {
 
     pConverter->OnProgress = &DoProgress;
     pConverter->SetPassword(password);
+    pConverter->AddSourceFile(path);
+    pConverter->SetOutputDirectory(Util::Path::GetDirName(outPath));
+    pConverter->SetOverwriteMode(
+        SolidFramework::Plumbing::OverwriteMode::ForceOverwrite);
 
-    status = static_cast<RES_CODE>(pConverter->Convert(path, outPath, true));
+    pConverter->ConvertTo(outPath, true);
+
+    status = static_cast<RES_CODE>(pConverter->GetResults()[0]->GetStatus());
 
   } catch (const std::exception& /*e*/) {
     status = RES_CODE::Unknown;
