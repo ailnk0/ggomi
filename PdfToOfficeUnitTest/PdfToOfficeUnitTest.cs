@@ -44,29 +44,31 @@ namespace PdfToOfficeUnitTest
         [TestMethod]
         public void TestAddFileCommand()
         {
-            Assert.AreEqual(true, MainWindow.AddFileCommand.CanExecute(null, window));
+            bool canExecute = MainWindow.AddFileCommand.CanExecute(null, window);
+            Assert.AreEqual(true, canExecute);
 
             string[] fileNames = { "../sample/HOffice2022_Brochure_KR.pdf" };
             MainWindow.AddFileCommand.Execute(fileNames, window);
 
             for (int i = 0; i < fileNames.Length; i++)
             {
-                var a = window.GetModel().Docs.Any(e => (e.FilePath == fileNames[i]));
-
-                Assert.AreEqual(true, a);
+                var isExist = model.Docs.Any(e => (e.FilePath == fileNames[i]));
+                Assert.AreEqual(true, isExist);
             }
         }
 
         [TestMethod]
         public void TestConvertCommand()
         {
-            Assert.AreEqual(false, MainWindow.ConvertCommand.CanExecute(null, window));
+            bool canExecute = MainWindow.ConvertCommand.CanExecute(null, window);
+            Assert.AreEqual(false, canExecute);
 
-            model.ConvFileType = FILE_TYPE.DOCX;
             model.Docs.Add(new Doc("../sample/HOffice2022_Brochure_KR.pdf"));
             model.AppStatus = APP_STATUS.READY;
+            model.ConvFileType = FILE_TYPE.DOCX;
 
-            Assert.AreEqual(true, MainWindow.ConvertCommand.CanExecute(null, window));
+            canExecute = MainWindow.ConvertCommand.CanExecute(null, window);
+            Assert.AreEqual(true, canExecute);
 
             MainWindow.ConvertCommand.Execute(true, window);
 
@@ -83,17 +85,19 @@ namespace PdfToOfficeUnitTest
         [TestMethod]
         public void TestRemoveFileCommand()
         {
-            Assert.AreEqual(false, MainWindow.RemoveFileCommand.CanExecute(null, window));
+            bool canExecute = MainWindow.RemoveFileCommand.CanExecute(null, window);
+            Assert.AreEqual(false, canExecute);
 
             model.Docs.Add(new Doc("../sample/HOffice2022_Brochure_KR.pdf"));
-            model.SelectedItems = model.Docs;
             model.AppStatus = APP_STATUS.READY;
+            model.SelectedItems = model.Docs;
 
-            Assert.AreEqual(true, MainWindow.RemoveFileCommand.CanExecute(null, window));
+            canExecute = MainWindow.RemoveFileCommand.CanExecute(null, window);
+            Assert.AreEqual(true, canExecute);
 
             MainWindow.RemoveFileCommand.Execute(false, window);
 
-            bool isRemoved = window.GetModel().Docs.Count == 0;
+            bool isRemoved = model.Docs.Count == 0;
             Assert.AreEqual(true, isRemoved);
         }
     }
