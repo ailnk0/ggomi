@@ -8,8 +8,8 @@
 namespace HpdfToOffice {
 namespace Util {
 
-const String Path::SDK_PATH = L"HncPdfSdk/SolidFrameworkNative.dll";
-const String Path::SDK_LIC_PATH = L"../../SolidFrameworkLicense/license.xml";
+const String Path::SDK_PATH = L"./HncPdfSdk/SolidFrameworkNative.dll";
+const String Path::SDK_LIC_PATH = L"./../../SolidFrameworkLicense/license.xml";
 
 bool Path::Exist(const String& path) {
   bool exist = false;
@@ -122,7 +122,18 @@ String Path::GetSdkDir() {
 }
 
 String Path::GetSdkLicPath() {
-  return SDK_LIC_PATH;
+  String path = SDK_LIC_PATH;
+  if (Exist(path)) {
+    return path;
+  }
+
+  path = GetCurExeDir();
+  path.append(SDK_LIC_PATH);
+  if (Exist(path)) {
+    return path;
+  }
+
+  return String();
 }
 
 }  // namespace Util

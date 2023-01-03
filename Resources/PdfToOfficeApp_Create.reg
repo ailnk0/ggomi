@@ -3,14 +3,26 @@ Windows Registry Editor Version 5.00
 [HKEY_CLASSES_ROOT\*\shell\PDF Converter]
 "Subcommands"=""
 
-[HKEY_CLASSES_ROOT\*\shell\PDF Converter\shell\DOCX]
-"MUIVerb"="DOCX"
+[HKEY_CLASSES_ROOT\*\shell\PDF Converter\shell\Convert To DOCX]
+"MUIVerb"="Convert To DOCX"
 
-[HKEY_CLASSES_ROOT\*\shell\PDF Converter\shell\DOCX\command]
-@ = "C:\\Workspace\\ggomi\\PdfToOffice\\BinDebug\\PdfToOfficeApp.exe \"%1\" \"DOCX\""
+[HKEY_CLASSES_ROOT\*\shell\PDF Converter\shell\Convert To DOCX\command]
+@ = "C:\\Workspace\\ggomi\\BinDebug\\PdfToOfficeApp.exe \"%1\" \"DOCX\""
 
-[HKEY_CLASSES_ROOT\*\shell\PDF Converter\shell\PPTX]
-"MUIVerb"="PPTX"
+[HKEY_CLASSES_ROOT\*\shell\PDF Converter\shell\Convert To PPTX]
+"MUIVerb"="Convert To PPTX"
 
-[HKEY_CLASSES_ROOT\*\shell\PDF Converter\shell\PPTX\command]
-@ = "C:\\Workspace\\ggomi\\PdfToOffice\\BinDebug\\PdfToOfficeApp.exe \"%1\" \"PPTX\""
+[HKEY_CLASSES_ROOT\*\shell\PDF Converter\shell\Convert To PPTX\command]
+@ = "C:\\Workspace\\ggomi\\BinDebug\\PdfToOfficeApp.exe \"%1\" \"PPTX\""
+
+[HKEY_CLASSES_ROOT\*\shell\PDF Converter\shell\Convert To XLSX]
+"MUIVerb"="Convert To XLSX"
+
+[HKEY_CLASSES_ROOT\*\shell\PDF Converter\shell\Convert To XLSX\command]
+@ = "C:\\Workspace\\ggomi\\BinDebug\\PdfToOfficeApp.exe \"%1\" \"XLSX\""
+
+[HKEY_CLASSES_ROOT\*\shell\PDF Converter\shell\Convert To PNG Image]
+"MUIVerb"="Convert To PNG Image"
+
+[HKEY_CLASSES_ROOT\*\shell\PDF Converter\shell\Convert To PNG Image\command]
+@ = "C:\\Workspace\\ggomi\\BinDebug\\PdfToOfficeApp.exe \"%1\" \"PNG\""
