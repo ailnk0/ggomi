@@ -21,8 +21,24 @@ Windows Registry Editor Version 5.00
 [HKEY_CLASSES_ROOT\*\shell\PDF Converter\shell\Convert To XLSX\command]
 @ = "C:\\Workspace\\ggomi\\BinDebug\\PdfToOfficeApp.exe \"%1\" \"XLSX\""
 
-[HKEY_CLASSES_ROOT\*\shell\PDF Converter\shell\Convert To PNG Image]
+[HKEY_CLASSES_ROOT\*\shell\PDF Converter\shell\Convert To Image]
+"Subcommands"=""
+
+[HKEY_CLASSES_ROOT\*\shell\PDF Converter\shell\Convert To Image\shell\Convert To PNG Image]
 "MUIVerb"="Convert To PNG Image"
 
-[HKEY_CLASSES_ROOT\*\shell\PDF Converter\shell\Convert To PNG Image\command]
+[HKEY_CLASSES_ROOT\*\shell\PDF Converter\shell\Convert To Image\shell\Convert To PNG Image\command]
 @ = "C:\\Workspace\\ggomi\\BinDebug\\PdfToOfficeApp.exe \"%1\" \"PNG\""
+
+[HKEY_CLASSES_ROOT\*\shell\PDF Converter\shell\Convert To Image\shell\Convert To JPG Image]
+"MUIVerb"="Convert To JPG Image"
+
+[HKEY_CLASSES_ROOT\*\shell\PDF Converter\shell\Convert To Image\shell\Convert To JPG Image\command]
+@ = "C:\\Workspace\\ggomi\\BinDebug\\PdfToOfficeApp.exe \"%1\" \"JPG\""
+
+[HKEY_CLASSES_ROOT\*\shell\PDF Converter\shell\Convert To Image\shell\Convert To GIF Image]
+"MUIVerb"="Convert To GIF Image"
+
+[HKEY_CLASSES_ROOT\*\shell\PDF Converter\shell\Convert To Image\shell\Convert To GIF Image\command]
+@ = "C:\\Workspace\\ggomi\\BinDebug\\PdfToOfficeApp.exe \"%1\" \"GIF\""
+
