@@ -135,8 +135,7 @@
       <ColumnDefinition Width="*" />
     </Grid.ColumnDefinitions>
 
-    <Button x:Name="IDC_SelDocx"
-            Click="IDC_SelDocx_Click"
+    <Button Click="IDC_SelDocx_Click"
             Grid.Column="1"
             Margin="{StaticResource m-2}"
             Style="{StaticResource sf-radio}"
@@ -154,8 +153,7 @@
       </StackPanel>
     </Button>
 
-    <Button x:Name="IDC_SelPptx"
-            Click="IDC_SelPptx_Click"
+    <Button Click="IDC_SelPptx_Click"
             Grid.Column="2"
             Margin="{StaticResource m-2}"
             Style="{StaticResource sf-radio}"
@@ -173,9 +171,7 @@
       </StackPanel>
     </Button>
 
-    <Button x:Name="IDC_SelXlsx"
-            Click="IDC_SelXlsx_Click"
-            Grid.Column="3"
+    <Button Grid.Column="3"
             Margin="{StaticResource m-2}"
             Style="{StaticResource sf-radio}"
             ToolTip="{DynamicResource IDS_CONV_TYPE_XLSX}">
@@ -192,8 +188,7 @@
       </StackPanel>
     </Button>
 
-    <Button x:Name="IDC_SelImg"
-            Click="IDC_SelImg_Click"
+    <Button Click="IDC_SelImg_Click"
             Grid.Column="4"
             Margin="{StaticResource m-2}"
             Style="{StaticResource sf-radio}"
@@ -211,8 +206,7 @@
           </RadioButton>
         </StackPanel>
         <Menu Style="{StaticResource sf-radio-sub}">
-          <MenuItem x:Name="IDC_SelImgType"
-                    PreviewMouseDown="IDC_SelImgType_PreviewMouseDown"
+          <MenuItem PreviewMouseDown="IDC_SelImgType_PreviewMouseDown"
                     Style="{StaticResource sf-radio-sub-i}">
             <MenuItem.Icon>
               <Image>
@@ -221,20 +215,17 @@
                 </Image.Source>
               </Image>
             </MenuItem.Icon>
-            <MenuItem x:Name="IDC_SelPng"
-                      Click="IDC_SelPng_Click"
+            <MenuItem Click="IDC_SelPng_Click"
                       Style="{StaticResource menu-i-sub}"
                       Header="{DynamicResource IDS_TYPE_PNG}"
                       IsCheckable="true"
                       IsChecked="{Binding Path=ConvImgType, Converter={StaticResource dataConv}, ConverterParameter={x:Static module:IMG_TYPE.PNG}}" />
-            <MenuItem x:Name="IDC_SelJpg"
-                      Click="IDC_SelJpg_Click"
+            <MenuItem Click="IDC_SelJpg_Click"
                       Style="{StaticResource menu-i-sub}"
                       Header="{DynamicResource IDS_TYPE_JPEG}"
                       IsCheckable="true"
                       IsChecked="{Binding Path=ConvImgType, Converter={StaticResource dataConv}, ConverterParameter={x:Static module:IMG_TYPE.JPEG}}" />
-            <MenuItem x:Name="IDC_SelGif"
-                      Click="IDC_SelGif_Click"
+            <MenuItem Click="IDC_SelGif_Click"
                       Style="{StaticResource menu-i-sub}"
                       Header="{DynamicResource IDS_TYPE_GIF}"
                       IsCheckable="true"

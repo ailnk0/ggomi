@@ -1,5 +1,4 @@
-﻿using System.IO;
-using System.Linq;
+﻿using System.Linq;
 using System.Windows;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PdfToOfficeApp;

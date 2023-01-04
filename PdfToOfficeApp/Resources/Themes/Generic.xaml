@@ -233,18 +233,18 @@
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="{x:Type MenuItem}">
-          <Border x:Name="border"
+          <Border x:Name="PART_Border"
                   CornerRadius="{StaticResource round-btn}">
             <Grid>
               <Border Padding="{StaticResource pad-btn}">
                 <ContentPresenter ContentSource="Icon" />
               </Border>
-              <Popup x:Name="Popup"
+              <Popup x:Name="PART_Popup"
                      Placement="Bottom"
                      IsOpen="{TemplateBinding IsSubmenuOpen}"
                      AllowsTransparency="True"
                      PopupAnimation="Fade">
-                <Border x:Name="SubmenuBorder"
+                <Border x:Name="PART_SubmenuBorder"
                         CornerRadius="{StaticResource round-btn}"
                         Padding="{StaticResource m-1}"
                         BorderThickness="1"
@@ -259,13 +259,13 @@
           <ControlTemplate.Triggers>
             <Trigger Property="IsHighlighted"
                      Value="True">
-              <Setter TargetName="border"
+              <Setter TargetName="PART_Border"
                       Property="Background"
                       Value="{DynamicResource bg-mouseover}" />
             </Trigger>
             <Trigger Property="IsEnabled"
                      Value="False">
-              <Setter TargetName="border"
+              <Setter TargetName="PART_Border"
                       Property="Opacity"
                       Value="{StaticResource opcity-btn-disable}" />
             </Trigger>
@@ -291,7 +291,7 @@
       <Setter.Value>
         <ControlTemplate TargetType="{x:Type Button}">
           <Grid>
-            <Border x:Name="border"
+            <Border x:Name="PART_Border"
                     Padding="{StaticResource pad-btn}"
                     CornerRadius="{StaticResource round-btn}">
               <ContentPresenter>
@@ -299,17 +299,17 @@
             </Border>
           </Grid>
           <ControlTemplate.Triggers>
-            <Trigger SourceName="border"
+            <Trigger SourceName="PART_Border"
                      Property="IsMouseOver"
                      Value="True">
-              <Setter TargetName="border"
+              <Setter TargetName="PART_Border"
                       Property="Background"
                       Value="{DynamicResource bg-mouseover}" />
             </Trigger>
-            <Trigger SourceName="border"
+            <Trigger SourceName="PART_Border"
                      Property="IsEnabled"
                      Value="False">
-              <Setter TargetName="border"
+              <Setter TargetName="PART_Border"
                       Property="Opacity"
                       Value="{StaticResource opcity-btn-disable}" />
             </Trigger>
