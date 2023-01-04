@@ -15,29 +15,48 @@ namespace PdfToOfficeApp
     public partial class MainWindow : Window, IDisposable
     {
         private PdfToOfficeProxy pdfToOffice;
-
         private BackgroundWorker worker = new BackgroundWorker();
+        private bool disposed = false;
 
         public MainWindow()
         {
             InitializeComponent();
         }
 
+        ~MainWindow()
+        {
+            Dispose();
+        }
+
         public void Dispose()
         {
-            if (pdfToOffice != null)
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposed)
+                return;
+
+            if (disposing)
             {
-                pdfToOffice.Dispose();
-                pdfToOffice = null;
+                if (pdfToOffice != null)
+                {
+                    pdfToOffice.Dispose();
+                    pdfToOffice = null;
+                }
+
+                if (worker != null)
+                {
+                    worker.Dispose();
+                    worker = null;
+                }
+
+                ContentRendered -= MainWindow_ContentRendered;
             }
 
-            if (worker != null)
-            {
-                worker.Dispose();
-                worker = null;
-            }
-
-            ContentRendered -= MainWindow_ContentRendered;
+            disposed = true;
         }
 
         protected override void OnInitialized(EventArgs e)
