@@ -7,18 +7,48 @@ namespace PdfToOfficeApp
 {
     public class MainViewModel : Notifier, IDisposable
     {
+        private bool disposed = false;
+
         public MainViewModel()
         {
         }
 
+        ~MainViewModel()
+        {
+            Dispose();
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposed)
+                return;
+
+            if (disposing)
+            {
+                if (_Docs != null)
+                {
+                    _Docs.CollectionChanged -= _Docs_CollectionChanged;
+                    _Docs = null;
+                }
+            }
+
+            disposed = true;
+        }
+
         public void Init()
         {
+            Docs = new DocList();
             if (_Docs != null)
             {
                 _Docs.CollectionChanged += _Docs_CollectionChanged;
             }
 
-            Docs = new DocList();
             SelectedItems = null;
             ConvFileType = FILE_TYPE.DOCX;
             ConvImgType = IMG_TYPE.PNG;
@@ -33,15 +63,6 @@ namespace PdfToOfficeApp
             if (string.IsNullOrEmpty(UserDir))
             {
                 UserDir = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            }
-        }
-
-        public void Dispose()
-        {
-            if (_Docs != null)
-            {
-                _Docs.CollectionChanged -= _Docs_CollectionChanged;
-                _Docs = null;
             }
         }
 
