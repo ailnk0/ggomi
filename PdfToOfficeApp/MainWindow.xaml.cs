@@ -191,23 +191,20 @@ namespace PdfToOfficeApp
                     if (worker.CancellationPending)
                     {
                         e.Cancel = true;
-                        return;
+                        doc.ResCode = RES_CODE.Canceled;
                     }
-
-                    if (doc.ConvStatus != CONV_STATUS.READY)
+                    else
                     {
-                        continue;
+                        doc.ConvStatus = CONV_STATUS.RUNNING;
+
+                        ProgressSiteCli progressSiteCli = new ProgressSiteCli(doc);
+                        pdfToOffice.SetProgressSiteCli(progressSiteCli);
+                        pdfToOffice.SetOverwrite(model.IsOverwrite);
+                        pdfToOffice.SetSaveToUserDir(model.IsSaveToUserDir);
+                        pdfToOffice.SetUserDir(model.UserDir);
+
+                        doc.ResCode = pdfToOffice.Convert(doc.FilePath, doc.Password);
                     }
-
-                    doc.ConvStatus = CONV_STATUS.RUNNING;
-
-                    ProgressSiteCli progressSiteCli = new ProgressSiteCli(doc);
-                    pdfToOffice.SetProgressSiteCli(progressSiteCli);
-                    pdfToOffice.SetOverwrite(model.IsOverwrite);
-                    pdfToOffice.SetSaveToUserDir(model.IsSaveToUserDir);
-                    pdfToOffice.SetUserDir(model.UserDir);
-
-                    doc.ResCode = pdfToOffice.Convert(doc.FilePath, doc.Password);
 
                     if (doc.ResCode == RES_CODE.Success)
                     {
