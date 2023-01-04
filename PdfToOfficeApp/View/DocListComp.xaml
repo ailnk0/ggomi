@@ -14,6 +14,7 @@
       <system:Double x:Key="sz-list-img">50</system:Double>
       <system:Double x:Key="sz-list-icon">25</system:Double>
       <system:Double x:Key="sz-list-inner">15</system:Double>
+      <system:Double x:Key="opcity-img-disable">0.1</system:Double>
 
       <Style x:Key="icon-cover"
              TargetType="{x:Type Ellipse}">
@@ -65,21 +66,21 @@
                        Value="{x:Static local:CONV_STATUS.COMPLETED}">
             <DataTrigger.Setters>
               <Setter Property="Opacity"
-                      Value="{StaticResource opcity-btn-disable}" />
+                      Value="{StaticResource opcity-img-disable}" />
             </DataTrigger.Setters>
           </DataTrigger>
           <DataTrigger Binding="{Binding Path=ConvStatus}"
                        Value="{x:Static local:CONV_STATUS.FAIL}">
             <DataTrigger.Setters>
               <Setter Property="Opacity"
-                      Value="{StaticResource opcity-btn-disable}" />
+                      Value="{StaticResource opcity-img-disable}" />
             </DataTrigger.Setters>
           </DataTrigger>
           <DataTrigger Binding="{Binding Path=ConvStatus}"
                        Value="{x:Static local:CONV_STATUS.RUNNING}">
             <DataTrigger.Setters>
               <Setter Property="Opacity"
-                      Value="{StaticResource opcity-btn-disable}" />
+                      Value="{StaticResource opcity-img-disable}" />
             </DataTrigger.Setters>
           </DataTrigger>
         </Style.Triggers>
