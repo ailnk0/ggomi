@@ -121,7 +121,21 @@ namespace PdfToOfficeApp
         {
             GetModel().AppStatus = APP_STATUS.COMPLETED;
 
-            RES_CODE resCode = (RES_CODE)e.Result;
+            RES_CODE resCode = RES_CODE.Success;
+
+            if (e.Error != null)
+            {
+                resCode = RES_CODE.InternalError;
+            }
+            else if (e.Cancelled)
+            {
+                resCode = RES_CODE.Canceled;
+            }
+            else
+            {
+                resCode = (RES_CODE)e.Result;
+            }
+
             if (resCode != RES_CODE.Success)
             {
                 if (GetModel().ShowMsg)
@@ -159,7 +173,7 @@ namespace PdfToOfficeApp
 
             if (pdfToOffice == null)
             {
-                e.Result = RES_CODE.InvalidArgument;
+                e.Result = RES_CODE.InternalError;
                 return;
             }
 
