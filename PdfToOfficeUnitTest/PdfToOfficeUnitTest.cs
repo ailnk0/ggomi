@@ -10,8 +10,10 @@ namespace PdfToOfficeUnitTest
     [TestClass]
     public class PdfToOfficeUnitTest
     {
-        MainWindow window = null;
-        MainViewModel model = null;
+        public static readonly string SAMPLE_PATH = "../sample/sample.pdf";
+
+        protected MainWindow window = null;
+        protected MainViewModel model = null;
 
         [TestInitialize]
         public void TestInitialize()
@@ -47,7 +49,7 @@ namespace PdfToOfficeUnitTest
             bool canExecute = MainWindow.AddFileCommand.CanExecute(null, window);
             Assert.AreEqual(true, canExecute);
 
-            string[] fileNames = { "../sample/HOffice2022_Brochure_KR.pdf" };
+            string[] fileNames = { SAMPLE_PATH };
             MainWindow.AddFileCommand.Execute(fileNames, window);
 
             for (int i = 0; i < fileNames.Length; i++)
@@ -63,7 +65,7 @@ namespace PdfToOfficeUnitTest
             bool canExecute = MainWindow.ConvertCommand.CanExecute(null, window);
             Assert.AreEqual(false, canExecute);
 
-            model.Docs.Add(new Doc("../sample/HOffice2022_Brochure_KR.pdf"));
+            model.Docs.Add(new Doc(SAMPLE_PATH));
             model.AppStatus = APP_STATUS.READY;
             model.ConvFileType = FILE_TYPE.DOCX;
 
@@ -72,13 +74,7 @@ namespace PdfToOfficeUnitTest
 
             MainWindow.ConvertCommand.Execute(true, window);
 
-            string outPath = "../sample/HOffice2022_Brochure_KR.docx";
-            bool isConverted = File.Exists(outPath);
-            if (isConverted)
-            {
-                File.Delete(outPath);
-            }
-
+            bool isConverted = model.Docs[0].ResCode == RES_CODE.Success;
             Assert.AreEqual(true, isConverted);
         }
 
@@ -88,7 +84,7 @@ namespace PdfToOfficeUnitTest
             bool canExecute = MainWindow.RemoveFileCommand.CanExecute(null, window);
             Assert.AreEqual(false, canExecute);
 
-            model.Docs.Add(new Doc("../sample/HOffice2022_Brochure_KR.pdf"));
+            model.Docs.Add(new Doc(SAMPLE_PATH));
             model.AppStatus = APP_STATUS.READY;
             model.SelectedItems = model.Docs;
 
