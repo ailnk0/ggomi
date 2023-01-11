@@ -13,7 +13,9 @@ RES_CODE PdfToXlsx::Convert(const String& path, const String& password) {
     outPath = m_UserDir + L"\\" + Util::Path::GetFileName(outPath);
   }
   outPath = Util::Path::ChangeExt(outPath, L".xlsx");
-  outPath = Util::Path::GetAvailFileName(outPath);
+  if (!m_IsOverwrite)
+    outPath = Util::Path::GetAvailFileName(outPath);
+  m_OutPath = outPath;
 
   RES_CODE status = RES_CODE::Success;
   try {
@@ -31,7 +33,7 @@ RES_CODE PdfToXlsx::Convert(const String& path, const String& password) {
     pConverter->SetOutputType(
         SolidFramework::Converters::Plumbing::ExcelDocumentType::XlsX);
 
-    pConverter->ConvertTo(outPath, true);
+    pConverter->ConvertTo(outPath, m_IsOverwrite);
 
     status = static_cast<RES_CODE>(pConverter->GetResults()[0]->GetStatus());
 

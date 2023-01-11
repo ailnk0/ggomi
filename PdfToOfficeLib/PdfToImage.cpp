@@ -11,6 +11,7 @@ RES_CODE PdfToImage::Convert(const String& path, const String& password) {
   } else {
     outDir = Util::Path::ChangeExt(path, L".image");
   }
+  m_OutPath = outDir;
 
   RES_CODE status = RES_CODE::Success;
   try {

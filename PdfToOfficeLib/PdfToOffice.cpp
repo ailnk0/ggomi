@@ -37,6 +37,35 @@ RES_CODE PdfToOffice::Init() {
   return RES_CODE::Success;
 }
 
+RES_CODE PdfToOffice::Convert(const String& /*path*/,
+                              const String& /*password*/) {
+  return RES_CODE::Unknown;
+}
+
+void PdfToOffice::Cancel() {
+  if (!m_Converter) {
+    return;
+  }
+  m_Converter->Cancel();
+  m_Converter->ClearSourceFiles();
+}
+
+void PdfToOffice::SetOverwrite(bool overwrite) {
+  m_IsOverwrite = overwrite;
+}
+
+void PdfToOffice::SetSaveToUserDir(bool saveToUserDir) {
+  m_IsSaveToUserDir = saveToUserDir;
+}
+
+void PdfToOffice::SetUserDir(const String& path) {
+  m_UserDir = path;
+}
+
+String PdfToOffice::SetOutPath() {
+  return m_OutPath;
+}
+
 void PdfToOffice::DoProgress(
     SolidFramework::ProgressEventArgsPtr pProgressEventArgs) {
   int progress = pProgressEventArgs->GetProgress();
@@ -64,30 +93,4 @@ void PdfToOffice::DoProgress(
 void PdfToOffice::SetSite(IProgressSite* progressSite) {
   s_ProgressSite = progressSite;
 }
-
-RES_CODE PdfToOffice::Convert(const String& /*path*/,
-                              const String& /*password*/) {
-  return RES_CODE::Unknown;
-}
-
-void PdfToOffice::Cancel() {
-  if (!m_Converter) {
-    return;
-  }
-  m_Converter->Cancel();
-  m_Converter->ClearSourceFiles();
-}
-
-void PdfToOffice::SetSaveToUserDir(bool saveToUserDir) {
-  m_IsSaveToUserDir = saveToUserDir;
-}
-
-void PdfToOffice::SetUserDir(const String& path) {
-  m_UserDir = path;
-}
-
-void PdfToOffice::SetOverwrite(bool overwrite) {
-  m_IsOverwrite = overwrite;
-}
-
 }  // namespace HpdfToOffice
