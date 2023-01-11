@@ -62,7 +62,7 @@ void PdfToOffice::SetUserDir(const String& path) {
   m_UserDir = path;
 }
 
-String PdfToOffice::SetOutPath() {
+String PdfToOffice::GetOutPath() {
   return m_OutPath;
 }
 

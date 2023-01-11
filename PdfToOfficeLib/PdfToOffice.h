@@ -27,7 +27,7 @@ class PdfToOffice : public IPdfToOffice {
   virtual void SetOverwrite(bool overwrite);
   virtual void SetSaveToUserDir(bool saveToUserDir);
   virtual void SetUserDir(const String& path);
-  virtual String SetOutPath();
+  virtual String GetOutPath();
 
  public:
   static void DoProgress(

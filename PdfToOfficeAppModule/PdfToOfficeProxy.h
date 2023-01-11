@@ -21,7 +21,7 @@ ref class PdfToOfficeProxy : public IPdfToOfficeProxy {
   virtual void SetOverwrite(bool overwrite);
   virtual void SetSaveToUserDir(bool isSaveToUserDir);
   virtual void SetUserDir(System::String ^ path);
-  virtual System::String ^ SetOutPath();
+  virtual System::String ^ GetOutPath();
   virtual void SetProgressSiteCli(IProgressSiteCli ^ progressSiteCli);
 
  protected:

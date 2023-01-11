@@ -15,7 +15,7 @@ interface class IPdfToOfficeProxy {
   virtual void SetOverwrite(bool overwrite) = 0;
   virtual void SetSaveToUserDir(bool isSaveToUserDir) = 0;
   virtual void SetUserDir(System::String ^ path) = 0;
-  virtual System::String ^ SetOutPath() = 0;
+  virtual System::String ^ GetOutPath() = 0;
   virtual void SetProgressSiteCli(IProgressSiteCli ^ progressSiteCli) = 0;
 };
 

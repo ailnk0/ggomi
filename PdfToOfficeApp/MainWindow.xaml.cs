@@ -222,7 +222,7 @@ namespace PdfToOfficeApp
                     pdfToOffice.SetUserDir(model.UserDir);
 
                     doc.ResCode = pdfToOffice.Convert(doc.FilePath, doc.Password);
-                    doc.OutPath = pdfToOffice.SetOutPath();
+                    doc.OutPath = pdfToOffice.GetOutPath();
 
                     if (doc.ResCode == RES_CODE.Success)
                     {
