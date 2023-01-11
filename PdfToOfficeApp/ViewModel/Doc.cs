@@ -101,5 +101,16 @@ namespace PdfToOfficeApp
                 OnPropertyChanged("ResCode");
             }
         }
+
+        private string _OutPath = string.Empty;
+        public string OutPath
+        {
+            get { return _OutPath; }
+            set
+            {
+                _OutPath = value;
+                OnPropertyChanged("OutPath");
+            }
+        }
     }
 }

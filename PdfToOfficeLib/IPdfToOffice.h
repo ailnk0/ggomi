@@ -12,6 +12,7 @@ class IPdfToOffice {
   virtual void SetOverwrite(bool overwrite) = 0;
   virtual void SetSaveToUserDir(bool saveToUserDir) = 0;
   virtual void SetUserDir(const String& path) = 0;
+  virtual String GetOutPath() = 0;
 };
 
 }  // namespace HpdfToOffice

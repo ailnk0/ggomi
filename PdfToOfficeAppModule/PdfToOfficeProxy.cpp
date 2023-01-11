@@ -66,6 +66,13 @@ void PdfToOfficeProxy::SetUserDir(System::String ^ path) {
   lib->SetUserDir(msclr::interop::marshal_as<HpdfToOffice::String>(path));
 }
 
+System::String ^ PdfToOfficeProxy::GetOutPath() {
+  if (!lib) {
+    return nullptr;
+  }
+  return gcnew System::String(lib->GetOutPath().c_str());
+}
+
 void PdfToOfficeProxy::SetProgressSiteCli(IProgressSiteCli ^ progressSiteCli) {
   ProgressSiteProxy* progressSiteProxy = new ProgressSiteProxy(progressSiteCli);
   m_ProgressSite = static_cast<HpdfToOffice::IProgressSite*>(progressSiteProxy);

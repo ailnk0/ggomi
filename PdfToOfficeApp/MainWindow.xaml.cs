@@ -222,10 +222,12 @@ namespace PdfToOfficeApp
                     pdfToOffice.SetUserDir(model.UserDir);
 
                     doc.ResCode = pdfToOffice.Convert(doc.FilePath, doc.Password);
+                    doc.OutPath = pdfToOffice.GetOutPath();
 
                     if (doc.ResCode == RES_CODE.Success)
                     {
                         doc.ConvStatus = CONV_STATUS.COMPLETED;
+                        doc.Tooltip = doc.OutPath;
                     }
                     else if (doc.ResCode == RES_CODE.Canceled || doc.ResCode == RES_CODE.CanceledExists)
                     {

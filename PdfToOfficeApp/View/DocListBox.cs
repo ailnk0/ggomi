@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Specialized;
+using System.IO;
 using System.Windows.Controls;
+using System.Windows.Input;
+using PdfToOfficeAppModule;
 
 namespace PdfToOfficeApp
 {
@@ -39,6 +42,25 @@ namespace PdfToOfficeApp
             else
             {
                 GetModel().AppStatus = APP_STATUS.INIT;
+            }
+        }
+
+        protected override void OnMouseDoubleClick(MouseButtonEventArgs e)
+        {
+            if (GetModel().AppStatus == APP_STATUS.COMPLETED)
+            {
+                var process = new System.Diagnostics.Process();
+                Doc doc = (Doc)this.SelectedItem;
+
+                try
+                {
+                    process.StartInfo.FileName = doc.OutPath;
+                    process.Start();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
             }
         }
 
