@@ -118,13 +118,13 @@ namespace PdfToOfficeApp
             }
             else
             {
-                Console.WriteLine(Util.String.GetMsg(RES_CODE.PdfAError));
+                Console.WriteLine(Util.StringManager.GetMsg(RES_CODE.PdfAError));
                 return;
             }
 
             if (strFilePath == null)
             {
-                Console.WriteLine(Util.String.GetMsg(RES_CODE.IOError));
+                Console.WriteLine(Util.StringManager.GetMsg(RES_CODE.IOError));
                 return;
             }
 
@@ -159,7 +159,7 @@ namespace PdfToOfficeApp
             {
                 if (GetModel().ShowMsg)
                 {
-                    MessageBox.Show(Util.String.GetMsg(resCode));
+                    MessageBox.Show(Util.StringManager.GetMsg(resCode));
                 }
             }
         }
@@ -213,16 +213,13 @@ namespace PdfToOfficeApp
                         return;
                     }
 
-                    doc.ConvStatus = CONV_STATUS.RUNNING;
-
                     ProgressSiteCli progressSiteCli = new ProgressSiteCli(doc);
                     pdfToOffice.SetProgressSiteCli(progressSiteCli);
                     pdfToOffice.SetOverwrite(model.IsOverwrite);
-                    pdfToOffice.SetSaveToUserDir(model.IsSaveToUserDir);
-                    pdfToOffice.SetUserDir(model.UserDir);
 
-                    doc.ResCode = pdfToOffice.Convert(doc.FilePath, doc.Password);
-                    doc.OutPath = pdfToOffice.GetOutPath();
+                    doc.ConvStatus = CONV_STATUS.RUNNING;
+                    doc.OutPath = Util.PathManager.GetOutPath(model, doc.FilePath);
+                    doc.ResCode = pdfToOffice.Convert(doc.FilePath, doc.OutPath, doc.Password);
 
                     if (doc.ResCode == RES_CODE.Success)
                     {
@@ -240,7 +237,7 @@ namespace PdfToOfficeApp
                         StringBuilder msg = new StringBuilder();
                         msg.AppendLine(doc.FilePath);
                         msg.AppendLine();
-                        msg.AppendFormat("⚠ {0}", Util.String.GetMsg(doc.ResCode));
+                        msg.AppendFormat("⚠ {0}", Util.StringManager.GetMsg(doc.ResCode));
                         doc.Tooltip = msg.ToString();
                     }
                 }

@@ -16,12 +16,11 @@ ref class PdfToOfficeProxy : public IPdfToOfficeProxy {
 
  public:
   virtual RES_CODE Init();
-  virtual RES_CODE Convert(System::String ^ path, System::String ^ password);
+  virtual RES_CODE Convert(System::String ^ sourcePath,
+                           System::String ^ outPath,
+                           System::String ^ password);
   virtual void Cancel();
   virtual void SetOverwrite(bool overwrite);
-  virtual void SetSaveToUserDir(bool isSaveToUserDir);
-  virtual void SetUserDir(System::String ^ path);
-  virtual System::String ^ GetOutPath();
   virtual void SetProgressSiteCli(IProgressSiteCli ^ progressSiteCli);
 
  protected:

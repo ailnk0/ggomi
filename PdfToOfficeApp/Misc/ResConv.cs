@@ -12,11 +12,11 @@ namespace PdfToOfficeApp
             switch (lang)
             {
                 case LANG.KO_KR:
-                    return Util.String.GetString("IDS_OPT_LANG_KO_KR");
+                    return Util.StringManager.GetString("IDS_OPT_LANG_KO_KR");
                 case LANG.EN_US:
-                    return Util.String.GetString("IDS_OPT_LANG_EN_US");
+                    return Util.StringManager.GetString("IDS_OPT_LANG_EN_US");
                 default:
-                    return Util.String.GetString("IDS_OPT_LANG_KO_KR");
+                    return Util.StringManager.GetString("IDS_OPT_LANG_KO_KR");
             }
         }
 

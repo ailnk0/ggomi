@@ -6,7 +6,9 @@ namespace HpdfToOffice {
 
 class PdfToPptx : public PdfToOffice {
  public:
-  virtual RES_CODE Convert(const String& path, const String& password);
+  virtual RES_CODE Convert(const String& sourcePath,
+                           const String& outPath,
+                           const String& password);
 };
 
 }  // namespace HpdfToOffice

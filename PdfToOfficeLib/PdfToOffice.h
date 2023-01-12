@@ -12,22 +12,19 @@ class PdfToOffice : public IPdfToOffice {
 
  protected:
   std::shared_ptr<SolidFramework::Converters::Converter> m_Converter = nullptr;
-  bool m_IsOverwrite = false;
-  bool m_IsSaveToUserDir = false;
-  String m_UserDir;
-  String m_OutPath;
+  bool m_IsOverwrite = true;
 
  public:
   PdfToOffice() = default;
 
  public:
   virtual RES_CODE Init();
-  virtual RES_CODE Convert(const String& path, const String& password);
+  virtual RES_CODE Convert(const String& sourcePath,
+                           const String& outPath,
+                           const String& password) = 0;
   virtual void Cancel();
+  virtual bool GetOverwrite();
   virtual void SetOverwrite(bool overwrite);
-  virtual void SetSaveToUserDir(bool saveToUserDir);
-  virtual void SetUserDir(const String& path);
-  virtual String GetOutPath();
 
  public:
   static void DoProgress(

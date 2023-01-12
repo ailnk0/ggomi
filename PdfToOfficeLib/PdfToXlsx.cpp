@@ -7,16 +7,9 @@ using namespace SolidFramework::Converters::Plumbing;
 
 namespace HpdfToOffice {
 
-RES_CODE PdfToXlsx::Convert(const String& path, const String& password) {
-  String outPath = path;
-  if (m_IsSaveToUserDir && !m_UserDir.empty()) {
-    outPath = m_UserDir + L"\\" + Util::Path::GetFileName(outPath);
-  }
-  outPath = Util::Path::ChangeExt(outPath, L".xlsx");
-  if (!m_IsOverwrite)
-    outPath = Util::Path::GetAvailFileName(outPath);
-  m_OutPath = outPath;
-
+RES_CODE PdfToXlsx::Convert(const String& sourcePath,
+                            const String& outPath,
+                            const String& password) {
   RES_CODE status = RES_CODE::Success;
   try {
     auto pConverter =
@@ -25,10 +18,8 @@ RES_CODE PdfToXlsx::Convert(const String& path, const String& password) {
 
     pConverter->OnProgress = &DoProgress;
     pConverter->SetPassword(password);
-    pConverter->AddSourceFile(path);
+    pConverter->AddSourceFile(sourcePath);
     pConverter->SetOutputDirectory(Util::Path::GetDirName(outPath));
-    pConverter->SetOverwriteMode(
-        SolidFramework::Plumbing::OverwriteMode::ForceOverwrite);
 
     pConverter->SetOutputType(
         SolidFramework::Converters::Plumbing::ExcelDocumentType::XlsX);

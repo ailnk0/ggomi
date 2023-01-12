@@ -4,15 +4,9 @@
 
 namespace HpdfToOffice {
 
-RES_CODE PdfToImage::Convert(const String& path, const String& password) {
-  String outDir;
-  if (m_IsSaveToUserDir && !m_UserDir.empty()) {
-    outDir = m_UserDir;
-  } else {
-    outDir = Util::Path::ChangeExt(path, L".image");
-  }
-  m_OutPath = outDir;
-
+RES_CODE PdfToImage::Convert(const String& sourcePath,
+                             const String& outPath,
+                             const String& password) {
   RES_CODE status = RES_CODE::Success;
   try {
     auto pConverter =
@@ -21,8 +15,8 @@ RES_CODE PdfToImage::Convert(const String& path, const String& password) {
 
     pConverter->OnProgress = &DoProgress;
     pConverter->SetPassword(password);
-    pConverter->AddSourceFile(path);
-    pConverter->SetOutputDirectory(outDir);
+    pConverter->AddSourceFile(sourcePath);
+    pConverter->SetOutputDirectory(outPath);
 
     SolidFramework::Converters::Plumbing::ImageDocumentType imageType;
     switch (m_ImgType) {

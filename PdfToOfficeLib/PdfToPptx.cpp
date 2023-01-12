@@ -4,16 +4,9 @@
 
 namespace HpdfToOffice {
 
-RES_CODE PdfToPptx::Convert(const String& path, const String& password) {
-  String outPath = path;
-  if (m_IsSaveToUserDir && !m_UserDir.empty()) {
-    outPath = m_UserDir + L"\\" + Util::Path::GetFileName(outPath);
-  }
-  outPath = Util::Path::ChangeExt(outPath, L".pptx");
-  if (!m_IsOverwrite)
-    outPath = Util::Path::GetAvailFileName(outPath);
-  m_OutPath = outPath;
-
+RES_CODE PdfToPptx::Convert(const String& sourcePath,
+                            const String& outPath,
+                            const String& password) {
   RES_CODE status = RES_CODE::Success;
   try {
     auto pConverter = std::make_shared<
@@ -22,10 +15,8 @@ RES_CODE PdfToPptx::Convert(const String& path, const String& password) {
 
     pConverter->OnProgress = &DoProgress;
     pConverter->SetPassword(password);
-    pConverter->AddSourceFile(path);
+    pConverter->AddSourceFile(sourcePath);
     pConverter->SetOutputDirectory(Util::Path::GetDirName(outPath));
-    pConverter->SetOverwriteMode(
-        SolidFramework::Plumbing::OverwriteMode::ForceOverwrite);
 
     pConverter->ConvertTo(outPath, m_IsOverwrite);
 

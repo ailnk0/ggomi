@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
+using System.Text;
 using System.Windows;
 using System.Windows.Input;
 using PdfToOfficeAppModule;
@@ -86,7 +88,7 @@ namespace PdfToOfficeApp
             }
         }
 
-        public class String
+        public class StringManager
         {
             public static string GetString(string id)
             {
@@ -173,6 +175,96 @@ namespace PdfToOfficeApp
                 }
 
                 return msg;
+            }
+        }
+
+        public class PathManager
+        {
+            public static string GetAvailFileName(string path)
+            {
+                try
+                {
+                    string dir = Path.GetDirectoryName(path);
+                    string name = Path.GetFileNameWithoutExtension(path);
+                    string ext = Path.GetExtension(path);
+
+                    int count = 0;
+                    string tempPath = path;
+                    var buf = new StringBuilder();
+                    while (File.Exists(tempPath) || Directory.Exists(tempPath))
+                    {
+                        buf.Clear();
+                        buf.Append(name);
+                        buf.Append(" (");
+                        buf.Append(++count);
+                        buf.Append(")");
+                        buf.Append(ext);
+
+                        tempPath = Path.Combine(dir, buf.ToString());
+                    };
+
+                    return tempPath;
+                }
+                catch (Exception)
+                {
+                    return string.Empty;
+                }
+            }
+
+            public static string GetOutPath(MainViewModel model, string sourcePath)
+            {
+                try
+                {
+                    string outPath = sourcePath;
+                    if (model.IsSaveToUserDir && !string.IsNullOrEmpty(model.UserDir))
+                    {
+                        outPath = Path.Combine(model.UserDir, Path.GetFileName(outPath));
+                    }
+
+                    string ext = null;
+                    switch (model.ConvFileType)
+                    {
+                        case FILE_TYPE.DOCX:
+                            ext = ".docx";
+                            break;
+                        case FILE_TYPE.PPTX:
+                            ext = ".pptx";
+                            break;
+                        case FILE_TYPE.XLSX:
+                            ext = ".xlsx";
+                            break;
+                        case FILE_TYPE.IMAGE:
+                            switch (model.ConvImgType)
+                            {
+                                case IMG_TYPE.PNG:
+                                    ext = ".png";
+                                    break;
+                                case IMG_TYPE.JPEG:
+                                    ext = ".jpg";
+                                    break;
+                                case IMG_TYPE.GIF:
+                                    ext = ".gif";
+                                    break;
+                                default:
+                                    break;
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                    outPath = Path.ChangeExtension(outPath, ext);
+
+                    if (!model.IsOverwrite)
+                    {
+                        outPath = GetAvailFileName(outPath);
+                    }
+
+                    return outPath;
+                }
+                catch (Exception)
+                {
+                    return string.Empty;
+                }
             }
         }
     }

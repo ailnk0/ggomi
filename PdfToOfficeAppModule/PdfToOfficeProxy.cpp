@@ -28,13 +28,15 @@ RES_CODE PdfToOfficeProxy::Init() {
   return static_cast<RES_CODE>(lib->Init());
 }
 
-RES_CODE PdfToOfficeProxy::Convert(System::String ^ path,
+RES_CODE PdfToOfficeProxy::Convert(System::String ^ sourcePath,
+                                   System::String ^ outPath,
                                    System::String ^ password) {
   if (!lib) {
     return RES_CODE::Unknown;
   }
   return static_cast<RES_CODE>(
-      lib->Convert(msclr::interop::marshal_as<HpdfToOffice::String>(path),
+      lib->Convert(msclr::interop::marshal_as<HpdfToOffice::String>(sourcePath),
+                   msclr::interop::marshal_as<HpdfToOffice::String>(outPath),
                    msclr::interop::marshal_as<HpdfToOffice::String>(password)));
 }
 
@@ -50,27 +52,6 @@ void PdfToOfficeProxy::SetOverwrite(bool overwrite) {
     return;
   }
   lib->SetOverwrite(overwrite);
-}
-
-void PdfToOfficeProxy::SetSaveToUserDir(bool isSaveToUserDir) {
-  if (!lib) {
-    return;
-  }
-  lib->SetSaveToUserDir(isSaveToUserDir);
-}
-
-void PdfToOfficeProxy::SetUserDir(System::String ^ path) {
-  if (!lib) {
-    return;
-  }
-  lib->SetUserDir(msclr::interop::marshal_as<HpdfToOffice::String>(path));
-}
-
-System::String ^ PdfToOfficeProxy::GetOutPath() {
-  if (!lib) {
-    return nullptr;
-  }
-  return gcnew System::String(lib->GetOutPath().c_str());
 }
 
 void PdfToOfficeProxy::SetProgressSiteCli(IProgressSiteCli ^ progressSiteCli) {
