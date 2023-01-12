@@ -23,6 +23,7 @@ RES_CODE PdfToXlsx::Convert(const String& sourcePath,
 
     pConverter->SetOutputType(
         SolidFramework::Converters::Plumbing::ExcelDocumentType::XlsX);
+    pConverter->SetTablesFromContent(true);
 
     pConverter->ConvertTo(outPath, m_IsOverwrite);
 
