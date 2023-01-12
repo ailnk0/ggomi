@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.IO;
+using System.Linq;
 using System.Windows;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PdfToOfficeApp;
@@ -26,7 +27,6 @@ namespace PdfToOfficeUnitTest
             window = new MainWindow();
 
             model = window.GetModel();
-            model.Init();
             model.ShowMsg = false;
             model.IsOverwrite = true;
             model.IsSaveToUserDir = false;
@@ -94,6 +94,29 @@ namespace PdfToOfficeUnitTest
 
             bool isRemoved = model.Docs.Count == 0;
             Assert.AreEqual(true, isRemoved);
+        }
+
+        [TestMethod]
+        public void TestGetOutPath()
+        {
+            string sourcePath = SAMPLE_PATH;
+            string outPath = null;
+
+            model.ConvFileType = FILE_TYPE.DOCX;
+            model.IsOverwrite = true;
+            outPath = PdfToOfficeApp.Util.PathManager.GetOutPath(model, sourcePath);
+            Assert.AreEqual("../sample/sample.docx", outPath);
+
+            model.IsOverwrite = false;
+            File.Delete("../sample/sample (1).docx");
+            File.Create("../sample/sample.docx").Close();
+            outPath = PdfToOfficeApp.Util.PathManager.GetOutPath(model, sourcePath);
+            Assert.AreEqual(Path.GetFullPath("../sample/sample (1).docx"), Path.GetFullPath(outPath));
+
+            model.UserDir = "../sample/UserDir/";
+            model.IsSaveToUserDir = true;
+            outPath = PdfToOfficeApp.Util.PathManager.GetOutPath(model, sourcePath);
+            Assert.AreEqual("../sample/UserDir/sample.docx", outPath);
         }
     }
 }
