@@ -10,7 +10,8 @@
         d:DataContext="{d:DesignInstance Type=local:MainViewModel}"
         ResizeMode="NoResize"
         Height="300"
-        Width="300">
+        Width="300"
+        WindowStartupLocation="CenterOwner">
 
   <Grid Margin="{StaticResource m-5}">
     <StackPanel>
