@@ -219,6 +219,10 @@ namespace PdfToOfficeApp
                     if (model.IsSaveToUserDir && !string.IsNullOrEmpty(model.UserDir))
                     {
                         outPath = Path.Combine(model.UserDir, Path.GetFileName(outPath));
+                        if(!Directory.Exists(model.UserDir))
+                        {
+                            Directory.CreateDirectory(model.UserDir);
+                        }
                     }
 
                     string ext = null;
