@@ -2,6 +2,7 @@ Windows Registry Editor Version 5.00
 
 [HKEY_CLASSES_ROOT\*\shell\PDF Converter]
 "Subcommands"=""
+"Icon"="C:\\Workspace\\ggomi\\Resources\\hpdf.ico"
 
 [HKEY_CLASSES_ROOT\*\shell\PDF Converter\shell\Convert To DOCX]
 "MUIVerb"="Convert To DOCX"
