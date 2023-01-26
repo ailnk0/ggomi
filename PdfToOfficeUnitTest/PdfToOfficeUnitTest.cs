@@ -53,7 +53,9 @@ namespace PdfToOfficeUnitTest
 
             for (int i = 0; i < fileNames.Length; i++)
             {
-                var isExist = model.Docs.Any(e => (e.FilePath == fileNames[i]));
+                FileInfo fileInfo = new FileInfo(fileNames[i]);
+
+                var isExist = model.Docs.Any(e => (e.FilePath == fileInfo.FullName));
                 Assert.AreEqual(true, isExist);
             }
         }
@@ -64,7 +66,8 @@ namespace PdfToOfficeUnitTest
             bool canExecute = MainWindow.ConvertCommand.CanExecute(null, window);
             Assert.AreEqual(false, canExecute);
 
-            model.Docs.Add(new Doc(SAMPLE_PATH));
+            var info = new FileInfo(SAMPLE_PATH);
+            model.Docs.Add(new Doc(info));
             model.AppStatus = APP_STATUS.READY;
             model.ConvFileType = FILE_TYPE.DOCX;
 
@@ -83,7 +86,8 @@ namespace PdfToOfficeUnitTest
             bool canExecute = MainWindow.RemoveFileCommand.CanExecute(null, window);
             Assert.AreEqual(false, canExecute);
 
-            model.Docs.Add(new Doc(SAMPLE_PATH));
+            var info = new FileInfo(SAMPLE_PATH);
+            model.Docs.Add(new Doc(info));
             model.AppStatus = APP_STATUS.READY;
             model.SelectedItems = model.Docs;
 

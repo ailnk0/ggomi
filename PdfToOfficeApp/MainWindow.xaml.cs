@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.IO;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -224,7 +225,7 @@ namespace PdfToOfficeApp
                     if (doc.ResCode == RES_CODE.Success)
                     {
                         doc.ConvStatus = CONV_STATUS.COMPLETED;
-                        doc.Tooltip = doc.OutPath;
+                        Util.StringManager.SetTooltipLang(doc);
                     }
                     else if (doc.ResCode == RES_CODE.Canceled || doc.ResCode == RES_CODE.CanceledExists)
                     {
@@ -233,12 +234,7 @@ namespace PdfToOfficeApp
                     else
                     {
                         doc.ConvStatus = CONV_STATUS.FAIL;
-
-                        StringBuilder msg = new StringBuilder();
-                        msg.AppendLine(doc.FilePath);
-                        msg.AppendLine();
-                        msg.AppendFormat("⚠ {0}", Util.StringManager.GetMsg(doc.ResCode));
-                        doc.Tooltip = msg.ToString();
+                        Util.StringManager.SetTooltipLang(doc);
                     }
                 }
             }
@@ -378,7 +374,8 @@ namespace PdfToOfficeApp
 
             foreach (var file in fileNames)
             {
-                Doc doc = new Doc(file);
+                var info = new FileInfo(file);
+                Doc doc = new Doc(info);
                 GetModel().Docs.Add(doc);
             }
         }

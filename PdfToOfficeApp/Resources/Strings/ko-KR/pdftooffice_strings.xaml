@@ -40,4 +40,7 @@
   <System:String x:Key="IDS_HNC_PDFSDK_MSG_WARNING_NOTIFY_LIMIT">PDF를 편집 가능한 문서로 변환할 수 있으며, 변환 시 약간의 시간이 소요될 수 있습니다. &#xA;변환하는 동안 일부 속성이 변경되어 원본 PDF 파일과 내용이 달라질 수 있습니다. &#xA;대용량 문서는 최대 %d쪽까지 변환할 수 있습니다.</System:String>
   <System:String x:Key="IDS_ConvertUserCancelMessage">문서로 변환하기를 취소했습니다.</System:String>
   <System:String x:Key="IDS_ConvertStopMessage">작업을 중지하는 동안 잠시만 기다려 주세요.</System:String>
+  <System:String x:Key="IDS_TOOLTIP_MSG_SIZE">크기 : </System:String>
+  <System:String x:Key="IDS_TOOLTIP_MSG_WRITE_TIME">수정한 날짜 : </System:String>
+  <System:String x:Key="IDS_TOOLTIP_MSG_PATH">저장 위치 : </System:String>
 </ResourceDictionary>

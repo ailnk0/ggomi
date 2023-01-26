@@ -216,6 +216,10 @@ namespace PdfToOfficeApp
                 Util.LangManager.Apply(value);
 
                 OnPropertyChanged("Lang");
+                foreach (Doc doc in Docs)
+                {
+                    Util.StringManager.SetTooltipLang(doc);
+                }
             }
         }
     }
