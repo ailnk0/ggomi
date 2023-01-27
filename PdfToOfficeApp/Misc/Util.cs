@@ -177,7 +177,7 @@ namespace PdfToOfficeApp
                 return msg;
             }
 
-            public static string GetFileSize(long length)
+            public static string BytesToString(long length)
             {
                 try
                 {
@@ -208,37 +208,6 @@ namespace PdfToOfficeApp
                 {
                     return string.Empty;
                 }
-            }
-
-            public static void SetTooltipLang(Doc doc)
-            {
-                FileInfo info;
-                StringBuilder msg = new StringBuilder();
-                if (doc.ConvStatus == CONV_STATUS.FAIL)
-                {
-                    msg.AppendLine(doc.FilePath);
-                    msg.AppendLine();
-                    msg.AppendFormat("⚠ {0}", GetMsg(doc.ResCode));
-                }
-                else if (doc.ConvStatus == CONV_STATUS.COMPLETED)
-                {
-                    info = new FileInfo(doc.OutPath);
-                    msg.AppendFormat("{0}{1}", GetString("IDS_TOOLTIP_MSG_PATH"), doc.OutPath);
-                    msg.AppendLine();
-                    msg.AppendFormat("{0}{1}", GetString("IDS_TOOLTIP_MSG_SIZE"), Util.StringManager.GetFileSize(info.Length));
-                    msg.AppendLine();
-                    msg.AppendFormat("{0}{1}", GetString("IDS_TOOLTIP_MSG_WRITE_TIME"), info.LastWriteTime);
-                }
-                else
-                {
-                    info = new FileInfo(doc.FilePath);
-                    msg.AppendFormat("{0}{1}", GetString("IDS_TOOLTIP_MSG_PATH"), doc.FilePath);
-                    msg.AppendLine();
-                    msg.AppendFormat("{0}{1}", GetString("IDS_TOOLTIP_MSG_SIZE"), Util.StringManager.GetFileSize(info.Length));
-                    msg.AppendLine();
-                    msg.AppendFormat("{0}{1}", GetString("IDS_TOOLTIP_MSG_WRITE_TIME"), info.LastWriteTime);
-                }
-                doc.Tooltip = msg.ToString();
             }
         }
 

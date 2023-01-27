@@ -225,7 +225,6 @@ namespace PdfToOfficeApp
                     if (doc.ResCode == RES_CODE.Success)
                     {
                         doc.ConvStatus = CONV_STATUS.COMPLETED;
-                        Util.StringManager.SetTooltipLang(doc);
                     }
                     else if (doc.ResCode == RES_CODE.Canceled || doc.ResCode == RES_CODE.CanceledExists)
                     {
@@ -234,7 +233,6 @@ namespace PdfToOfficeApp
                     else
                     {
                         doc.ConvStatus = CONV_STATUS.FAIL;
-                        Util.StringManager.SetTooltipLang(doc);
                     }
                 }
             }

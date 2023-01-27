@@ -11,16 +11,10 @@ namespace PdfToOfficeApp
         {
         }
 
+        // TODO : 삭제 후 초기 툴팁 확인
         public Doc(FileInfo info)
         {
             FilePath = info.FullName;
-            StringBuilder msg = new StringBuilder();
-            msg.AppendFormat("{0}{1}", Util.StringManager.GetString("IDS_TOOLTIP_MSG_PATH"), FilePath);
-            msg.AppendLine();
-            msg.AppendFormat("{0}{1}", Util.StringManager.GetString("IDS_TOOLTIP_MSG_SIZE"), Util.StringManager.GetFileSize(info.Length));
-            msg.AppendLine();
-            msg.AppendFormat("{0}{1}", Util.StringManager.GetString("IDS_TOOLTIP_MSG_WRITE_TIME"), info.LastWriteTime);
-            Tooltip = msg.ToString();
         }
 
         private string _FilePath = string.Empty;

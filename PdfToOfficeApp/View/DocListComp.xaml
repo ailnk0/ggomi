@@ -184,8 +184,16 @@
 
       <DataTemplate x:Key="doclistbox-item">
         <Grid Width="{StaticResource sz-list-item}"
-              Height="{StaticResource sz-list-item}"
-              ToolTip="{Binding Path=Tooltip}">
+              Height="{StaticResource sz-list-item}">
+          <Grid.ToolTip>
+            <MultiBinding Converter="{StaticResource TooltipConverter}"
+                          ConverterParameter="Doc">
+              <Binding Path="ConvStatus" />
+              <Binding Path="FilePath" />
+              <Binding Path="ResCode" />
+              <Binding Path="OutPath" />
+            </MultiBinding>
+          </Grid.ToolTip>
           <Grid.RowDefinitions>
             <RowDefinition Height="2*" />
             <RowDefinition Height="*" />
