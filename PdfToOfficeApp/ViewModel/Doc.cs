@@ -11,12 +11,6 @@ namespace PdfToOfficeApp
         {
         }
 
-        // TODO : 삭제 후 초기 툴팁 확인
-        public Doc(FileInfo info)
-        {
-            FilePath = info.FullName;
-        }
-
         private string _FilePath = string.Empty;
         public string FilePath
         {

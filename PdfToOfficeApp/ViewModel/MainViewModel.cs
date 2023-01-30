@@ -215,7 +215,6 @@ namespace PdfToOfficeApp
 
                 Util.LangManager.Apply(value);
 
-                // TODO : Lang 변경 확인하여 툴팁 언어 변경되도록
                 OnPropertyChanged("Lang");
             }
         }

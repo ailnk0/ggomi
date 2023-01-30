@@ -372,8 +372,10 @@ namespace PdfToOfficeApp
 
             foreach (var file in fileNames)
             {
-                var info = new FileInfo(file);
-                Doc doc = new Doc(info);
+                Doc doc = new Doc
+                {
+                    FilePath = file
+                };
                 GetModel().Docs.Add(doc);
             }
         }
@@ -419,9 +421,11 @@ namespace PdfToOfficeApp
 
         private void OnAbout(object sender, ExecutedRoutedEventArgs e)
         {
-            AboutWindow aboutWin = new AboutWindow();
-            aboutWin.Owner = this;
-            aboutWin.DataContext = GetModel();
+            AboutWindow aboutWin = new AboutWindow
+            {
+                Owner = this,
+                DataContext = GetModel()
+            };
             aboutWin.ShowDialog();
         }
 
@@ -432,9 +436,11 @@ namespace PdfToOfficeApp
 
         private void OnConfig(object sender, ExecutedRoutedEventArgs e)
         {
-            ConfigWindow confWin = new ConfigWindow();
-            confWin.Owner = this;
-            confWin.DataContext = GetModel();
+            ConfigWindow confWin = new ConfigWindow
+            {
+                Owner = this,
+                DataContext = GetModel()
+            };
             confWin.ShowDialog();
         }
 

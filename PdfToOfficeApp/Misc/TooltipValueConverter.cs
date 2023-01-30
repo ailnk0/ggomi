@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Text;
 using System.Windows.Data;
+using PdfToOfficeAppModule;
 
 namespace PdfToOfficeApp
 {
@@ -10,46 +12,47 @@ namespace PdfToOfficeApp
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            // values[0] : doc.ConvStatus
-            // values[1] : doc.FilePath
-            // values[2] : doc.ResCode
-            // values[3] : doc.OutPath
-
-            FileInfo info;
-            StringBuilder msg = new StringBuilder();
             try
             {
-                if ((CONV_STATUS)values[0] == CONV_STATUS.FAIL)
+                var convStatus = (CONV_STATUS)values[0];
+                var filePath = (string)values[1];
+                var resCode = (RES_CODE)values[2];
+                var outPath = (string)values[3];
+
+                FileInfo info;
+                var msg = new StringBuilder();
+
+                switch (convStatus)
                 {
-                    msg.AppendLine(values[1].ToString());
-                    msg.AppendLine();
-                    msg.AppendFormat("⚠ {0}", Util.StringManager.GetMsg((PdfToOfficeAppModule.RES_CODE)values[2]));
+                    case CONV_STATUS.FAIL:
+                        msg.AppendLine(filePath);
+                        msg.AppendLine();
+                        msg.AppendFormat("⚠ {0}", Util.StringManager.GetMsg(resCode));
+                        break;
+                    case CONV_STATUS.COMPLETED:
+                        info = new FileInfo(outPath);
+                        msg.AppendFormat("{0} : {1}", Util.StringManager.GetString("IDS_TOOLTIP_MSG_PATH"), outPath);
+                        msg.AppendLine();
+                        msg.AppendFormat("{0} : {1}", Util.StringManager.GetString("IDS_TOOLTIP_MSG_SIZE"), Util.StringManager.BytesToString(info.Length));
+                        msg.AppendLine();
+                        msg.AppendFormat("{0} : {1}", Util.StringManager.GetString("IDS_TOOLTIP_MSG_WRITE_TIME"), info.LastWriteTime);
+                        break;
+                    default:
+                        info = new FileInfo(filePath);
+                        msg.AppendFormat("{0} : {1}", Util.StringManager.GetString("IDS_TOOLTIP_MSG_PATH"), filePath);
+                        msg.AppendLine();
+                        msg.AppendFormat("{0} : {1}", Util.StringManager.GetString("IDS_TOOLTIP_MSG_SIZE"), Util.StringManager.BytesToString(info.Length));
+                        msg.AppendLine();
+                        msg.AppendFormat("{0} : {1}", Util.StringManager.GetString("IDS_TOOLTIP_MSG_WRITE_TIME"), info.LastWriteTime);
+                        break;
                 }
-                else if ((CONV_STATUS)values[0] == CONV_STATUS.COMPLETED)
-                {
-                    info = new FileInfo(values[3].ToString());
-                    msg.AppendFormat("{0} : {1}", Util.StringManager.GetString("IDS_TOOLTIP_MSG_PATH"), values[3]);
-                    msg.AppendLine();
-                    msg.AppendFormat("{0} : {1}", Util.StringManager.GetString("IDS_TOOLTIP_MSG_SIZE"), Util.StringManager.BytesToString(info.Length));
-                    msg.AppendLine();
-                    msg.AppendFormat("{0} : {1}", Util.StringManager.GetString("IDS_TOOLTIP_MSG_WRITE_TIME"), info.LastWriteTime);
-                }
-                else
-                {
-                    info = new FileInfo(values[1].ToString());
-                    msg.AppendFormat("{0} : {1}", Util.StringManager.GetString("IDS_TOOLTIP_MSG_PATH"), values[1]);
-                    msg.AppendLine();
-                    msg.AppendFormat("{0} : {1}", Util.StringManager.GetString("IDS_TOOLTIP_MSG_SIZE"), Util.StringManager.BytesToString(info.Length));
-                    msg.AppendLine();
-                    msg.AppendFormat("{0} : {1}", Util.StringManager.GetString("IDS_TOOLTIP_MSG_WRITE_TIME"), info.LastWriteTime);
-                }
+                return msg.ToString();
             }
-            catch
+            catch (Exception ex)
             {
+                Debug.Assert(false, ex.Message);
                 return null;
             }
-
-            return msg.ToString();
         }
 
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)

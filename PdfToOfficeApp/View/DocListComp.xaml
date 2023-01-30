@@ -186,12 +186,13 @@
         <Grid Width="{StaticResource sz-list-item}"
               Height="{StaticResource sz-list-item}">
           <Grid.ToolTip>
-            <MultiBinding Converter="{StaticResource TooltipConverter}"
-                          ConverterParameter="Doc">
+            <MultiBinding Converter="{StaticResource TooltipConverter}">
               <Binding Path="ConvStatus" />
               <Binding Path="FilePath" />
               <Binding Path="ResCode" />
               <Binding Path="OutPath" />
+              <Binding RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}"
+                       Path="DataContext.Lang" />
             </MultiBinding>
           </Grid.ToolTip>
           <Grid.RowDefinitions>
