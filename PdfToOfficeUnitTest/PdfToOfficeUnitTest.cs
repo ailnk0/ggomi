@@ -64,7 +64,11 @@ namespace PdfToOfficeUnitTest
             bool canExecute = MainWindow.ConvertCommand.CanExecute(null, window);
             Assert.AreEqual(false, canExecute);
 
-            model.Docs.Add(new Doc(SAMPLE_PATH));
+            Doc doc = new Doc
+            {
+                FilePath = SAMPLE_PATH
+            };
+            model.Docs.Add(doc);
             model.AppStatus = APP_STATUS.READY;
             model.ConvFileType = FILE_TYPE.DOCX;
 
@@ -83,7 +87,11 @@ namespace PdfToOfficeUnitTest
             bool canExecute = MainWindow.RemoveFileCommand.CanExecute(null, window);
             Assert.AreEqual(false, canExecute);
 
-            model.Docs.Add(new Doc(SAMPLE_PATH));
+            Doc doc = new Doc
+            {
+                FilePath = SAMPLE_PATH
+            };
+            model.Docs.Add(doc);
             model.AppStatus = APP_STATUS.READY;
             model.SelectedItems = model.Docs;
 

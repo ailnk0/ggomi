@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.IO;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -224,7 +225,6 @@ namespace PdfToOfficeApp
                     if (doc.ResCode == RES_CODE.Success)
                     {
                         doc.ConvStatus = CONV_STATUS.COMPLETED;
-                        doc.Tooltip = doc.OutPath;
                     }
                     else if (doc.ResCode == RES_CODE.Canceled || doc.ResCode == RES_CODE.CanceledExists)
                     {
@@ -233,12 +233,6 @@ namespace PdfToOfficeApp
                     else
                     {
                         doc.ConvStatus = CONV_STATUS.FAIL;
-
-                        StringBuilder msg = new StringBuilder();
-                        msg.AppendLine(doc.FilePath);
-                        msg.AppendLine();
-                        msg.AppendFormat("⚠ {0}", Util.StringManager.GetMsg(doc.ResCode));
-                        doc.Tooltip = msg.ToString();
                     }
                 }
             }
@@ -378,7 +372,10 @@ namespace PdfToOfficeApp
 
             foreach (var file in fileNames)
             {
-                Doc doc = new Doc(file);
+                Doc doc = new Doc
+                {
+                    FilePath = file
+                };
                 GetModel().Docs.Add(doc);
             }
         }
@@ -424,9 +421,11 @@ namespace PdfToOfficeApp
 
         private void OnAbout(object sender, ExecutedRoutedEventArgs e)
         {
-            AboutWindow aboutWin = new AboutWindow();
-            aboutWin.Owner = this;
-            aboutWin.DataContext = GetModel();
+            AboutWindow aboutWin = new AboutWindow
+            {
+                Owner = this,
+                DataContext = GetModel()
+            };
             aboutWin.ShowDialog();
         }
 
@@ -437,9 +436,11 @@ namespace PdfToOfficeApp
 
         private void OnConfig(object sender, ExecutedRoutedEventArgs e)
         {
-            ConfigWindow confWin = new ConfigWindow();
-            confWin.Owner = this;
-            confWin.DataContext = GetModel();
+            ConfigWindow confWin = new ConfigWindow
+            {
+                Owner = this,
+                DataContext = GetModel()
+            };
             confWin.ShowDialog();
         }
 

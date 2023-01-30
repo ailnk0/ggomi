@@ -41,4 +41,7 @@
   <System:String x:Key="IDS_PdfConverter_Convert">Being Converted File</System:String>    
   <System:String x:Key="IDS_ConvertUserCancelMessage">Converting to a document has been canceled.</System:String>
   <System:String x:Key="IDS_ConvertStopMessage">Please wait while stopping the operation.</System:String>
+  <System:String x:Key="IDS_TOOLTIP_MSG_SIZE">Size</System:String>
+  <System:String x:Key="IDS_TOOLTIP_MSG_WRITE_TIME">Modified Time</System:String>
+  <System:String x:Key="IDS_TOOLTIP_MSG_PATH">Path</System:String>
 </ResourceDictionary>

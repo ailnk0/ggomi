@@ -176,6 +176,39 @@ namespace PdfToOfficeApp
 
                 return msg;
             }
+
+            public static string BytesToString(long length)
+            {
+                try
+                {
+                    string strSize = "0Byte";
+                    double dSize = 0;
+                    if (length >= 8589900000)
+                    {
+                        dSize = length / (double)(1024 * 1024 * 1024);
+                        strSize = Math.Round(dSize, 3) + "GB";
+                    }
+                    else if (length >= 1048576)
+                    {
+                        dSize = length / (double)(1024 * 1024);
+                        strSize = Math.Round(dSize, 2) + "MB";
+                    }
+                    else if (length >= 1024)
+                    {
+                        dSize = length / (double)1024;
+                        strSize = Math.Round(dSize, 2) + "KB";
+                    }
+                    else
+                    {
+                        strSize = length + "byte";
+                    }
+                    return strSize;
+                }
+                catch (Exception)
+                {
+                    return string.Empty;
+                }
+            }
         }
 
         public class PathManager

@@ -37,6 +37,7 @@
   <local:ProgressToAngleConverter x:Key="ProgressConverter" />
   <local:DataConv x:Key="dataConv" />
   <local:ResConv x:Key="resConv" />
+  <local:TooltipValueConverter x:Key="TooltipConverter" />
 
   <DrawingImage x:Key="drawing_validate_check"
                 Drawing="{DynamicResource dlg_data_validate_check}">

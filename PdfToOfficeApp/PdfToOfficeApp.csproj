@@ -90,6 +90,7 @@
     <Compile Include="Misc\ProgressToAngleConverter.cs" />
     <Compile Include="Misc\DataConv.cs" />
     <Compile Include="Misc\ResConv.cs" />
+    <Compile Include="Misc\TooltipValueConverter.cs" />
     <Compile Include="ProgressSiteCli.cs" />
     <Compile Include="ViewModel\Doc.cs" />
     <Compile Include="ViewModel\DocList.cs" />

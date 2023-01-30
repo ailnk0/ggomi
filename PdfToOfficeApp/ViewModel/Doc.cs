@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Text;
 using PdfToOfficeAppModule;
 
 namespace PdfToOfficeApp
@@ -8,12 +9,6 @@ namespace PdfToOfficeApp
     {
         public Doc()
         {
-        }
-
-        public Doc(string filePath)
-        {
-            FilePath = filePath;
-            Tooltip = filePath;
         }
 
         private string _FilePath = string.Empty;
@@ -110,6 +105,28 @@ namespace PdfToOfficeApp
             {
                 _OutPath = value;
                 OnPropertyChanged("OutPath");
+            }
+        }
+
+        private string _FileSize = string.Empty;
+        public string FileSize
+        {
+            get { return _FileSize; }
+            set
+            {
+                _FileSize = value;
+                OnPropertyChanged("FileSize");
+            }
+        }
+
+        private string _WriteTime = string.Empty;
+        public string WriteTime
+        {
+            get { return _WriteTime; }
+            set
+            {
+                _WriteTime = value;
+                OnPropertyChanged("WriteTime");
             }
         }
     }
