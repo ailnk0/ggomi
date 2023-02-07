@@ -44,4 +44,6 @@
   <System:String x:Key="IDS_TOOLTIP_MSG_SIZE">Size</System:String>
   <System:String x:Key="IDS_TOOLTIP_MSG_WRITE_TIME">Modified Time</System:String>
   <System:String x:Key="IDS_TOOLTIP_MSG_PATH">Path</System:String>
+  <System:String x:Key="IDS_ADD_FILE">File</System:String>
+  <System:String x:Key="IDS_ADD_FOLDER">Folder</System:String>
 </ResourceDictionary>

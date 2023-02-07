@@ -43,4 +43,6 @@
   <System:String x:Key="IDS_TOOLTIP_MSG_SIZE">크기</System:String>
   <System:String x:Key="IDS_TOOLTIP_MSG_WRITE_TIME">수정한 날짜</System:String>
   <System:String x:Key="IDS_TOOLTIP_MSG_PATH">저장 위치</System:String>
+  <System:String x:Key="IDS_ADD_FILE">파일</System:String>
+  <System:String x:Key="IDS_ADD_FOLDER">폴더</System:String>
 </ResourceDictionary>

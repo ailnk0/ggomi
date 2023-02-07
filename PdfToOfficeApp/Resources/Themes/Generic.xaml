@@ -108,6 +108,16 @@
              Top="0"
              Right="5"
              Bottom="0" />
+  <Thickness x:Key="border-sub"
+             Left="1"
+             Top="0"
+             Right="0"
+             Bottom="0" />
+  <CornerRadius x:Key="round-sub"
+                TopLeft="0"
+                TopRight="5"
+                BottomRight="5"
+                BottomLeft="0" />
 
   <System:Double x:Key="sz-menu-i">30</System:Double>
   <System:Double x:Key="sz-btn-pri">60</System:Double>
@@ -119,6 +129,7 @@
   <System:Double x:Key="sz-h-check-slide">20</System:Double>
   <CornerRadius x:Key="round-check-slide">10</CornerRadius>
   <System:Double x:Key="sz-check-slide-btn">18</System:Double>
+  <System:Double x:Key="sz-w-sub">10</System:Double>
 
   <Thickness x:Key="off-pos-check-slide"
              Left="1"
@@ -280,6 +291,69 @@
          TargetType="{x:Type MenuItem}">
     <Setter Property="Foreground"
             Value="{DynamicResource Gray_100}" />
+  </Style>
+
+  <Style x:Key="sf-sub"
+         TargetType="{x:Type Menu}"
+         BasedOn="{StaticResource menu}">
+    <Setter Property="Width"
+            Value="{StaticResource sz-w-sub}" />
+    <Setter Property="Height"
+            Value="auto" />
+  </Style>
+
+  <Style x:Key="sf-sub-i"
+         TargetType="{x:Type MenuItem}"
+         BasedOn="{StaticResource menu-i}">
+    <Setter Property="Width"
+            Value="{StaticResource sz-w-sub}" />
+    <Setter Property="Height"
+            Value="auto" />
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="{x:Type MenuItem}">
+          <Border x:Name="border"
+                  CornerRadius="{StaticResource round-sub}"
+                  BorderThickness="{StaticResource border-sub}"
+                  BorderBrush="{DynamicResource bg}">
+            <Grid>
+              <Border>
+                <ContentPresenter ContentSource="Icon" />
+              </Border>
+              <Popup x:Name="Popup"
+                     Placement="Bottom"
+                     IsOpen="{TemplateBinding IsSubmenuOpen}"
+                     AllowsTransparency="True"
+                     PopupAnimation="Fade">
+                <Border x:Name="SubmenuBorder"
+                        CornerRadius="{StaticResource round-btn}"
+                        Padding="{StaticResource m-1}"
+                        BorderThickness="1"
+                        BorderBrush="{DynamicResource Gray_20}"
+                        Background="{DynamicResource bg}">
+                  <StackPanel IsItemsHost="True"
+                              KeyboardNavigation.DirectionalNavigation="Cycle" />
+                </Border>
+              </Popup>
+            </Grid>
+          </Border>
+          <ControlTemplate.Triggers>
+            <Trigger Property="IsHighlighted"
+                     Value="True">
+              <Setter TargetName="border"
+                      Property="Background"
+                      Value="{DynamicResource bg-mouseover}" />
+            </Trigger>
+            <Trigger Property="IsEnabled"
+                     Value="False">
+              <Setter TargetName="border"
+                      Property="Opacity"
+                      Value="{StaticResource opcity-btn-disable}" />
+            </Trigger>
+          </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
   </Style>
 
   <Style x:Key="btn-pri"

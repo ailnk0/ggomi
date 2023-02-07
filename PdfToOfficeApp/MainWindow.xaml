@@ -32,23 +32,45 @@
         <ColumnDefinition />
         <ColumnDefinition Width="auto" />
       </Grid.ColumnDefinitions>
-
-      <Menu Grid.Column="0"
-            Style="{StaticResource menu}"
-            Margin="{StaticResource m-1}">
-        <MenuItem Header="{DynamicResource IDS_MENU_ADD}"
-                  ToolTip="{DynamicResource IDS_MENU_ADD}"
-                  Style="{StaticResource menu-i}"
-                  Command="ApplicationCommands.Open">
-          <MenuItem.Icon>
-            <Image>
-              <Image.Source>
-                <DrawingImage Drawing="{DynamicResource sm_add}" />
-              </Image.Source>
-            </Image>
-          </MenuItem.Icon>
-        </MenuItem>
-      </Menu>
+      <StackPanel Orientation="Horizontal">
+        <Menu Grid.Column="0"
+              Style="{StaticResource menu}"
+              Margin="{StaticResource m-1}">
+          <MenuItem Header="{DynamicResource IDS_MENU_ADD}"
+                    ToolTip="{DynamicResource IDS_MENU_ADD}"
+                    Style="{StaticResource menu-i}"
+                    Command="{x:Static local:MainWindow.AddCommand}">
+            <MenuItem.Icon>
+              <Image>
+                <Image.Source>
+                  <DrawingImage Drawing="{DynamicResource sm_add}" />
+                </Image.Source>
+              </Image>
+            </MenuItem.Icon>
+          </MenuItem>
+        </Menu>
+        <Menu Style="{StaticResource sf-sub}">
+          <MenuItem Style="{StaticResource sf-sub-i}">
+            <MenuItem.Icon>
+              <Image>
+                <Image.Source>
+                  <DrawingImage Drawing="{DynamicResource sm_dropdown}" />
+                </Image.Source>
+              </Image>
+            </MenuItem.Icon>
+            <MenuItem Style="{StaticResource menu-i-sub}"
+                      Header="{DynamicResource IDS_ADD_FILE}"
+                      IsCheckable="true"
+                      IsChecked="{Binding Path=AddType, Converter={StaticResource dataConv}, ConverterParameter={x:Static local:ADD_TYPE.FILE}}"
+                      Command="ApplicationCommands.Open" />
+            <MenuItem Style="{StaticResource menu-i-sub}"
+                      Header="{DynamicResource IDS_ADD_FOLDER}"
+                      IsCheckable="true"
+                      IsChecked="{Binding Path=AddType, Converter={StaticResource dataConv}, ConverterParameter={x:Static local:ADD_TYPE.FOLDER}}"
+                      Command="{x:Static local:MainWindow.AddFolderCommand}" />
+          </MenuItem>
+        </Menu>
+      </StackPanel>
 
       <Menu Grid.Column="1"
             Style="{StaticResource menu}"
