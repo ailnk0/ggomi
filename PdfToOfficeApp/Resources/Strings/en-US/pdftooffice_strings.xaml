@@ -38,10 +38,13 @@
   <System:String x:Key="IDS_HNC_PDFSDK_MSG_NO_TABLES_TO_EXTRACT">Convert Tables Only option cannot be applied to a document without tables.&#xA;Uncheck Convert Tables Only option in the Convert PDF > Settings dialog box.</System:String>
   <System:String x:Key="IDS_HNC_PDFSDK_MSG_NO_IMAGES_TO_EXTRACT">Convert Only Images in PDF option cannot be applied to a document without images.&#xA;Change Convert Image Setting option in the Convert PDF > Settings dialog box.</System:String>
   <System:String x:Key="IDS_HNC_PDFSDK_MSG_WARNING_NOTIFY_LIMIT">It will convert your PDF to an editable document, and this may also take a while. &#xA;Some properties of this file may be changed while it converts and it may become different than the PDF file. &#xA;If you are converting a huge document, it could be converted up to %d page.</System:String>
-  <System:String x:Key="IDS_PdfConverter_Convert">Being Converted File</System:String>    
-  <System:String x:Key="IDS_ConvertUserCancelMessage">Converting to a document has been canceled.</System:String>
-  <System:String x:Key="IDS_ConvertStopMessage">Please wait while stopping the operation.</System:String>
+  <System:String x:Key="IDS_PDF_CONVERTER_CONVERT">Being Converted File</System:String>    
+  <System:String x:Key="IDS_CONVERT_USER_CANCEL_MESSAGE">Converting to a document has been canceled.</System:String>
+  <System:String x:Key="IDS_CONVERT_STOP_MESSAGE">Please wait while stopping the operation.</System:String>
   <System:String x:Key="IDS_TOOLTIP_MSG_SIZE">Size</System:String>
   <System:String x:Key="IDS_TOOLTIP_MSG_WRITE_TIME">Modified Time</System:String>
   <System:String x:Key="IDS_TOOLTIP_MSG_PATH">Path</System:String>
+  <System:String x:Key="IDS_ADD_FILE">File</System:String>
+  <System:String x:Key="IDS_ADD_FOLDER">Folder</System:String>
+  <System:String x:Key="IDS_OPEN_FOLDER_MSG_FAIL">The path is invalid or you don't have permission to access it.</System:String>
 </ResourceDictionary>

@@ -27,4 +27,10 @@
         KO_KR,
         EN_US,
     }
+
+    public enum ADD_TYPE
+    {
+        FILE,
+        FOLDER
+    }
 }

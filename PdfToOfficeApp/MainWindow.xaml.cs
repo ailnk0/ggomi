@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -243,7 +243,9 @@ namespace PdfToOfficeApp
         private void AddCommandHandlers()
         {
             Util.Commands.Add(this, ApplicationCommands.Open, OnOpen, CanOpen);
+            Util.Commands.Add(this, AddCommand, OnAdd, CanAdd);
             Util.Commands.Add(this, AddFileCommand, OnAddFile, CanAddFile);
+            Util.Commands.Add(this, AddFolderCommand, OnAddFolder, CanAddFolder);
             Util.Commands.Add(this, RemoveFileCommand, OnRemoveFile, CanRemoveFile);
             Util.Commands.Add(this, ConvertCommand, OnConvert, CanConvert);
             Util.Commands.Add(this, StopCommand, OnStop, CanStop);
@@ -273,6 +275,10 @@ namespace PdfToOfficeApp
         public static RoutedCommand ResetCommand = new RoutedCommand("ResetCommand", typeof(Button));
         // 파일 추가 커맨드
         public static RoutedCommand AddFileCommand = new RoutedCommand("AddFileCommand", typeof(MenuItem));
+        // 폴더 추가 커맨드
+        public static RoutedCommand AddFolderCommand = new RoutedCommand("AddFolderCommand", typeof(MenuItem));
+        // 파일/폴더 추가 커맨드
+        public static RoutedCommand AddCommand = new RoutedCommand("AddCommand", typeof(MenuItem));
         // 파일 제거 커맨드
         public static RoutedCommand RemoveFileCommand = new RoutedCommand("RemoveFileCommand", typeof(MenuItem));
         // 설정 커맨드
@@ -291,7 +297,6 @@ namespace PdfToOfficeApp
             {
                 return;
             }
-
             AddFileCommand.Execute(dialog.FileNames, this);
         }
 
@@ -381,6 +386,61 @@ namespace PdfToOfficeApp
         }
 
         private void CanAddFile(object sender, CanExecuteRoutedEventArgs e)
+        {
+            if (GetModel().AppStatus == APP_STATUS.RUNNING || GetModel().AppStatus == APP_STATUS.COMPLETED)
+            {
+                return;
+            }
+            e.CanExecute = true;
+        }
+
+        // 폴더 추가
+        private void OnAddFolder(object sender, ExecutedRoutedEventArgs e)
+        {
+            try
+            {
+                var dialog = new System.Windows.Forms.FolderBrowserDialog();
+
+                var result = dialog.ShowDialog();
+                if (result != System.Windows.Forms.DialogResult.OK)
+                {
+                    return;
+                }
+                var di = new DirectoryInfo(dialog.SelectedPath);
+                string[] names = Directory.GetFiles(dialog.SelectedPath, "*.pdf", SearchOption.AllDirectories);
+
+                AddFileCommand.Execute(names, this);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(Util.StringManager.GetString("IDS_OPEN_FOLDER_MSG_FAIL"));
+                Debug.Assert(false, ex.Message);
+            }
+        }
+
+        private void CanAddFolder(object sender, CanExecuteRoutedEventArgs e)
+        {
+            if (GetModel().AppStatus == APP_STATUS.RUNNING || GetModel().AppStatus == APP_STATUS.COMPLETED)
+            {
+                return;
+            }
+            e.CanExecute = true;
+        }
+
+        // 파일/폴더 추가
+        private void OnAdd(object sender, ExecutedRoutedEventArgs e)
+        {
+            if (GetModel().AddType == ADD_TYPE.FILE)
+            {
+                ApplicationCommands.Open.Execute(sender, this);
+            }
+            else
+            {
+                AddFolderCommand.Execute(sender, this);
+            }
+        }
+
+        private void CanAdd(object sender, CanExecuteRoutedEventArgs e)
         {
             if (GetModel().AppStatus == APP_STATUS.RUNNING || GetModel().AppStatus == APP_STATUS.COMPLETED)
             {

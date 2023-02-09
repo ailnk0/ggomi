@@ -28,78 +28,107 @@
           Margin="{StaticResource m-1}">
       <Grid.ColumnDefinitions>
         <ColumnDefinition Width="auto" />
-        <ColumnDefinition Width="auto" />
         <ColumnDefinition />
         <ColumnDefinition Width="auto" />
       </Grid.ColumnDefinitions>
 
-      <Menu Grid.Column="0"
-            Style="{StaticResource menu}"
-            Margin="{StaticResource m-1}">
-        <MenuItem Header="{DynamicResource IDS_MENU_ADD}"
-                  ToolTip="{DynamicResource IDS_MENU_ADD}"
-                  Style="{StaticResource menu-i}"
-                  Command="ApplicationCommands.Open">
-          <MenuItem.Icon>
-            <Image>
-              <Image.Source>
-                <DrawingImage Drawing="{DynamicResource sm_add}" />
-              </Image.Source>
-            </Image>
-          </MenuItem.Icon>
-        </MenuItem>
-      </Menu>
+      <StackPanel Grid.Column="0"
+                  Margin="{StaticResource m-1}"
+                  Orientation="Horizontal">
+        <Button Style="{StaticResource sf-button}"
+                Margin="{StaticResource mr-2}">
+          <StackPanel Orientation="Horizontal">
+            <Menu Style="{StaticResource menu}">
+              <MenuItem Header="{DynamicResource IDS_MENU_ADD}"
+                        ToolTip="{DynamicResource IDS_MENU_ADD}"
+                        Style="{StaticResource menu-i}"
+                        Command="{x:Static local:MainWindow.AddCommand}">
+                <MenuItem.Icon>
+                  <Image>
+                    <Image.Source>
+                      <DrawingImage Drawing="{DynamicResource sm_add}" />
+                    </Image.Source>
+                  </Image>
+                </MenuItem.Icon>
+              </MenuItem>
+            </Menu>
+            <Menu Style="{StaticResource sf-sub}">
+              <MenuItem Style="{StaticResource sf-sub-i}">
+                <MenuItem.Icon>
+                  <Image>
+                    <Image.Source>
+                      <DrawingImage Drawing="{DynamicResource sm_dropdown}" />
+                    </Image.Source>
+                  </Image>
+                </MenuItem.Icon>
+                <MenuItem Style="{StaticResource menu-i-sub}"
+                          Header="{DynamicResource IDS_ADD_FILE}"
+                          IsCheckable="true"
+                          IsChecked="{Binding Path=AddType, Converter={StaticResource dataConv}, ConverterParameter={x:Static local:ADD_TYPE.FILE}}"
+                          Command="ApplicationCommands.Open" />
+                <MenuItem Style="{StaticResource menu-i-sub}"
+                          Header="{DynamicResource IDS_ADD_FOLDER}"
+                          IsCheckable="true"
+                          IsChecked="{Binding Path=AddType, Converter={StaticResource dataConv}, ConverterParameter={x:Static local:ADD_TYPE.FOLDER}}"
+                          Command="{x:Static local:MainWindow.AddFolderCommand}" />
+              </MenuItem>
+            </Menu>
+          </StackPanel>
+        </Button>
 
-      <Menu Grid.Column="1"
-            Style="{StaticResource menu}"
-            Margin="{StaticResource m-1}">
-        <MenuItem Header="{DynamicResource IDS_MENU_RM_SEL}"
-                  ToolTip="{DynamicResource IDS_MENU_RM_SEL}"
-                  Style="{StaticResource menu-i}"
-                  Command="{x:Static local:MainWindow.RemoveFileCommand}">
-          <MenuItem.Icon>
-            <Image>
-              <Image.Source>
-                <DrawingImage Drawing="{DynamicResource sm_sub}" />
-              </Image.Source>
-            </Image>
-          </MenuItem.Icon>
-        </MenuItem>
-      </Menu>
-
-      <Menu Grid.Column="3"
-            Style="{StaticResource menu}"
-            Margin="{StaticResource m-1}">
-        <MenuItem Style="{StaticResource menu-i}"
-                  ToolTip="{DynamicResource IDS_MENU}">
-          <MenuItem.Icon>
-            <Image>
-              <Image.Source>
-                <DrawingImage Drawing="{DynamicResource sm_menu}" />
-              </Image.Source>
-            </Image>
-          </MenuItem.Icon>
-
-          <MenuItem Style="{StaticResource menu-i-sub}"
-                    Header="{DynamicResource IDS_MENU_CONFIG}"
-                    ToolTip="{DynamicResource IDS_MENU_CONFIG}"
-                    Command="{x:Static local:MainWindow.ConfigCommand}">
+        <Menu Style="{StaticResource menu}"
+              Margin="{StaticResource mr-2}">
+          <MenuItem Header="{DynamicResource IDS_MENU_RM_SEL}"
+                    ToolTip="{DynamicResource IDS_MENU_RM_SEL}"
+                    Style="{StaticResource menu-i}"
+                    Command="{x:Static local:MainWindow.RemoveFileCommand}">
             <MenuItem.Icon>
               <Image>
                 <Image.Source>
-                  <DrawingImage Drawing="{DynamicResource sm_config}" />
+                  <DrawingImage Drawing="{DynamicResource sm_sub}" />
                 </Image.Source>
               </Image>
             </MenuItem.Icon>
           </MenuItem>
+        </Menu>
+      </StackPanel>
 
-          <MenuItem Style="{StaticResource menu-i-sub}"
-                    Header="{DynamicResource IDS_MENU_ABOUT}"
-                    ToolTip="{DynamicResource IDS_MENU_ABOUT}"
-                    Command="{x:Static local:MainWindow.AboutCommand}">
+      <StackPanel Grid.Column="2"
+                  Margin="{StaticResource m-1}"
+                  Orientation="Horizontal">
+        <Menu Style="{StaticResource menu}"
+              Margin="{StaticResource ml-2}">
+          <MenuItem Style="{StaticResource menu-i}"
+                    ToolTip="{DynamicResource IDS_MENU}">
+            <MenuItem.Icon>
+              <Image>
+                <Image.Source>
+                  <DrawingImage Drawing="{DynamicResource sm_menu}" />
+                </Image.Source>
+              </Image>
+            </MenuItem.Icon>
+
+            <MenuItem Style="{StaticResource menu-i-sub}"
+                      Header="{DynamicResource IDS_MENU_CONFIG}"
+                      ToolTip="{DynamicResource IDS_MENU_CONFIG}"
+                      Command="{x:Static local:MainWindow.ConfigCommand}">
+              <MenuItem.Icon>
+                <Image>
+                  <Image.Source>
+                    <DrawingImage Drawing="{DynamicResource sm_config}" />
+                  </Image.Source>
+                </Image>
+              </MenuItem.Icon>
+            </MenuItem>
+
+            <MenuItem Style="{StaticResource menu-i-sub}"
+                      Header="{DynamicResource IDS_MENU_ABOUT}"
+                      ToolTip="{DynamicResource IDS_MENU_ABOUT}"
+                      Command="{x:Static local:MainWindow.AboutCommand}">
+            </MenuItem>
           </MenuItem>
-        </MenuItem>
-      </Menu>
+        </Menu>
+      </StackPanel>
     </Grid>
 
     <Border Grid.Row="1">

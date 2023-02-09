@@ -115,6 +115,18 @@ namespace PdfToOfficeApp
             }
         }
 
+        public ADD_TYPE AddType
+        {
+            get { return Properties.Settings.Default.AddType; }
+            set
+            {
+                Properties.Settings.Default.AddType = value;
+                Properties.Settings.Default.Save();
+
+                OnPropertyChanged("AddType");
+            }
+        }
+
         private APP_STATUS _AppStatus = APP_STATUS.INIT;
         public APP_STATUS AppStatus
         {

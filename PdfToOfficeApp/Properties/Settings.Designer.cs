@@ -82,5 +82,20 @@ namespace PdfToOfficeApp.Properties {
                 this["IsSaveToUserDir"] = value;
             }
         }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("FILE")]
+        public global::PdfToOfficeApp.ADD_TYPE AddType
+        {
+            get
+            {
+                return ((global::PdfToOfficeApp.ADD_TYPE)(this["AddType"]));
+            }
+            set
+            {
+                this["AddType"] = value;
+            }
+        }
     }
 }
