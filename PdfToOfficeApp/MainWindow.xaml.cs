@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
@@ -396,17 +397,25 @@ namespace PdfToOfficeApp
         // 폴더 추가
         private void OnAddFolder(object sender, ExecutedRoutedEventArgs e)
         {
-            var dialog = new System.Windows.Forms.FolderBrowserDialog();
-
-            var result = dialog.ShowDialog();
-            if (result != System.Windows.Forms.DialogResult.OK)
+            try
             {
-                return;
-            }
-            var di = new DirectoryInfo(dialog.SelectedPath);
-            string[] names = Directory.GetFiles(dialog.SelectedPath, "*.pdf", SearchOption.AllDirectories);
+                var dialog = new System.Windows.Forms.FolderBrowserDialog();
 
-            AddFileCommand.Execute(names, this);
+                var result = dialog.ShowDialog();
+                if (result != System.Windows.Forms.DialogResult.OK)
+                {
+                    return;
+                }
+                var di = new DirectoryInfo(dialog.SelectedPath);
+                string[] names = Directory.GetFiles(dialog.SelectedPath, "*.pdf", SearchOption.AllDirectories);
+
+                AddFileCommand.Execute(names, this);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(Util.StringManager.GetString("IDS_OPEN_FOLDER_MSG_FAIL"));
+                Debug.Assert(false, ex.Message);
+            }
         }
 
         private void CanAddFolder(object sender, CanExecuteRoutedEventArgs e)
