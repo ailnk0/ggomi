@@ -9,10 +9,6 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
     <Filter Include="HncPdfSdk">
       <UniqueIdentifier>{ff169c10-e031-426c-9c81-9ed0897630e3}</UniqueIdentifier>
     </Filter>
@@ -23,9 +19,6 @@
     </ClInclude>
     <ClInclude Include="pch.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SolidFramework.h">
-      <Filter>HncPdfSdk</Filter>
     </ClInclude>
     <ClInclude Include="Util.h">
       <Filter>Header Files</Filter>
@@ -54,13 +47,13 @@
     <ClInclude Include="PdfToOffice.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\solidframework\SolidFramework.h">
+      <Filter>HncPdfSdk</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SolidFramework.cpp">
-      <Filter>HncPdfSdk</Filter>
     </ClCompile>
     <ClCompile Include="Util.cpp">
       <Filter>Source Files</Filter>
@@ -80,10 +73,8 @@
     <ClCompile Include="PdfToOffice.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <Xml Include="..\..\SolidFrameworkLicense\license.xml">
-      <Filter>Resource Files</Filter>
-    </Xml>
+    <ClCompile Include="..\..\solidframework\SolidFramework.cpp">
+      <Filter>HncPdfSdk</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

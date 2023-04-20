@@ -8,8 +8,8 @@
 namespace HpdfToOffice {
 namespace Util {
 
-const String Path::SDK_PATH = L"./HncPdfSdk/SolidFrameworkNative.dll";
-const String Path::SDK_LIC_PATH = L"./../../SolidFrameworkLicense/license.xml";
+const String Path::SDK_PATH = L"./../../solidframework/Win32/SolidFrameworkNative.dll";
+const String Path::SDK_LIC_PATH = L"./../../solidframework/license.xml";
 
 bool Path::Exist(const String& path) {
   bool exist = false;
